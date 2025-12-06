@@ -1,0 +1,58 @@
+import type React from "react"
+import type { Metadata } from "next"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
+import { Analytics } from "@vercel/analytics/next"
+import "./globals.css"
+import { Header } from "@/components/site/header"
+import { Footer } from "@/components/site/footer"
+import { Suspense } from "react"
+import { CookieConsentBanner } from "@/components/site/CookieConsentBanner"
+//import { TopAnalytics } from "@/components/site/top-analytics" // import pre-nav analytics bar
+
+
+export const metadata: Metadata = {
+  title: 'ProForce1 Privacy Policy: Data Protection and User Privacy',
+  description: 'Discover ProForce1 Privacy Policy-insights on data protection and user privacy. We prioritize security, handling your information responsibly',
+  keywords: 'privacy policy, data protection, user privacy, security services',
+  openGraph: {
+    title: 'ProForce1 Privacy Policy: Data Protection and User Privacy',
+    description: 'Discover ProForce1 Privacy Policy-insights on data protection and user privacy. We prioritize security, handling your information responsibly',
+    url: 'https://proforc1.com/privacy-policy/',
+    type: 'article',
+    images: [
+      {
+        url: 'https://proforc1.com/wp-content/uploads/2022/08/WhatsApp_Image_2022-08-25_at_6.19.15_PM-removebg-preview.png',
+        width: 581,
+        height: 163,
+        alt: 'ProForce1 Protection Services',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ProForce1 Privacy Policy: Data Protection and User Privacy',
+    description: 'Discover ProForce1 Privacy Policy-insights on data protection and user privacy. We prioritize security, handling your information responsibly',
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable}`}>
+        <Suspense fallback={<div>Loading...</div>}>
+          {/* <TopAnalytics /> */}
+          <Header />
+          {children}
+          <Footer />
+        </Suspense>
+        <Analytics />
+        <CookieConsentBanner />
+      </body>
+    </html>
+  )
+}
