@@ -139,146 +139,338 @@
 //   )
 // }
 
+
+// "use client"
+
+// import Link from "next/link"
+// import { ArrowRight, Building2, Flame, HeartPulse, ShoppingBag, Landmark, Ticket, CheckCircle2 } from "lucide-react"
+
+// // --- Configuration Data ---
+// const services = [
+//   { 
+//     id: 1,
+//     title: "High Rise Building Security", 
+//     icon: Building2, 
+//     backgroundImage: "/Services/high-rise-security.jpg",
+//     description: "Comprehensive security solutions for skyscrapers and multi-story buildings with advanced access control.",
+//     features: ["24/7 Lobby Monitoring", "Elevator Access Control", "CCTV Surveillance", "Emergency Response"]
+//   },
+//   { 
+//     id: 2,
+//     title: "Fire Watch Services", 
+//     icon: Flame,
+//     backgroundImage: "/Services/fire-watch.jpg",
+//     description: "Professional fire watch personnel to protect your property during fire system impairments or high-risk periods.",
+//     features: ["Certified Fire Guards", "Fire Safety Checks", "Compliance Reporting", "24/7 Coverage"]
+//   },
+//   { 
+//     id: 3,
+//     title: "Hospital Security", 
+//     icon: HeartPulse,
+//     backgroundImage: "/Services/hospital-security.jpg",
+//     description: "Specialized security for healthcare facilities ensuring patient safety and protecting medical staff.",
+//     features: ["Patient Safety", "Access Control", "ER Security", "De-escalation Experts"]
+//   },
+//   { 
+//     id: 4,
+//     title: "Shopping Center Security", 
+//     icon: ShoppingBag,
+//     backgroundImage: "/Services/shopping-center-security.jpg",
+//     description: "Retail security solutions to prevent theft, ensure customer safety, and maintain orderly business operations.",
+//     features: ["Loss Prevention", "Customer Safety", "Parking Lot Patrol", "Incident Response"]
+//   },
+//   { 
+//     id: 5,
+//     title: "Bank & Financial Security", 
+//     icon: Landmark,
+//     backgroundImage: "/Services/bank-security.jpg",
+//     description: "High-level security for financial institutions with armed protection and advanced surveillance systems.",
+//     features: ["Armed Protection", "Vault Security", "Alarm Response", "Customer Escort"]
+//   },
+//   { 
+//     id: 6,
+//     title: "Event Security", 
+//     icon: Ticket,
+//     backgroundImage: "/gallery/command-center-1.jpg",
+//     description: "Professional event security management for concerts, conferences, and public gatherings of all sizes.",
+//     features: ["Crowd Management", "VIP Protection", "Access Screening", "Emergency Planning"]
+//   },
+// ]
+
+// export function ServicesGrid() {
+//   return (
+//     <section className="bg-white py-20 md:py-28">
+//       <div className="mx-auto max-w-7xl px-4 lg:px-8">
+        
+//         {/* Section Header */}
+//         <div className="text-center mb-16 max-w-3xl mx-auto">
+//           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4">
+//             Security Solutions Tailored <span className="text-orange-600">For You</span>
+//           </h2>
+//           <p className="text-lg text-slate-600">
+//             From armed and unarmed officers to specialized fire watch and mobile patrols—we provide a one-stop destination for all your security needs.
+//           </p>
+//         </div>
+
+//         {/* Grid Container */}
+//         <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+//           {services.map((service) => (
+//             <div 
+//               key={service.id}
+//               className="group relative h-auto md:h-[450px] w-full overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-slate-900 flex flex-col md:block"
+//             >
+//               {/* 1. Background Image (Desktop Only) */}
+//               <div 
+//                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-40 md:opacity-90 hidden md:block"
+//                 style={{ backgroundImage: `url(${service.backgroundImage})` }}
+//               />
+
+//               {/* Mobile Image (Visible on top for mobile) */}
+//               <div 
+//                 className="h-48 w-full bg-cover bg-center md:hidden"
+//                 style={{ backgroundImage: `url(${service.backgroundImage})` }}
+//               />
+              
+//               {/* 2. Gradient Overlay (Orange on Hover for Desktop) */}
+//               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent transition-colors duration-300 md:group-hover:from-orange-900 md:group-hover:via-orange-800/80 md:group-hover:to-orange-900/40 hidden md:block" />
+
+//               {/* 3. Card Content */}
+//               <div className="relative p-6 md:p-8 flex flex-col justify-end h-full bg-slate-900 md:bg-transparent md:absolute md:inset-0">
+                
+//                 {/* Icon & Title */}
+//                 <div className="transform transition-transform duration-500 md:group-hover:-translate-y-2 mb-4 md:mb-0">
+//                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-orange-600 text-white shadow-lg">
+//                     <service.icon className="h-6 w-6" />
+//                   </div>
+//                   <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
+//                     {service.title}
+//                   </h3>
+//                 </div>
+
+//                 {/* Details (Always visible on Mobile, Reveal on Hover for Desktop) */}
+//                 <div className="block md:h-0 md:opacity-0 md:group-hover:h-auto md:group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+//                   <p className="text-slate-300 text-sm mb-4 leading-relaxed group-hover:text-white">
+//                     {service.description}
+//                   </p>
+                  
+//                   {/* Feature List */}
+//                   <ul className="space-y-2 mb-6">
+//                     {service.features.map((feature, idx) => (
+//                       <li key={idx} className="flex items-center text-xs font-medium text-white/90">
+//                         <CheckCircle2 className="mr-2 h-4 w-4 text-orange-500 md:group-hover:text-white" />
+//                         {feature}
+//                       </li>
+//                     ))}
+//                   </ul>
+
+//                   {/* Link Button */}
+//                   <Link 
+//                     href={`/services/${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+//                     className="inline-flex items-center text-sm font-bold text-orange-500 hover:text-orange-400 md:group-hover:text-white transition-colors uppercase tracking-wide"
+//                   >
+//                     Explore Service <ArrowRight className="ml-2 h-4 w-4" />
+//                   </Link>
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+
+//         {/* Bottom CTA */}
+//         <div className="mt-16 text-center">
+//           <Link
+//             href="/services"
+//             className="inline-flex items-center justify-center rounded-full bg-slate-900 px-8 py-4 text-white font-bold hover:bg-orange-600 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+//           >
+//             View Full Service Catalog
+//           </Link>
+//         </div>
+
+//       </div>
+//     </section>
+//   )
+// }
+
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, Building2, Flame, HeartPulse, ShoppingBag, Landmark, Ticket, CheckCircle2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
 
 // --- Configuration Data ---
 const services = [
   { 
     id: 1,
-    title: "High Rise Building Security", 
-    icon: Building2, // Lucide Icon Component
+    title: "High Rise Security", 
+    icon: Building2, 
     backgroundImage: "/Services/high-rise-security.jpg",
-    description: "Comprehensive security solutions for skyscrapers and multi-story buildings with advanced access control.",
-    features: ["24/7 Lobby Monitoring", "Elevator Access Control", "CCTV Surveillance", "Emergency Response"]
+    description: "Comprehensive access control and monitoring for skyscrapers and multi-tenant properties.",
+    features: ["Lobby Ambassadors", "Elevator Control", "24/7 Monitoring"]
   },
   { 
     id: 2,
-    title: "Fire Watch Services", 
+    title: "Fire Watch", 
     icon: Flame,
     backgroundImage: "/Services/fire-watch.jpg",
-    description: "Professional fire watch personnel to protect your property during fire system impairments or high-risk periods.",
-    features: ["Certified Fire Guards", "Fire Safety Checks", "Compliance Reporting", "24/7 Coverage"]
+    description: "Certified fire guards to protect your property during system impairments or high-risk periods.",
+    features: ["Certified Guards", "Compliance Logs", "Rapid Deployment"]
   },
   { 
     id: 3,
-    title: "Hospital Security", 
+    title: "Healthcare Facilities", 
     icon: HeartPulse,
     backgroundImage: "/Services/hospital-security.jpg",
-    description: "Specialized security for healthcare facilities ensuring patient safety and protecting medical staff.",
-    features: ["Patient Safety", "Access Control", "ER Security", "De-escalation Experts"]
+    description: "Specialized protection ensuring patient safety while maintaining a welcoming environment.",
+    features: ["Patient Safety", "ER Security", "Access Management"]
   },
   { 
     id: 4,
-    title: "Shopping Center Security", 
+    title: "Retail Centers", 
     icon: ShoppingBag,
     backgroundImage: "/Services/shopping-center-security.jpg",
-    description: "Retail security solutions to prevent theft, ensure customer safety, and maintain orderly business operations.",
-    features: ["Loss Prevention", "Customer Safety", "Parking Lot Patrol", "Incident Response"]
+    description: "Loss prevention and customer safety solutions that don't disrupt the shopping experience.",
+    features: ["Loss Prevention", "Parking Patrol", "Conflict Resolution"]
   },
   { 
     id: 5,
-    title: "Bank & Financial Security", 
+    title: "Financial Institutions", 
     icon: Landmark,
     backgroundImage: "/Services/bank-security.jpg",
-    description: "High-level security for financial institutions with armed protection and advanced surveillance systems.",
-    features: ["Armed Protection", "Vault Security", "Alarm Response", "Customer Escort"]
+    description: "High-stakes security with armed protection and advanced surveillance for banks.",
+    features: ["Armed Guards", "Vault Security", "Escort Services"]
   },
   { 
     id: 6,
     title: "Event Security", 
     icon: Ticket,
     backgroundImage: "/gallery/command-center-1.jpg",
-    description: "Professional event security management for concerts, conferences, and public gatherings of all sizes.",
-    features: ["Crowd Management", "VIP Protection", "Access Screening", "Emergency Planning"]
+    description: "Crowd management and VIP protection for concerts, conferences, and public gatherings.",
+    features: ["Crowd Control", "Access Screening", "VIP Protection"]
   },
 ]
 
+// --- Animation Variants ---
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1, // Delays each child by 0.1s
+    },
+  },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { type: "spring", stiffness: 100, damping: 10 }
+  },
+}
+
 export function ServicesGrid() {
   return (
-    // CHANGED: Background to white (bg-white)
-    <section className="bg-white py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-4 lg:px-8">
+    <section className="bg-slate-50 py-24 md:py-32 font-sans overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4">
-            Security Solutions Tailored <span className="text-red-600">For You</span>
-          </h2>
-          <p className="text-lg text-slate-600">
-            From armed and unarmed officers to specialized fire watch and mobile patrols—we provide a one-stop destination for all your security needs.
-          </p>
-        </div>
+        {/* Modern Section Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+        >
+          <div className="max-w-2xl">
+             <span className="text-red-700 font-bold tracking-widest uppercase text-xs mb-3 block">Our Expertise</span>
+             <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+               Security solutions <br />
+               <span className="text-slate-400">tailored for your industry.</span>
+             </h2>
+          </div>
+          <div className="mb-2">
+            <Button variant="outline" className="hidden md:flex border-slate-200 text-slate-900 hover:border-red-700 hover:text-red-700 transition-all group">
+                View All Services <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </div>
+        </motion.div>
 
-        {/* Grid Container */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Clean Grid Layout with Animations */}
+        <motion.div 
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {services.map((service) => (
-            <div 
-              key={service.id}
-              className="group relative h-[450px] w-full overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-slate-900"
-            >
-              {/* 1. Background Image (Zooms on hover) */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-90"
-                style={{ backgroundImage: `url(${service.backgroundImage})` }}
-              />
-              
-              {/* 2. Dark Gradient Overlay (Always visible for text readability) */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent transition-opacity duration-300 opacity-90 group-hover:opacity-95" />
-
-              {/* 3. Card Content */}
-              <div className="absolute inset-0 p-8 flex flex-col justify-end">
+            <motion.div key={service.id} variants={cardVariants}>
+              <Link 
+                href={`/services/${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+                className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 h-full"
+              >
                 
-                {/* Icon & Title Wrapper (Moves up on hover) */}
-                <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-red-600 text-white shadow-lg">
-                    <service.icon className="h-6 w-6" />
+                {/* Image Container with Icon Overlay */}
+                <div className="relative h-60 w-full overflow-hidden bg-slate-200">
+                  <Image 
+                      src={service.backgroundImage} 
+                      alt={service.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  {/* Dark Gradient Overlay for text contrast if needed, fades out on hover */}
+                  <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/0 transition-colors duration-500" />
+                  
+                  {/* Floating Icon Badge - Pops up slightly on hover */}
+                  <div className="absolute bottom-4 left-6 bg-white p-3.5 rounded-xl shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                      <service.icon className="w-6 h-6 text-red-700" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
-                    {service.title}
-                  </h3>
                 </div>
 
-                {/* Hidden Details (Reveals on hover) */}
-                <div className="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden">
-                  <p className="text-slate-300 text-sm mb-4 leading-relaxed">
+                {/* Content Container */}
+                <div className="p-8 flex flex-col flex-grow relative">
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-700 transition-colors">
+                    {service.title}
+                  </h3>
+                  
+                  <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
                     {service.description}
                   </p>
                   
-                  {/* Feature List */}
-                  <ul className="space-y-2 mb-6">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-xs font-medium text-white/90">
-                        <CheckCircle2 className="mr-2 h-4 w-4 text-red-500" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Feature Tags */}
+                  <div className="space-y-3 border-t border-slate-100 pt-5">
+                      {service.features.map((feature, idx) => (
+                          <div key={idx} className="flex items-center text-xs font-semibold text-slate-700">
+                               <CheckCircle2 className="w-3.5 h-3.5 text-red-600 mr-2 flex-shrink-0" />
+                               {feature}
+                          </div>
+                      ))}
+                  </div>
 
-                  {/* Link Button */}
-                  <Link 
-                    href={`/services/${service.title.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="inline-flex items-center text-sm font-bold text-red-500 hover:text-red-400 transition-colors uppercase tracking-wide"
-                  >
-                    Explore Service <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  {/* Hover Indicator Line */}
+                  <div className="absolute bottom-0 left-0 w-0 h-1 bg-red-700 transition-all duration-500 group-hover:w-full" />
                 </div>
-              </div>
-            </div>
+              </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <Link
-            href="/services"
-            className="inline-flex items-center justify-center rounded-full bg-slate-900 px-8 py-4 text-white font-bold hover:bg-red-600 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-          >
-            View Full Service Catalog
-          </Link>
-        </div>
+        {/* Mobile Only Bottom Button */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="mt-12 text-center md:hidden"
+        >
+            <Button className="w-full bg-slate-900 text-white hover:bg-red-700 transition-colors py-6 text-lg font-bold shadow-lg">
+                View Full Catalog
+            </Button>
+        </motion.div>
 
       </div>
     </section>

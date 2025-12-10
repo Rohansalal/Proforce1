@@ -11,10 +11,8 @@ import {
   ArrowRight, 
   Activity, 
   MapPin, 
-  FileText, 
-  CheckCircle2 
+  FileText 
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 interface LoginFormData {
   username: string;
@@ -68,56 +66,66 @@ const ClientLogin: React.FC = () => {
       {/* =======================
           LEFT SIDE: LOGIN FORM
          ======================= */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* NOTE: Added 'pt-32 lg:pt-0' to push content down on mobile/tablet 
+         so it sits lower than the website header.
+         On Desktop (lg), we use 'justify-center' to vertically center it.
+      */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-start lg:justify-center items-center px-4 sm:px-6 lg:px-8 relative overflow-hidden pt-32 lg:pt-0">
         
         {/* Background Technical Grid Pattern */}
-        <div className="absolute inset-0 z-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+        <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '50px 50px' }}></div>
         
+        {/* Main Content Container - Pushed down to avoid header overlap */}
         <div className="w-full max-w-md space-y-8 relative z-10">
           
           {/* Brand Header */}
           <div className="text-center">
-            <div className="flex justify-center mb-6">
-               <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-red-800 rounded-2xl flex items-center justify-center shadow-2xl shadow-red-900/20 border border-white/10">
-                 <ShieldCheck className="w-8 h-8 text-white" />
+            <div className="flex justify-center mb-8">
+               <div className="w-20 h-20 bg-gradient-to-br from-red-700 to-red-900 rounded-2xl flex items-center justify-center shadow-[0_0_40px_-10px_rgba(220,38,38,0.5)] border border-white/10 transform rotate-3 hover:rotate-0 transition-all duration-500">
+                 <ShieldCheck className="w-10 h-10 text-white" />
                </div>
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">
+            <h2 className="text-4xl font-black text-white tracking-tighter">
               PROFORCE<span className="text-red-600">1</span> PORTAL
             </h2>
-            <p className="mt-2 text-sm text-slate-400">
-              Authorized personnel and client access only.
+            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-red-600 to-transparent mx-auto my-4 rounded-full"></div>
+            <p className="text-slate-400 font-medium tracking-wide text-sm">
+              SECURE CLIENT ACCESS GATEWAY
             </p>
           </div>
 
           {/* Form Container */}
-          <div className="bg-slate-900/50 backdrop-blur-md py-8 px-4 shadow-2xl rounded-2xl border border-white/5 sm:px-10">
+          <div className="bg-slate-900/60 backdrop-blur-xl py-10 px-6 shadow-2xl rounded-3xl border border-white/10 sm:px-12 relative overflow-hidden group">
+            
+            {/* Subtle top shine effect */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/50 to-transparent opacity-50"></div>
+
             <form className="space-y-6" onSubmit={handleSubmit}>
               
               {/* Error Message */}
               {error && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 flex items-start gap-3">
-                  <div className="p-0.5"><ShieldCheck className="w-4 h-4 text-red-500" /></div>
-                  <p className="text-sm text-red-400">{error}</p>
+                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+                  <ShieldCheck className="w-5 h-5 text-red-500 flex-shrink-0" />
+                  <p className="text-sm font-medium text-red-400">{error}</p>
                 </div>
               )}
 
               {/* Username Input */}
-              <div>
-                <label htmlFor="username" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                  Client ID / Email
+              <div className="space-y-2">
+                <label htmlFor="username" className="text-xs font-bold uppercase tracking-wider text-slate-400 ml-1">
+                  Client ID
                 </label>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-slate-500 group-focus-within:text-red-500 transition-colors" />
+                <div className="relative group/input">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-slate-500 group-focus-within/input:text-red-500 transition-colors duration-300" />
                   </div>
                   <input
                     id="username"
                     name="username"
                     type="text"
                     required
-                    className="block w-full pl-10 pr-3 py-3 bg-slate-950 border border-slate-700 rounded-lg text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-all duration-300"
-                    placeholder="Enter your ID"
+                    className="block w-full pl-12 pr-4 py-3.5 bg-slate-950/50 border border-slate-700 rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all duration-300"
+                    placeholder="Enter your Client ID"
                     value={formData.username}
                     onChange={handleChange}
                   />
@@ -125,21 +133,21 @@ const ClientLogin: React.FC = () => {
               </div>
 
               {/* Password Input */}
-              <div>
-                <label htmlFor="password" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+              <div className="space-y-2">
+                <label htmlFor="password" className="text-xs font-bold uppercase tracking-wider text-slate-400 ml-1">
                   Password
                 </label>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-slate-500 group-focus-within:text-red-500 transition-colors" />
+                <div className="relative group/input">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-slate-500 group-focus-within/input:text-red-500 transition-colors duration-300" />
                   </div>
                   <input
                     id="password"
                     name="password"
                     type="password"
                     required
-                    className="block w-full pl-10 pr-3 py-3 bg-slate-950 border border-slate-700 rounded-lg text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-all duration-300"
-                    placeholder="••••••••"
+                    className="block w-full pl-12 pr-4 py-3.5 bg-slate-950/50 border border-slate-700 rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all duration-300"
+                    placeholder="••••••••••••"
                     value={formData.password}
                     onChange={handleChange}
                   />
@@ -147,7 +155,7 @@ const ClientLogin: React.FC = () => {
               </div>
 
               {/* Remember Me & Forgot PW */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between pt-2">
                 <div className="flex items-center">
                   <input
                     id="remember-me"
@@ -155,49 +163,49 @@ const ClientLogin: React.FC = () => {
                     type="checkbox"
                     checked={formData.rememberMe}
                     onChange={handleChange}
-                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-700 bg-slate-800 rounded cursor-pointer"
+                    className="h-4 w-4 rounded border-slate-700 bg-slate-800 text-red-600 focus:ring-offset-slate-900 focus:ring-red-500 cursor-pointer"
                   />
-                  <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-400 cursor-pointer select-none">
-                    Remember device
+                  <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-400 cursor-pointer hover:text-slate-300 transition-colors">
+                    Remember me
                   </label>
                 </div>
 
                 <div className="text-sm">
-                  <a href="#" className="font-medium text-red-500 hover:text-red-400 transition-colors">
-                    Reset credentials?
+                  <a href="#" className="font-semibold text-red-500 hover:text-red-400 transition-colors hover:underline decoration-red-500/30 underline-offset-4">
+                    Forgot password?
                   </a>
                 </div>
               </div>
 
               {/* Submit Button */}
-              <div>
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="group relative w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-bold uppercase tracking-wider rounded-lg text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-slate-900 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-red-900/20"
-                >
-                  {isLoading ? (
-                    <span className="flex items-center gap-2">
-                      <Loader2 className="w-4 h-4 animate-spin" /> Verifying...
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-2">
-                      Access Dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                  )}
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full group relative flex justify-center py-4 px-4 border border-transparent text-sm font-bold uppercase tracking-wider rounded-xl text-white bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-slate-900 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 shadow-[0_0_20px_-5px_rgba(220,38,38,0.3)] hover:shadow-[0_0_30px_-5px_rgba(220,38,38,0.5)] transform hover:-translate-y-0.5"
+              >
+                {isLoading ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="w-5 h-5 animate-spin" /> Authenticating...
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    Access Secure Dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                )}
+              </button>
             </form>
 
-            {/* Security Badge Footer */}
-            <div className="mt-8 flex items-center justify-center gap-2 text-xs text-slate-500 border-t border-white/5 pt-6">
-              <Lock className="w-3 h-3" />
-              <span>256-Bit SSL Encrypted Connection</span>
+            {/* Footer */}
+            <div className="mt-8 pt-6 border-t border-white/5 text-center">
+              <div className="flex items-center justify-center gap-2 text-[10px] text-slate-500 font-medium uppercase tracking-widest">
+                <Lock className="w-3 h-3" />
+                <span>End-to-End Encrypted Session</span>
+              </div>
             </div>
           </div>
           
           <div className="text-center text-xs text-slate-600">
-             &copy; {new Date().getFullYear()} ProForce1 Protection Services. All rights reserved.
+             &copy; {new Date().getFullYear()} ProForce1 Protection Services.
           </div>
         </div>
       </div>
@@ -205,33 +213,42 @@ const ClientLogin: React.FC = () => {
       {/* ===============================
           RIGHT SIDE: FEATURE SHOWCASE
          =============================== */}
-      <div className="hidden lg:flex w-1/2 relative bg-slate-900">
+      <div className="hidden lg:flex w-1/2 relative bg-slate-900 border-l border-white/5">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
+            src="/gallery/command-center-1.jpg" // Ensure this path matches your public folder
             alt="Security Operations Center"
             fill
-            className="object-cover opacity-30 mix-blend-luminosity"
+            className="object-cover opacity-20"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-950/80 to-red-950/30" />
         </div>
 
         {/* Content Overlay */}
-        <div className="relative z-10 w-full flex flex-col justify-center px-16">
-          <div className="mb-10">
-            <div className="inline-block px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-xs font-bold uppercase tracking-widest mb-4">
-              System Operational
+        <div className="relative z-10 w-full flex flex-col justify-center px-16 xl:px-24">
+          <div className="mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              </span>
+              System Online
             </div>
-            <h2 className="text-4xl font-bold text-white mb-4">Real-Time Security Intelligence</h2>
-            <p className="text-lg text-slate-400 leading-relaxed max-w-lg">
-              Monitor your assets, track officer patrols, and access detailed incident reports from our centralized command dashboard.
+            <h2 className="text-5xl font-black text-white mb-6 leading-tight">
+              Real-Time<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-slate-500">
+                Security Intelligence
+              </span>
+            </h2>
+            <p className="text-lg text-slate-400 leading-relaxed max-w-xl">
+              Monitor your assets, track officer patrols, and access detailed incident reports directly from our centralized command dashboard.
             </p>
           </div>
 
           {/* Feature Grid */}
-          <div className="grid grid-cols-1 gap-6 max-w-md">
+          <div className="space-y-4 max-w-md">
             {[
               { 
                 icon: Activity, 
@@ -241,7 +258,7 @@ const ClientLogin: React.FC = () => {
               { 
                 icon: FileText, 
                 title: "Digital Reporting", 
-                desc: "Instant access to DARs and incident logs." 
+                desc: "Instant access to Daily Activity Reports (DARs)." 
               },
               { 
                 icon: MapPin, 
@@ -251,14 +268,14 @@ const ClientLogin: React.FC = () => {
             ].map((feature, idx) => (
               <div 
                 key={idx}
-                className="group flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-red-500/30 transition-all duration-300"
+                className="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-red-500/30 transition-all duration-300 cursor-default"
               >
-                <div className="p-3 rounded-lg bg-slate-800 text-red-500 group-hover:scale-110 transition-transform">
+                <div className="p-3.5 rounded-xl bg-slate-950 text-red-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-lg">
                   <feature.icon className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-base mb-1">{feature.title}</h3>
-                  <p className="text-slate-400 text-sm">{feature.desc}</p>
+                  <h3 className="text-white font-bold text-lg mb-0.5">{feature.title}</h3>
+                  <p className="text-slate-400 text-sm group-hover:text-slate-300 transition-colors">{feature.desc}</p>
                 </div>
               </div>
             ))}

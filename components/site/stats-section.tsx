@@ -7,10 +7,10 @@ export function StatsSection() {
   const sectionRef = useRef<HTMLElement>(null)
 
   const stats = [
-    { k: 309, label: "Events Served", suffix: "+" },
-    { k: 141, label: "Qualified Staff", suffix: "" },
-    { k: 1, label: "Our Locations", suffix: "" },
-    { k: 169, label: "Areas Serving", suffix: "+" },
+    { k: 1000, label: "Events Served", suffix: "+" },
+    { k:460, label: "Qualified Staff", suffix: "" },
+    { k: 2, label: "Our Locations", suffix: "" },
+    { k:550, label: "Areas Serving", suffix: "+" },
   ]
 
   const [counts, setCounts] = useState(stats.map(() => 0))
