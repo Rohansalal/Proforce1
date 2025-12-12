@@ -594,7 +594,7 @@
 //                 <div className="bg-red-600 p-1.5 rounded-full text-white">
 //                     <Phone size={14} />
 //                 </div>
-//                 <span>(800) 123-4567</span>
+//                 <span>(800) 779-7691</span>
 //               </div>
 //               <Button 
 //                 asChild 
@@ -679,7 +679,7 @@
 //                           <Mail size={14} /> info@proforce1protection.com
 //                         </p>
 //                         <p className="flex items-center justify-center gap-2">
-//                            <MapPin size={14} /> Anaheim, CA 92802
+//                            <MapPin size={14} /> Anaheim, CA, US 92802
 //                         </p>
 //                       </div>
 //                     </div>
@@ -780,7 +780,7 @@
 //                <span className="flex items-center gap-2 uppercase">
 //                  {/* CHANGED: Icon size to 14 */}
 //                  <ShieldCheck size={14} style={{ color: PROFORCE_RED }} /> 
-//                  LICENSED & INSURED: PPO #120098
+//                  LICENSED & INSURED:PPO #120753
 //                </span>
 //             </div>
 //             <div className="flex items-center gap-6">
@@ -790,7 +790,7 @@
 //               </a>
 //               <a href="tel:8001234567" className="flex items-center gap-2 hover:text-red-400 transition-colors uppercase">
 //                 {/* CHANGED: Icon size to 14 */}
-//                 <Phone size={14} /> (800) 123-4567
+//                 <Phone size={14} /> (800) 779-7691
 //               </a>
 //               <Link href="/client-login" className="flex items-center gap-1 hover:text-red-400">
 //                 {/* CHANGED: Icon size to 14 */}
@@ -920,7 +920,7 @@ const BRAND = {
   },
   contact: {
     email: "info@proforce1protection.com",
-    phone: "(800) 123-4567",
+    phone: "(800) 779-7691",
     license: "PPO #120098"
   }
 }

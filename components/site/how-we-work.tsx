@@ -61,7 +61,7 @@ export function HowWeWork() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { type: "spring", bounce: 0.4, duration: 0.8 }
+      transition: { type: "spring" as const, bounce: 0.4, duration: 0.8 }
     },
   }
 
@@ -84,9 +84,9 @@ export function HowWeWork() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-red-500 font-bold uppercase tracking-widest text-xs md:text-sm mb-4 block">Our Methodology</span>
+              {/* <span className="text-red-500 font-bold uppercase tracking-widest text-xs md:text-sm mb-4 block">Our Methodology</span> */}
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight mb-6">
-                The ProForce <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">Process</span>
+            The ProForce1 <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">Process Methodology</span>
               </h2>
             </motion.div>
           </div>

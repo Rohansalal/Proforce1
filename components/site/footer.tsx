@@ -193,7 +193,7 @@ export function Footer() {
             <div className="space-y-5 text-base text-slate-400 leading-relaxed">
               <div className="flex items-start gap-4">
                 <MapPin className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
-                <p>1871 W Katella Ave, Suite 106<br/>Anaheim, CA 92802</p>
+                <p>1671 W Katella ave suite 106<br/>Anaheim, CA, US 92802</p>
               </div>
               <div className="flex items-center gap-4">
                 <Phone className="w-6 h-6 text-red-600 flex-shrink-0" />

@@ -295,7 +295,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Building2, Flame, HeartPulse, ShoppingBag, Landmark, Ticket, CheckCircle2 } from "lucide-react"
+import { ArrowRight, Building2, Flame, HeartPulse, ShoppingBag, Landmark, Ticket, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 
@@ -356,9 +356,7 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1, // Delays each child by 0.1s
-    },
+    transition: { staggerChildren: 0.1 },
   },
 }
 
@@ -367,7 +365,7 @@ const cardVariants = {
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 10 }
+    transition: { duration: 0.5, ease: "easeOut" }
   },
 }
 
@@ -376,103 +374,110 @@ export function ServicesGrid() {
     <section className="bg-slate-50 py-24 md:py-32 font-sans overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         
-        {/* Modern Section Header */}
+        {/* --- Header Section --- */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8"
         >
-          <div className="max-w-2xl">
-             <span className="text-red-700 font-bold tracking-widest uppercase text-xs mb-3 block">Our Expertise</span>
-             <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-               Security solutions <br />
-               <span className="text-slate-400">tailored for your industry.</span>
+          <div className="max-w-3xl relative">
+             <div className="absolute -left-6 top-0 w-1 h-full bg-red-600 rounded-full hidden md:block" />
+             <span className="text-red-600 font-bold tracking-widest uppercase text-xs mb-3 block pl-0 md:pl-0">
+               Our Expertise
+             </span>
+             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+               Elite security solutions <br />
+               <span className="text-slate-400">engineered for your industry.</span>
              </h2>
           </div>
-          <div className="mb-2">
-            <Button variant="outline" className="hidden md:flex border-slate-200 text-slate-900 hover:border-red-700 hover:text-red-700 transition-all group">
-                View All Services <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
+          
+          <div className="hidden md:block">
+            {/* LINK ADDED HERE FOR DESKTOP */}
+            <Link href="/services">
+                <Button variant="outline" className="border-slate-300 text-slate-700 hover:border-red-600 hover:text-red-600 hover:bg-red-50 transition-all rounded-full px-8">
+                    View All Services <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+            </Link>
           </div>
         </motion.div>
 
-        {/* Clean Grid Layout with Animations */}
+        {/* --- Grid Layout --- */}
         <motion.div 
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
         >
           {services.map((service) => (
-            <motion.div key={service.id} variants={cardVariants}>
+            <motion.div key={service.id} variants={cardVariants} className="h-full">
               <Link 
                 href={`/services/${service.title.toLowerCase().replace(/\s+/g, '-')}`}
-                className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 h-full"
+                className="group relative flex flex-col h-full bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 border border-slate-100"
               >
                 
-                {/* Image Container with Icon Overlay */}
-                <div className="relative h-60 w-full overflow-hidden bg-slate-200">
+                {/* Image Area */}
+                <div className="relative h-56 w-full overflow-hidden">
                   <Image 
                       src={service.backgroundImage} 
                       alt={service.title}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  {/* Dark Gradient Overlay for text contrast if needed, fades out on hover */}
-                  <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/0 transition-colors duration-500" />
-                  
-                  {/* Floating Icon Badge - Pops up slightly on hover */}
-                  <div className="absolute bottom-4 left-6 bg-white p-3.5 rounded-xl shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
-                      <service.icon className="w-6 h-6 text-red-700" />
+                  <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/0 transition-colors duration-500" />
+                </div>
+
+                {/* Overlapping Icon */}
+                <div className="absolute top-44 left-8 z-10">
+                  <div className="bg-red-600 text-white p-4 rounded-2xl shadow-lg shadow-red-600/20 group-hover:scale-110 transition-transform duration-300">
+                      <service.icon className="w-6 h-6" />
                   </div>
                 </div>
 
-                {/* Content Container */}
-                <div className="p-8 flex flex-col flex-grow relative">
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-700 transition-colors">
-                    {service.title}
-                  </h3>
+                {/* Content Area */}
+                <div className="pt-16 pb-8 px-8 flex flex-col flex-grow">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-2xl font-bold text-slate-900 group-hover:text-red-700 transition-colors">
+                      {service.title}
+                    </h3>
+                    <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-red-600 -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" />
+                  </div>
                   
                   <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
                     {service.description}
                   </p>
                   
-                  {/* Feature Tags */}
-                  <div className="space-y-3 border-t border-slate-100 pt-5">
+                  {/* Modern Pill Tags */}
+                  <div className="flex flex-wrap gap-2 mt-auto">
                       {service.features.map((feature, idx) => (
-                          <div key={idx} className="flex items-center text-xs font-semibold text-slate-700">
-                               <CheckCircle2 className="w-3.5 h-3.5 text-red-600 mr-2 flex-shrink-0" />
+                          <span key={idx} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-50 text-slate-600 border border-slate-100 group-hover:border-red-100 group-hover:bg-red-50/50 group-hover:text-red-700 transition-colors">
+                               <ShieldCheck className="w-3 h-3 mr-1.5 opacity-50" />
                                {feature}
-                          </div>
+                          </span>
                       ))}
                   </div>
-
-                  {/* Hover Indicator Line */}
-                  <div className="absolute bottom-0 left-0 w-0 h-1 bg-red-700 transition-all duration-500 group-hover:w-full" />
                 </div>
               </Link>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Mobile Only Bottom Button */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-12 text-center md:hidden"
-        >
-            <Button className="w-full bg-slate-900 text-white hover:bg-red-700 transition-colors py-6 text-lg font-bold shadow-lg">
-                View Full Catalog
-            </Button>
-        </motion.div>
+        {/* --- Mobile Button --- */}
+        <div className="mt-16 text-center md:hidden">
+            {/* LINK ADDED HERE FOR MOBILE */}
+            <Link href="/services">
+                <Button className="w-full bg-slate-900 text-white hover:bg-red-700 py-6 rounded-xl text-lg font-semibold shadow-lg">
+                    View Full Catalog
+                </Button>
+            </Link>
+        </div>
 
       </div>
     </section>
   )
 }
+
+export default ServicesGrid;

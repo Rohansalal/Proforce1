@@ -232,7 +232,6 @@ const servicesData = [
   {
     id: 18,
     title: "Armed Security",
-    icon: "🔫",
     image: "/Services/armed-security.jpg",
     description: "Licensed armed security personnel.",
     features: ["Threat Assessment", "Crisis Response", "Weapon Proficiency", "Legal Compliance"],

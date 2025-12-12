@@ -1,338 +1,221 @@
 "use client"
 
 import { useState } from "react"
-import { MapPin, Phone, Mail, Clock, Shield, AlertTriangle, Send, CheckCircle2, ShieldAlert } from "lucide-react"
+import { Phone, Mail, MapPin, UploadCloud, ChevronRight, Quote, Shield, ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ServiceAreasMap } from "@/components/site/service-areas-map"
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: "",
-    urgency: "standard"
-  })
-
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    console.log("Form submitted:", formData)
+    await new Promise(resolve => setTimeout(resolve, 1500))
     setIsSubmitting(false)
-    // Reset form or show success message
   }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
-  }
-
-  const services = [
-    "Armed Security Services",
-    "Unarmed Security Services",
-    "Event Security",
-    "Construction Site Security",
-    "Fire Watch Services",
-    "Mobile Patrol Services",
-    "Corporate Security",
-    "Emergency Response",
-    "Security Consultation"
-  ]
 
   return (
-    <main className="min-h-screen bg-gray-50 font-sans">
+    <main className="min-h-screen bg-white font-sans text-slate-900">
       
-      {/* HEADER SECTION 
-        - Added 'pt-40' to push content down below the nav bar.
-        - Added background pattern for professional look.
+      {/* --- 1. HERO VIDEO SECTION (Full Screen) --- 
+          - h-screen: Forces full viewport height
+          - video tag: Plays background loop
+          - Overlay: Ensures text readability
       */}
-      <section className="relative bg-slate-900 text-white pt-40 pb-20 overflow-hidden">
-        {/* Tech Background Pattern */}
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-slate-950">
         
-        <div className="relative mx-auto max-w-7xl px-4 lg:px-8 text-center z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-600/10 border border-red-600/30 rounded-full text-red-400 text-xs font-bold tracking-widest uppercase mb-6">
-            <Shield className="w-3 h-3" /> 24/7 Command Center
-          </div>
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
-            CONTACT <span className="text-red-600">SECURITY COMMAND</span>
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
+        >
+          {/* REPLACE THIS SRC WITH YOUR OWN VIDEO FILE */}
+          <source 
+            src="/contact.mp4" 
+            type="video/mp4" 
+          />
+        </video>
+
+        {/* Cinematic Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/50 to-slate-900/90" />
+
+        {/* Hero Content */}
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center gap-8">
+          
+         {/* Main Title with Unique Styling */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter leading-[0.9] drop-shadow-2xl">
+           The Right Security Move Protects <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-600 to-red-500">
+              Your Entire World
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Ready to secure your property? Our security experts are standing by 24/7 for immediate response and strategic planning.
+          {/* CTA Buttons */}
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/50 flex flex-col items-center gap-2">
+            <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+            <ArrowDown className="w-6 h-6" />
+        </div>
+      </section>
+
+      {/* --- 2. TESTIMONIAL STRIP --- */}
+      <section className="bg-white border-b border-slate-100 py-16 px-4 relative z-20 -mt-4 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <Quote className="w-16 h-16 text-red-100 mx-auto" />
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 leading-tight">
+            "Since their start, ProForce 1 has delivered the highest quality of professional services."
+          </h2>
+          <div className="flex items-center justify-center gap-3 text-sm font-bold text-slate-500 uppercase tracking-widest">
+            <span className="text-slate-900">John Doe</span>
+            <span className="text-red-300">|</span>
+            <span>Director of Operations, Major Healthcare Provider</span>
+          </div>
+        </div>
+      </section>
+
+      {/* --- 3. MAIN CONTACT FORM SECTION --- */}
+      <section className="py-20 px-4 lg:px-8 max-w-7xl mx-auto bg-slate-50">
+        
+        <div className="mb-16 max-w-3xl">
+          <h3 className="text-red-600 font-bold uppercase tracking-widest mb-3">Partner With Us</h3>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
+            Experience how <span className="text-red-600 underline decoration-red-600/30 underline-offset-4">ProForce 1</span> goes beyond standard protection.
+          </h2>
+          <p className="text-slate-600 leading-relaxed text-lg">
+            Through trust, collaboration, and consistent performance, we deliver lasting value that strengthens your operations. With ProForce 1, you&apos;re not just hiring a vendor, you&apos;re gaining a strategic ally.
           </p>
         </div>
-      </section>
 
-      {/* Emergency Alert Banner */}
-      <div className="bg-red-700 text-white border-y border-red-800">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8 py-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-red-800 rounded-full animate-pulse">
-                <AlertTriangle className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <span className="block font-bold text-lg leading-none">EMERGENCY RESPONSE LINE</span>
-                <span className="text-red-100 text-xs uppercase tracking-wider">For immediate threats only</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-2xl font-black tracking-tight">(800) 911-SECURE</span>
-              <Button className="bg-white text-red-700 hover:bg-gray-100 font-bold px-6 shadow-lg">
-                CALL NOW
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-12">
+        {/* --- FORM CONTAINER (Split Layout) --- */}
+        <div className="flex flex-col lg:flex-row shadow-2xl shadow-slate-200/50 rounded-3xl overflow-hidden bg-white">
+          
+          {/* LEFT COLUMN: Red Sidebar */}
+          <div className="lg:w-1/3 bg-red-700 text-white p-10 lg:p-14 flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
             
-            {/* LEFT COLUMN: Contact Information (4 cols) */}
-            <div className="lg:col-span-5 space-y-8">
-              
-              {/* Headquarters Card */}
-              <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-                <div className="bg-slate-50 border-b border-gray-200 p-6">
-                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                        <MapPin className="w-5 h-5 text-red-600" />
-                        HEADQUARTERS
-                    </h2>
-                </div>
-                
-                <div className="p-6 space-y-8">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-600">
-                        <MapPin className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-slate-900 mb-1">Main Office</h3>
-                      <p className="text-slate-600 leading-relaxed">
-                        123 Security Plaza<br />
-                        Anaheim, CA 92802
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-600">
-                        <Phone className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-slate-900 mb-1">24/7 Dispatch Center</h3>
-                      <p className="text-slate-600 leading-relaxed">
-                        (800) 123-SECURE<br />
-                        (800) 123-7328
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-600">
-                        <Mail className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-slate-900 mb-1">Email Communications</h3>
-                      <p className="text-slate-600 leading-relaxed text-sm">
-                        command@proforce1security.com<br />
-                        dispatch@proforce1security.com
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-600">
-                        <Clock className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-slate-900 mb-1">Operations Hours</h3>
-                      <p className="text-slate-600 leading-relaxed">
-                        24 Hours / 7 Days Week<br />
-                        <span className="text-red-600 font-medium text-sm">Emergency Response Ready</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Certifications Block */}
-              <div className="bg-slate-900 text-white p-8 rounded-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-10">
-                    <ShieldAlert className="w-32 h-32 transform rotate-12" />
-                </div>
-                
-                <h3 className="text-lg font-bold mb-6 flex items-center gap-2 relative z-10">
-                    <Shield className="w-5 h-5 text-red-500" /> CERTIFICATIONS
-                </h3>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
-                  {[
-                    "State Licensed & Insured",
-                    "Background Checked Staff",
-                    "Firearm Certified",
-                    "CPR/First Aid Certified",
-                    "BSIS Certified",
-                    "Liability Insured"
-                  ].map((cert, i) => (
-                    <div key={i} className="flex items-center text-sm text-slate-300">
-                        <CheckCircle2 className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                        {cert}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT COLUMN: Contact Form (7 cols) */}
-            <div className="lg:col-span-7">
-              <div className="bg-white border border-gray-200 rounded-2xl shadow-xl p-8 lg:p-10">
-                <div className="mb-8">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-2">REQUEST SECURITY ASSESSMENT</h2>
-                    <p className="text-slate-500">Complete the form below and our security team will contact you immediately.</p>
-                </div>
-                
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label htmlFor="name" className="text-sm font-bold text-slate-700">Full Name *</label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all outline-none"
-                        placeholder="John Smith"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="phone" className="text-sm font-bold text-slate-700">Phone Number *</label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        required
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all outline-none"
-                        placeholder="(555) 123-4567"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-bold text-slate-700">Email Address *</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all outline-none"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label htmlFor="service" className="text-sm font-bold text-slate-700">Service Needed *</label>
-                      <select
-                        id="service"
-                        name="service"
-                        required
-                        value={formData.service}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all outline-none"
-                      >
-                        <option value="">Select Security Service</option>
-                        {services.map(service => (
-                          <option key={service} value={service}>{service}</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="urgency" className="text-sm font-bold text-slate-700">Response Urgency *</label>
-                      <select
-                        id="urgency"
-                        name="urgency"
-                        required
-                        value={formData.urgency}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all outline-none"
-                      >
-                        <option value="standard">Standard (24-48 hours)</option>
-                        <option value="urgent">Urgent (Same Day)</option>
-                        <option value="emergency">Emergency (Immediate)</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-bold text-slate-700">Security Details</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={5}
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all outline-none"
-                      placeholder="Describe your security needs, location details, specific concerns, and any previous security incidents..."
-                    />
-                  </div>
-
-                  {/* Security Notice Box */}
-                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3">
-                    <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                    <div>
-                        <h4 className="text-sm font-bold text-amber-800">SECURITY NOTICE</h4>
-                        <p className="text-xs text-amber-700 mt-1">
-                            All information submitted is encrypted. For immediate life-safety emergencies, please call 911 directly.
-                        </p>
-                    </div>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white py-6 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
-                  >
-                    {isSubmitting ? (
-                      "PROCESSING REQUEST..."
-                    ) : (
-                      <span className="flex items-center gap-2">
-                        <Send className="w-5 h-5" /> REQUEST SECURITY ASSESSMENT
-                      </span>
-                    )}
-                  </Button>
-
-                  <p className="text-center text-xs text-gray-400">
-                    By submitting this form, you agree to our privacy policy. Your data is protected by 256-bit SSL encryption.
+            <div className="relative z-10 space-y-12">
+              <div>
+                <h3 className="text-3xl font-black mb-6 leading-none">National <br />Headquarters</h3>
+                <div className="space-y-4 text-red-100">
+                  <p className="font-semibold text-xl">U.S. Security Services</p>
+                  <p className="opacity-90 leading-relaxed text-lg">
+                    1671 W Katella ave suite 106 <br />
+                    Anaheim, CA, US 92802
                   </p>
-                </form>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-bold text-xl mb-4 text-white">Contact Direct</h4>
+                <div className="space-y-3 text-red-50 text-lg">
+                  <p className="flex items-center gap-3">
+                    <Phone className="w-5 h-5" /> (800) 779-7691
+                  </p>
+                  <p className="flex items-center gap-3">
+                    <Mail className="w-5 h-5" /> info@proforce1.com
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-10 border-t border-red-500/50">
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <h4 className="font-bold text-sm uppercase tracking-wider">Operations Center</h4>
+                </div>
+                <p className="text-3xl font-black text-white tracking-tight">
+                  (800) 911-HELP
+                </p>
               </div>
             </div>
+          </div>
 
+          {/* RIGHT COLUMN: White Form Area */}
+          <div className="lg:w-2/3 bg-white p-8 lg:p-14">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">Business Email *</label>
+                  <input required type="email" className="w-full pb-2 border-b-2 border-slate-200 bg-transparent focus:border-red-600 outline-none transition-colors placeholder:text-slate-300" placeholder="name@company.com" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">Phone Number *</label>
+                  <input required type="tel" className="w-full pb-2 border-b-2 border-slate-200 bg-transparent focus:border-red-600 outline-none transition-colors placeholder:text-slate-300" placeholder="(555) 123-4567" />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">First Name *</label>
+                  <input required type="text" className="w-full pb-2 border-b-2 border-slate-200 bg-transparent focus:border-red-600 outline-none transition-colors" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">Last Name *</label>
+                  <input required type="text" className="w-full pb-2 border-b-2 border-slate-200 bg-transparent focus:border-red-600 outline-none transition-colors" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">Property Address</label>
+                <input type="text" className="w-full pb-2 border-b-2 border-slate-200 bg-transparent focus:border-red-600 outline-none transition-colors" placeholder="Street, City, Zip Code" />
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">Service Type *</label>
+                    <select className="w-full pb-2 border-b-2 border-slate-200 bg-transparent focus:border-red-600 outline-none cursor-pointer text-slate-700">
+                    <option>Select Service</option>
+                    <option>Armed Security</option>
+                    <option>Unarmed Guarding</option>
+                    <option>Fire Watch</option>
+                    <option>Mobile Patrol</option>
+                    </select>
+                </div>
+                <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">Duration</label>
+                    <select className="w-full pb-2 border-b-2 border-slate-200 bg-transparent focus:border-red-600 outline-none cursor-pointer text-slate-700">
+                    <option>Select Duration</option>
+                    <option>One-Time Event</option>
+                    <option>Short Term</option>
+                    <option>Long Term Contract</option>
+                    </select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">How can we help? *</label>
+                <textarea rows={3} className="w-full p-4 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-red-600 outline-none resize-none" placeholder="Describe your security needs..." />
+              </div>
+
+              <div className="pt-2">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3 block">RFP Upload (Optional)</label>
+                <div className="border-2 border-dashed border-slate-300 rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-50 hover:border-red-400 transition-all group">
+                    <UploadCloud className="w-8 h-8 text-slate-400 group-hover:text-red-500 mb-2 transition-colors" />
+                    <span className="text-sm text-slate-600 font-medium">Drop file here or click to upload</span>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="bg-red-700 hover:bg-red-800 text-white w-full h-14 text-lg font-bold uppercase tracking-widest shadow-xl transition-all"
+                >
+                  {isSubmitting ? "Processing..." : "Submit Request"}
+                </Button>
+              </div>
+
+            </form>
           </div>
         </div>
       </section>
 
-      {/* Service Area Map Component */}
+      {/* --- 4. MAP SECTION --- */}
       <ServiceAreasMap />
       
     </main>
