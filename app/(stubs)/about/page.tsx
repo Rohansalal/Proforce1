@@ -1,28 +1,80 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { 
   Shield, Target, Eye, Smartphone, UserCheck, ShieldCheck, 
-  Headphones, CheckCircle2, MapPin, Clock, MessageSquare, PlayCircle 
+  Headphones, MapPin, Clock, MessageSquare 
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+
+// --- SUB-COMPONENT: Optimized Video Background ---
+// Handles the "flash of black" by showing an image first, then fading the video in.
+const HeroVideo = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Ensure video plays even if low-power mode tried to stop it initially
+    if (videoRef.current) {
+        videoRef.current.play().catch(error => {
+            console.log("Autoplay prevented:", error);
+        });
+    }
+  }, []);
+
+  return (
+    <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
+      {/* 1. Static Poster Image (Loads Instantly) */}
+      {/* Ensure you have a 'video-poster.jpg' in public folder for best results */}
+      <Image 
+        src="/video-poster.jpg" // Fallback: create a screenshot of your video
+        alt="Security Background"
+        fill
+        className="object-cover opacity-40 scale-105"
+        priority // FORCE load this image first
+      />
+
+      {/* 2. The Video (Fades in when ready) */}
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto" // Critical for faster start
+        onLoadedData={() => setIsVideoLoaded(true)} // Trigger fade-in
+        className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ease-in-out ${
+          isVideoLoaded ? 'opacity-40' : 'opacity-0'
+        }`}
+      >
+        <source src="/AboutUS.mp4" type="video/mp4" />
+        {/* Add webm source if available for better performance on Chrome/Android */}
+        {/* <source src="/AboutUS.webm" type="video/webm" /> */}
+      </video>
+
+      {/* 3. Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/50 to-slate-900/90 z-10" />
+    </div>
+  );
+};
 
 const AboutUs: React.FC = () => {
   
   // --- Animation Config ---
-      const fadeInUp = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-      };
-    
-      const staggerContainer = {
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: { staggerChildren: 0.15 }
-        }
-      };
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
 
   return (
     <main className="min-h-screen bg-white font-sans selection:bg-red-500/30">
@@ -32,25 +84,11 @@ const AboutUs: React.FC = () => {
          ==================== */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-900 text-white">
         
-        {/* Background Video Layer */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="/video-poster.jpg"
-            className="w-full h-full object-cover opacity-40 scale-105"
-          >
-            <source src="/AboutUS.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/50 to-slate-900/90" />
-        </div>
+        {/* Optimized Video Component */}
+        <HeroVideo />
         
         {/* Hero Content */}
-        <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
+        <div className="container mx-auto px-4 lg:px-8 relative z-20 text-center">
           <motion.div 
             initial="hidden" 
             whileInView="visible" 
@@ -63,7 +101,7 @@ const AboutUs: React.FC = () => {
               Elite Security Operations
             </motion.div>
             
-            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 tracking-tighter leading-[1.1] drop-shadow-lg">
+            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 tracking-tighter leading-[1.1] drop-shadow-2xl">
               A MODERN SECURITY FIRM <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
                 BUILT ON RESULTS
@@ -95,6 +133,7 @@ const AboutUs: React.FC = () => {
                   width={800}
                   height={600}
                   className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  priority // Load this image fast as it's "above the fold" on some screens
                 />
                 
                 <div className="absolute bottom-8 right-8 bg-white/95 backdrop-blur shadow-2xl p-6 rounded-xl border-l-4 border-red-600 max-w-xs hidden md:block">
@@ -219,18 +258,18 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* ====================
-          5. CLIENT SUCCESS (Fixed - Clear Image)
+          5. CLIENT SUCCESS
          ==================== */}
       <section className="bg-red-700 text-white overflow-hidden">
         <div className="grid lg:grid-cols-2 min-h-[500px]">
           
-          {/* Left: Image Side - REMOVED DARK OVERLAYS */}
+          {/* Left: Image Side */}
           <div className="relative h-96 lg:h-auto w-full bg-slate-100">
             <Image
               src="/Guard.jpg" 
               alt="Professional ProForce1 Security Officer"
               fill
-              className="object-cover" // Removed opacity and mix-blend for a clean look
+              className="object-cover" 
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
