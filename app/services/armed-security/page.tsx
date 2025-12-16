@@ -1,329 +1,726 @@
 "use client"
 
-import { useRef } from "react"
 import Image from "next/image"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useState, type ReactNode } from "react"
+import { motion } from "framer-motion"
 import { 
-  Shield, Target, Zap, Lock, CheckCircle2, 
-  BarChart3, Smartphone, FileText, 
-  Phone, Mail, Users, Lightbulb, Award, Eye, Briefcase
+  Shield, Target, Zap, Lock, CheckCircle2, Phone, Mail,
+  Users, Award, Clock, MapPin, Camera, Radio, Star,
+  Building, Truck, Gem, Banknote, Hotel, Factory,
+  Briefcase, Home, ShoppingBag, Building2, Crosshair,
+  Siren, FileText, Navigation, Eye, AlertTriangle,
+  BadgeCheck, ThumbsUp, ChevronRight, ExternalLink,
+  ShieldCheck, Cpu, BatteryCharging, TrendingUp,
+  GraduationCap, Brain, Settings, Users as UsersIcon,
+  Leaf, Globe
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
-// --- ASSETS CONFIGURATION ---
+// --- Assets Configuration ---
 const IMAGES = {
-  // Use a transparent PNG of the guard for best results in the new Hero layout
-  guardIso: "/Services/guard-isolated.png", 
-  agent: "/Services/agent-smiling.jpg", 
-  pattern: "https://www.transparenttextures.com/patterns/carbon-fibre.png"
+  hero: "/Services/armed-security/armedsecurity.jpeg",
+  training: "/Services/armed-security/armedsecurity.jpeg",
+  technology: "/Services/armed-security/armedsecurity.jpeg",
+  vehicle: "/Services/armed-security/armedsecurity.jpeg",
+  guardIso: "/Services/armed-security/armedsecurity.jpeg",
+  dashboard: "/Services/armed-security/armedsecurity.jpeg",
+  team: "/Services/armed-security.jpg", // Added from user snippet
+  facility: "/Services/armed-security/armedsecurity.jpeg" // Added from user snippet
 }
 
-export default function ArmedGuardPage() {
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 100]); 
+// --- Animation Variants ---
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6 }
+}
 
-  // Animation Variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 }
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
     }
-  };
+  }
+}
+
+const cardHover = {
+  hover: { 
+    y: -5,
+    boxShadow: "0 20px 40px -5px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.04)",
+    transition: { duration: 0.2 }
+  }
+}
+
+// --- Components ---
+
+const SectionHeading = ({
+  children,
+  className,
+  align = "center",
+  light = false
+}: {
+  children: ReactNode
+  className?: string
+  align?: "center" | "left"
+  light?: boolean
+}) => (
+  <div className={cn("mb-16", align === "center" ? "text-center" : "text-left", className)}>
+    <div className={cn(
+      "w-16 h-1.5 mb-6 rounded-full",
+      align === "center" ? "mx-auto" : "ml-0",
+      light ? "bg-red-500" : "bg-red-600"
+    )} />
+    <h2 className={cn(
+      "text-3xl md:text-5xl font-extrabold tracking-tight leading-tight",
+      light ? "text-white" : "text-slate-900"
+    )}>
+      {children}
+    </h2>
+  </div>
+)
+
+// --- Data ---
+const whyChooseUs = [
+  {
+    title: "Highly Trained & Licensed",
+    icon: <GraduationCap className="w-8 h-8 text-white" />,
+    description: "All armed personnel undergo rigorous training and certification",
+    points: [
+      "California BSIS Firearm Certification",
+      "Ongoing live-fire training",
+      "De-escalation and conflict-resolution training",
+      "Emergency response & crisis management",
+      "Advanced situational awareness training"
+    ],
+    note: "We ensure every armed officer is prepared mentally and physically to handle critical situations safely and professionally."
+  },
+  {
+    title: "Visible Deterrence",
+    icon: <ShieldCheck className="w-8 h-8 text-white" />,
+    description: "Armed guards provide immediate deterrence for various environments",
+    points: [
+      "High-value retail stores & jewelry stores",
+      "Financial institutions & banks",
+      "Commercial buildings & corporate offices",
+      "Hotels and hospitality venues",
+      "Construction sites with valuable equipment"
+    ],
+    note: "Our officers are trained to maintain a calm, respectful, and customer-friendly posture while remaining vigilant at all times."
+  },
+  {
+    title: "Real-Time Digital Reporting",
+    icon: <Cpu className="w-8 h-8 text-white" />,
+    description: "Advanced technology platform for complete transparency",
+    points: [
+      "Real-time GPS tracking",
+      "Time-stamped photo logs",
+      "Detailed incident reports",
+      "Patrol logs & activity summaries",
+      "Live updates to your inbox"
+    ],
+    note: "You receive complete transparency and accountability on every shift."
+  },
+  {
+    title: "Rapid Response Readiness",
+    icon: <Siren className="w-8 h-8 text-white" />,
+    description: "Trained to react immediately to threats and emergencies",
+    points: [
+      "Threats against life or property",
+      "Suspicious activity monitoring",
+      "Theft attempts prevention",
+      "Robbery risk management",
+      "Trespassing and unauthorized access"
+    ],
+    note: "Our team is equipped to make split-second decisions that protect people and prevent escalation."
+  }
+]
+
+const industries = [
+  { name: "Jewelry Stores", icon: <Gem className="w-6 h-6" />, description: "High-value retail protection" },
+  { name: "Luxury Retailers", icon: <ShoppingBag className="w-6 h-6" />, description: "Premium brand security" },
+  { name: "Hotels & Resorts", icon: <Hotel className="w-6 h-6" />, description: "Hospitality security" },
+  { name: "Banks & Financial", icon: <Banknote className="w-6 h-6" />, description: "Financial institution protection" },
+  { name: "Corporate Offices", icon: <Building2 className="w-6 h-6" />, description: "Business campus security" },
+  { name: "Commercial Centers", icon: <Building className="w-6 h-6" />, description: "Shopping center protection" },
+  { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Logistics facility security" },
+  { name: "Medical Facilities", icon: <Crosshair className="w-6 h-6" />, description: "Healthcare security" },
+  { name: "Cannabis Facilities", icon: <Leaf className="w-6 h-6" />, description: "High-risk retail protection" },
+  { name: "Private Events", icon: <Users className="w-6 h-6" />, description: "VIP event security" },
+  { name: "Government Sites", icon: <Shield className="w-6 h-6" />, description: "Municipal facility protection" },
+  { name: "Construction Sites", icon: <Truck className="w-6 h-6" />, description: "Equipment & site security" }
+]
+
+const trustFactors = [
+  { title: "20+ Years Experience", description: "Decades of security expertise in high-stakes environments" },
+  { title: "California Focused", description: "Over a decade serving California businesses exclusively" },
+  { title: "Licensed Professionals", description: "Professional, dependable, fully licensed officers" },
+  { title: "Advanced Technology", description: "Cutting-edge systems for reporting and transparency" },
+  { title: "Client-Focused Service", description: "Strong communication and personalized service approach" },
+  { title: "Proven Track Record", description: "Consistent results and client satisfaction" }
+]
+
+// --- Main Page Component ---
+
+export default function ArmedGuardPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    phone: "",
+    email: "",
+    service: "",
+    industry: "",
+    message: ""
+  })
 
   return (
-    <main className="min-h-screen bg-white font-sans text-slate-900 selection:bg-red-100 selection:text-red-900">
+    <main className="min-h-screen bg-white font-sans text-slate-900 overflow-hidden">
       
-      {/* =========================================
-          1. HERO SECTION (Matched to Image 1)
-      ========================================= */}
-      <section className="relative min-h-[85vh] bg-[#0B1221] flex items-center overflow-hidden pt-20">
-        
-        {/* Background Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0B1221] via-[#111827] to-[#1e293b] z-0" />
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      {/* 1. Hero Section - Video Background with Simple Text */}
+      <header className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute w-full h-full object-cover"
+            poster={IMAGES.hero} // Fallback image
+          >
+            <source src="/Services/armed-security/armed.mp4" type="video/mp4" />
+            {/* Fallback if video doesn't load */}
+            <Image
+              src={IMAGES.hero}
+              alt="Armed Security Background"
+              fill
+              className="object-cover"
+              priority
+            />
+          </video>
+          
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+        </div>
 
-        <div className="container mx-auto px-4 lg:px-8 relative z-10 h-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center h-full">
+        {/* Content Layer */}
+        <div className="relative z-10 container mx-auto px-6 text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter mb-8"
+          >
+            ARMED<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">
+              SECURITY
+            </span>
+             <br />
+            <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
+              Guard Services
+            </span>
+          </motion.h1>
+
+          {/* Subtle subtitle */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="max-w-2xl mx-auto"
+          >
+            <p className="text-xl text-slate-300 mb-8 font-light">
+              Elite protection for high-value properties and sensitive environments
+            </p>
             
-            {/* Left: Text Content */}
-            <motion.div 
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-              className="max-w-2xl text-left pt-12 lg:pt-0"
+            {/* Simple CTA Button */}
+            <Button 
+              size="lg" 
+              className="bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
             >
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1 bg-white/10 backdrop-blur-sm border border-white/10 rounded text-white text-[10px] font-bold tracking-widest uppercase mb-6">
-                <Shield className="w-3 h-3 text-red-500 fill-current" />
-                ProForce1 Security
-              </motion.div>
-              
-              <motion.h1 variants={fadeInUp} className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight uppercase">
-                Unmatched <br />
-                <span className="text-white">Security Solutions</span>
-              </motion.h1>
-              
-              <motion.p variants={fadeInUp} className="text-lg text-slate-300 mb-8 max-w-lg font-light leading-relaxed border-l-4 border-red-600 pl-6">
-                Elevating Safety Through Technology & Expertise. <br />
-                Professional armed protection for high-value environments.
-              </motion.p>
-              
-              <motion.div variants={fadeInUp}>
-                <Button className="bg-[#D9232D] hover:bg-red-700 text-white h-14 px-10 text-sm font-bold uppercase tracking-widest rounded-sm shadow-xl transition-transform hover:scale-105">
-                  Contact Now
-                </Button>
-              </motion.div>
-            </motion.div>
+              <Phone className="mr-3 w-5 h-5" />
+              Request Quote
+            </Button>
+          </motion.div>
 
-            {/* Right: Guard Image (Parallax) */}
-            <motion.div 
-              style={{ y: y1 }}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative hidden lg:block h-full min-h-[600px] w-full"
-            >
-              {/* Note: Ensure this image is a cutout (PNG) of a guard for the effect */}
-              <Image 
-                src={IMAGES.guardIso} // Replace with your guard cutout
-                alt="Armed Guard" 
-                fill 
-                className="object-contain object-bottom scale-110 translate-y-10"
-                priority 
-              />
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Bottom Swoosh Divider (The White Curve) */}
-        <div className="absolute bottom-0 left-0 w-full leading-none z-20">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-[80px] md:h-[120px] fill-white block">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V120H0Z" opacity=".25"></path>
-                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V120H0Z" opacity=".5"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V120H0Z"></path>
-            </svg>
-        </div>
-      </section>
-
-      {/* =========================================
-          2. CORE VALUE MODEL (Ribbon Layout)
-      ========================================= */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight mb-4">
-              Our Core Value Model
-            </h2>
-            <div className="w-16 h-1 bg-[#D9232D] mx-auto" />
-          </div>
-
-          <div className="relative max-w-6xl mx-auto pt-10">
-            {/* The Ribbon SVG Connector Background */}
-            <div className="absolute top-[80px] left-0 w-full hidden md:block -z-10">
-                <svg viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-[60px]">
-                    {/* Ribbon 1: Blue to Purple */}
-                    <path d="M100,50 C200,50 200,50 350,50" stroke="#0B1221" strokeWidth="8" fill="none" className="opacity-80" />
-                    {/* Ribbon 2: Purple to Red */}
-                    <path d="M350,50 C500,50 500,50 600,50" stroke="#581c87" strokeWidth="8" fill="none" className="opacity-80" />
-                    {/* Ribbon 3: Red to Light Red */}
-                    <path d="M600,50 C750,50 750,50 900,50" stroke="#D9232D" strokeWidth="8" fill="none" className="opacity-80" />
-                </svg>
+          {/* Scroll indicator */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          >
+            <div className="text-slate-400 text-sm animate-bounce">
+              <ChevronRight className="w-6 h-6 transform rotate-90 mx-auto" />
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <CoreValueCircle 
-                icon={<Users className="w-8 h-8" />} 
-                title="Client Focus" 
-                desc="Tailored solutions." 
-                color="border-[#0B1221] text-[#0B1221]"
-              />
-              <CoreValueCircle 
-                icon={<Lightbulb className="w-8 h-8" />} 
-                title="Innovation" 
-                desc="Predictive protection." 
-                color="border-purple-900 text-purple-900"
-              />
-              <CoreValueCircle 
-                icon={<Shield className="w-8 h-8" />} 
-                title="Integrity" 
-                desc="Ethical conduct." 
-                color="border-[#D9232D] text-[#D9232D]"
-              />
-              <CoreValueCircle 
-                icon={<Award className="w-8 h-8" />} 
-                title="Excellence" 
-                desc="Superior performance." 
-                color="border-red-500 text-red-500"
-              />
-            </div>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </header>
 
-      {/* =========================================
-          3. HISTORY (Diagonal Arrow)
-      ========================================= */}
-      <section className="py-24 bg-slate-50 overflow-hidden">
-        <div className="container mx-auto px-4 lg:px-8 text-center">
-          
-          <div className="mb-20">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 uppercase tracking-tight mb-4">
-              A History of Excellence
-            </h2>
-            <div className="w-16 h-1 bg-[#D9232D] mx-auto" />
-          </div>
-
-          {/* Desktop Arrow Graphic */}
-          <div className="relative max-w-5xl mx-auto h-[500px] hidden md:block">
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 500" fill="none">
-               <defs>
-                 <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                   <polygon points="0 0, 8 3, 0 6" fill="#D9232D" />
-                 </marker>
-               </defs>
-               
-               {/* Red Rising Arrow */}
-               <motion.path 
-                 d="M50,450 L950,50"
-                 stroke="#D9232D" 
-                 strokeWidth="8" 
-                 markerEnd="url(#arrowhead)"
-                 initial={{ pathLength: 0 }}
-                 whileInView={{ pathLength: 1 }}
-                 transition={{ duration: 1.5, ease: "easeOut" }}
-               />
-            </svg>
-
-            {/* Points */}
-            <HistoryPoint x="10%" y="84%" year="2010" title="FOUNDED" desc="ProForce1 established." delay={0.2} />
-            <HistoryPoint x="30%" y="65%" year="2013" title="EXPANSION" desc="Armed division launch." delay={0.4} />
-            <HistoryPoint x="50%" y="46%" year="2016" title="TECH" desc="GPS reporting integrated." delay={0.6} />
-            <HistoryPoint x="70%" y="28%" year="2019" title="GROWTH" desc="Statewide coverage." delay={0.8} />
-            <HistoryPoint x="90%" y="10%" year="PRESENT" title="FUTURE" desc="AI-Driven security." delay={1.0} />
-          </div>
-
-          {/* Mobile Fallback */}
-          <div className="md:hidden space-y-8 text-left max-w-sm mx-auto border-l-4 border-[#D9232D] pl-6">
-             {[2010, 2013, 2016, 2019, 2024].map((year, i) => (
-                <div key={i} className="relative">
-                   <div className="absolute -left-[34px] top-1 w-4 h-4 bg-[#D9232D] rounded-full border-2 border-white" />
-                   <div className="text-2xl font-black text-slate-400">{year}</div>
-                   <div className="text-lg font-bold text-[#D9232D] uppercase">Milestone</div>
+      {/* 2. Professional Protection Section - Content Below Video */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
+              {/* Left Content */}
+              <div className="lg:col-span-7">
+                <div className="mb-8">
+                  <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                    Professional Protection
+                    <br />
+                    <span className="text-red-600">
+                      Backed by Training, Precision, and Experience
+                    </span>
+                  </h2>
                 </div>
-             ))}
+
+                <div className="grid md:grid-cols-2 gap-8 mb-10">
+                  {/* Left Column Points */}
+                  <div className="space-y-4">
+                    <p className="text-lg text-slate-600 leading-relaxed mb-6">
+                      At Proforce 1 Protection Services, our Armed Security Division is built to protect high-value properties, sensitive environments, and businesses that require the highest level of security presence.
+                    </p>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-red-600" />
+                        </div>
+                        <span className="text-slate-700 font-medium">Over 20 years of field experience</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-red-600" />
+                        </div>
+                        <span className="text-slate-700 font-medium">More than a decade in business</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-red-600" />
+                        </div>
+                        <span className="text-slate-700 font-medium">Unmatched professionalism & rapid response</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column Description */}
+                  <div className="space-y-4">
+                    <p className="text-slate-600 leading-relaxed">
+                      Our armed officers are not just guards — they are highly trained security professionals prepared to protect clients, customers, and assets with discipline, confidence, and sound judgment.
+                    </p>
+                    <div className="bg-red-50 border border-red-100 rounded-xl p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-red-600 rounded-lg">
+                          <ShieldCheck className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-slate-900">Strong Deterrence Against Threats</div>
+                          <div className="text-xs text-slate-600">Visible, professional armed presence</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stats Row */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                  {[
+                    { value: "20+", label: "Years Experience", icon: Award, color: "text-red-600" },
+                    { value: "< 5 Min", label: "Response Time", icon: Clock, color: "text-blue-600" },
+                    { value: "100%", label: "Licensed Officers", icon: BadgeCheck, color: "text-green-600" },
+                    { value: "24/7", label: "Protection", icon: Shield, color: "text-amber-600" },
+                  ].map((stat, idx) => (
+                    <div key={idx} className="text-center bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                      <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-2`} />
+                      <div className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">{stat.value}</div>
+                      <div className="text-xs text-slate-600 uppercase tracking-wider font-medium">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <Phone className="mr-3 w-5 h-5" />
+                    Request Armed Security Quote
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <Shield className="mr-3 w-5 h-5" />
+                    View Services
+                  </Button>
+                </div>
+              </div>
+
+              {/* Right Image Column */}
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="lg:col-span-5 relative"
+              >
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[600px]">
+                  <Image
+                    src={IMAGES.hero}
+                    alt="Professional Armed Security Officer"
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent" />
+                  
+                  {/* Badge on image */}
+                  {/* <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-semibold text-slate-900">Active Protection</span>
+                    </div>
+                  </div> */}
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* =========================================
-          4. TECH & CONTACT (Keeping Dark/Split)
-      ========================================= */}
-      <section className="py-24 bg-[#0B1221] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        
-        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+      {/* 3. Why Choose Us - Enhanced Grid */}
+      <section className="py-24 bg-slate-50">
+        <div className="container mx-auto px-6">
+          <SectionHeading>
+            Why Choose Our <br/> <span className="text-red-600">Armed Security?</span>
+          </SectionHeading>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {whyChooseUs.map((feature, idx) => (
+              <motion.div 
+                key={idx}
+                whileHover="hover"
+                variants={cardHover}
+                className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden group"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-bl-[100px] -mr-8 -mt-8 transition-colors group-hover:bg-red-100" />
+                
+                <div className="relative z-10">
+                  <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-slate-900/20 group-hover:bg-red-600 group-hover:shadow-red-600/30 transition-all duration-300">
+                    {feature.icon}
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+                  <p className="text-slate-500 mb-6 font-medium">{feature.description}</p>
+                  
+                  <div className="space-y-3 mb-6">
+                    {feature.points.map((point, pIdx) => (
+                      <div key={pIdx} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm text-slate-600">{point}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-sm text-slate-600 italic">
+                    "{feature.note}"
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Industries Grid - Background Image Design */}
+      <section className="py-24 relative overflow-hidden">
+        {/* Background Image Layer */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={IMAGES.facility}
+            alt="Commercial Facility Protection"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          {/* Dark overlay for better text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-900/95" />
+          {/* Subtle gradient for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-red-900/10 via-transparent to-transparent" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black mb-4 uppercase">Tech-Driven Security</h2>
-            <div className="w-16 h-1 bg-[#D9232D] mx-auto mb-6" />
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-              We leverage real-time technology to transform traditional guarding into intelligent, performance-driven operations.
+            <div className="inline-block mb-8">
+              <div className="h-1 w-24 bg-red-600 mx-auto"></div>
+              <div className="h-1 w-16 bg-red-500 mx-auto mt-1"></div>
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Industries We <span className="text-red-500">Protect</span>
+            </h2>
+            
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+              From high-value retail to corporate campuses, we provide specialized armed security 
+              solutions tailored to each industry's unique requirements and challenges.
             </p>
           </div>
 
-          {/* Dashboard Mockup */}
-          <div className="bg-[#111827] border border-slate-700 rounded-xl p-6 shadow-2xl max-w-4xl mx-auto">
-             <div className="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
-                <div className="flex gap-1.5">
-                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {industries.map((item, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  transition: { duration: 0.2 }
+                }}
+                className="group relative"
+              >
+                {/* Card with glass effect */}
+                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/15 hover:border-red-500/50 transition-all duration-300 cursor-default overflow-hidden">
+                  {/* Background highlight on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-600/0 to-red-600/0 group-hover:from-red-600/10 group-hover:to-red-600/5 transition-all duration-300" />
+                  
+                  {/* Icon */}
+                  <div className="relative z-10 mb-5">
+                    <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <div className="text-white">
+                        {item.icon}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-red-300 transition-colors">
+                      {item.name}
+                    </h3>
+                    <p className="text-sm text-slate-300 group-hover:text-slate-200 transition-colors">
+                      {item.description}
+                    </p>
+                  </div>
+                  
+                  {/* Bottom indicator */}
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center">
+                      <ChevronRight className="w-3 h-3 text-white" />
+                    </div>
+                  </div>
                 </div>
-                <div className="text-slate-500 font-mono text-xs">pf1_command_center.exe</div>
-             </div>
-             <div className="grid grid-cols-3 gap-4 h-40 items-end">
-                {[40, 70, 50, 90, 60, 80, 50, 95, 75, 45, 85, 65].map((h, i) => (
-                   <div key={i} style={{ height: `${h}%` }} className="bg-[#D9232D]/80 rounded-t w-full"></div>
-                ))}
-             </div>
+              </motion.div>
+            ))}
           </div>
+
+          {/* Bottom CTA */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto mt-20"
+          >
+            <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/20 rounded-2xl p-10 relative overflow-hidden">
+              {/* Pattern overlay */}
+              <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10"></div>
+              
+              <div className="relative z-10 text-center">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                  Need Specialized Protection?
+                </h3>
+                <p className="text-slate-300 mb-8 max-w-2xl mx-auto">
+                  Our security experts can create a customized protection plan for your specific industry requirements.
+                </p>
+                
+                <Button className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 font-semibold rounded-lg">
+                  <Shield className="mr-3 w-5 h-5" />
+                  Industry Consultation
+                </Button>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section className="relative py-24 bg-white">
-         <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-6xl mx-auto bg-slate-50 rounded-2xl shadow-xl overflow-hidden border border-slate-200">
-               <div className="grid lg:grid-cols-2">
-                  <div className="relative h-64 lg:h-auto bg-slate-900">
-                     <Image src={IMAGES.agent} alt="Contact Agent" fill className="object-cover opacity-60" />
-                     <div className="absolute inset-0 flex items-center justify-center p-8">
-                        <div className="text-center text-white">
-                           <h3 className="text-3xl font-bold mb-2">Need Protection?</h3>
-                           <div className="flex items-center justify-center gap-2 text-xl font-bold text-[#D9232D]">
-                              <Phone className="w-5 h-5" /> (800) 779-7691
+      {/* 5. Trust Factors */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+           <div className="flex flex-col lg:flex-row gap-16 items-center">
+              <div className="lg:w-1/2">
+                 <SectionHeading align="left">
+                    Why Clients <br/><span className="text-red-600">Trust Proforce 1</span>
+                 </SectionHeading>
+                 <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                   Our reputation is built on reliability, transparency, and results. We don't just provide guards; we provide peace of mind through a comprehensive security partnership.
+                 </p>
+                 
+                 <div className="grid gap-6">
+                    {trustFactors.map((factor, idx) => (
+                      <div key={idx} className="flex gap-4 items-start">
+                         <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-1">
+                            <Star className="w-5 h-5 text-red-600 fill-red-600" />
+                         </div>
+                         <div>
+                            <h4 className="text-lg font-bold text-slate-900">{factor.title}</h4>
+                            <p className="text-slate-500">{factor.description}</p>
+                         </div>
+                      </div>
+                    ))}
+                 </div>
+              </div>
+              
+              <div className="lg:w-1/2">
+                 <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[600px] group">
+                    <Image 
+                       src={IMAGES.team} 
+                       alt="Security Team Briefing" 
+                       fill 
+                       className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
+                    <div className="absolute bottom-10 left-10 right-10">
+                       <blockquote className="text-white text-xl font-medium leading-relaxed italic mb-6">
+                         "Proforce 1 has transformed how we handle security. Their officers are professional, their reporting is instant, and we finally feel truly protected."
+                       </blockquote>
+                       <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center font-bold text-slate-900">JD</div>
+                          <div>
+                             <div className="text-white font-bold">John Doe</div>
+                             <div className="text-slate-400 text-sm">Director of Operations, Major Tech Firm</div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </section>
+
+      {/* 6. Quote Form Section - Full Width, High Impact */}
+      <section id="quote-section" className="py-24 bg-slate-950 relative overflow-hidden">
+         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-red-900/20 via-slate-950 to-slate-950" />
+         
+         <div className="container mx-auto px-6 relative z-10">
+            <div className="max-w-5xl mx-auto bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
+               
+               {/* Form Side */}
+               <div className="p-10 md:p-14 w-full md:w-3/5 order-2 md:order-1">
+                   <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Get A Free Quote</h2>
+                   <p className="text-slate-500 mb-10 text-lg">Secure your assets today. We'll provide a custom proposal within 2 hours.</p>
+                   
+                   <form className="space-y-5">
+                       <div className="grid grid-cols-2 gap-5">
+                           <div className="space-y-1">
+                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
+                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
                            </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div className="p-8 lg:p-12">
-                     <h3 className="text-2xl font-bold text-slate-900 mb-6 uppercase">Get A Quote</h3>
-                     <form className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
-                           <input type="text" placeholder="Name" className="w-full p-3 bg-white border border-slate-300 rounded-sm focus:border-[#D9232D] outline-none" />
-                           <input type="text" placeholder="Phone" className="w-full p-3 bg-white border border-slate-300 rounded-sm focus:border-[#D9232D] outline-none" />
-                        </div>
-                        <input type="email" placeholder="Email" className="w-full p-3 bg-white border border-slate-300 rounded-sm focus:border-[#D9232D] outline-none" />
-                        <Button className="w-full bg-[#D9232D] hover:bg-red-800 text-white font-bold py-6 uppercase tracking-widest rounded-sm">
-                           Submit Request
-                        </Button>
-                     </form>
-                  </div>
+                           <div className="space-y-1">
+                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
+                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
+                           </div>
+                       </div>
+                       
+                       <div className="space-y-1">
+                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
+                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@company.com" />
+                       </div>
+
+                       <div className="space-y-1">
+                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
+                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(555) 123-4567" />
+                       </div>
+
+                       <div className="grid grid-cols-2 gap-5">
+                            <div className="space-y-1">
+                               <label className="text-xs font-bold text-slate-500 uppercase">Service</label>
+                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
+                                   <option>Armed Security</option>
+                                   <option>Unarmed Security</option>
+                                   <option>Mobile Patrol</option>
+                               </select>
+                            </div>
+                            <div className="space-y-1">
+                               <label className="text-xs font-bold text-slate-500 uppercase">Industry</label>
+                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
+                                   <option>Retail</option>
+                                   <option>Corporate</option>
+                                   <option>Industrial</option>
+                               </select>
+                            </div>
+                       </div>
+
+                       <div className="space-y-1">
+                           <label className="text-xs font-bold text-slate-500 uppercase">Details</label>
+                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Tell us about your security needs..." />
+                       </div>
+                       
+                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
+                           Request Proposal
+                       </Button>
+                   </form>
                </div>
+
+               {/* Info Side - Dark */}
+               <div className="bg-slate-900 p-10 md:p-14 w-full md:w-2/5 text-white flex flex-col justify-between relative overflow-hidden order-1 md:order-2">
+                   {/* Abstract Shapes */}
+                   <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 rounded-full blur-3xl -mr-20 -mt-20" />
+                   
+                   <div className="relative z-10">
+                       <div className="inline-block p-3 bg-red-600 rounded-xl mb-8 shadow-lg shadow-red-900/50">
+                           <ShieldCheck className="w-8 h-8 text-white" />
+                       </div>
+                       
+                       <h3 className="text-2xl font-bold mb-8 leading-snug">
+                          Direct Contact <br/> Information
+                       </h3>
+                       
+                       <div className="space-y-8">
+                           <div className="flex items-start gap-4 group">
+                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-red-600 transition-colors">
+                                 <Phone className="w-5 h-5 text-white" />
+                               </div>
+                               <div>
+                                   <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">24/7 Dispatch</div>
+                                   <div className="text-xl font-bold tracking-tight">800-779-7691</div>
+                               </div>
+                           </div>
+                           
+                           <div className="flex items-start gap-4 group">
+                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-red-600 transition-colors">
+                                 <Mail className="w-5 h-5 text-white" />
+                               </div>
+                               <div>
+                                   <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Email Us</div>
+                                   <div className="text-lg font-medium break-all">info@proforce1protection.com</div>
+                               </div>
+                           </div>
+
+                           <div className="flex items-start gap-4 group">
+                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-red-600 transition-colors">
+                                 <Globe className="w-5 h-5 text-white" />
+                               </div>
+                               <div>
+                                   <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Main Office</div>
+                                   <div className="text-base text-slate-300">
+                                      123 Security Blvd, <br/>
+                                      Los Angeles, CA 90001
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   
+                   <div className="relative z-10 mt-12 pt-8 border-t border-slate-800">
+                        <div className="flex items-center gap-2 text-slate-400 text-xs font-medium">
+                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                           Dispatch Active Now
+                        </div>
+                   </div>
+               </div>
+
             </div>
          </div>
       </section>
 
     </main>
-  )
-}
-
-// --- SUB COMPONENTS (Styled to match Image) ---
-
-function CoreValueCircle({ icon, title, desc, color }: any) {
-  return (
-    <motion.div whileHover={{ scale: 1.05 }} className="flex flex-col items-center text-center group relative z-10">
-      <div className={`w-32 h-32 rounded-full bg-white border-[8px] ${color} flex items-center justify-center shadow-xl mb-6`}>
-        {icon}
-      </div>
-      <h3 className="text-xl font-bold text-slate-900 mb-2 uppercase tracking-tight">{title}</h3>
-      <p className="text-slate-500 text-sm max-w-[180px]">{desc}</p>
-    </motion.div>
-  )
-}
-
-function HistoryPoint({ x, y, year, title, desc, delay }: any) {
-  return (
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.5 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ delay, duration: 0.5 }}
-      className="absolute transform -translate-x-1/2"
-      style={{ left: x, top: y }}
-    >
-      <div className="flex flex-col items-center">
-         <div className="w-6 h-6 bg-[#D9232D] rounded-full border-4 border-white shadow-lg relative z-10"></div>
-         <div className="mt-4 bg-white p-3 rounded shadow-lg border-l-4 border-[#D9232D] w-40 text-left">
-            <div className="text-lg font-black text-slate-900 leading-none">{year}</div>
-            <div className="text-[10px] font-bold text-[#D9232D] uppercase">{title}</div>
-            <div className="text-[10px] text-slate-500 leading-tight mt-1">{desc}</div>
-         </div>
-      </div>
-    </motion.div>
   )
 }

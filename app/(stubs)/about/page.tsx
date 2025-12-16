@@ -65,7 +65,8 @@ const AboutUs: React.FC = () => {
   // --- Animation Config ---
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+    // removed string-based 'ease' to satisfy Transition typing; keep duration only
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
   const staggerContainer = {

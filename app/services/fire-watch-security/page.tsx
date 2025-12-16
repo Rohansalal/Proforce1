@@ -1,35 +1,34 @@
 "use client"
 
 import Image from "next/image"
-import { useState, ChangeEvent, FormEvent } from "react"
+import { useState, type ReactNode } from "react"
 import { motion } from "framer-motion"
 import { 
-  Flame, Phone, Mail, Globe, 
+  Shield, Target, Zap, Lock, CheckCircle2, Phone, Mail,
   Users, Award, Clock, MapPin, Camera, Radio, Star,
-  Building, Truck, Factory,
-  ShoppingBag, Building2, 
-  Siren, FileText, AlertTriangle,
-  BadgeCheck, ThumbsUp, ChevronRight,
-  ShieldCheck, Cpu, TrendingUp,
-  Construction, School, Warehouse,  
-  FileCheck, Shield, ClipboardCheck,
-  Eye, // Added missing import
-  CheckCircle2, // Added missing import
-  Hotel // Added missing import
+  Building, Truck, Gem, Banknote, Hotel, Factory,
+  Briefcase, Home, ShoppingBag, Building2, Crosshair,
+  Siren, FileText, Navigation, Eye, AlertTriangle,
+  BadgeCheck, ThumbsUp, ChevronRight, ExternalLink,
+  ShieldCheck, Cpu, BatteryCharging, TrendingUp,
+  GraduationCap, Brain, Settings, Users as UsersIcon,
+  Leaf, Globe, Flame, AlertCircle, Clipboard,
+  Wrench, HardHat, Thermometer, FileCheck,
+  BuildingIcon, School, Hospital, ParkingCircle
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
 const IMAGES = {
-  hero: "/hero/fire-watch.jpg",
-  vehicle: "/security-guard-patrol-vehicle-at-night.jpg",
-  technology: "/blogimage/event-tech.jpg",
-  guardIso: "/Guard.jpg",
-  dashboard: "/gallery/command-center-1.jpg",
-  team: "/placeholder.jpg",
-  construction: "/Services/construction-security.jpg",
-  gridPattern: "/placeholder.svg"
+  hero: "/Services/fire-security/fire.jpeg",
+  guard: "/Services/fire-security/fire.jpeg",
+  technology: "/Services/fire-watch/fire-watch-tech.jpg",
+  construction: "/Services/armed-security.jpg",
+  officer: "/Services/armed-security.jpg",
+  dashboard: "/Services/armed-security.jpg",
+  team: "/Services/armed-security.jpg",
+  facility: "/Services/armed-security.jpg"
 }
 
 // --- Animation Variants ---
@@ -57,12 +56,22 @@ const cardHover = {
 
 // --- Components ---
 
-const SectionHeading = ({ children, className = "", align = "center", light = false }: { children: ReactNode; className?: string; align?: "center" | "left"; light?: boolean }) => (
+const SectionHeading = ({
+  children,
+  className,
+  align = "center",
+  light = false
+}: {
+  children: ReactNode
+  className?: string
+  align?: "center" | "left"
+  light?: boolean
+}) => (
   <div className={cn("mb-16", align === "center" ? "text-center" : "text-left", className)}>
     <div className={cn(
       "w-16 h-1.5 mb-6 rounded-full",
       align === "center" ? "mx-auto" : "ml-0",
-      light ? "bg-orange-500" : "bg-orange-600"
+      light ? "bg-red-500" : "bg-red-600"
     )} />
     <h2 className={cn(
       "text-3xl md:text-5xl font-extrabold tracking-tight leading-tight",
@@ -74,329 +83,410 @@ const SectionHeading = ({ children, className = "", align = "center", light = fa
 )
 
 // --- Data ---
-const whatIsFireWatch = [
+const whyChooseUs = [
   {
-    title: "System Failure Support",
-    icon: <AlertTriangle className="w-8 h-8 text-white" />,
-    description: "Protection when alarms or sprinklers are down",
+    title: "Continuous Patrol Monitoring",
+    icon: <Flame className="w-8 h-8 text-white" />,
+    description: "Regular patrols checking for fire hazards and early warning signs",
     points: [
-      "Malfunctioning fire alarms",
-      "Broken sprinkler systems",
-      "Water supply offline",
-      "System maintenance outages"
+      "Patrols every 15 minutes (as required)",
+      "Smoke, heat, and spark detection",
+      "Electrical hazard identification",
+      "Open flame monitoring",
+      "Unsafe equipment inspection"
     ],
-    note: "We cover the gap when your automated systems can't."
+    note: "Our officers maintain constant vigilance to detect early signs of fire before they become emergencies."
   },
   {
-    title: "Construction & Hot Work",
-    icon: <Construction className="w-8 h-8 text-white" />,
-    description: "Safety monitoring for high-risk work environments",
+    title: "Immediate Emergency Response",
+    icon: <AlertCircle className="w-8 h-8 text-white" />,
+    description: "Trained professionals ready to respond instantly to fire emergencies",
     points: [
-      "Welding, grinding, and cutting",
-      "New construction sites",
-      "Remodeling projects",
-      "Electrical or plumbing work"
+      "Immediate 911 notification",
+      "Property manager alerts",
+      "Area evacuation if needed",
+      "Fire extinguisher deployment",
+      "Detailed incident documentation"
     ],
-    note: "Ensuring OSHA compliance and job-site safety during hazardous operations."
+    note: "Our priority is safety, fast response, and preventing damage to life and property."
   },
   {
-    title: "Mandated Coverage",
-    icon: <FileCheck className="w-8 h-8 text-white" />,
-    description: "Meeting official requirements for occupancy",
+    title: "Compliant Documentation & Logs",
+    icon: <Clipboard className="w-8 h-8 text-white" />,
+    description: "Accurate records meeting all fire marshal requirements",
     points: [
-      "Fire Marshal mandates",
-      "City inspector requirements",
-      "Insurance policy compliance",
-      "High-risk fire hazard zones"
+      "Time-stamped patrol entries",
+      "Detailed observation logs",
+      "Hazard detection records",
+      "Action taken documentation",
+      "Fire marshal-ready reports"
     ],
-    note: "We help you avoid fines and shutdowns by meeting all regulatory standards."
+    note: "We maintain comprehensive logs that satisfy all regulatory requirements and inspection standards."
   },
   {
-    title: "24/7 Vigilance",
-    icon: <Eye className="w-8 h-8 text-white" />, // Fixed: Now using imported Eye component
-    description: "Uninterrupted monitoring for early detection",
+    title: "Construction & Renovation Fire Watch",
+    icon: <HardHat className="w-8 h-8 text-white" />,
+    description: "Specialized fire safety for construction and hot-work projects",
     points: [
-      "Detect smoke and heat early",
-      "Identify hazardous conditions",
-      "Immediate emergency action",
-      "Continuous site patrols"
+      "New construction site protection",
+      "Remodeling project safety",
+      "Sprinkler system shutdown coverage",
+      "Hot-work monitoring (welding, cutting)",
+      "OSHA compliance assurance"
     ],
-    note: "Our officers act instantly to protect life and property."
+    note: "Our team ensures job-site safety and compliance during high-risk construction activities."
   }
 ]
 
-const servicesList = [
-  { name: "Continuous Patrol Monitoring", icon: <ShieldCheck className="w-6 h-6" />, desc: "Routine checks for smoke, heat, sparks, and open flames." },
-  { name: "Immediate Emergency Response", icon: <Siren className="w-6 h-6" />, desc: "Contact 911, alert managers, and evacuate if needed." },
-  { name: "Fire Watch Log Documentation", icon: <ClipboardCheck className="w-6 h-6" />, desc: "Detailed, time-stamped logs for inspectors and fire dept." },
-  { name: "Construction Fire Watch", icon: <Construction className="w-6 h-6" />, desc: "Specialized watch for hot-work and system shutdowns." },
-  { name: "Hazard Identification", icon: <AlertTriangle className="w-6 h-6" />, desc: "Spotting electrical hazards and unsafe materials." },
-  { name: "24/7 Availability", icon: <Clock className="w-6 h-6" />, desc: "Daytime, overnight, and emergency short-notice coverage." },
+const fireWatchServices = [
+  {
+    title: "Continuous Monitoring",
+    icon: <Flame className="w-6 h-6" />,
+    description: "Regular fire hazard patrols",
+    details: ["15-minute intervals", "Hazard detection", "Early warning"]
+  },
+  {
+    title: "Emergency Response",
+    icon: <AlertCircle className="w-6 h-6" />,
+    description: "Immediate fire emergency action",
+    details: ["911 notification", "Evacuation", "Fire control"]
+  },
+  {
+    title: "Log Documentation",
+    icon: <Clipboard className="w-6 h-6" />,
+    description: "Compliant record keeping",
+    details: ["Time-stamped logs", "Inspection reports", "Legal compliance"]
+  },
+  {
+    title: "Construction Watch",
+    icon: <HardHat className="w-6 h-6" />,
+    description: "Site-specific fire safety",
+    details: ["Hot-work monitoring", "System shutdowns", "OSHA compliance"]
+  },
+  {
+    title: "24/7 Coverage",
+    icon: <Clock className="w-6 h-6" />,
+    description: "Round-the-clock protection",
+    details: ["Daytime coverage", "Overnight watch", "Weekend protection"]
+  },
+  {
+    title: "Hazard Inspection",
+    icon: <Thermometer className="w-6 h-6" />,
+    description: "Comprehensive hazard checks",
+    details: ["Smoke detection", "Heat monitoring", "Electrical safety"]
+  },
+  {
+    title: "System Failure Watch",
+    icon: <Wrench className="w-6 h-6" />,
+    description: "Protection during outages",
+    details: ["Alarm system down", "Sprinkler failure", "Water supply issues"]
+  },
+  {
+    title: "Digital Reporting",
+    icon: <FileCheck className="w-6 h-6" />,
+    description: "Real-time activity tracking",
+    details: ["GPS logs", "Photo documentation", "Daily reports"]
+  }
+]
+
+const fireWatchReasons = [
+  "Fire alarms or sprinklers are down or malfunctioning",
+  "Construction or remodeling work disables fire protection",
+  "Water supply to fire systems is offline",
+  "High-risk fire hazards exist on the property",
+  "Fire marshal or city inspector mandates on-site fire watch",
+  "Hot-work activities require continuous monitoring",
+  "Temporary system shutdowns for maintenance",
+  "Building code compliance requirements"
 ]
 
 const industries = [
-  { name: "Commercial Buildings", icon: <Building2 className="w-6 h-6" />, description: "Office & Business" },
-  { name: "Construction Sites", icon: <Construction className="w-6 h-6" />, description: "Active Work Zones" },
-  { name: "Warehouses", icon: <Warehouse className="w-6 h-6" />, description: "Storage & Logistics" },
-  { name: "Hotels & Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest Safety" }, // Fixed: Using imported Hotel component
-  { name: "Apartments & HOA", icon: <Building className="w-6 h-6" />, description: "Residential Safety" },
-  { name: "Manufacturing", icon: <Factory className="w-6 h-6" />, description: "Industrial Facilities" },
-  { name: "Schools", icon: <School className="w-6 h-6" />, description: "Public Facilities" },
-  { name: "Retail Centers", icon: <ShoppingBag className="w-6 h-6" />, description: "Shopping Malls" },
+  { name: "Commercial Buildings", icon: <Building2 className="w-6 h-6" />, description: "Office building fire safety" },
+  { name: "Hotels & Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest accommodation protection" },
+  { name: "Construction Sites", icon: <HardHat className="w-6 h-6" />, description: "Construction project safety" },
+  { name: "Apartment Complexes", icon: <Home className="w-6 h-6" />, description: "Residential community protection" },
+  { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Storage facility fire watch" },
+  { name: "Manufacturing Facilities", icon: <Settings className="w-6 h-6" />, description: "Production plant safety" },
+  { name: "Retail Centers", icon: <ShoppingBag className="w-6 h-6" />, description: "Shopping mall protection" },
+  { name: "Schools & Universities", icon: <School className="w-6 h-6" />, description: "Educational facility safety" },
+  { name: "Hospitals", icon: <Hospital className="w-6 h-6" />, description: "Medical center fire watch" },
+  { name: "Public Facilities", icon: <BuildingIcon className="w-6 h-6" />, description: "Government building protection" },
+  { name: "Event Venues", icon: <Users className="w-6 h-6" />, description: "Special event fire safety" },
+  { name: "Parking Structures", icon: <ParkingCircle className="w-6 h-6" />, description: "Parking facility protection" }
 ]
 
 const trustFactors = [
-  { title: "20+ Years Experience", description: "Deep expertise in fire safety and security protocols." },
-  { title: "California Focused", description: "Over a decade serving California properties." },
-  { title: "Fully Compliant", description: "Meeting all California Fire Marshal standards." },
-  { title: "Fast Deployment", description: "Same-day or emergency coverage available." },
-  { title: "Detailed Reporting", description: "Accurate logs required by fire inspectors." },
-  { title: "24/7 Dispatch", description: "Always-on client support and dispatch." }
+  { title: "20+ Years Experience", description: "Decades of professional security and fire safety expertise" },
+  { title: "California Compliant", description: "Full compliance with all California Fire Marshal standards" },
+  { title: "Fully Trained Officers", description: "Specialized fire watch training and certification" },
+  { title: "Fast Deployment", description: "Same-day or emergency coverage available 24/7" },
+  { title: "Detailed Documentation", description: "Comprehensive logs required by fire inspectors" },
+  { title: "24/7 Dispatch Support", description: "Constant communication and emergency response" }
 ]
 
 // --- Main Page Component ---
 
-export default function FireWatchPage() {
-  // Fixed: Connect form state to form inputs
-    const [formData, setFormData] = useState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      service: "Fire Watch",
-      propertyType: "Commercial",
-      details: ""
-    })
-  
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      const name = e.target.name as keyof typeof formData
-      const value = e.target.value
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }))
-    }
-  
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      // Handle form submission here
-      console.log("Form submitted:", formData)
-    }
+export default function FireWatchSecurityPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    phone: "",
+    email: "",
+    service: "",
+    industry: "",
+    message: ""
+  })
 
   return (
     <main className="min-h-screen bg-white font-sans text-slate-900 overflow-hidden">
       
-      {/* 1. Hero Section - Fire Watch Theme (Orange/Red Accents) */}
-      <header className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-slate-950">
-         {/* Background Layer */}
-         <div className="absolute inset-0 z-0">
-           <Image
-             src={IMAGES.hero}
-             alt="Proforce 1 Fire Watch Officer"
-             fill
-             className="object-cover opacity-40 scale-105"
-             priority
-             sizes="100vw"
-           />
-           {/* Orange tinted gradient for Fire Watch theme */}
-           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-orange-950/30" />
-           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-         </div>
-   
-         {/* Content Layer */}
-         <div className="relative z-10 container mx-auto px-6 py-20">
-           <div className="grid lg:grid-cols-12 gap-12 items-center">
-             
-             {/* Left Text */}
-             <div className="lg:col-span-7 space-y-8">
-               <motion.div 
-                 initial={{ opacity: 0, x: -20 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 transition={{ duration: 0.6 }}
-                 className="inline-flex items-center gap-3 bg-orange-900/30 border border-orange-500/30 rounded-full px-5 py-2 backdrop-blur-md"
-               >
-                 <Flame className="w-4 h-4 text-orange-500 fill-orange-500" />
-                 <span className="text-xs font-bold tracking-[0.2em] text-orange-100 uppercase">Code-Compliant Protection</span>
-               </motion.div>
-   
-               <motion.h1 
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ duration: 0.6, delay: 0.1 }}
-                 className="text-5xl md:text-7xl lg:text-7xl font-black text-white leading-[0.95] tracking-tight"
-               >
-                 FIRE WATCH <br />
-                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-orange-400 to-white filter drop-shadow-lg">
-                    SECURITY SERVICES
-                 </span>
-               </motion.h1>
-   
-               <motion.div 
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ duration: 0.6, delay: 0.2 }}
-                 className="space-y-4"
-               >
-                   <h3 className="text-2xl font-bold text-slate-200">Reliable, Trained, and Code-Compliant Protection</h3>
-                   <p className="text-xl text-slate-300 leading-relaxed max-w-2xl font-light border-l-4 border-orange-600 pl-6">
-                     When fire systems fail or hazards arise, trust our fully trained officers to ensure your site stays protected and meets all local and state fire safety requirements.
-                   </p>
-               </motion.div>
-   
-               <motion.div 
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ duration: 0.6, delay: 0.3 }}
-                 className="flex flex-col sm:flex-row gap-4 pt-4"
-               >
-                 <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-10 h-16 text-lg font-bold rounded-lg shadow-lg shadow-orange-900/40 transition-all hover:scale-105 uppercase tracking-wide">
-                   <Phone className="mr-3 w-5 h-5" />
-                   Get Fire Watch Quote
-                 </Button>
-                 <Button size="lg" variant="outline" className="border-slate-600 text-white hover:bg-white hover:text-slate-900 px-10 h-16 text-lg font-bold rounded-lg backdrop-blur-sm uppercase tracking-wide">
-                   Learn More
-                 </Button>
-               </motion.div>
-             </div>
+      {/* 1. Hero Section - Video Background with Simple Text */}
+      <header className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute w-full h-full object-cover"
+            poster={IMAGES.hero}
+          >
+            <source src="/Services/fire-security/fire-watch.mp4" type="video/mp4" />
+            {/* Fallback if video doesn't load */}
+            <Image
+              src={IMAGES.hero}
+              alt="Fire Watch Security Services"
+              fill
+              className="object-cover"
+              priority
+            />
+          </video>
+          
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+        </div>
 
-             {/* Right Image/Stats */}
-             <div className="lg:col-span-5 relative hidden lg:block">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="relative z-10"
-                >
-                  <div className="relative h-[600px] w-full">
-                     <Image
-                       src={IMAGES.guardIso}
-                       alt="Fire Watch Officer"
-                       fill
-                       className="object-contain object-bottom drop-shadow-2xl"
-                       priority
-                     />
-                     
-                     {/* Floating Stats Card */}
-                     <div className="absolute top-20 -right-4 bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-2xl max-w-[240px]">
-                        <div className="flex items-center gap-3 mb-2">
-                           <div className="p-2 bg-orange-600 rounded-lg">
-                              <Siren className="w-6 h-6 text-white" />
-                           </div>
-                           <div>
-                              <div className="text-2xl font-bold text-white">Fast</div>
-                              <div className="text-xs text-slate-300 uppercase font-bold">Deployment</div>
-                           </div>
-                        </div>
-                        <p className="text-xs text-slate-400 leading-snug">Emergency coverage available 24/7.</p>
-                     </div>
+        {/* Content Layer */}
+        <div className="relative z-10 container mx-auto px-6 text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8"
+          >
+            FIRE WATCH<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">
+              SECURITY
+            </span>
+            <br />
+            <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
+              Guard Services
+            </span>
+          </motion.h1>
 
-                     <div className="absolute bottom-20 -left-8 bg-slate-900/90 backdrop-blur-xl border border-slate-700 p-6 rounded-2xl shadow-2xl max-w-[260px]">
-                        <div className="flex items-center gap-3 mb-2">
-                           <div className="p-2 bg-blue-600 rounded-lg">
-                              <FileCheck className="w-6 h-6 text-white" />
-                           </div>
-                           <div>
-                              <div className="text-2xl font-bold text-white">100%</div>
-                              <div className="text-xs text-slate-400 uppercase font-bold">Compliant</div>
-                           </div>
-                        </div>
-                        <p className="text-xs text-slate-400 leading-snug">Meeting all Fire Marshal requirements.</p>
-                     </div>
-                  </div>
-                </motion.div>
-             </div>
+          {/* Subtle subtitle */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="max-w-3xl mx-auto"
+          >
+            <p className="text-xl text-slate-300 mb-8 font-light">
+              Reliable, Trained, and Code-Compliant Fire Watch Protection
+            </p>
+            
+            {/* Simple CTA Button */}
+            <Button 
+              size="lg" 
+              className="bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
+            >
+              <Phone className="mr-3 w-5 h-5" />
+              Request Fire Watch Service
+            </Button>
+          </motion.div>
 
-           </div>
-         </div>
-
-         {/* Bottom Fade */}
-         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-950 to-transparent z-10" />
+          {/* Scroll indicator */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          >
+            <div className="text-slate-400 text-sm animate-bounce">
+              <ChevronRight className="w-6 h-6 transform rotate-90 mx-auto" />
+            </div>
+          </motion.div>
+        </div>
       </header>
 
-      {/* 2. Overview & Services (Split Layout) */}
+      {/* 2. Professional Fire Watch Section - Content Below Video */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            
-            {/* Content Side */}
-            <div>
-              <SectionHeading align="left">
-                What Is <br />
-                <span className="text-orange-600">Fire Watch?</span>
-              </SectionHeading>
-              
-              <div className="prose prose-lg text-slate-600 mb-10">
-                <p>
-                  Fire watch is a specialized security service required when fire alarms, sprinklers, or water systems are malfunctioning or offline, or when high-risk construction work is taking place.
-                </p>
-                <p>
-                   Our Fire Watch officers monitor your site without interruption to detect early signs of smoke, fire, or hazardous conditions — and act instantly to protect life and property.
-                </p>
-              </div>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
+              {/* Left Content */}
+              <div className="lg:col-span-7">
+                <div className="mb-8">
+                  <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                    Professional Fire Watch Protection
+                    <br />
+                    <span className="text-red-600">
+                      When Fire Systems Fail or Are Compromised
+                    </span>
+                  </h2>
+                </div>
 
-              <div className="bg-orange-50 p-8 rounded-2xl border border-orange-100 shadow-sm">
-                <h4 className="font-bold text-slate-900 text-xl mb-6 flex items-center gap-2">
-                  <Flame className="text-orange-600" /> When is it Required?
-                </h4>
-                <div className="grid sm:grid-cols-1 gap-4">
+                <div className="grid md:grid-cols-2 gap-8 mb-10">
+                  {/* Left Column Points */}
+                  <div className="space-y-4">
+                    <p className="text-lg text-slate-600 leading-relaxed mb-6">
+                      When fire systems fail or a property becomes vulnerable to fire hazards, you need a professional fire watch team you can trust. At Proforce 1 Protection Services, we provide fully trained, dependable, and compliant Fire Watch Security Guards.
+                    </p>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-red-600" />
+                        </div>
+                        <span className="text-slate-700 font-medium">20+ years of security experience</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-red-600" />
+                        </div>
+                        <span className="text-slate-700 font-medium">Over a decade serving California</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-red-600" />
+                        </div>
+                        <span className="text-slate-700 font-medium">Compliant with all fire safety requirements</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column Description */}
+                  <div className="space-y-4">
+                    <p className="text-slate-600 leading-relaxed">
+                      Our fire watch officers deliver continuous monitoring, fast reporting, and immediate emergency response to keep your property safe when fire protection systems are compromised.
+                    </p>
+                    <div className="bg-red-50 border border-red-100 rounded-xl p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-red-600 rounded-lg">
+                          <ShieldCheck className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-slate-900">Code-Compliant Protection</div>
+                          <div className="text-xs text-slate-600">Meets all California Fire Marshal standards</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stats Row */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
                   {[
-                    "Fire alarms or sprinklers are down/malfunctioning",
-                    "Construction/remodeling disables fire systems",
-                    "Water supply to fire systems is offline",
-                    "High-risk fire hazards exist",
-                    "Mandated by Fire Marshal or City Inspector"
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-3 text-slate-700 text-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-orange-600 mt-2 flex-shrink-0" />
-                      {item}
+                    { value: "20+", label: "Years Experience", icon: Award, color: "text-red-600" },
+                    { value: "< 15 Min", label: "Patrol Interval", icon: Clock, color: "text-blue-600" },
+                    { value: "100%", label: "Code Compliant", icon: BadgeCheck, color: "text-green-600" },
+                    { value: "24/7", label: "Emergency Response", icon: Siren, color: "text-amber-600" },
+                  ].map((stat, idx) => (
+                    <div key={idx} className="text-center bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                      <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-2`} />
+                      <div className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">{stat.value}</div>
+                      <div className="text-xs text-slate-600 uppercase tracking-wider font-medium">{stat.label}</div>
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
-            
-            {/* Features Grid Side */}
-            <div className="grid gap-6">
-               {servicesList.map((service, idx) => (
-                  <motion.div 
-                     key={idx}
-                     whileHover={{ x: 5 }}
-                     className="flex gap-4 p-5 rounded-xl border border-slate-100 shadow-sm hover:shadow-md hover:border-orange-200 bg-white transition-all group"
-                  >
-                     <div className="w-12 h-12 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                        {service.icon}
-                     </div>
-                     <div>
-                        <h4 className="font-bold text-slate-900 text-lg">{service.name}</h4>
-                        <p className="text-slate-500 text-sm leading-relaxed">{service.desc}</p>
-                     </div>
-                  </motion.div>
-               ))}
-            </div>
 
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <Phone className="mr-3 w-5 h-5" />
+                    Request Fire Watch Quote
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <Flame className="mr-3 w-5 h-5" />
+                    View Compliance Requirements
+                  </Button>
+                </div>
+              </div>
+
+              {/* Right Image Column */}
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="lg:col-span-5 relative"
+              >
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[600px]">
+                  <Image
+                    src={IMAGES.guard}
+                    alt="Professional Fire Watch Security Officer"
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent" />
+                  
+                  {/* Badge on image  */}
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 3. Detailed Features Grid */}
+      {/* 3. What Is Fire Watch Section */}
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-6">
           <SectionHeading>
-            Comprehensive <br/> <span className="text-orange-600">Fire Safety Solutions</span>
+            What Is <span className="text-red-600">Fire Watch</span>?
           </SectionHeading>
 
+          <div className="max-w-4xl mx-auto mb-16">
+            <p className="text-lg text-slate-600 text-center mb-8 leading-relaxed">
+              Fire watch is required when fire protection systems are compromised or when high-risk activities create fire hazards. Our officers monitor your site without interruption to detect early signs of smoke, fire, or hazardous conditions.
+            </p>
+            
+            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm mb-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">Fire Watch Is Required When:</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {fireWatchReasons.map((reason, idx) => (
+                  <div key={idx} className="flex items-start gap-3 p-3 bg-red-50 rounded-lg">
+                    <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <AlertCircle className="w-3.5 h-3.5 text-white" />
+                    </div>
+                    <span className="text-slate-700">{reason}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="text-center">
+              <p className="text-slate-600 italic">
+                "Our Fire Watch officers act instantly to protect life and property when fire systems are offline."
+              </p>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-8">
-            {whatIsFireWatch.map((feature, idx) => (
+            {whyChooseUs.map((feature, idx) => (
               <motion.div 
                 key={idx}
                 whileHover="hover"
                 variants={cardHover}
                 className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden group"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-bl-[100px] -mr-8 -mt-8 transition-colors group-hover:bg-orange-100" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-bl-[100px] -mr-8 -mt-8 transition-colors group-hover:bg-red-100" />
                 
                 <div className="relative z-10">
-                  <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-slate-900/20 group-hover:bg-orange-600 group-hover:shadow-orange-600/30 transition-all duration-300">
+                  <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-slate-900/20 group-hover:bg-red-600 group-hover:shadow-red-600/30 transition-all duration-300">
                     {feature.icon}
                   </div>
                   
@@ -406,7 +496,7 @@ export default function FireWatchPage() {
                   <div className="space-y-3 mb-6">
                     {feature.points.map((point, pIdx) => (
                       <div key={pIdx} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> {/* Fixed: Now using imported CheckCircle2 */}
+                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <span className="text-sm text-slate-600">{point}</span>
                       </div>
                     ))}
@@ -422,274 +512,379 @@ export default function FireWatchPage() {
         </div>
       </section>
 
-      {/* 4. Reporting Technology (Feature Layout) */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-            <div className="lg:w-1/2">
-                <SectionHeading align="left">
-                  Advanced Digital <br />
-                  <span className="text-orange-600">Reporting System</span>
-                </SectionHeading>
-                <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                  Proforce 1 uses an advanced digital reporting platform to give you complete oversight. You will receive daily activity summaries and immediate alerts ensuring transparency, accuracy, and full compliance.
-                </p>
-                
-                <div className="grid sm:grid-cols-2 gap-6">
-                   {[
-                     { icon: <MapPin />, title: "GPS Tracking", desc: "Real-time tracked patrol logs." },
-                     { icon: <Clock />, title: "Time-Stamped", desc: "Verifiable fire watch entries." },
-                     { icon: <Camera />, title: "Photo Evidence", desc: "Photos of hazards or findings." },
-                     { icon: <FileText />, title: "Incident Reports", desc: "Detailed digital documentation." },
-                   ].map((tech, i) => (
-                     <div key={i} className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition-shadow">
-                       <div className="text-orange-600 mb-4">{tech.icon}</div>
-                       <h4 className="font-bold text-slate-900 mb-2">{tech.title}</h4>
-                       <p className="text-sm text-slate-500">{tech.desc}</p>
-                     </div>
-                   ))}
-                </div>
-            </div>
-            <div className="lg:w-1/2 relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-900/5">
-               <Image 
-                  src={IMAGES.dashboard} 
-                  alt="Security Reporting Dashboard" 
-                  fill 
-                  className="object-cover"
-               />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Industries Grid - Sleek Dark Design */}
-      <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
-        {/* Decorative Background */}
-        <div className="absolute inset-0 opacity-5">
+      {/* 4. Fire Watch Services Grid */}
+      <section className="py-24 relative overflow-hidden">
+        {/* Background Image Layer */}
+        <div className="absolute inset-0 z-0">
           <Image
-            src={IMAGES.gridPattern}
-            alt="Grid Pattern"
+            src={IMAGES.facility}
+            alt="Fire Watch Commercial Protection"
             fill
             className="object-cover"
+            priority
+            sizes="100vw"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-900/95" />
+          <div className="absolute inset-0 bg-gradient-to-t from-red-900/10 via-transparent to-transparent" />
         </div>
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-slate-950 to-slate-900 opacity-90" />
 
         <div className="container mx-auto px-6 relative z-10">
-          <SectionHeading light>
-            Industries We <span className="text-orange-500">Serve</span>
-          </SectionHeading>
+          <div className="text-center mb-16">
+            <div className="inline-block mb-8">
+              <div className="h-1 w-24 bg-red-600 mx-auto"></div>
+              <div className="h-1 w-16 bg-red-500 mx-auto mt-1"></div>
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Our <span className="text-red-500">Fire Watch Services</span>
+            </h2>
+            
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+              Comprehensive fire safety monitoring designed to protect your property when fire systems are compromised
+            </p>
+          </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {industries.map((item, idx) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {fireWatchServices.map((item, idx) => (
               <motion.div 
                 key={idx}
-                whileHover={{ y: -5 }}
-                className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 p-6 rounded-2xl hover:bg-orange-600 hover:border-orange-500 transition-all duration-300 group cursor-default"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  transition: { duration: 0.2 }
+                }}
+                className="group relative"
               >
-                <div className="text-slate-400 group-hover:text-white mb-4 transition-colors">
-                  {item.icon}
+                {/* Card with glass effect */}
+                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/15 hover:border-red-500/50 transition-all duration-300 cursor-default overflow-hidden">
+                  {/* Background highlight on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-600/0 to-red-600/0 group-hover:from-red-600/10 group-hover:to-red-600/5 transition-all duration-300" />
+                  
+                  {/* Icon */}
+                  <div className="relative z-10 mb-5">
+                    <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <div className="text-white">
+                        {item.icon}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-red-300 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-slate-300 mb-3 group-hover:text-slate-200 transition-colors">
+                      {item.description}
+                    </p>
+                    
+                    {/* Details List */}
+                    <div className="space-y-1">
+                      {item.details.map((detail, dIdx) => (
+                        <div key={dIdx} className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 bg-red-500 rounded-full"></div>
+                          <span className="text-xs text-slate-300">{detail}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Bottom indicator */}
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center">
+                      <ChevronRight className="w-3 h-3 text-white" />
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-sm font-bold text-white mb-1">{item.name}</h3>
-                <p className="text-[10px] text-slate-400 group-hover:text-orange-100 transition-colors uppercase tracking-wider">{item.description}</p>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* 6. Why Clients Trust Us */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <SectionHeading>Why Choose <br/><span className="text-orange-600">Proforce 1</span></SectionHeading>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {trustFactors.map((trust, idx) => (
-              <div key={idx} className="flex gap-4 p-6 border border-slate-100 rounded-xl hover:shadow-lg transition-all hover:border-orange-100 group">
-                <div className="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold group-hover:bg-orange-600 transition-colors">
-                   <Star className="w-5 h-5" />
+          {/* Digital Reporting Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto mt-20"
+          >
+            <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/20 rounded-2xl p-10 relative overflow-hidden">
+              {/* Pattern overlay */}
+              <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10"></div>
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-red-600 rounded-xl">
+                    <FileCheck className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">Advanced Digital Reporting System</h3>
+                    <p className="text-slate-300">Complete transparency and compliance tracking</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-slate-900 text-lg mb-2">{trust.title}</h4>
-                  <p className="text-slate-500 leading-relaxed">{trust.description}</p>
+                
+                <p className="text-slate-300 mb-6">
+                  Proforce 1 uses an advanced digital reporting platform to give you complete oversight and ensure regulatory compliance.
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    {[
+                      "Real-time GPS-tracked patrol logs",
+                      "Time-stamped fire watch entries",
+                      "Photos of hazards or findings",
+                      "Detailed incident reports",
+                      "Daily activity summary emails"
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-slate-300">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-white mb-2">Inspection Ready</div>
+                      <p className="text-slate-300">All documentation meets fire marshal requirements</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-          
-          <div className="mt-12 text-center">
-              <p className="text-xl text-slate-700 font-medium">We ensure your property remains safe, compliant, and protected until your fire systems are fully restored.</p>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* 7. Quote Form Section - Full Width, High Impact */}
+      {/* 5. Industries We Serve */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+           <div className="text-center mb-16">
+              <SectionHeading>
+                Industries We <br/> <span className="text-red-600">Protect</span>
+              </SectionHeading>
+              <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-12">
+                Our fire watch officers protect a wide range of industries across California with professional, code-compliant fire safety monitoring
+              </p>
+           </div>
+
+           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
+              {industries.map((item, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: idx * 0.05 }}
+                  className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
+                  <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mb-4">
+                    <div className="text-red-600">
+                      {item.icon}
+                    </div>
+                  </div>
+                  <h4 className="font-bold text-slate-900 mb-2">{item.name}</h4>
+                  <p className="text-sm text-slate-500">{item.description}</p>
+                </motion.div>
+              ))}
+           </div>
+
+           {/* Why Choose Us */}
+           <div className="max-w-6xl mx-auto bg-slate-50 rounded-3xl p-10">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                 <div>
+                    <h3 className="text-3xl font-bold text-slate-900 mb-6">
+                       Why Choose <br/>
+                       <span className="text-red-600">Proforce 1 for Fire Watch</span>
+                    </h3>
+                    
+                    <div className="grid gap-4">
+                       {trustFactors.map((factor, idx) => (
+                         <div key={idx} className="flex gap-4 items-start">
+                            <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-1">
+                               <Star className="w-5 h-5 text-red-600 fill-red-600" />
+                            </div>
+                            <div>
+                               <h4 className="text-lg font-bold text-slate-900">{factor.title}</h4>
+                               <p className="text-slate-600">{factor.description}</p>
+                            </div>
+                         </div>
+                       ))}
+                    </div>
+                 </div>
+                 
+                 <div>
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[400px]">
+                       <Image 
+                          src={IMAGES.team} 
+                          alt="Proforce 1 Fire Watch Team" 
+                          fill 
+                          className="object-cover"
+                       />
+                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
+                       <div className="absolute bottom-6 left-6 right-6">
+                          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4">
+                             <p className="text-slate-900 font-medium italic">
+                                "When our sprinkler system failed, Proforce 1 had fire watch officers on site within 2 hours. Their documentation was flawless and kept us compliant with the fire marshal."
+                             </p>
+                             <div className="flex items-center gap-3 mt-3">
+                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">JD</div>
+                                <div>
+                                   <div className="font-bold text-slate-900">John Doe</div>
+                                   <div className="text-sm text-slate-600">Property Manager, Commercial Building</div>
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </section>
+
+      {/* 6. Quote Form Section */}
       <section id="quote-section" className="py-24 bg-slate-950 relative overflow-hidden">
-         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-orange-900/20 via-slate-950 to-slate-950" />
+         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-red-900/20 via-slate-950 to-slate-950" />
          
          <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-5xl mx-auto bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
-                
-                {/* Form Side */}
-                <div className="p-10 md:p-14 w-full md:w-3/5 order-2 md:order-1">
-                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Fire Watch Service</h2>
-                    <p className="text-slate-500 mb-10 text-lg">Need immediate coverage? We are available 24/7. Get a proposal now.</p>
-                    
-                    <form onSubmit={handleSubmit} className="space-y-5"> {/* Added onSubmit handler */}
-                        <div className="grid grid-cols-2 gap-5">
+               
+               {/* Form Side */}
+               <div className="p-10 md:p-14 w-full md:w-3/5 order-2 md:order-1">
+                   <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Fire Watch Service</h2>
+                   <p className="text-slate-500 mb-10 text-lg">Need immediate coverage? We are available 24/7 for emergency fire watch.</p>
+                   
+                   <form className="space-y-5">
+                       <div className="grid grid-cols-2 gap-5">
+                           <div className="space-y-1">
+                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
+                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
+                           </div>
+                           <div className="space-y-1">
+                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
+                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
+                           </div>
+                       </div>
+                       
+                       <div className="space-y-1">
+                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
+                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@company.com" />
+                       </div>
+
+                       <div className="space-y-1">
+                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
+                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(555) 123-4567" />
+                       </div>
+
+                       <div className="grid grid-cols-2 gap-5">
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                                <input 
-                                  type="text" 
-                                  name="firstName"
-                                  value={formData.firstName}
-                                  onChange={handleInputChange}
-                                  className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" 
-                                  placeholder="John" 
-                                />
+                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
+                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
+                                   <option>Fire Watch Security</option>
+                                   <option>Construction Fire Watch</option>
+                                   <option>Emergency Fire Watch</option>
+                                   <option>Hot-Work Monitoring</option>
+                                   <option>24/7 Fire Watch Coverage</option>
+                               </select>
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                                <input 
-                                  type="text" 
-                                  name="lastName"
-                                  value={formData.lastName}
-                                  onChange={handleInputChange}
-                                  className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" 
-                                  placeholder="Doe" 
-                                />
+                               <label className="text-xs font-bold text-slate-500 uppercase">Industry</label>
+                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
+                                   <option>Commercial Building</option>
+                                   <option>Construction Site</option>
+                                   <option>Hospitality</option>
+                                   <option>Residential</option>
+                                   <option>Industrial</option>
+                                   <option>Healthcare</option>
+                               </select>
                             </div>
-                        </div>
-                        
-                        <div className="space-y-1">
-                            <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                            <input 
-                              type="email" 
-                              name="email"
-                              value={formData.email}
-                              onChange={handleInputChange}
-                              className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" 
-                              placeholder="john@company.com" 
-                            />
-                        </div>
+                       </div>
 
-                        <div className="space-y-1">
-                            <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                            <input 
-                              type="tel" 
-                              name="phone"
-                              value={formData.phone}
-                              onChange={handleInputChange}
-                              className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" 
-                              placeholder="(555) 123-4567" 
-                            />
-                        </div>
+                       <div className="space-y-1">
+                           <label className="text-xs font-bold text-slate-500 uppercase">Fire Safety Situation</label>
+                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Describe your fire system status and safety requirements..." />
+                       </div>
+                       
+                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
+                           Request Emergency Fire Watch
+                       </Button>
+                   </form>
+               </div>
 
-                        <div className="grid grid-cols-2 gap-5">
-                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase">Service</label>
-                                <select 
-                                  name="service"
-                                  value={formData.service}
-                                  onChange={handleInputChange}
-                                  className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-slate-700"
-                                >
-                                    <option>Fire Watch</option>
-                                    <option>Construction Security</option>
-                                    <option>Mobile Patrol</option>
-                                </select>
-                            </div>
-                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase">Property Type</label>
-                                <select 
-                                  name="propertyType"
-                                  value={formData.propertyType}
-                                  onChange={handleInputChange}
-                                  className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-slate-700"
-                                >
-                                    <option>Commercial</option>
-                                    <option>Residential/HOA</option>
-                                    <option>Construction</option>
-                                    <option>Retail</option>
-                                </select>
-                            </div>
-                        </div>
+               {/* Info Side - Dark */}
+               <div className="bg-slate-900 p-10 md:p-14 w-full md:w-2/5 text-white flex flex-col justify-between relative overflow-hidden order-1 md:order-2">
+                   {/* Abstract Shapes */}
+                   <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 rounded-full blur-3xl -mr-20 -mt-20" />
+                   
+                   <div className="relative z-10">
+                       <div className="inline-block p-3 bg-red-600 rounded-xl mb-8 shadow-lg shadow-red-900/50">
+                           <Flame className="w-8 h-8 text-white" />
+                       </div>
+                       
+                       <h3 className="text-2xl font-bold mb-8 leading-snug">
+                          Emergency Fire Watch<br/>
+                          Available 24/7
+                       </h3>
+                       
+                       <div className="space-y-8">
+                           <div className="flex items-start gap-4 group">
+                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-red-600 transition-colors">
+                                 <Phone className="w-5 h-5 text-white" />
+                               </div>
+                               <div>
+                                   <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">24/7 Emergency Dispatch</div>
+                                   <div className="text-xl font-bold tracking-tight">800-779-7691</div>
+                               </div>
+                           </div>
+                           
+                           <div className="flex items-start gap-4 group">
+                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-red-600 transition-colors">
+                                 <Mail className="w-5 h-5 text-white" />
+                               </div>
+                               <div>
+                                   <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Email Us</div>
+                                   <div className="text-lg font-medium break-all">info@proforce1protection.com</div>
+                               </div>
+                           </div>
 
-                        <div className="space-y-1">
-                            <label className="text-xs font-bold text-slate-500 uppercase">Details</label>
-                            <textarea 
-                              rows={3} 
-                              name="details"
-                              value={formData.details}
-                              onChange={handleInputChange}
-                              className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" 
-                              placeholder="Tell us about your fire watch needs..." 
-                            />
+                           <div className="flex items-start gap-4 group">
+                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-red-600 transition-colors">
+                                 <Globe className="w-5 h-5 text-white" />
+                               </div>
+                               <div>
+                                   <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Main Office</div>
+                                   <div className="text-base text-slate-300">
+                                      123 Security Blvd, <br/>
+                                      Los Angeles, CA 90001
+                                   </div>
+                               </div>
+                           </div>
+                           
+                           <div className="flex items-start gap-4 group">
+                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-red-600 transition-colors">
+                                 <Clock className="w-5 h-5 text-white" />
+                               </div>
+                               <div>
+                                   <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Response Time</div>
+                                   <div className="text-base text-slate-300">
+                                      Same-Day<br/>
+                                      Coverage Available
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   
+                   <div className="relative z-10 mt-12 pt-8 border-t border-slate-800">
+                        <div className="flex items-center gap-2 text-slate-400 text-xs font-medium">
+                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                           Fire Watch Teams Active Now
                         </div>
-                        
-                        <Button type="submit" className="w-full bg-orange-600 hover:bg-orange-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-orange-600/20 mt-2">
-                            Request Proposal
-                        </Button>
-                    </form>
-                </div>
-
-                {/* Info Side - Dark */}
-                <div className="bg-slate-900 p-10 md:p-14 w-full md:w-2/5 text-white flex flex-col justify-between relative overflow-hidden order-1 md:order-2">
-                    {/* Abstract Shapes */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/10 rounded-full blur-3xl -mr-20 -mt-20" />
-                    
-                    <div className="relative z-10">
-                        <div className="inline-block p-3 bg-orange-600 rounded-xl mb-8 shadow-lg shadow-orange-900/50">
-                            <Flame className="w-8 h-8 text-white" />
-                        </div>
-                        
-                        <h3 className="text-2xl font-bold mb-8 leading-snug">
-                           Direct Contact <br/> Information
-                        </h3>
-                        
-                        <div className="space-y-8">
-                            <div className="flex items-start gap-4 group">
-                                <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-orange-600 transition-colors">
-                                  <Phone className="w-5 h-5 text-white" />
-                                </div>
-                                <div>
-                                    <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">24/7 Dispatch</div>
-                                    <div className="text-xl font-bold tracking-tight">800-779-7691</div>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-start gap-4 group">
-                                <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-orange-600 transition-colors">
-                                  <Mail className="w-5 h-5 text-white" />
-                                </div>
-                                <div>
-                                    <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Email Us</div>
-                                    <div className="text-lg font-medium break-all">info@proforce1protection.com</div>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-4 group">
-                                <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-orange-600 transition-colors">
-                                  <Globe className="w-5 h-5 text-white" />
-                                </div>
-                                <div>
-                                    <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Main Office</div>
-                                    <div className="text-base text-slate-300">
-                                       123 Security Blvd, <br/>
-                                       Los Angeles, CA 90001
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="relative z-10 mt-12 pt-8 border-t border-slate-800">
-                         <div className="flex items-center gap-2 text-slate-400 text-xs font-medium">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                            Dispatch Active Now
-                         </div>
-                    </div>
-                </div>
+                   </div>
+               </div>
 
             </div>
          </div>

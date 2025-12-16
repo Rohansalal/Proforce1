@@ -94,7 +94,7 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <motion.div 
               key={index} 
-              variants={cardVariants}
+              variants={cardVariants as any}
               className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-slate-200/80 hover:-translate-y-2 transition-all duration-300 relative group"
             >
               {/* Top Gradient Border */}

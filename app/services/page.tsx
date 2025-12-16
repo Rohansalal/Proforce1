@@ -55,14 +55,14 @@ const servicesData = [
   },
   {
     id: 2,
-    title: "Fire Watch Services",
+    title: "Fire Watch Security",
     icon: "🔥",
     image: "/Services/fire-watch.jpg",
     description: "Professional fire watch services to protect your property.",
     features: ["Fire Safety Checks", "Emergency Protocols", "Regular Reporting", "Compliance Monitoring"],
     stats: "24/7",
     statsText: "Coverage",
-    href: "/services/fire-watch-services"
+    href: "/services/fire-watch-security"
   },
   {
     id: 3,
@@ -88,14 +88,14 @@ const servicesData = [
   },
   {
     id: 5,
-    title: "Bank & Credit Unit Security",
+    title: "Financial Institution Security",
     icon: "🏦",
     image: "/Services/bank-security.jpg",
     description: "Financial institution security services.",
     features: ["Asset Protection", "Access Control", "Alarm Response", "Transaction Security"],
     stats: "100%",
     statsText: "Compliance",
-    href: "/services/bank-credit-unit-security"
+    href: "/services/financial-institution-security"
   },
   {
     id: 6,
@@ -106,7 +106,7 @@ const servicesData = [
     features: ["Crowd Control", "Access Management", "Emergency Planning", "VIP Protection"],
     stats: "5K+",
     statsText: "Events Secured",
-    href: "/services/event-security-orange-county"
+    href: "/services/event-security"
   },
   {
     id: 7,
@@ -117,18 +117,18 @@ const servicesData = [
     features: ["Theft Prevention", "Access Control", "Equipment Monitoring", "Perimeter Security"],
     stats: "85%",
     statsText: "Theft Reduction",
-    href: "/services/construction-security-orange-county"
+    href: "/services/construction-security"
   },
   {
     id: 8,
-    title: "Factories/Storage Security",
+    title: "Onsite Security 24/7",
     icon: "🏭",
     image: "/Services/factory-security.jpg",
     description: "Industrial facility security solutions.",
     features: ["Asset Protection", "Access Control", "Inventory Monitoring", "Safety Compliance"],
     stats: "99%",
     statsText: "Accuracy",
-    href: "/services/factories-storage-security"
+    href: "/services/on-site-security"
   },
   {
     id: 9,
@@ -139,7 +139,7 @@ const servicesData = [
     features: ["Random Patrols", "Rapid Response", "Property Checks", "Incident Reporting"],
     stats: "15min",
     statsText: "Response Time",
-    href: "/services/mobile-patrol"
+    href: "/services/mobile-patrol-security"
   },
   {
     id: 10,
@@ -165,48 +165,48 @@ const servicesData = [
   },
   {
     id: 12,
-    title: "Bodyguard Services",
+    title: "Bank Security",
     icon: "💪",
     image: "/Services/bodyguard-services.jpg",
     description: "Personal protection services.",
     features: ["Close Protection", "Risk Assessment", "Emergency Response", "Discretion"],
     stats: "24/7",
     statsText: "Protection",
-    href: "/services/bodyguard-services"
+    href: "/services/bank-security"
   },
-  {
-    id: 13,
-    title: "Vehicle Patrol",
-    icon: "🚔",
-    image: "/Services/vehicle-patrol.jpg",
-    description: "Mobile security patrol services.",
-    features: ["Regular Patrols", "Rapid Response", "Property Checks", "Incident Reporting"],
-    stats: "15min",
-    statsText: "Response Time",
-    href: "/services/vehicle-patrol"
-  },
-  {
-    id: 14,
-    title: "Foot Patrol",
-    icon: "🚶‍♂️",
-    image: "/Services/foot-patrol.jpg",
-    description: "On-foot security patrol services.",
-    features: ["Detailed Inspection", "Access Control", "Visible Deterrent", "Community Engagement"],
-    stats: "360°",
-    statsText: "Coverage",
-    href: "/services/foot-patrol"
-  },
-  {
-    id: 15,
-    title: "Religious Sites Security",
-    icon: "⛪",
-    image: "/Services/religious-security.jpg",
-    description: "Security for places of worship.",
-    features: ["Crowd Management", "Access Control", "Emergency Planning", "Community Relations"],
-    stats: "100%",
-    statsText: "Peace of Mind",
-    href: "/services/religious-sites-security"
-  },
+  // {
+  //   id: 13,
+  //   title: "Vehicle Patrol",
+  //   icon: "🚔",
+  //   image: "/Services/vehicle-patrol.jpg",
+  //   description: "Mobile security patrol services.",
+  //   features: ["Regular Patrols", "Rapid Response", "Property Checks", "Incident Reporting"],
+  //   stats: "15min",
+  //   statsText: "Response Time",
+  //   href: "/services/vehicle-patrol"
+  // },
+  // {
+  //   id: 14,
+  //   title: "Foot Patrol",
+  //   icon: "🚶‍♂️",
+  //   image: "/Services/foot-patrol.jpg",
+  //   description: "On-foot security patrol services.",
+  //   features: ["Detailed Inspection", "Access Control", "Visible Deterrent", "Community Engagement"],
+  //   stats: "360°",
+  //   statsText: "Coverage",
+  //   href: "/services/foot-patrol"
+  // },
+  // {
+  //   id: 15,
+  //   title: "Religious Sites Security",
+  //   icon: "⛪",
+  //   image: "/Services/religious-security.jpg",
+  //   description: "Security for places of worship.",
+  //   features: ["Crowd Management", "Access Control", "Emergency Planning", "Community Relations"],
+  //   stats: "100%",
+  //   statsText: "Peace of Mind",
+  //   href: "/services/religious-sites-security"
+  // },
   {
     id: 16,
     title: "School / Campus Security",
@@ -220,14 +220,13 @@ const servicesData = [
   },
   {
     id: 17,
-    title: "Transport Stations Security",
-    icon: "🚉",
+    title: "Unarmed Security",
     image: "/Services/transport-security.jpg",
     description: "Security for transportation hubs.",
     features: ["Crowd Control", "Baggage Screening", "Emergency Response", "Patrol Services"],
     stats: "1M+",
     statsText: "Travelers Daily",
-    href: "/services/transport-stations-security"
+    href: "/services/unarmed-security"
   },
   {
     id: 18,
@@ -249,18 +248,7 @@ const servicesData = [
     stats: "24/7",
     statsText: "Guest Protection",
     href: "/services/hotel-private-parties-security"
-  },
-  {
-    id: 20,
-    title: "HOA/Apartments/Community Security",
-    icon: "🏘️",
-    image: "/Services/community-security.jpg",
-    description: "Residential community security.",
-    features: ["Access Control", "Patrol Services", "Visitor Management", "Emergency Response"],
-    stats: "100+",
-    statsText: "Communities",
-    href: "/services/hoa-apartments-community-security"
-  }
+  } 
 ];
 
 // Fixed custom hook for intersection observer

@@ -303,7 +303,7 @@ import { motion } from "framer-motion"
 const services = [
   { 
     id: 1,
-    title: "High Rise Security", 
+    title: "High Rise building Security", 
     icon: Building2, 
     backgroundImage: "/Services/high-rise-security.jpg",
     description: "Comprehensive access control and monitoring for skyscrapers and multi-tenant properties.",
@@ -311,7 +311,7 @@ const services = [
   },
   { 
     id: 2,
-    title: "Fire Watch", 
+    title: "Fire Watch Security", 
     icon: Flame,
     backgroundImage: "/Services/fire-watch.jpg",
     description: "Certified fire guards to protect your property during system impairments or high-risk periods.",
@@ -319,7 +319,7 @@ const services = [
   },
   { 
     id: 3,
-    title: "Healthcare Facilities", 
+    title: "Hospital Security", 
     icon: HeartPulse,
     backgroundImage: "/Services/hospital-security.jpg",
     description: "Specialized protection ensuring patient safety while maintaining a welcoming environment.",
@@ -327,7 +327,7 @@ const services = [
   },
   { 
     id: 4,
-    title: "Retail Centers", 
+    title: "Retail Centers Security", 
     icon: ShoppingBag,
     backgroundImage: "/Services/shopping-center-security.jpg",
     description: "Loss prevention and customer safety solutions that don't disrupt the shopping experience.",
@@ -335,7 +335,7 @@ const services = [
   },
   { 
     id: 5,
-    title: "Financial Institutions", 
+    title: "Financial Institutions  Security", 
     icon: Landmark,
     backgroundImage: "/Services/bank-security.jpg",
     description: "High-stakes security with armed protection and advanced surveillance for banks.",
@@ -365,7 +365,7 @@ const cardVariants = {
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
+    transition: { duration: 0.5 }
   },
 }
 
@@ -389,7 +389,7 @@ export function ServicesGrid() {
              </span>
              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
                Elite security solutions <br />
-               <span className="text-slate-400">engineered for your industry.</span>
+               <span className="text-slate-400">security for your industry.</span>
              </h2>
           </div>
           
