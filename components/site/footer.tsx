@@ -1,103 +1,3 @@
-// import Link from "next/link"
-
-// const services = [
-//   { href: "/services/armed-security", label: "Armed Security" },
-//   { href: "/services/construction-security-orange-county", label: "Construction Security OC" },
-//   { href: "/services/event-security-orange-county", label: "Event Security OC" },
-//   { href: "/services/specialized-fire-watch-orange-county", label: "Specialized Fire Watch OC" },
-//   { href: "/services/security-guard-orange-county", label: "Security Guard OC" },
-//   { href: "/services/patrol-services-orange-county", label: "Patrol Services OC" },
-//   { href: "/services/unarmed-guard-orange-county", label: "Unarmed Guard OC" },
-// ]
-
-// export function Footer() {
-//   return (
-//     <footer className="bg-foreground text-background mt-16" role="contentinfo">
-//       <div className="mx-auto max-w-7xl px-4 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
-//         <div>
-//           <div className="flex items-center gap-3">
-//             <div className="h-9 w-9 rounded-md bg-primary text-primary-foreground grid place-items-center font-bold">
-//               P
-//             </div>
-//             <div className="font-semibold tracking-wide">ProForce1</div>
-//           </div>
-//           <p className="mt-4 text-sm/6 text-background/80">
-//             Professional, reliable, and cost‑effective security services across Orange County.
-//           </p>
-//           <p className="mt-4 text-sm/6">Email: info@secureco.com</p>
-//           <p className="text-sm/6">Phone: (800) 000-0000</p>
-//           <p className="text-sm/6">Location: Orange County, CA</p>
-//         </div>
-
-//         <div>
-//           <div className="font-semibold mb-3">Quick Links</div>
-//           <ul className="grid gap-2 text-sm/6">
-//             <li>
-//               <Link href="/about" className="hover:underline">
-//                 About Us
-//               </Link>
-//             </li>
-//             <li>
-//               <Link href="/services" className="hover:underline">
-//                 Services
-//               </Link>
-//             </li>
-//             <li>
-//               <Link href="/careers" className="hover:underline">
-//                 Careers
-//               </Link>
-//             </li>
-//             <li>
-//               <Link href="/contact" className="hover:underline">
-//                 Contact
-//               </Link>
-//             </li>
-//             <li>
-//               <Link href="/privacy-policy" className="hover:underline">
-//                 Privacy Policy
-//               </Link>
-//             </li>
-//           </ul>
-//         </div>
-
-//         <div>
-//           <div className="font-semibold mb-3">Our Services</div>
-//           <ul className="grid gap-2 text-sm/6">
-//             {services.map((s) => (
-//               <li key={s.href}>
-//                 <Link href={s.href} className="hover:underline">
-//                   {s.label}
-//                 </Link>
-//               </li>
-//             ))}
-//           </ul>
-//         </div>
-
-//         <div>
-//           <div className="font-semibold mb-3">Hours</div>
-//           <p className="text-sm/6">24/7 Operations</p>
-//           <div className="mt-6">
-//             <Link
-//               href="tel:8000000000"
-//               className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-primary-foreground font-medium"
-//             >
-//               Call (800) 000‑0000
-//             </Link>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="border-t border-background/20">
-//         <div className="mx-auto max-w-7xl px-4 lg:px-8 py-4 text-xs text-background/80 flex flex-col sm:flex-row items-center justify-between gap-2">
-//           <p>© {new Date().getFullYear()} ProForce1. All rights reserved.</p>
-//           <p>Licensed • Bonded • Insured</p>
-//         </div>
-//       </div>
-//     </footer>
-//   )
-// }
-
-// export default Footer
-
 "use client"
 
 import Link from "next/link"
@@ -157,7 +57,7 @@ export function Footer() {
           <div className="flex-shrink-0">
              <Link href="/">
               <Image 
-                src="/ProforceLogo.png" 
+                src="/logo.png" 
                 alt="ProForce 1 Protection Services" 
                 width={280} 
                 height={70} 
@@ -237,7 +137,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
+                <Link href="/term&condition" className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
                   Terms & Conditions
                 </Link>
               </li>
@@ -273,13 +173,13 @@ export function Footer() {
            ========================================= */}
         <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500">
           <p>© {new Date().getFullYear()} ProForce 1 Protection Services. All Rights Reserved.</p>
-          <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-slate-900 border border-slate-800">
+          {/* <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-slate-900 border border-slate-800">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
             </span>
             <span className="font-semibold text-slate-400">Systems Operational 24/7/365</span>
-          </div>
+          </div> */}
         </div>
 
       </div>
