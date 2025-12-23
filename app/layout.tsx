@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://proforc1.com/wp-content/uploads/2022/08/WhatsApp_Image_2022-08-25_at_6.19.15_PM-removebg-preview.png',
+        url: '/logo.png',
         width: 581,
         height: 163,
         alt: 'ProForce1 Protection Services',

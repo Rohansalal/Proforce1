@@ -24,7 +24,7 @@ const slides = [
     title: "Mobile Patrol",
     subtitle: "Deterrence & Response",
     description: "High-visibility patrol units providing round-the-clock deterrence and rapid response for your properties.",
-    link: "/services/mobile-patrol",
+    link: "/services/mobile-patrol-security",
     icon: <ShieldCheck className="w-6 h-6" />,
     theme: "blue"
   },
@@ -54,7 +54,7 @@ const slides = [
     title: "Fire Watch",
     subtitle: "NFPA Compliance",
     description: "NFPA-compliant fire watch services ensuring compliance and safety during system outages.",
-    link: "/services/fire-watch",
+    link: "/services/fire-watch-security",
     icon: <Flame className="w-6 h-6" />,
     theme: "orange"
   }

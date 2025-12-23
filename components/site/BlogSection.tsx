@@ -26,7 +26,7 @@ const BlogSection: React.FC = () => {
       excerpt: "When most people think of security, they picture surveillance cameras and access control. However, the human element remains the strongest deterrent against threats...",
       commentCount: 12,
       author: "Chief Operations Officer",
-      image: "https://images.unsplash.com/photo-1584464431008-132d84793618?q=80&w=1000&auto=format&fit=crop" // Security guard image
+      image: "/blogimage/expansion-map.jpg" // Security guard image
     },
     {
       id: 2,

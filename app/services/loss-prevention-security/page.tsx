@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { 
   Shield, Lock, Users, CheckCircle2, Phone, Mail,
   Award, Clock, MapPin, AlertTriangle, BadgeCheck, ChevronRight,
@@ -17,22 +17,49 @@ import {
   BarChart, PieChart, LineChart, TrendingDown, EyeOff,
   Fingerprint, Database, Network, Server, QrCode,
   Smartphone, Tablet, Monitor, Receipt, FileBarChart,
-  ClipboardCheck, ClipboardList, AlertOctagon
+  ClipboardCheck, ClipboardList, AlertOctagon, UserMinus, BarChart3
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
-const IMAGES = {
-  hero: "/Services/loss-prevention/loss-hero.jpg",
-  security: "/Services/loss-prevention/loss-security.jpg",
-  technology: "/Services/loss-prevention/loss-tech.jpg",
-  retail: "/Services/loss-prevention/loss-retail.jpg",
-  officer: "/Services/loss-prevention/loss-officer.jpg",
-  command: "/Services/loss-prevention/loss-command.jpg",
-  team: "/Services/loss-prevention/loss-team.jpg",
-  analytics: "/Services/loss-prevention/loss-analytics.jpg"
+const ASSETS = {
+  heroVideo: "/Services/loss/video.mp4",
+  store: "/Services/loss/top.jpeg",
+  warehouse: "/Services/loss/top.jpeg",
+  cctv: "/Services/loss/footer.jpeg",
+  officer: "/Services/loss/footer.jpeg",
+  audit: "/Services/loss/footer.jpeg",
+  team: "/Services/loss/footer.jpeg",
+  analytics: "/Services/loss/footer.jpeg",
+  // Added 'security' as a fallback or alias to 'officer' to prevent undefined errors if referenced
+  security: "/Services/loss/footer.jpeg"
 }
+
+// Custom color theme using #f34100
+const THEME = {
+  primary: "#f34100",
+  primaryLight: "#ff6d33",
+  primaryDark: "#d63100",
+  gradientFrom: "#f34100",
+  gradientTo: "#ff5500"
+}
+
+// Custom Button with theme color
+const ThemeButton = ({ children, className = "", ...props }: any) => (
+  <Button 
+    className={cn(
+      `bg-[#f34100] hover:bg-[#d63100] text-white transition-all duration-300`,
+      className
+    )}
+    style={{
+      boxShadow: '0 4px 20px rgba(243, 65, 0, 0.3)'
+    }}
+    {...props}
+  >
+    {children}
+  </Button>
+)
 
 // --- Components ---
 const SectionHeading = ({
@@ -47,11 +74,16 @@ const SectionHeading = ({
   light?: boolean
 }) => (
   <div className={cn("mb-16", align === "center" ? "text-center" : "text-left", className)}>
-    <div className={cn(
-      "w-16 h-1.5 mb-6 rounded-full",
-      align === "center" ? "mx-auto" : "ml-0",
-      light ? "bg-purple-500" : "bg-purple-600"
-    )} />
+    <div 
+      className={cn(
+        "w-16 h-1.5 mb-6 rounded-full",
+        align === "center" ? "mx-auto" : "ml-0",
+      )}
+      style={{ 
+        backgroundColor: THEME.primary,
+        boxShadow: light ? `0 0 10px ${THEME.primary}40` : "none"
+      }}
+    />
     <h2 className={cn(
       "text-3xl md:text-5xl font-extrabold tracking-tight leading-tight",
       light ? "text-white" : "text-slate-900"
@@ -60,6 +92,34 @@ const SectionHeading = ({
     </h2>
   </div>
 )
+
+const VideoBackground = ({ src }: { src: string }) => {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    
+    useEffect(() => {
+        if(videoRef.current) {
+            videoRef.current.play().catch(e => console.log("Autoplay prevented", e));
+        }
+    }, []);
+
+    return (
+        <div className="absolute inset-0 z-0 overflow-hidden">
+             <video
+                ref={videoRef}
+                className="absolute w-full h-full object-cover"
+                src={src}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+            />
+             {/* Overlay - Darker for retail/night/tech feel */}
+             <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-[#f34100]/30" />
+             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+        </div>
+    )
+}
 
 // --- Data ---
 const whyChooseUs = [
@@ -104,7 +164,7 @@ const whyChooseUs = [
   },
   {
     title: "Inventory Shrinkage Analysis & Prevention",
-    icon: <BarChart className="w-8 h-8 text-white" />,
+    icon: <BarChart3 className="w-8 h-8 text-white" />,
     description: "Data-driven approaches to identify and reduce inventory shrinkage",
     points: [
       "Shrinkage trend analysis",
@@ -209,26 +269,19 @@ export default function LossPreventionSecurityPage() {
       
       {/* 1. Hero Section */}
       <header className="relative w-full h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={IMAGES.hero}
-            alt="Loss Prevention Security Services"
-            fill
-            className="object-cover"
-            priority
-          />
-          
-          {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-purple-900/60 to-purple-900/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-purple-900 via-transparent to-transparent" />
-        </div>
+        {/* Background Video */}
+        <VideoBackground src={ASSETS.heroVideo} />
 
         {/* Content Layer */}
         <div className="relative z-10 container mx-auto px-6 text-center">
           <div className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
             LOSS PREVENTION<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">
+            <span 
+              className="text-transparent bg-clip-text bg-gradient-to-r"
+              style={{
+                backgroundImage: `linear-gradient(90deg, ${THEME.gradientFrom}, ${THEME.gradientTo})`
+              }}
+            >
               SECURITY SERVICES
             </span>
             <br />
@@ -244,13 +297,13 @@ export default function LossPreventionSecurityPage() {
             </p>
             
             {/* Simple CTA Button */}
-            <Button 
+            <ThemeButton 
               size="lg" 
-              className="bg-purple-600 hover:bg-purple-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
+              className="px-10 h-16 text-lg font-semibold"
             >
               <Phone className="mr-3 w-5 h-5" />
-              Request Loss Prevention Consultation
-            </Button>
+              Request LP Consultation
+            </ThemeButton>
           </div>
 
           {/* Scroll indicator */}
@@ -273,7 +326,7 @@ export default function LossPreventionSecurityPage() {
                   <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
                     Loss Prevention Specialists
                     <br />
-                    <span className="text-purple-600">
+                    <span style={{ color: THEME.primary }}>
                       Reducing Shrinkage & Protecting Profits
                     </span>
                   </h2>
@@ -288,20 +341,29 @@ export default function LossPreventionSecurityPage() {
                     
                     <div className="space-y-3">
                       <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-purple-600" />
+                        <div 
+                          className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ backgroundColor: `${THEME.primary}20` }}
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5" style={{ color: THEME.primary }} />
                         </div>
                         <span className="text-slate-700 font-medium">Certified Loss Prevention Specialists</span>
                       </div>
                       <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-purple-600" />
+                        <div 
+                          className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ backgroundColor: `${THEME.primary}20` }}
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5" style={{ color: THEME.primary }} />
                         </div>
                         <span className="text-slate-700 font-medium">Legal apprehension and documentation expertise</span>
                       </div>
                       <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-purple-600" />
+                        <div 
+                          className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ backgroundColor: `${THEME.primary}20` }}
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5" style={{ color: THEME.primary }} />
                         </div>
                         <span className="text-slate-700 font-medium">Data-driven shrinkage analysis and prevention</span>
                       </div>
@@ -313,9 +375,18 @@ export default function LossPreventionSecurityPage() {
                     <p className="text-slate-600 leading-relaxed">
                       Our loss prevention officers are trained in both visible deterrence and discreet surveillance techniques. We understand that effective loss prevention balances theft prevention with positive customer experiences.
                     </p>
-                    <div className="bg-purple-50 border border-purple-100 rounded-xl p-4">
+                    <div 
+                      className="rounded-xl p-4 border"
+                      style={{ 
+                        backgroundColor: `${THEME.primary}05`,
+                        borderColor: `${THEME.primary}20`
+                      }}
+                    >
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-purple-600 rounded-lg">
+                        <div 
+                          className="p-2 rounded-lg"
+                          style={{ backgroundColor: THEME.primary }}
+                        >
                           <ShieldCheck className="w-5 h-5 text-white" />
                         </div>
                         <div>
@@ -330,13 +401,22 @@ export default function LossPreventionSecurityPage() {
                 {/* Stats Row */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
                   {[
-                    { value: "20+", label: "Years Experience", icon: Award, color: "text-purple-600" },
-                    { value: "30%+", label: "Average Shrinkage Reduction", icon: TrendingDown, color: "text-green-600" },
-                    { value: "100%", label: "Certified Officers", icon: BadgeCheck, color: "text-blue-600" },
-                    { value: "500+", label: "Businesses Protected", icon: Building, color: "text-amber-600" },
+                    { value: "20+", label: "Years Experience", icon: Award, color: THEME.primary },
+                    { value: "30%+", label: "Average Shrinkage Reduction", icon: TrendingDown, color: "#10b981" },
+                    { value: "100%", label: "Certified Officers", icon: BadgeCheck, color: "#4f46e5" },
+                    { value: "500+", label: "Businesses Protected", icon: Building, color: THEME.primaryDark },
                   ].map((stat, idx) => (
-                    <div key={idx} className="text-center bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                      <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-2`} />
+                    <div 
+                      key={idx} 
+                      className="text-center bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:border-orange-200 transition-colors"
+                      style={{
+                         borderColor: idx === 0 || idx === 3 ? `${THEME.primary}30` : ''
+                      }}
+                    >
+                      <stat.icon 
+                        className="w-8 h-8 mx-auto mb-2" 
+                        style={{ color: stat.color }}
+                      />
                       <div className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">{stat.value}</div>
                       <div className="text-xs text-slate-600 uppercase tracking-wider font-medium">{stat.label}</div>
                     </div>
@@ -345,11 +425,15 @@ export default function LossPreventionSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                  <ThemeButton size="lg" className="px-10 h-14 text-base font-semibold">
                     <Phone className="mr-3 w-5 h-5" />
                     Request LP Consultation
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                  </ThemeButton>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg"
+                  >
                     <ShieldCheck className="mr-3 w-5 h-5" />
                     View Loss Prevention Solutions
                   </Button>
@@ -358,22 +442,28 @@ export default function LossPreventionSecurityPage() {
 
               {/* Right Image Column */}
               <div className="lg:col-span-5 relative">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[600px]">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[600px] border border-slate-200">
                   <Image
-                    src={IMAGES.security}
+                    src={ASSETS.security} // Using the security image (LP officer)
                     alt="Professional Loss Prevention Officer"
                     fill
                     className="object-cover"
                     priority
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
                   
                   {/* Badge on image */}
-                  <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+                  <div 
+                    className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border-l-4"
+                    style={{ borderLeftColor: THEME.primary }}
+                  >
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-semibold text-slate-900">LP Certified</span>
+                      <div 
+                        className="w-3 h-3 rounded-full animate-pulse"
+                        style={{ backgroundColor: THEME.primary }}
+                      ></div>
+                      <span className="text-sm font-bold text-slate-900">LP Certified</span>
                     </div>
                   </div>
                 </div>
@@ -387,12 +477,12 @@ export default function LossPreventionSecurityPage() {
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-6">
           <SectionHeading>
-            Why <span className="text-purple-600">Loss Prevention</span> is Critical for Retail Success
+            Why Your Business Needs <span style={{ color: THEME.primary }}>Loss Prevention</span>
           </SectionHeading>
 
           <div className="max-w-4xl mx-auto mb-16">
             <p className="text-lg text-slate-600 text-center mb-8 leading-relaxed">
-              Effective loss prevention addresses multiple theft sources while maintaining customer service excellence and legal compliance.
+              Shrinkage eats directly into your profits. Whether it's shoplifting, employee theft, or administrative error, our LP services are designed to identify the root cause and stop the bleeding.
             </p>
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -406,10 +496,19 @@ export default function LossPreventionSecurityPage() {
                 "High-value protection",
                 "Inventory shrinkage"
               ].map((item, idx) => (
-                <div key={idx} className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
+                <div 
+                  key={idx} 
+                  className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-orange-200 transition-colors"
+                  style={{
+                    borderColor: idx % 2 === 0 ? `${THEME.primary}20` : ''
+                  }}
+                >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <ShieldCheck className="w-4 h-4 text-purple-600" />
+                    <div 
+                      className="w-8 h-8 rounded-lg flex items-center justify-center"
+                      style={{ backgroundColor: `${THEME.primary}15` }}
+                    >
+                      <ShieldCheck className="w-4 h-4" style={{ color: THEME.primary }} />
                     </div>
                     <span className="text-slate-700 font-medium text-sm">{item}</span>
                   </div>
@@ -428,12 +527,25 @@ export default function LossPreventionSecurityPage() {
             {whyChooseUs.map((feature, idx) => (
               <div 
                 key={idx}
-                className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-md transition-shadow duration-300"
+                className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-xl hover:border-orange-100 transition-all duration-300"
+                style={{
+                  borderColor: `${THEME.primary}10`,
+                  boxShadow: `0 4px 20px ${THEME.primary}05`
+                }}
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-bl-[100px] -mr-8 -mt-8 transition-colors group-hover:bg-purple-100" />
+                <div 
+                  className="absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] -mr-8 -mt-8 transition-colors group-hover:bg-opacity-30"
+                  style={{ backgroundColor: `${THEME.primary}10` }}
+                />
                 
                 <div className="relative z-10">
-                  <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-slate-900/20 group-hover:bg-purple-600 group-hover:shadow-purple-600/30 transition-all duration-300">
+                  <div 
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-orange-600/30 transition-all duration-300"
+                    style={{ 
+                      backgroundColor: THEME.primary,
+                      boxShadow: `0 4px 20px ${THEME.primary}30`
+                    }}
+                  >
                     {feature.icon}
                   </div>
                   
@@ -443,13 +555,22 @@ export default function LossPreventionSecurityPage() {
                   <div className="space-y-3 mb-6">
                     {feature.points.map((point, pIdx) => (
                       <div key={pIdx} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 
+                          className="w-5 h-5 flex-shrink-0 mt-0.5" 
+                          style={{ color: THEME.primary }}
+                        />
                         <span className="text-sm text-slate-600">{point}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-sm text-slate-600 italic">
+                  <div 
+                    className="p-4 rounded-xl border text-sm text-slate-600 italic"
+                    style={{ 
+                      backgroundColor: `${THEME.primary}05`,
+                      borderColor: `${THEME.primary}10`
+                    }}
+                  >
                     "{feature.note}"
                   </div>
                 </div>
@@ -464,7 +585,7 @@ export default function LossPreventionSecurityPage() {
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
-            src={IMAGES.analytics}
+            src={ASSETS.analytics}
             alt="Loss Prevention Analytics Environment"
             fill
             className="object-cover"
@@ -472,18 +593,29 @@ export default function LossPreventionSecurityPage() {
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-900/95" />
-          <div className="absolute inset-0 bg-gradient-to-t from-purple-900/10 via-transparent to-transparent" />
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(to top, rgba(15, 23, 42, 0), ${THEME.primary}10)`
+            }}
+          />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <div className="inline-block mb-8">
-              <div className="h-1 w-24 bg-purple-600 mx-auto"></div>
-              <div className="h-1 w-16 bg-purple-500 mx-auto mt-1"></div>
+              <div 
+                className="h-1 w-24 mx-auto"
+                style={{ backgroundColor: THEME.primary }}
+              ></div>
+              <div 
+                className="h-1 w-16 mx-auto mt-1"
+                style={{ backgroundColor: THEME.primaryLight }}
+              ></div>
             </div>
             
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Our <span className="text-purple-500">Loss Prevention Services</span>
+              Our <span style={{ color: THEME.primaryLight }}>Loss Prevention Services</span>
             </h2>
             
             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
@@ -498,13 +630,30 @@ export default function LossPreventionSecurityPage() {
                 className="group relative"
               >
                 {/* Card with glass effect */}
-                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/15 hover:border-purple-500/50 transition-all duration-300 cursor-default overflow-hidden">
+                <div 
+                  className="relative backdrop-blur-md border border-white/20 rounded-xl p-6 hover:border-orange-500/50 transition-all duration-300 cursor-default overflow-hidden h-full"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                  }}
+                >
                   {/* Background highlight on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-purple-600/0 group-hover:from-purple-600/10 group-hover:to-purple-600/5 transition-all duration-300" />
+                  <div 
+                    className="absolute inset-0 transition-all duration-300"
+                    style={{
+                      background: `linear-gradient(135deg, ${THEME.primary}00, ${THEME.primary}00)`,
+                    }}
+                  />
                   
                   {/* Icon */}
                   <div className="relative z-10 mb-5">
-                    <div className="w-14 h-14 bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <div 
+                      className="w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg"
+                      style={{
+                        background: `linear-gradient(135deg, ${THEME.primary}, ${THEME.primaryDark})`,
+                        boxShadow: `0 4px 20px ${THEME.primary}40`
+                      }}
+                    >
                       <div className="text-white">
                         {item.icon}
                       </div>
@@ -513,7 +662,10 @@ export default function LossPreventionSecurityPage() {
                   
                   {/* Content */}
                   <div className="relative z-10">
-                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+                    <h3 
+                      className="text-lg font-bold text-white mb-2 group-hover:text-orange-300 transition-colors"
+                      style={{ color: '#fff' }}
+                    >
                       {item.title}
                     </h3>
                     <p className="text-sm text-slate-300 mb-3 group-hover:text-slate-200 transition-colors">
@@ -524,7 +676,10 @@ export default function LossPreventionSecurityPage() {
                     <div className="space-y-1">
                       {item.details.map((detail, dIdx) => (
                         <div key={dIdx} className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                          <div 
+                            className="w-1.5 h-1.5 rounded-full"
+                            style={{ backgroundColor: THEME.primary }}
+                          ></div>
                           <span className="text-xs text-slate-300">{detail}</span>
                         </div>
                       ))}
@@ -533,7 +688,10 @@ export default function LossPreventionSecurityPage() {
                   
                   {/* Bottom indicator */}
                   <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center">
+                    <div 
+                      className="w-6 h-6 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: THEME.primary }}
+                    >
                       <ChevronRight className="w-3 h-3 text-white" />
                     </div>
                   </div>
@@ -544,14 +702,23 @@ export default function LossPreventionSecurityPage() {
 
           {/* Analytics & Reporting Section */}
           <div className="max-w-4xl mx-auto mt-20">
-            <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/20 rounded-2xl p-10 relative overflow-hidden">
+            <div 
+              className="backdrop-blur-xl rounded-2xl p-10 relative overflow-hidden shadow-2xl"
+              style={{
+                background: `linear-gradient(90deg, rgba(15, 23, 42, 0.9), ${THEME.primary}15)`,
+                border: '1px solid rgba(255, 255, 255, 0.2)'
+              }}
+            >
               {/* Pattern overlay */}
               <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10"></div>
               
               <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-purple-600 rounded-xl">
-                    <BarChart className="w-8 h-8 text-white" />
+                  <div 
+                    className="p-3 rounded-xl"
+                    style={{ backgroundColor: THEME.primary }}
+                  >
+                    <BarChart3 className="w-8 h-8 text-white" />
                   </div>
                   <div>
                     <h3 className="text-2xl md:text-3xl font-bold text-white">Loss Prevention Analytics & Reporting</h3>
@@ -573,15 +740,18 @@ export default function LossPreventionSecurityPage() {
                       "ROI analysis of loss prevention measures"
                     ].map((item, idx) => (
                       <div key={idx} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 
+                          className="w-5 h-5 flex-shrink-0 mt-0.5" 
+                          style={{ color: THEME.primary }}
+                        />
                         <span className="text-slate-300">{item}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+                  <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 flex flex-col justify-center items-center">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-white mb-2">Data-Driven LP</div>
-                      <p className="text-slate-300">Analytics-based loss prevention strategies</p>
+                      <p className="text-slate-300 text-sm">Analytics-based loss prevention strategies</p>
                     </div>
                   </div>
                 </div>
@@ -595,45 +765,69 @@ export default function LossPreventionSecurityPage() {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
            <div className="text-center mb-16">
-              <SectionHeading>
-                Industries <br/> We <span className="text-purple-600">Protect</span>
-              </SectionHeading>
-              <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-12">
-                Our specialized loss prevention services cover all types of retail businesses across California
-              </p>
+             <SectionHeading>
+               Industries <br/> We <span style={{ color: THEME.primary }}>Protect</span>
+             </SectionHeading>
+             <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-12">
+               Our specialized loss prevention services cover all types of retail businesses across California
+             </p>
            </div>
 
            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
-              {industriesServed.map((item, idx) => (
-                <div 
-                  key={idx}
-                  className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
-                >
-                  <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4">
-                    <div className="text-purple-600">
-                      {item.icon}
-                    </div>
-                  </div>
-                  <h4 className="font-bold text-slate-900 mb-2">{item.name}</h4>
-                  <p className="text-sm text-slate-500">{item.description}</p>
-                </div>
-              ))}
+             {industriesServed.map((item, idx) => (
+               <div 
+                 key={idx}
+                 className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+                 style={{
+                   borderColor: `${THEME.primary}20`,
+                   boxShadow: `0 2px 8px ${THEME.primary}05`
+                 }}
+               >
+                 <div 
+                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors"
+                   style={{ backgroundColor: `${THEME.primary}10` }}
+                 >
+                   <div style={{ color: THEME.primary }}>
+                     {item.icon}
+                   </div>
+                 </div>
+                 <h4 
+                   className="font-bold text-slate-900 mb-2 transition-colors"
+                   style={{ color: 'inherit' }}
+                 >
+                   {item.name}
+                 </h4>
+                 <p className="text-sm text-slate-500">{item.description}</p>
+               </div>
+             ))}
            </div>
 
            {/* Why Choose Us */}
-           <div className="max-w-6xl mx-auto bg-slate-50 rounded-3xl p-10">
+           <div 
+             className="max-w-6xl mx-auto rounded-3xl p-10 border"
+             style={{ 
+               backgroundColor: `${THEME.primary}05`,
+               borderColor: `${THEME.primary}10`
+             }}
+           >
               <div className="grid md:grid-cols-2 gap-12 items-center">
                  <div>
                     <h3 className="text-3xl font-bold text-slate-900 mb-6">
                        Why Choose <br/>
-                       <span className="text-purple-600">Proforce 1 for Loss Prevention</span>
+                       <span style={{ color: THEME.primary }}>Proforce 1 for Loss Prevention</span>
                     </h3>
                     
                     <div className="grid gap-4">
                        {trustFactors.map((factor, idx) => (
                          <div key={idx} className="flex gap-4 items-start">
-                            <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center flex-shrink-0 mt-1">
-                               <Star className="w-5 h-5 text-purple-600 fill-purple-600" />
+                            <div 
+                              className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
+                              style={{ backgroundColor: `${THEME.primary}15` }}
+                            >
+                               <Star 
+                                 className="w-5 h-5" 
+                                 style={{ color: THEME.primary, fill: THEME.primary }}
+                               />
                             </div>
                             <div>
                                <h4 className="text-lg font-bold text-slate-900">{factor.title}</h4>
@@ -647,22 +841,30 @@ export default function LossPreventionSecurityPage() {
                  <div>
                     <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[400px]">
                        <Image 
-                          src={IMAGES.team} 
+                          src={ASSETS.team} 
                           alt="Proforce 1 Loss Prevention Team" 
                           fill 
                           className="object-cover"
                        />
                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
                        <div className="absolute bottom-6 left-6 right-6">
-                          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4">
-                             <p className="text-slate-900 font-medium italic">
+                          <div 
+                            className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-xl border"
+                            style={{ borderColor: `${THEME.primary}20` }}
+                          >
+                             <p className="text-slate-900 font-medium italic mb-4">
                                 "Proforce 1 reduced our shrinkage by 45% in the first year. Their loss prevention team identified theft patterns we never noticed and implemented strategies that saved us over $250,000 annually."
                              </p>
                              <div className="flex items-center gap-3 mt-3">
-                                <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">TS</div>
+                                <div 
+                                  className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
+                                  style={{ backgroundColor: THEME.primary }}
+                                >
+                                  TS
+                                </div>
                                 <div>
-                                   <div className="font-bold text-slate-900">Thomas Smith</div>
-                                   <div className="text-sm text-slate-600">Retail Operations Director, Department Store Chain</div>
+                                    <div className="font-bold text-slate-900">Thomas Smith</div>
+                                    <div className="text-sm text-slate-600">Retail Operations Director, Department Store Chain</div>
                                 </div>
                              </div>
                           </div>
@@ -676,7 +878,12 @@ export default function LossPreventionSecurityPage() {
 
       {/* 6. Quote Form Section */}
       <section id="quote-section" className="py-24 bg-slate-950 relative overflow-hidden">
-         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-purple-900/20 via-slate-950 to-slate-950" />
+         <div 
+           className="absolute inset-0"
+           style={{
+             background: `radial-gradient(circle at bottom left, ${THEME.primary}20, rgba(15, 23, 42, 0) 50%), #0f172a`
+           }}
+         />
          
          <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-5xl mx-auto bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
@@ -690,28 +897,61 @@ export default function LossPreventionSecurityPage() {
                        <div className="grid grid-cols-2 gap-5">
                            <div className="space-y-1">
                                <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all" placeholder="John" />
+                               <input 
+                                 type="text" 
+                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all"
+                                 placeholder="John"
+                                 style={{
+                                   '--tw-ring-color': THEME.primary
+                                 } as React.CSSProperties}
+                               />
                            </div>
                            <div className="space-y-1">
                                <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all" placeholder="Doe" />
+                               <input 
+                                 type="text" 
+                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
+                                 placeholder="Doe"
+                                 style={{
+                                   '--tw-ring-color': THEME.primary
+                                 } as React.CSSProperties}
+                               />
                            </div>
                        </div>
                        
                        <div className="space-y-1">
                            <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all" placeholder="john@company.com" />
+                           <input 
+                             type="email" 
+                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
+                             placeholder="john@company.com"
+                             style={{
+                               '--tw-ring-color': THEME.primary
+                             } as React.CSSProperties}
+                           />
                        </div>
 
                        <div className="space-y-1">
                            <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all" placeholder="(555) 123-4567" />
+                           <input 
+                             type="tel" 
+                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
+                             placeholder="(555) 123-4567"
+                             style={{
+                               '--tw-ring-color': THEME.primary
+                             } as React.CSSProperties}
+                           />
                        </div>
 
                        <div className="grid grid-cols-2 gap-5">
                             <div className="space-y-1">
                                <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-700">
+                               <select 
+                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
+                                 style={{
+                                   '--tw-ring-color': THEME.primary
+                                 } as React.CSSProperties}
+                               >
                                    <option>Shoplifting Prevention & Apprehension</option>
                                    <option>Employee Theft Investigation</option>
                                    <option>Organized Retail Crime Prevention</option>
@@ -719,10 +959,15 @@ export default function LossPreventionSecurityPage() {
                                    <option>Inventory Shrinkage Analysis</option>
                                    <option>Full Loss Prevention Package</option>
                                </select>
-                            </div>
+                           </div>
                             <div className="space-y-1">
                                <label className="text-xs font-bold text-slate-500 uppercase">Industry Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-700">
+                               <select 
+                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
+                                 style={{
+                                   '--tw-ring-color': THEME.primary
+                                 } as React.CSSProperties}
+                               >
                                    <option>Retail Store</option>
                                    <option>Department Store</option>
                                    <option>Supermarket/Grocery</option>
@@ -735,22 +980,41 @@ export default function LossPreventionSecurityPage() {
 
                        <div className="space-y-1">
                            <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all" placeholder="Tell us about your business and specific loss prevention requirements..." />
+                           <textarea 
+                             rows={3} 
+                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
+                             placeholder="Tell us about your business and specific loss prevention requirements..."
+                             style={{
+                               '--tw-ring-color': THEME.primary
+                             } as React.CSSProperties}
+                           />
                        </div>
                        
-                       <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-purple-600/20 mt-2">
+                       <ThemeButton className="w-full h-14 text-lg font-bold mt-2">
                            Request Loss Prevention Proposal
-                       </Button>
+                       </ThemeButton>
                    </form>
                </div>
 
                {/* Info Side - Dark */}
-               <div className="bg-slate-900 p-10 md:p-14 w-full md:w-2/5 text-white flex flex-col justify-between relative overflow-hidden order-1 md:order-2">
+               <div 
+                 className="p-10 md:p-14 w-full md:w-2/5 text-white flex flex-col justify-between relative overflow-hidden order-1 md:order-2"
+                 style={{ backgroundColor: '#0f172a' }}
+               >
                    {/* Abstract Shapes */}
-                   <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl -mr-20 -mt-20" />
+                   <div 
+                     className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl -mr-20 -mt-20"
+                     style={{ backgroundColor: `${THEME.primary}20` }}
+                   />
                    
                    <div className="relative z-10">
-                       <div className="inline-block p-3 bg-purple-600 rounded-xl mb-8 shadow-lg shadow-purple-900/50">
+                       <div 
+                         className="inline-block p-3 rounded-xl mb-8 shadow-lg"
+                         style={{ 
+                           backgroundColor: THEME.primary,
+                           boxShadow: `0 4px 20px ${THEME.primary}50`
+                         }}
+                       >
                            <ShoppingBag className="w-8 h-8 text-white" />
                        </div>
                        
@@ -761,7 +1025,10 @@ export default function LossPreventionSecurityPage() {
                        
                        <div className="space-y-8">
                            <div className="flex items-start gap-4 group">
-                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-purple-600 transition-colors">
+                               <div 
+                                 className="p-2 rounded-lg group-hover:bg-opacity-100 transition-colors"
+                                 style={{ backgroundColor: `${THEME.primary}20` }}
+                               >
                                  <Phone className="w-5 h-5 text-white" />
                                </div>
                                <div>
@@ -771,7 +1038,10 @@ export default function LossPreventionSecurityPage() {
                            </div>
                            
                            <div className="flex items-start gap-4 group">
-                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-purple-600 transition-colors">
+                               <div 
+                                 className="p-2 rounded-lg group-hover:bg-opacity-100 transition-colors"
+                                 style={{ backgroundColor: `${THEME.primary}20` }}
+                               >
                                  <Mail className="w-5 h-5 text-white" />
                                </div>
                                <div>
@@ -781,7 +1051,10 @@ export default function LossPreventionSecurityPage() {
                            </div>
 
                            <div className="flex items-start gap-4 group">
-                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-purple-600 transition-colors">
+                               <div 
+                                 className="p-2 rounded-lg group-hover:bg-opacity-100 transition-colors"
+                                 style={{ backgroundColor: `${THEME.primary}20` }}
+                               >
                                  <Globe className="w-5 h-5 text-white" />
                                </div>
                                <div>
@@ -794,7 +1067,10 @@ export default function LossPreventionSecurityPage() {
                            </div>
                            
                            <div className="flex items-start gap-4 group">
-                               <div className="p-2 bg-slate-800 rounded-lg group-hover:bg-purple-600 transition-colors">
+                               <div 
+                                 className="p-2 rounded-lg group-hover:bg-opacity-100 transition-colors"
+                                 style={{ backgroundColor: `${THEME.primary}20` }}
+                               >
                                  <MapPin className="w-5 h-5 text-white" />
                                </div>
                                <div>
@@ -810,8 +1086,11 @@ export default function LossPreventionSecurityPage() {
                    
                    <div className="relative z-10 mt-12 pt-8 border-t border-slate-800">
                         <div className="flex items-center gap-2 text-slate-400 text-xs font-medium">
-                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                           Loss Prevention Teams Active
+                           <div 
+                             className="w-2 h-2 rounded-full animate-pulse"
+                             style={{ backgroundColor: THEME.primary }}
+                           />
+                           Loss Prevention Teams Active 24/7
                         </div>
                    </div>
                </div>

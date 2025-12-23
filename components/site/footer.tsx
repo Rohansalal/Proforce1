@@ -36,11 +36,11 @@ const servicesLinks = [
 ]
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Youtube, href: "#", label: "Youtube" },
+  { icon: Instagram, href: "https://www.instagram.com/proforce1protectionservices/", label: "Instagram" },
+  { icon: Facebook, href: "https://www.facebook.com/Proforce1protection", label: "Facebook" },
+  { icon: Twitter, href: "https://x.com/proforce_1", label: "Twitter" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/proforce1/", label: "LinkedIn" },
+  { icon: Youtube, href: "https://youtu.be/p6BQtfCuY5s?si=7FP-mx9tNfdBVeCp", label: "Youtube" },
 ]
 
 export function Footer() {
