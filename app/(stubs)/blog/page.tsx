@@ -62,7 +62,7 @@ export default function BlogPage() {
       author: "Lisa Thompson",
       date: "2024-01-08",
       readTime: "6 min read",
-      image: "/blog/training-class.jpg"
+      image: "/blogimage/training-class.jpg"
     },
     {
       id: 5,
@@ -72,7 +72,7 @@ export default function BlogPage() {
       author: "James Wilson",
       date: "2024-01-05",
       readTime: "4 min read",
-      image: "/blog/patrol-car.jpg"
+      image: "/blogimage/patrol-car.jpg"
     },
     {
       id: 6,

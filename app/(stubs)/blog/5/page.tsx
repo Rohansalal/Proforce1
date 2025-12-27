@@ -11,7 +11,7 @@ const blogData = {
   author: "Michael Ross",
   date: "2024-07-08",
   readTime: "5 min read",
-  image: "/blogimage/mobile-patrol.jpg" 
+  image: "/blogimage/patrol-car.jpg"
 };
 
 // We name the component 'Page' to follow standard Next.js conventions
