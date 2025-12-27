@@ -97,7 +97,7 @@
 //               </div>
 //               <div className="flex items-center gap-4">
 //                 <Phone className="w-6 h-6 text-red-600 flex-shrink-0" />
-//                 <a href="tel:8007797891" className="hover:text-white transition-colors font-medium text-lg">(800) 779-7891</a>
+//                 <a href="tel:8007797891" className="hover:text-white transition-colors font-medium text-lg">(800) 779-7691</a>
 //               </div>
 //               <div className="flex items-center gap-4">
 //                 <Mail className="w-6 h-6 text-red-600 flex-shrink-0" />
@@ -212,11 +212,11 @@ const quickLinks = [
 ]
 
 const servicesLinks = [
-  { href: "/services/armed", label: "Armed Security" },
-  { href: "/services/unarmed", label: "Unarmed Guard" },
-  { href: "/services/event", label: "Event Security" },
-  { href: "/services/patrol", label: "Mobile Patrol" },
-  { href: "/services/construction", label: "Construction Site" },
+  { href: "/services/armed-security", label: "Armed Security" },
+  { href: "/services/unarmed-security", label: "Unarmed Guard" },
+  { href: "/services/event-security", label: "Event Security" },
+  { href: "/services/mobile-patrol-security", label: "Mobile Patrol" },
+  { href: "/services/construction-security", label: "Construction Site" },
 ]
 
 const socialLinks = [
@@ -277,7 +277,7 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-4">
                 <Phone className="w-6 h-6 text-red-600 flex-shrink-0" />
-                <a href="tel:8007797891" className="hover:text-white transition-colors font-medium text-lg">(800) 779-7891</a>
+                <a href="tel:8007797891" className="hover:text-white transition-colors font-medium text-lg">(800) 779-7691</a>
               </div>
               <div className="flex items-center gap-4">
                 <Mail className="w-6 h-6 text-red-600 flex-shrink-0" />

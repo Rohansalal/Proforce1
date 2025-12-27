@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Phone, Mail, MapPin, UploadCloud, ChevronRight, Quote, Shield, ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ServiceAreasMap } from "@/components/site/service-areas-map"
+import { ServiceAreasAdvanced } from "@/components/site/service-areas-map"
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -215,8 +215,8 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* --- 4. MAP SECTION --- */}
-      <ServiceAreasMap />
+      {/* --- 4. MAP SECTION ---
+      <ServiceAreasAdvanced /> */}
       
     </main>
   )

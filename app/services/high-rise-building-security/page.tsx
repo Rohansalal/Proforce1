@@ -1004,7 +1004,7 @@ export default function HighRiskBuildingSecurityPage() {
                                </div>
                                <div>
                                    <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">24/7 Security Ops</div>
-                                   <div className="text-xl font-bold tracking-tight">800-779-7691</div>
+                                   <div className="text-xl font-bold tracking-tight">(800) 779-7691</div>
                                </div>
                            </div>
                            
@@ -1031,8 +1031,8 @@ export default function HighRiskBuildingSecurityPage() {
                                <div>
                                    <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Main Office</div>
                                    <div className="text-base text-slate-300">
-                                      123 Security Blvd, <br/>
-                                      Los Angeles, CA 90001
+                                      1671 W Katella ave suite 106 <br/>
+                                      Anaheim, CA, US 92802
                                    </div>
                                </div>
                            </div>

@@ -636,9 +636,9 @@
 //               <div className="text-xl font-bold mb-4">Let’s Protect What Matters Most</div>
               
 //               <div className="flex flex-col sm:flex-row gap-4">
-//                 <a href="tel:800-779-7691">
+//                 <a href="tel:(800) 779-7691">
 //                     <Button className="bg-white text-red-700 hover:bg-slate-100 font-bold px-6 py-6 rounded-md shadow-lg flex items-center gap-2 w-full sm:w-auto">
-//                         <Phone className="w-5 h-5" /> 800-779-7691
+//                         <Phone className="w-5 h-5" /> (800) 779-7691
 //                     </Button>
 //                 </a>
 //                 <a href="mailto:info@proforce1protection.com">
@@ -1090,9 +1090,9 @@ const AboutUs: React.FC = () => {
               <div className="text-xl font-bold mb-4">Let’s Protect What Matters Most</div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="tel:800-779-7691">
+                <a href="tel:(800) 779-7691">
                     <Button className="bg-white text-red-700 hover:bg-slate-100 font-bold px-6 py-6 rounded-md shadow-lg flex items-center gap-2 w-full sm:w-auto">
-                        <Phone className="w-5 h-5" /> 800-779-7691
+                        <Phone className="w-5 h-5" /> (800) 779-7691
                     </Button>
                 </a>
                 <a href="mailto:info@proforce1protection.com">

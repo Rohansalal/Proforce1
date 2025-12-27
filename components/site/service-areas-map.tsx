@@ -1,370 +1,355 @@
 "use client"
 
-import { useState } from "react"
-import { MapPin, Navigation, Shield, Clock } from "lucide-react"
+import { useState, useEffect } from "react"
+import { 
+  Shield, 
+  Clock, 
+  Users, 
+  ArrowRight, 
+  Target, 
+  Activity, 
+  Wifi, 
+  Lock,
+  ChevronRight,
+  Database
+} from "lucide-react"
 
-export function ServiceAreasMap() {
-  const [selectedArea, setSelectedArea] = useState("orange-county")
+const scannerStyles = `
+  @keyframes scan-line {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+  .animate-scan {
+    animation: scan-line 3s linear infinite;
+  }
+  .bg-grid-pattern {
+    background-image: linear-gradient(to right, #1e293b 1px, transparent 1px),
+                      linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  @keyframes pulse-marker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .animate-marker-pulse {
+    animation: pulse-marker 2s ease-in-out infinite;
+  }
+`
 
-  const serviceAreas = [
+export function ServiceAreasAdvanced() {
+  const [selectedRegion, setSelectedRegion] = useState("northeast")
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+
+  const regions = [
     {
-      id: "orange-county",
-      name: "Orange County",
-      cities: ["Anaheim", "Santa Ana", "Irvine", "Huntington Beach", "Garden Grove", "Fullerton", "Orange", "Costa Mesa"],
-      responseTime: "15 min",
-      guards: "45+",
-      color: "#dc2626"
+      id: "northeast",
+      name: "North East Sector",
+      subtext: "NY / NJ / PA / MA",
+      hub: "New York HQ",
+      responseTime: 12,
+      capacity: 94,
+      guards: 1240,
+      status: "ELEVATED",
+      coordinates: "40.7128° N, 74.0060° W",
+      mapX: 75,
+      mapY: 20
     },
     {
-      id: "los-angeles",
-      name: "Los Angeles County", 
-      cities: ["Los Angeles", "Long Beach", "Glendale", "Santa Clarita", "Torrance", "Pasadena", "Burbank", "Pomona"],
-      responseTime: "20 min",
-      guards: "85+",
-      color: "#ef4444"
+      id: "west-coast",
+      name: "Pacific Division",
+      subtext: "CA / OR / WA / NV",
+      hub: "Los Angeles HQ",
+      responseTime: 15,
+      capacity: 88,
+      guards: 980,
+      status: "ACTIVE",
+      coordinates: "34.0522° N, 118.2437° W",
+      mapX: 15,
+      mapY: 35
     },
     {
-      id: "san-diego",
-      name: "San Diego County",
-      cities: ["San Diego", "Chula Vista", "Oceanside", "Escondido", "Carlsbad", "El Cajon", "Vista", "San Marcos"],
-      responseTime: "25 min",
-      guards: "35+",
-      color: "#f87171"
+      id: "south",
+      name: "Southern Command",
+      subtext: "TX / FL / GA / LA",
+      hub: "Houston HQ",
+      responseTime: 18,
+      capacity: 92,
+      guards: 850,
+      status: "ACTIVE",
+      coordinates: "29.7604° N, 95.3698° W",
+      mapX: 45,
+      mapY: 65
     },
     {
-      id: "riverside",
-      name: "Riverside County",
-      cities: ["Riverside", "Moreno Valley", "Corona", "Murrieta", "Temecula", "Jurupa Valley", "Hemet", "Perris"],
-      responseTime: "30 min",
-      guards: "28+",
-      color: "#dc2626"
+      id: "midwest",
+      name: "Central Territory",
+      subtext: "IL / OH / MI / IN",
+      hub: "Chicago HQ",
+      responseTime: 22,
+      capacity: 75,
+      guards: 650,
+      status: "STANDBY",
+      coordinates: "41.8781° N, 87.6298° W",
+      mapX: 55,
+      mapY: 30
     },
     {
-      id: "san-bernardino",
-      name: "San Bernardino County",
-      cities: ["San Bernardino", "Fontana", "Rancho Cucamonga", "Ontario", "Victorville", "Rialto", "Hesperia", "Chino"],
-      responseTime: "35 min",
-      guards: "32+",
-      color: "#ef4444"
-    },
-    {
-      id: "bay-area",
-      name: "Bay Area",
-      cities: ["San Francisco", "San Jose", "Oakland", "Fremont", "Santa Rosa", "Hayward", "Sunnyvale", "Concord"],
-      responseTime: "45 min",
-      guards: "55+",
-      color: "#f87171"
-    },
-    {
-      id: "central-valley",
-      name: "Central Valley",
-      cities: ["Sacramento", "Fresno", "Bakersfield", "Stockton", "Modesto", "Visalia", "Merced", "Clovis"],
-      responseTime: "60 min",
-      guards: "25+",
-      color: "#dc2626"
-    },
-    {
-      id: "coastal",
-      name: "Coastal Regions",
-      cities: ["Santa Barbara", "Ventura", "Oxnard", "San Luis Obispo", "Monterey", "Santa Cruz", "Salinas", "Ventura"],
-      responseTime: "40 min",
-      guards: "20+",
-      color: "#ef4444"
+      id: "capital",
+      name: "National Capital",
+      subtext: "DC / VA / MD / DE",
+      hub: "Washington D.C.",
+      responseTime: 8,
+      capacity: 98,
+      guards: 1500,
+      status: "MAXIMUM",
+      coordinates: "38.9072° N, 77.0369° W",
+      mapX: 73,
+      mapY: 32
     }
   ]
 
-  const currentArea = serviceAreas.find(area => area.id === selectedArea)
+  const activeData = regions.find(r => r.id === selectedRegion) || regions[0]
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+    if (isAutoPlaying) {
+      interval = setInterval(() => {
+        const currentIndex = regions.findIndex(r => r.id === selectedRegion)
+        const nextIndex = (currentIndex + 1) % regions.length
+        setSelectedRegion(regions[nextIndex].id)
+      }, 5000)
+    }
+    return () => clearInterval(interval)
+  }, [isAutoPlaying, selectedRegion])
+
+  const getStatusColor = (status: string) => {
+    switch(status) {
+      case "MAXIMUM": return "text-red-500 animate-pulse"
+      case "ELEVATED": return "text-orange-500"
+      case "ACTIVE": return "text-green-500"
+      case "STANDBY": return "text-yellow-500"
+      default: return "text-slate-400"
+    }
+  }
+
+  const getMarkerColor = (status: string) => {
+    switch(status) {
+      case "MAXIMUM": return "bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.8)]"
+      case "ELEVATED": return "bg-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.8)]"
+      case "ACTIVE": return "bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.8)]"
+      case "STANDBY": return "bg-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.8)]"
+      default: return "bg-slate-400"
+    }
+  }
 
   return (
-    <section className="bg-white py-16 border-t border-gray-200">
+    <section className="bg-slate-950 py-24 border-t border-slate-800 overflow-hidden font-sans">
+      <style>{scannerStyles}</style>
+      
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
+        
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            SERVING ALL OF CALIFORNIA
-          </h2>
-          <div className="w-20 h-1 bg-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Professional security services deployed statewide with rapid response teams
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          {/* California Map */}
-          <div className="bg-gray-50 border border-gray-300 rounded-lg p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-gray-900">CALIFORNIA SERVICE AREAS</h3>
-              <div className="flex items-center text-sm text-gray-600">
-                <Shield className="w-4 h-4 mr-1 text-red-600" />
-                <span>Security Coverage</span>
-              </div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="flex h-3 w-3 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+              </span>
+              <span className="text-red-600 font-bold tracking-[0.2em] text-xs uppercase">
+                Live Operations Network
+              </span>
             </div>
-
-            {/* Simplified California Map */}
-            <div className="relative bg-blue-50 border border-gray-200 rounded-lg p-4">
-              <svg 
-                viewBox="0 0 400 300" 
-                className="w-full h-auto"
-              >
-                {/* California Outline */}
-                <path
-                  d="M80,80 L120,60 L160,70 L200,80 L240,90 L280,100 L320,110 L340,130 L320,150 L300,170 L280,190 L260,210 L240,230 L220,250 L200,270 L180,250 L160,230 L140,210 L120,190 L100,170 L80,150 L60,130 L40,110 L60,90 Z"
-                  fill="#f8fafc"
-                  stroke="#cbd5e1"
-                  strokeWidth="2"
-                />
-
-                {/* Service Area Markers */}
-                {/* Orange County */}
-                <circle 
-                  cx="180" 
-                  cy="180" 
-                  r="12" 
-                  fill={selectedArea === "orange-county" ? "#dc2626" : "#ef4444"}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className="cursor-pointer hover:r-14 transition-all"
-                  onClick={() => setSelectedArea("orange-county")}
-                />
-                
-                {/* Los Angeles */}
-                <circle 
-                  cx="160" 
-                  cy="150" 
-                  r="14" 
-                  fill={selectedArea === "los-angeles" ? "#dc2626" : "#ef4444"}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className="cursor-pointer hover:r-16 transition-all"
-                  onClick={() => setSelectedArea("los-angeles")}
-                />
-                
-                {/* San Diego */}
-                <circle 
-                  cx="200" 
-                  cy="220" 
-                  r="10" 
-                  fill={selectedArea === "san-diego" ? "#dc2626" : "#ef4444"}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className="cursor-pointer hover:r-12 transition-all"
-                  onClick={() => setSelectedArea("san-diego")}
-                />
-                
-                {/* Riverside */}
-                <circle 
-                  cx="210" 
-                  cy="160" 
-                  r="10" 
-                  fill={selectedArea === "riverside" ? "#dc2626" : "#ef4444"}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className="cursor-pointer hover:r-12 transition-all"
-                  onClick={() => setSelectedArea("riverside")}
-                />
-                
-                {/* San Bernardino */}
-                <circle 
-                  cx="230" 
-                  cy="140" 
-                  r="11" 
-                  fill={selectedArea === "san-bernardino" ? "#dc2626" : "#ef4444"}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className="cursor-pointer hover:r-13 transition-all"
-                  onClick={() => setSelectedArea("san-bernardino")}
-                />
-                
-                {/* Bay Area */}
-                <circle 
-                  cx="120" 
-                  cy="100" 
-                  r="13" 
-                  fill={selectedArea === "bay-area" ? "#dc2626" : "#ef4444"}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className="cursor-pointer hover:r-15 transition-all"
-                  onClick={() => setSelectedArea("bay-area")}
-                />
-                
-                {/* Central Valley */}
-                <circle 
-                  cx="150" 
-                  cy="120" 
-                  r="11" 
-                  fill={selectedArea === "central-valley" ? "#dc2626" : "#ef4444"}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className="cursor-pointer hover:r-13 transition-all"
-                  onClick={() => setSelectedArea("central-valley")}
-                />
-                
-                {/* Coastal */}
-                <circle 
-                  cx="100" 
-                  cy="140" 
-                  r="9" 
-                  fill={selectedArea === "coastal" ? "#dc2626" : "#ef4444"}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className="cursor-pointer hover:r-11 transition-all"
-                  onClick={() => setSelectedArea("coastal")}
-                />
-
-                {/* Area Labels */}
-                <text x="185" y="185" textAnchor="middle" fontSize="10" fill="#1f2937" fontWeight="bold">OC</text>
-                <text x="165" y="155" textAnchor="middle" fontSize="10" fill="#1f2937" fontWeight="bold">LA</text>
-                <text x="205" y="225" textAnchor="middle" fontSize="10" fill="#1f2937" fontWeight="bold">SD</text>
-                <text x="215" y="165" textAnchor="middle" fontSize="10" fill="#1f2937" fontWeight="bold">RV</text>
-                <text x="235" y="145" textAnchor="middle" fontSize="10" fill="#1f2937" fontWeight="bold">SB</text>
-                <text x="125" y="105" textAnchor="middle" fontSize="10" fill="#1f2937" fontWeight="bold">SF</text>
-                <text x="155" y="125" textAnchor="middle" fontSize="10" fill="#1f2937" fontWeight="bold">CV</text>
-                <text x="105" y="145" textAnchor="middle" fontSize="10" fill="#1f2937" fontWeight="bold">CO</text>
-              </svg>
-
-              {/* Map Legend */}
-              <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg p-3 border border-gray-200 shadow-sm">
-                <div className="text-sm font-semibold text-gray-900 mb-2">Service Coverage</div>
-                <div className="space-y-2">
-                  <div className="flex items-center text-xs">
-                    <div className="w-3 h-3 bg-red-600 rounded-full mr-2"></div>
-                    <span className="text-gray-700">Primary Service Area</span>
-                  </div>
-                  <div className="flex items-center text-xs">
-                    <div className="w-3 h-3 bg-red-400 rounded-full mr-2"></div>
-                    <span className="text-gray-700">Extended Coverage</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 text-center">
-              <p className="text-sm text-gray-600 flex items-center justify-center">
-                <Navigation className="w-4 h-4 mr-2" />
-                Click on any region for service details
-              </p>
+            <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">
+              NATIONAL <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">DEFENSE GRID</span>
+            </h2>
+          </div>
+          <div className="hidden md:block text-right mt-6 md:mt-0">
+            <div className="text-xs font-mono text-slate-400 mb-1">SYSTEM STATUS</div>
+            <div className="text-xl font-bold text-green-500 flex items-center justify-end gap-2">
+              <Wifi className="w-5 h-5" />
+              ONLINE
             </div>
           </div>
+        </div>
 
-          {/* Area Details */}
-          <div className="space-y-6">
-            {currentArea && (
-              <div className="bg-white border border-gray-300 rounded-lg p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
-                    <MapPin className="w-5 h-5 text-red-600 mr-2" />
-                    <h3 className="text-xl font-bold text-gray-900">{currentArea.name}</h3>
-                  </div>
-                  <div 
-                    className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: currentArea.color }}
-                  ></div>
-                </div>
-
-                {/* Response Stats */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
-                    <Clock className="w-5 h-5 text-red-600 mx-auto mb-1" />
-                    <div className="text-lg font-bold text-gray-900">{currentArea.responseTime}</div>
-                    <div className="text-xs text-gray-600">Avg Response</div>
-                  </div>
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
-                    <Shield className="w-5 h-5 text-blue-600 mx-auto mb-1" />
-                    <div className="text-lg font-bold text-gray-900">{currentArea.guards}</div>
-                    <div className="text-xs text-gray-600">Security Guards</div>
-                  </div>
-                </div>
-
-                {/* Cities List */}
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-700 mb-3">Cities We Serve:</h4>
-                  <div className="grid grid-cols-2 gap-2">
-                    {currentArea.cities.map((city, index) => (
-                      <div key={city} className="flex items-center text-sm text-gray-600">
-                        <div className="w-1.5 h-1.5 bg-red-500 rounded-full mr-2"></div>
-                        {city}
+        <div className="grid lg:grid-cols-12 gap-6 items-stretch"
+             onMouseEnter={() => setIsAutoPlaying(false)}
+             onMouseLeave={() => setIsAutoPlaying(true)}>
+          
+          {/* LEFT: Region List */}
+          <div className="lg:col-span-4 flex flex-col gap-2">
+            {regions.map((region) => {
+              const isActive = selectedRegion === region.id
+              return (
+                <button
+                  key={region.id}
+                  onClick={() => setSelectedRegion(region.id)}
+                  className={`
+                    relative p-4 rounded-lg border text-left transition-all duration-300 group
+                    ${isActive 
+                      ? 'bg-slate-900 border-red-600 shadow-lg shadow-red-600/20 translate-x-2' 
+                      : 'bg-slate-900/50 border-slate-700 hover:bg-slate-800 hover:border-slate-600'
+                    }
+                  `}
+                >
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <div className={`text-xs font-bold tracking-wider mb-1 ${isActive ? 'text-red-500' : 'text-slate-400'}`}>
+                        {region.hub.toUpperCase()}
                       </div>
-                    ))}
+                      <div className={`font-bold text-lg ${isActive ? 'text-white' : 'text-slate-300'}`}>
+                        {region.name}
+                      </div>
+                      <div className={`text-xs mt-1 font-mono ${isActive ? 'text-slate-300' : 'text-slate-500'}`}>
+                        {region.subtext}
+                      </div>
+                    </div>
+                    {isActive && <ChevronRight className="text-red-500 animate-pulse" />}
                   </div>
-                </div>
+                  
+                  {isActive && (
+                    <div className="mt-3 w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                      <div className="bg-gradient-to-r from-red-600 to-orange-500 h-full w-0 animate-[width_1s_ease-out_forwards]" style={{ width: '100%' }}></div>
+                    </div>
+                  )}
+                </button>
+              )
+            })}
 
-                {/* Available Services */}
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-gray-700 mb-2">Available Services:</h4>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div className="flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Armed Security
-                    </div>
-                    <div className="flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Mobile Patrol
-                    </div>
-                    <div className="flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Event Security
-                    </div>
-                    <div className="flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Fire Watch
-                    </div>
-                    <div className="flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Construction Security
-                    </div>
-                    <div className="flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Emergency Response
-                    </div>
-                  </div>
-                </div>
-
-                <button className="w-full mt-4 bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors">
-                  GET {currentArea.name} SECURITY QUOTE
+            {/* CTA Box */}
+            <div className="mt-auto pt-6">
+              <div className="p-4 bg-red-950/30 border border-red-900/50 rounded-lg">
+                <h4 className="font-bold text-red-400 text-sm mb-1">Require Coverage?</h4>
+                <p className="text-xs text-red-300/70 mb-3">Deployments available in all 50 states.</p>
+                <button className="w-full py-2 bg-red-600 text-white text-sm font-bold rounded hover:bg-red-700 transition-colors shadow-lg shadow-red-600/30">
+                  INITIATE REQUEST
                 </button>
               </div>
-            )}
+            </div>
+          </div>
 
-            {/* Statewide Coverage */}
-            <div className="bg-gray-900 text-white rounded-lg p-6">
-              <h3 className="text-xl font-bold mb-4 text-center">STATEWIDE COVERAGE</h3>
-              <div className="grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-red-400 mb-1">58+</div>
-                  <div className="text-sm text-gray-300">Cities</div>
+          {/* RIGHT: US Map Visualization */}
+          <div className="lg:col-span-8 bg-slate-900 rounded-2xl overflow-hidden relative border border-slate-700 shadow-2xl flex flex-col min-h-[600px]">
+            
+            {/* Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 via-slate-900 to-slate-950"></div>
+            <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
+            
+            {/* Top HUD */}
+            <div className="relative z-10 flex justify-between items-center p-6 border-b border-slate-700 bg-slate-900/80 backdrop-blur-sm">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-red-500/10 rounded border border-red-500/30">
+                  <Target className="text-red-500 w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-red-400 mb-1">300+</div>
-                  <div className="text-sm text-gray-300">Security Guards</div>
+                  <div className="text-white font-bold tracking-wide text-sm">{activeData.name.toUpperCase()}</div>
+                  <div className="text-xs text-slate-400 font-mono">{activeData.coordinates}</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-red-400 mb-1">24/7</div>
-                  <div className="text-sm text-gray-300">Dispatch</div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="text-right hidden sm:block">
+                  <div className="text-xs text-slate-500 font-bold uppercase">Status</div>
+                  <div className={`text-sm font-bold ${getStatusColor(activeData.status)}`}>
+                    {activeData.status}
+                  </div>
+                </div>
+                <div className="w-px h-8 bg-slate-700 hidden sm:block"></div>
+                <div className="p-2 bg-slate-800 rounded-full">
+                  <Lock className="w-4 h-4 text-slate-400" />
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* All Regions Grid */}
-        <div className="mt-12">
-          <h3 className="text-xl font-bold text-center text-gray-900 mb-6">ALL SERVICE REGIONS</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {serviceAreas.map((area) => (
-              <div
-                key={area.id}
-                className={`bg-white border rounded-lg p-4 text-center cursor-pointer transition-all ${
-                  selectedArea === area.id 
-                    ? 'border-red-500 bg-red-50 shadow-sm' 
-                    : 'border-gray-300 hover:border-red-300 hover:bg-gray-50'
-                }`}
-                onClick={() => setSelectedArea(area.id)}
-              >
-                <div className="font-semibold text-gray-900">{area.name}</div>
-                <div className="text-sm text-gray-600 mt-1">{area.cities.length} Cities</div>
-                <div className="text-xs text-red-600 font-medium mt-1">{area.responseTime} Response</div>
+            {/* Map Container */}
+            <div className="flex-1 relative z-10 p-8 flex flex-col justify-center items-center">
+              <svg viewBox="0 0 100 75" className="w-full h-full max-w-2xl" style={{ filter: 'drop-shadow(0 0 20px rgba(239, 68, 68, 0.1))' }}>
+                {/* US Map Background */}
+                <rect width="100" height="75" fill="#0f172a" opacity="0.5" />
+                
+                {/* Simplified US Continental Outline */}
+                <path
+                  d="M 20 15 L 25 12 L 28 13 L 30 11 L 32 12 L 33 10 L 35 11 L 36 13 L 38 12 L 40 13 L 42 12 L 44 13 L 46 12 L 48 13 L 50 12 L 52 13 L 54 12 L 56 14 L 58 13 L 60 15 L 62 14 L 64 16 L 66 15 L 68 17 L 70 16 L 72 18 L 75 20 L 77 22 L 78 25 L 80 28 L 82 32 L 83 36 L 82 40 L 80 43 L 78 45 L 76 46 L 74 45 L 72 47 L 70 46 L 68 48 L 66 47 L 64 49 L 62 48 L 60 50 L 58 49 L 56 51 L 54 50 L 52 52 L 50 51 L 48 53 L 46 52 L 44 54 L 42 53 L 40 55 L 38 54 L 36 56 L 34 55 L 32 57 L 30 56 L 28 58 L 26 57 L 24 59 L 22 58 L 20 60 L 18 59 L 16 61 L 14 60 L 12 62 L 10 60 L 8 58 L 6 56 L 5 52 L 4 48 L 3 44 L 2 40 L 1 36 L 2 32 L 3 28 L 4 24 L 5 20 L 8 18 L 12 16 L 16 14 Z"
+                  fill="none"
+                  stroke="#334155"
+                  strokeWidth="0.5"
+                  opacity="0.6"
+                />
+
+                {/* Region Coverage Areas (Circles) */}
+                {regions.map((region) => (
+                  <g key={region.id}>
+                    {/* Coverage radius */}
+                    <circle
+                      cx={region.mapX}
+                      cy={region.mapY}
+                      r="10"
+                      fill={region.id === selectedRegion ? (region.status === "MAXIMUM" ? "#ef4444" : "#f97316") : "#64748b"}
+                      opacity={region.id === selectedRegion ? 0.15 : 0.05}
+                      className="transition-all duration-300"
+                    />
+                    
+                    {/* Marker */}
+                    <circle
+                      cx={region.mapX}
+                      cy={region.mapY}
+                      r={region.id === selectedRegion ? 2.5 : 2}
+                      className={`${getMarkerColor(region.status)} transition-all duration-300 cursor-pointer ${region.id === selectedRegion ? 'animate-marker-pulse' : ''}`}
+                      onClick={() => setSelectedRegion(region.id)}
+                    />
+                    
+                    {/* Label - Only show for active */}
+                    {region.id === selectedRegion && (
+                      <g>
+                        <rect
+                          x={region.mapX - 8}
+                          y={region.mapY - 15}
+                          width="16"
+                          height="8"
+                          fill="#0f172a"
+                          stroke="#e11d48"
+                          strokeWidth="0.3"
+                          rx="1"
+                        />
+                        <text
+                          x={region.mapX}
+                          y={region.mapY - 9}
+                          textAnchor="middle"
+                          fontSize="2"
+                          fill="#fca5a5"
+                          fontWeight="bold"
+                        >
+                          {region.responseTime}m
+                        </text>
+                      </g>
+                    )}
+                  </g>
+                ))}
+              </svg>
+            </div>
+
+            {/* Bottom Stats */}
+            <div className="relative z-10 border-t border-slate-700 bg-slate-900/60 p-6">
+              <div className="grid grid-cols-4 gap-4">
+                <div>
+                  <div className="text-xs text-slate-500 font-bold uppercase mb-1">Response Time</div>
+                  <div className="text-2xl font-bold text-red-500">{activeData.responseTime}m</div>
+                </div>
+                <div>
+                  <div className="text-xs text-slate-500 font-bold uppercase mb-1">Active Units</div>
+                  <div className="text-2xl font-bold text-green-500">{activeData.guards}</div>
+                </div>
+                <div>
+                  <div className="text-xs text-slate-500 font-bold uppercase mb-1">Capacity</div>
+                  <div className="text-2xl font-bold text-blue-500">{activeData.capacity}%</div>
+                </div>
+                <div>
+                  <div className="text-xs text-slate-500 font-bold uppercase mb-1">Uptime</div>
+                  <div className="text-2xl font-bold text-emerald-500">100%</div>
+                </div>
               </div>
-            ))}
+            </div>
+
           </div>
         </div>
       </div>
