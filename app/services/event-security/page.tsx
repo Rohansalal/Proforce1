@@ -286,14 +286,15 @@ export default function EventSecurityPage() {
               Expert Security Team for Safe, Successful, and Stress-Free Events
             </p>
             
-            {/* Simple CTA Button */}
-            <Button 
-              size="lg" 
-              className="bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
+           {/* Simple CTA Button */}
+            <a
+              href="tel:8007797691"
+              aria-label="Call Proforce 1 Dispatch"
+              className="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
             >
               <Phone className="mr-3 w-5 h-5" />
-              Request Event Security Quote
-            </Button>
+              Request Quote
+            </a>
           </motion.div>
 
           {/* Scroll indicator */}
@@ -734,7 +735,7 @@ export default function EventSecurityPage() {
                              <div className="flex items-center gap-3 mt-3">
                                 <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">JD</div>
                                 <div>
-                                   <div className="font-bold text-slate-900">John Doe</div>
+                                   <div className="font-bold text-slate-900">Daniel Brooks</div>
                                    <div className="text-sm text-slate-600">Event Director, Major Conference</div>
                                 </div>
                              </div>

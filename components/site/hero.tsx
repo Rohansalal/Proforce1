@@ -20,7 +20,7 @@ const SLIDE_DURATION = 5000 // 5 Seconds per slide
 const slides = [
   {
     id: 1,
-    videoSrc: "/hero/patrol-services.mp4", 
+    videoSrc: "/hero/patrol-services1.mp4", 
     title: "Mobile Patrol",
     subtitle: "Deterrence & Response",
     description: "High-visibility patrol units providing round-the-clock deterrence and rapid response for your properties.",

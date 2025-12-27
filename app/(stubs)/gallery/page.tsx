@@ -1,937 +1,709 @@
-"use client";
+// 'use client';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+// import { useState, useEffect, useRef } from 'react';
+// import Image from 'next/image';
+// import { motion, AnimatePresence } from 'framer-motion';
+// import { 
+//   Play, X, Camera, Filter, Maximize2, 
+//   ChevronRight, ShieldCheck, MapPin, Download
+// } from 'lucide-react';
+// import { Button } from "@/components/ui/button";
+
+// // --- 1. REUSED SUB-COMPONENT: Optimized Video Background ---
+// // Kept exactly the same to ensure visual consistency with other pages
+// const HeroVideo = () => {
+//   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+//   const videoRef = useRef<HTMLVideoElement>(null);
+
+//   useEffect(() => {
+//     if (videoRef.current) {
+//         videoRef.current.play().catch(error => {
+//             console.log("Autoplay prevented:", error);
+//         });
+//     }
+//   }, []);
+
+//   return (
+//     <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
+//       <Image 
+//         src="/video-poster.jpg" 
+//         alt="Security Background"
+//         fill
+//         className="object-cover opacity-40 scale-105"
+//         priority 
+//       />
+//       <video
+//         ref={videoRef}
+//         autoPlay
+//         loop
+//         muted
+//         playsInline
+//         preload="auto"
+//         onLoadedData={() => setIsVideoLoaded(true)}
+//         className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ease-in-out ${
+//           isVideoLoaded ? 'opacity-40' : 'opacity-0'
+//         }`}
+//       >
+//         <source src="/AboutUS.mp4" type="video/mp4" />
+//       </video>
+//       <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/50 to-slate-900/90 z-10" />
+//     </div>
+//   );
+// };
+
+// // --- MOCK DATA ---
+// const GALLERY_ITEMS = [
+//   { id: 1, type: 'image', category: 'Patrol', src: '/gallery/patrol-car-night.jpg', title: 'Mobile Patrol Unit', location: 'Los Angeles, CA' },
+//   { id: 2, type: 'video', category: 'Events', src: '/hero/event-security.jpg', title: 'VIP Event Access', location: 'San Diego, CA' },
+//   { id: 3, type: 'image', category: 'Construction', src: '/hero/construction-security.jpg', title: 'Command security', location: 'Irvine, CA' },
+//   { id: 4, type: 'image', category: 'Patrol', src: '/hero/patrol-services.jpg', title: 'K-9 Unit Patrol', location: 'Sacramento, CA' },
+//   { id: 5, type: 'image', category: 'Team', src: '/gallery/team-meeting.jpg', title: 'Shift Briefing', location: 'San Francisco, CA' },
+//   { id: 6, type: 'video', category: 'Technology', src: '/gallery/drone-shot.jpg', title: 'Aerial Surveillance', location: 'Riverside, CA' },
+//   { id: 7, type: 'image', category: 'Onsite', src: '/gallery/onsite.jpg', title: 'Crowd Control', location: 'Anaheim, CA' },
+//   { id: 8, type: 'image', category: 'Team', src: '/blogimage/expansion-map.jpg', title: 'Armed Officer', location: 'Beverly Hills, CA' },
+//   { id: 9, type: 'video', category: 'Events', src: '/gallery/videos/emergency-response.mp4', title: 'Emergency Response', location: 'Orange County, CA' },
+//   { id: 10, type: 'video', category: 'Events', src: '/gallery/videos/armed-security.mp4', title: 'Armed Security', location: 'Beverly Hills, CA' },
+//   { id: 11, type: 'video', category: 'Security', src: '/gallery/videos/security.mp4', title: 'Security Operations', location: 'Los Angeles, CA' },
+//   { id: 12, type: 'image', category: 'Security', src: '/gallery/command-center-1.jpg', title: 'Command Center', location: 'Los Angeles, CA' }
+// ];
+
+// const CATEGORIES = ['All', 'Patrol', 'Events', 'Technology', 'Team'];
+
+// const Gallery: React.FC = () => {
+//   const [activeCategory, setActiveCategory] = useState('All');
+//   const [selectedItem, setSelectedItem] = useState<typeof GALLERY_ITEMS[0] | null>(null);
+
+//   // Filter Logic
+//   const filteredItems = activeCategory === 'All' 
+//     ? GALLERY_ITEMS 
+//     : GALLERY_ITEMS.filter(item => item.category === activeCategory);
+
+//   // --- Animation Config ---
+//   const fadeInUp = {
+//     hidden: { opacity: 0, y: 30 },
+//     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+//   };
+
+//   return (
+//     <main className="min-h-screen bg-slate-50 font-sans selection:bg-red-500/30">
+      
+//       {/* ====================
+//           1. HERO SECTION (Consistent Design)
+//           ==================== */}
+//       <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-slate-900 text-white">
+//         <HeroVideo />
+        
+//         <div className="container mx-auto px-4 lg:px-8 relative z-20 text-center">
+//           <motion.div 
+//             initial="hidden" 
+//             whileInView="visible" 
+//             viewport={{ once: true }} 
+//             className="max-w-4xl mx-auto"
+//           >
+//             <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-red-400 text-xs font-bold tracking-[0.2em] uppercase mb-8 shadow-2xl">
+//               <Camera className="w-3 h-3 fill-current" /> 
+//               Media & Evidence
+//             </motion.div>
+            
+//             <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tighter leading-[1.1] drop-shadow-2xl">
+//               OPERATIONS IN <br />
+//               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
+//                 ACTION
+//               </span>
+//             </motion.h1>
+
+//             <motion.p variants={fadeInUp} className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+//               Transparency is key. Explore our fleet, technology, and officers in the field protecting assets across California.
+//             </motion.p>
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* ====================
+//           2. GALLERY SECTION
+//           ==================== */}
+//       <section className="py-20 bg-slate-50">
+//         <div className="container mx-auto px-4 lg:px-8">
+          
+//           {/* Filter Bar */}
+//           <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+//             <div className="flex items-center gap-3">
+//               <div className="w-10 h-1 bg-red-600"></div>
+//               <h2 className="text-2xl font-bold text-slate-900 uppercase tracking-wide">Our Portfolio</h2>
+//             </div>
+
+//             <div className="flex flex-wrap gap-2 justify-center">
+//                {CATEGORIES.map((cat) => (
+//                  <button
+//                    key={cat}
+//                    onClick={() => setActiveCategory(cat)}
+//                    className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 border ${
+//                      activeCategory === cat 
+//                        ? 'bg-red-600 text-white border-red-600 shadow-lg shadow-red-600/20' 
+//                        : 'bg-white text-slate-600 border-slate-200 hover:border-red-600/30 hover:text-red-600'
+//                    }`}
+//                  >
+//                    {cat}
+//                  </button>
+//                ))}
+//             </div>
+//           </div>
+
+//           {/* Grid Layout */}
+//           <motion.div 
+//             layout
+//             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+//           >
+//             <AnimatePresence mode="popLayout">
+//               {filteredItems.map((item) => (
+//                 <motion.div
+//                   layout
+//                   key={item.id}
+//                   initial={{ opacity: 0, scale: 0.9 }}
+//                   animate={{ opacity: 1, scale: 1 }}
+//                   exit={{ opacity: 0, scale: 0.9 }}
+//                   transition={{ duration: 0.3 }}
+//                   className={`group relative overflow-hidden rounded-2xl cursor-pointer ${
+//                      // "Different Approach": Using span for visual interest
+//                      item.id === 1 || item.id === 6 ? 'md:col-span-2 md:row-span-2' : ''
+//                   }`}
+//                   onClick={() => setSelectedItem(item)}
+//                 >
+//                   {/* Card Container - mimic FeatureCard style but for images */}
+//                   <div className="h-full w-full relative bg-slate-900 border border-slate-200 group-hover:border-red-600/50 transition-colors duration-500">
+//                     <Image
+//                       src={item.src}
+//                       alt={item.title}
+//                       width={800}
+//                       height={600}
+//                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+//                     />
+                    
+//                     {/* Overlay Gradient */}
+//                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+
+//                     {/* Content Overlay */}
+//                     <div className="absolute bottom-0 left-0 w-full p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+//                        <div className="flex items-center justify-between">
+//                          <div>
+//                            <div className="text-red-400 text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-2">
+//                              {item.type === 'video' ? <Play className="w-3 h-3 fill-current" /> : <Camera className="w-3 h-3" />}
+//                              {item.category}
+//                            </div>
+//                            <h3 className="text-white font-bold text-lg md:text-xl">{item.title}</h3>
+//                            <div className="flex items-center gap-1 text-slate-400 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+//                               <MapPin className="w-3 h-3" /> {item.location}
+//                            </div>
+//                          </div>
+                         
+//                          <div className="bg-white/10 backdrop-blur-md p-3 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0">
+//                            <Maximize2 className="w-5 h-5" />
+//                          </div>
+//                        </div>
+//                     </div>
+//                   </div>
+//                 </motion.div>
+//               ))}
+//             </AnimatePresence>
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* ====================
+//           3. LIGHTBOX MODAL
+//           ==================== */}
+//       <AnimatePresence>
+//         {selectedItem && (
+//           <motion.div
+//             initial={{ opacity: 0 }}
+//             animate={{ opacity: 1 }}
+//             exit={{ opacity: 0 }}
+//             className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-sm p-4"
+//             onClick={() => setSelectedItem(null)}
+//           >
+//             <motion.div
+//               initial={{ scale: 0.9, y: 20 }}
+//               animate={{ scale: 1, y: 0 }}
+//               exit={{ scale: 0.9, y: 20 }}
+//               className="relative w-full max-w-5xl bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800"
+//               onClick={(e) => e.stopPropagation()}
+//             >
+//               {/* Header */}
+//               <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/60 to-transparent">
+//                  <span className="text-white/80 font-mono text-sm border border-white/20 px-3 py-1 rounded-full bg-black/20">
+//                     ProForce1 // {selectedItem.category}
+//                  </span>
+//                  <button 
+//                    onClick={() => setSelectedItem(null)}
+//                    className="p-2 bg-white/10 hover:bg-red-600 rounded-full text-white transition-colors"
+//                  >
+//                    <X className="w-5 h-5" />
+//                  </button>
+//               </div>
+
+//               {/* Content */}
+//               <div className="aspect-video w-full bg-black relative flex items-center justify-center">
+//                  {selectedItem.type === 'video' ? (
+//                    <div className="w-full h-full flex items-center justify-center bg-slate-800">
+//                      <Play className="w-20 h-20 text-white/50" />
+//                      {/* Video Player would go here */}
+//                      <span className="absolute bottom-4 text-white text-sm">Video Preview</span>
+//                    </div>
+//                  ) : (
+//                    <Image
+//                      src={selectedItem.src}
+//                      alt={selectedItem.title}
+//                      fill
+//                      className="object-contain"
+//                    />
+//                  )}
+//               </div>
+
+//               {/* Footer */}
+//               <div className="p-8 bg-slate-900">
+//                 <div className="flex justify-between items-start">
+//                   <div>
+//                     <h3 className="text-2xl font-bold text-white mb-2">{selectedItem.title}</h3>
+//                     <p className="text-slate-400">Captured in {selectedItem.location}</p>
+//                   </div>
+//                   <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-red-600 hover:text-white hover:border-red-600 gap-2">
+//                     <Download className="w-4 h-4" /> Download Asset
+//                   </Button>
+//                 </div>
+//               </div>
+
+//             </motion.div>
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
+
+//       {/* ====================
+//           4. CTA SECTION (Reused Style)
+//           ==================== */}
+//       <section className="relative bg-slate-950 text-white border-t border-slate-800 overflow-hidden">
+//         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ef4444 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+        
+//         <div className="container mx-auto px-4 lg:px-8 py-24 relative z-10">
+//           <div className="max-w-4xl mx-auto text-center">
+//              <div className="w-16 h-16 mx-auto bg-red-600/10 rounded-2xl flex items-center justify-center mb-8 text-red-600 border border-red-600/20">
+//                <ShieldCheck className="w-8 h-8" />
+//              </div>
+             
+//              <h2 className="text-3xl md:text-5xl font-black mb-6">
+//                Need Customized Security?
+//              </h2>
+//              <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+//                Our gallery shows our capabilities, but our service defines our reputation. Contact us to discuss a tailored security plan for your property.
+//              </p>
+             
+//              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+//                 <Button className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-6 rounded-lg shadow-lg shadow-red-900/20 text-lg">
+//                    Request a Quote
+//                 </Button>
+//                 <Button variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800 px-8 py-6 rounded-lg text-lg flex items-center gap-2">
+//                    View Client Testimonials <ChevronRight className="w-4 h-4" />
+//                 </Button>
+//              </div>
+//           </div>
+//         </div>
+//       </section>
+
+//     </main>
+//   );
+// };
+
+// export default Gallery;
+
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Play, 
-  Pause, 
-  X, 
-  Shield, 
-  Camera, 
-  Video, 
-  Filter,
-  ChevronLeft,
-  ChevronRight,
-  Maximize2,
-  Download,
-  Clock,
-  Users,
-  Search,
-  Grid,
-  List
+  Play, X, Camera, Filter, Maximize2, 
+  ChevronRight, ShieldCheck, MapPin, Download
 } from 'lucide-react';
-import Image from 'next/image';
+import { Button } from "@/components/ui/button";
 
-interface MediaItem {
-  id: number;
-  type: 'image' | 'video';
-  src: string;
-  thumbnail?: string;
-  title: string;
-  description: string;
-  category: 'surveillance' | 'patrol' | 'access' | 'technology' | 'team' | 'k9' | 'events';
-  date: string;
-  duration?: string;
-  tags: string[];
-  views: number;
-  downloads: number;
-}
-
-const SecurityGallery: React.FC = () => {
-  // State Management
-  const [activeFilter, setActiveFilter] = useState<string>('all');
-  const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<'date' | 'views' | 'title'>('date');
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  
-  // Refs
+// --- 1. FIXED: Optimized Video Background ---
+const HeroVideo = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const itemsPerPage = 10;
 
-  // Enhanced Media Data with pagination-ready structure
-  const mediaItems: MediaItem[] = [
-    // Surveillance
-    {
-      id: 1,
-      type: 'image',
-      src: '/images/surveillance-command-center.jpg',
-      thumbnail: '/thumbnails/surveillance-thumb.jpg',
-      title: 'Advanced Command Center',
-      description: '24/7 AI-powered surveillance monitoring with real-time threat detection',
-      category: 'surveillance',
-      date: '2024-03-15',
-      tags: ['AI', 'Monitoring', 'Real-time'],
-      views: 1245,
-      downloads: 89
-    },
-    {
-      id: 2,
-      type: 'video',
-      src: '/videos/drone-surveillance.mp4',
-      thumbnail: '/thumbnails/drone-thumb.jpg',
-      title: 'Aerial Drone Patrol',
-      description: 'High-altitude drone surveillance covering large perimeter areas',
-      category: 'surveillance',
-      date: '2024-03-14',
-      duration: '2:45',
-      tags: ['Drone', 'Aerial', 'Perimeter'],
-      views: 892,
-      downloads: 67
-    },
-    
-    // Patrol
-    {
-      id: 3,
-      type: 'image',
-      src: '/images/patrol-night-operation.jpg',
-      thumbnail: '/thumbnails/patrol-thumb.jpg',
-      title: 'Night Patrol Operations',
-      description: 'Armed security teams conducting night perimeter checks',
-      category: 'patrol',
-      date: '2024-03-13',
-      tags: ['Night', 'Armed', 'Perimeter'],
-      views: 1567,
-      downloads: 112
-    },
-    {
-      id: 4,
-      type: 'video',
-      src: '/videos/vehicle-patrol.mp4',
-      thumbnail: '/thumbnails/vehicle-thumb.jpg',
-      title: 'Rapid Response Vehicle',
-      description: 'Quick deployment vehicle patrol in urban environments',
-      category: 'patrol',
-      date: '2024-03-12',
-      duration: '1:30',
-      tags: ['Vehicle', 'Response', 'Urban'],
-      views: 1023,
-      downloads: 78
-    },
-    
-    // Access Control
-    {
-      id: 5,
-      type: 'image',
-      src: '/images/biometric-access.jpg',
-      thumbnail: '/thumbnails/biometric-thumb.jpg',
-      title: 'Biometric Entry System',
-      description: 'Multi-factor authentication access control with facial recognition',
-      category: 'access',
-      date: '2024-03-11',
-      tags: ['Biometric', 'Facial Recognition', 'Access'],
-      views: 934,
-      downloads: 56
-    },
-    
-    // Technology
-    {
-      id: 6,
-      type: 'video',
-      src: '/videos/tech-demo.mp4',
-      thumbnail: '/thumbnails/tech-thumb.jpg',
-      title: 'AI Threat Detection',
-      description: 'Machine learning algorithms identifying suspicious behavior patterns',
-      category: 'technology',
-      date: '2024-03-10',
-      duration: '3:15',
-      tags: ['AI', 'Machine Learning', 'Detection'],
-      views: 1789,
-      downloads: 134
-    },
-    
-    // Team
-    {
-      id: 7,
-      type: 'image',
-      src: '/images/team-training.jpg',
-      thumbnail: '/thumbnails/team-thumb.jpg',
-      title: 'Special Forces Training',
-      description: 'Elite security team undergoing tactical response training',
-      category: 'team',
-      date: '2024-03-09',
-      tags: ['Training', 'Tactical', 'Elite'],
-      views: 1456,
-      downloads: 98
-    },
-    
-    // K9 Unit
-    {
-      id: 8,
-      type: 'video',
-      src: '/videos/k9-operation.mp4',
-      thumbnail: '/thumbnails/k9-thumb.jpg',
-      title: 'K9 Explosive Detection',
-      description: 'Certified K9 units conducting security sweeps at high-profile events',
-      category: 'k9',
-      date: '2024-03-08',
-      duration: '2:10',
-      tags: ['K9', 'Detection', 'Explosives'],
-      views: 1678,
-      downloads: 121
-    },
-    
-    // Events
-    {
-      id: 9,
-      type: 'image',
-      src: '/images/event-security.jpg',
-      thumbnail: '/thumbnails/event-thumb.jpg',
-      title: 'Major Event Security',
-      description: 'Crowd management and VIP protection at international conference',
-      category: 'events',
-      date: '2024-03-07',
-      tags: ['Events', 'VIP', 'Crowd Control'],
-      views: 1324,
-      downloads: 92
-    },
-    
-    // Additional items for pagination
-    ...Array.from({ length: 15 }, (_, i) => ({
-      id: 10 + i,
-      type: Math.random() > 0.5 ? 'image' : 'video' as 'image' | 'video',
-      src: `/media/asset-${i + 10}.jpg`,
-      thumbnail: `/thumbnails/thumb-${i + 10}.jpg`,
-      title: `Security Operation ${i + 10}`,
-      description: 'Advanced security monitoring and response operations',
-      category: ['surveillance', 'patrol', 'access', 'technology', 'team', 'k9', 'events'][Math.floor(Math.random() * 7)] as any,
-      date: `2024-03-${String(15 - i).padStart(2, '0')}`,
-      duration: i % 3 === 0 ? '1:45' : undefined,
-      tags: ['Security', 'Monitoring', 'Response'],
-      views: Math.floor(Math.random() * 2000),
-      downloads: Math.floor(Math.random() * 150)
-    }))
-  ];
-
-  // Categories with icons and counts
-  const categories = [
-    { id: 'all', name: 'All Media', icon: Grid, count: mediaItems.length },
-    { id: 'surveillance', name: 'Surveillance', icon: Camera, count: mediaItems.filter(m => m.category === 'surveillance').length },
-    { id: 'patrol', name: 'Patrol', icon: Shield, count: mediaItems.filter(m => m.category === 'patrol').length },
-    { id: 'access', name: 'Access Control', icon: Users, count: mediaItems.filter(m => m.category === 'access').length },
-    { id: 'technology', name: 'Technology', icon: Video, count: mediaItems.filter(m => m.category === 'technology').length },
-    { id: 'team', name: 'Our Team', icon: Users, count: mediaItems.filter(m => m.category === 'team').length },
-    { id: 'k9', name: 'K9 Unit', icon: Shield, count: mediaItems.filter(m => m.category === 'k9').length },
-    { id: 'events', name: 'Events', icon: Clock, count: mediaItems.filter(m => m.category === 'events').length }
-  ];
-
-  // Filter and sort logic
-  const filteredMedia = mediaItems.filter(item => {
-    const matchesFilter = activeFilter === 'all' || item.category === activeFilter;
-    const matchesSearch = searchQuery === '' || 
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesFilter && matchesSearch;
-  }).sort((a, b) => {
-    switch (sortBy) {
-      case 'date': return new Date(b.date).getTime() - new Date(a.date).getTime();
-      case 'views': return b.views - a.views;
-      case 'title': return a.title.localeCompare(b.title);
-      default: return 0;
-    }
-  });
-
-  // Pagination calculations
-  const totalPages = Math.ceil(filteredMedia.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredMedia.slice(startIndex, startIndex + itemsPerPage);
-
-  // Handlers
-  const handleMediaClick = useCallback((media: MediaItem) => {
-    setSelectedMedia(media);
-    setIsModalOpen(true);
-    setIsPlaying(media.type === 'video');
-  }, []);
-
-  const closeModal = useCallback(() => {
-    setIsModalOpen(false);
-    setSelectedMedia(null);
-    setIsPlaying(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  }, []);
-
-  const togglePlayPause = useCallback(() => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  }, [isPlaying]);
-
-  const handleDownload = useCallback(() => {
-    if (selectedMedia) {
-      // Implement download logic
-      console.log('Downloading:', selectedMedia.title);
-    }
-  }, [selectedMedia]);
-
-  const handleSelectItem = useCallback((id: number) => {
-    setSelectedItems(prev => 
-      prev.includes(id) 
-        ? prev.filter(itemId => itemId !== id)
-        : [...prev, id]
-    );
-  }, []);
-
-  const handleSelectAll = useCallback(() => {
-    if (selectedItems.length === currentItems.length) {
-      setSelectedItems([]);
-    } else {
-      setSelectedItems(currentItems.map(item => item.id));
-    }
-  }, [currentItems]);
-
-  // Keyboard shortcuts
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (isModalOpen) {
-        if (e.key === 'Escape') closeModal();
-        if (e.key === ' ') {
-          e.preventDefault();
-          if (selectedMedia?.type === 'video') togglePlayPause();
-        }
-        if (e.key === 'ArrowRight') {
-          const currentIndex = filteredMedia.findIndex(m => m.id === selectedMedia?.id);
-          if (currentIndex < filteredMedia.length - 1) {
-            handleMediaClick(filteredMedia[currentIndex + 1]);
-          }
-        }
-        if (e.key === 'ArrowLeft') {
-          const currentIndex = filteredMedia.findIndex(m => m.id === selectedMedia?.id);
-          if (currentIndex > 0) {
-            handleMediaClick(filteredMedia[currentIndex - 1]);
-          }
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isModalOpen, selectedMedia, filteredMedia, closeModal, togglePlayPause, handleMediaClick]);
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.log("Autoplay prevented:", error);
+      });
     }
+  }, []);
+
+  return (
+    <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
+      {/* FALLBACK IMAGE */}
+      <Image 
+        src="/video-poster.jpg" 
+        alt="Security Background"
+        fill
+        className="object-cover opacity-50"
+        priority 
+      />
+
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        onLoadedData={() => setIsVideoLoaded(true)}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+          isVideoLoaded ? 'opacity-60' : 'opacity-0'
+        }`}
+      >
+        <source src="/AboutUS.mp4" type="video/mp4" />
+      </video>
+
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/50 to-slate-900/90 z-10" />
+    </div>
+  );
+};
+
+// --- FIXED: Simplified and corrected GALLERY_ITEMS ---
+// Using placeholder images for demonstration
+// Replace these with your actual image paths
+const GALLERY_ITEMS = [
+  // Images - Make sure these paths exist in your public folder
+  { id: 1, type: 'image', category: 'Patrol', src: '/images/patrol-car.jpg', title: 'Mobile Patrol Unit', location: 'Los Angeles, CA' },
+  { id: 2, type: 'image', category: 'Events', src: '/images/event-security.jpg', title: 'VIP Event Access', location: 'San Diego, CA' },
+  { id: 3, type: 'image', category: 'Construction', src: '/images/construction.jpg', title: 'Command Security', location: 'Irvine, CA' },
+  { id: 4, type: 'image', category: 'Patrol', src: '/images/k9-unit.jpg', title: 'K-9 Unit Patrol', location: 'Sacramento, CA' },
+  { id: 5, type: 'image', category: 'Team', src: '/images/team.jpg', title: 'Shift Briefing', location: 'San Francisco, CA' },
+  { id: 6, type: 'video', category: 'Technology', src: '/videos/patrol-demo.mp4', thumbnail: '/images/video-thumb-1.jpg', title: 'Aerial Surveillance', location: 'Riverside, CA' },
+  { id: 7, type: 'image', category: 'Onsite', src: '/images/crowd-control.jpg', title: 'Crowd Control', location: 'Anaheim, CA' },
+  { id: 8, type: 'image', category: 'Team', src: '/images/armed-officer.jpg', title: 'Armed Officer', location: 'Beverly Hills, CA' },
+  { id: 9, type: 'video', category: 'Events', src: '/videos/emergency-response.mp4', thumbnail: '/images/video-thumb-2.jpg', title: 'Emergency Response', location: 'Orange County, CA' },
+  { id: 10, type: 'video', category: 'Events', src: '/videos/armed-security.mp4', thumbnail: '/images/video-thumb-3.jpg', title: 'Armed Security', location: 'Beverly Hills, CA' },
+  { id: 11, type: 'video', category: 'Security', src: '/videos/security.mp4', thumbnail: '/images/video-thumb-4.jpg', title: 'Security Operations', location: 'Los Angeles, CA' },
+  { id: 12, type: 'image', category: 'Security', src: '/images/command-center.jpg', title: 'Command Center', location: 'Los Angeles, CA' },
+  { id: 13, type: 'image', category: 'Security', src: '/images/shopping.jpg', title: 'Shopping Security', location: 'Los Angeles, CA' },
+  { id: 14, type: 'image', category: 'Security', src: '/images/retail.jpg', title: 'Retail Security', location: 'Los Angeles, CA' },
+  { id: 15, type: 'image', category: 'Security', src: '/images/hospital.jpg', title: 'Hospital Security', location: 'Los Angeles, CA' },
+];
+
+const CATEGORIES = ['All', 'Patrol', 'Events', 'Security', 'Team', 'Technology', 'Construction', 'Onsite'];
+
+// Placeholder image component for broken images
+const PlaceholderImage = ({ className = "" }) => (
+  <div className={`bg-gradient-to-br from-slate-800 to-slate-900 ${className} flex items-center justify-center`}>
+    <Camera className="w-12 h-12 text-slate-600" />
+  </div>
+);
+
+const Gallery: React.FC = () => {
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
+
+  const filteredItems = activeCategory === 'All' 
+    ? GALLERY_ITEMS 
+    : GALLERY_ITEMS.filter(item => item.category === activeCategory);
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5
-      }
-    }
+  const handleImageError = (id: number) => {
+    setImageErrors(prev => new Set(prev).add(id));
   };
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
-      {/* Enhanced Background Effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-800/20 via-gray-900 to-gray-900"></div>
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]"></div>
-      <div className="absolute top-0 left-0 w-96 h-96 bg-red-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
+    <main className="min-h-screen bg-slate-50 font-sans selection:bg-red-500/30">
       
-      {/* Hero Section */}
-      <div className="relative py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative z-10 text-center mb-16"
+      {/* HERO SECTION */}
+      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-slate-900 text-white">
+        <HeroVideo />
+        
+        <div className="container mx-auto px-4 lg:px-8 relative z-20 text-center">
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true }} 
+            className="max-w-4xl mx-auto"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-600/20 to-orange-600/20 border border-red-500/30 mb-6">
-              <Shield className="w-4 h-4 text-red-400" />
-              <span className="text-sm font-semibold text-red-300 uppercase tracking-widest">
-                Security Operations Visuals
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-red-400 text-xs font-bold tracking-[0.2em] uppercase mb-8 shadow-2xl">
+              <Camera className="w-3 h-3" /> 
+              Media & Evidence
+            </motion.div>
+            
+            <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tighter leading-[1.1] drop-shadow-2xl">
+              OPERATIONS IN <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
+                ACTION
               </span>
+            </motion.h1>
+
+            <motion.p variants={fadeInUp} className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+              Transparency is key. Explore our fleet, technology, and officers in the field protecting assets across California.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* GALLERY SECTION - FIXED */}
+      <section className="py-20 bg-slate-50">
+        <div className="container mx-auto px-4 lg:px-8">
+          
+          {/* Filter Bar */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-1 bg-red-600"></div>
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900 uppercase tracking-wide">Our Portfolio</h2>
+                <p className="text-slate-600 text-sm mt-1">
+                  {filteredItems.length} items in {activeCategory === 'All' ? 'all categories' : activeCategory}
+                </p>
+              </div>
             </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-white via-orange-200 to-orange-100 bg-clip-text text-transparent">
-                Security Operations
-              </span>
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">
-                Gallery
-              </span>
-            </h1>
-            
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Explore our comprehensive security portfolio featuring cutting-edge technology, 
-              elite teams, and mission-critical operations captured through professional 
-              documentation.
-            </p>
-            
-            {/* Stats */}
-            <div className="flex flex-wrap justify-center gap-8 mt-12">
-              {[
-                { label: 'Total Assets', value: mediaItems.length, icon: Camera },
-                { label: 'Categories', value: categories.length - 1, icon: Filter },
-                { label: 'Total Views', value: '50K+', icon: Video },
-                { label: 'Active Operations', value: '24/7', icon: Clock }
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-center"
+
+            <div className="flex flex-wrap gap-2 justify-center">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 border ${
+                    activeCategory === cat 
+                      ? 'bg-red-600 text-white border-red-600 shadow-lg shadow-red-600/20' 
+                      : 'bg-white text-slate-600 border-slate-200 hover:border-red-600/30 hover:text-red-600'
+                  }`}
                 >
-                  <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
-                </motion.div>
+                  {cat}
+                </button>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Controls Bar */}
-          <div className="relative z-10 mb-8 p-6 rounded-2xl bg-gradient-to-r from-gray-800/30 to-gray-900/30 backdrop-blur-xl border border-gray-700/50">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              {/* Search Bar */}
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search media, tags, or descriptions..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all"
-                />
-              </div>
-
-              {/* View Controls */}
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 bg-gray-800/50 rounded-xl p-1">
-                  <button
-                    onClick={() => setViewMode('grid')}
-                    className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-red-600 text-white' : 'text-gray-400 hover:text-white'}`}
-                  >
-                    <Grid className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={() => setViewMode('list')}
-                    className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-red-600 text-white' : 'text-gray-400 hover:text-white'}`}
-                  >
-                    <List className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Sort Selector */}
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
-                  className="bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-500"
-                >
-                  <option value="date">Sort by Date</option>
-                  <option value="views">Sort by Views</option>
-                  <option value="title">Sort by Title</option>
-                </select>
-              </div>
+          {/* Grid Layout - FIXED WITH ERROR HANDLING */}
+          {filteredItems.length === 0 ? (
+            <div className="text-center py-20">
+              <Camera className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-slate-700">No items found</h3>
+              <p className="text-slate-500 mt-2">Try selecting a different category</p>
             </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredItems.map((item) => {
+                // Determine what to show: thumbnail for videos, image for images
+                const showPlaceholder = imageErrors.has(item.id);
+                const imageSrc = item.type === 'video' ? (item.thumbnail || '/images/video-thumbnail.jpg') : item.src;
 
-            {/* Filter Chips */}
-            <div className="flex flex-wrap gap-3 mt-6">
-              {categories.map((category) => {
-                const Icon = category.icon;
                 return (
-                  <button
-                    key={category.id}
-                    onClick={() => {
-                      setActiveFilter(category.id);
-                      setCurrentPage(1);
-                    }}
-                    className={`group inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all duration-300 ${
-                      activeFilter === category.id
-                        ? 'bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-lg shadow-red-500/25'
-                        : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
+                  <div
+                    key={item.id}
+                    className={`group relative overflow-hidden rounded-xl cursor-pointer bg-white border border-slate-200 hover:border-red-600/50 transition-all duration-300 shadow-md hover:shadow-xl ${
+                      item.id === 1 || item.id === 6 ? 'lg:col-span-2' : ''
                     }`}
+                    onClick={() => setSelectedItem(item)}
                   >
-                    <Icon className="w-4 h-4" />
-                    <span>{category.name}</span>
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                      activeFilter === category.id ? 'bg-white/20' : 'bg-gray-700/50'
-                    }`}>
-                      {category.count}
-                    </span>
-                  </button>
+                    {/* Media Container */}
+                    <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                      {showPlaceholder ? (
+                        <PlaceholderImage className="w-full h-full" />
+                      ) : (
+                        <>
+                          {/* Video Play Icon Overlay */}
+                          {item.type === 'video' && (
+                            <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/20 group-hover:bg-black/30 transition-colors">
+                              <div className="w-14 h-14 bg-red-600/90 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform">
+                                <Play className="w-6 h-6 text-white fill-current ml-1" />
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Image - Fixed with proper error handling */}
+                          <Image
+                            src={imageSrc}
+                            alt={item.title}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            onError={() => handleImageError(item.id)}
+                          />
+                        </>
+                      )}
+                    </div>
+
+                    {/* Info Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className={`inline-flex items-center gap-1 text-xs font-bold px-2 py-1 rounded ${
+                              item.type === 'video' 
+                                ? 'bg-blue-600/20 text-blue-600' 
+                                : 'bg-red-600/20 text-red-600'
+                            }`}>
+                              {item.type === 'video' ? (
+                                <>
+                                  <Play className="w-3 h-3" />
+                                  Video
+                                </>
+                              ) : (
+                                <>
+                                  <Camera className="w-3 h-3" />
+                                  Photo
+                                </>
+                              )}
+                            </span>
+                            <span className="text-xs text-white/80 bg-black/40 px-2 py-1 rounded">
+                              {item.category}
+                            </span>
+                          </div>
+                          <h3 className="text-white font-bold text-lg line-clamp-1">{item.title}</h3>
+                          <div className="flex items-center gap-1 text-white/70 text-sm mt-1">
+                            <MapPin className="w-3 h-3" />
+                            {item.location}
+                          </div>
+                        </div>
+                        <div className="bg-white/10 backdrop-blur-sm p-2 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Maximize2 className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 );
               })}
             </div>
-          </div>
-
-          {/* Gallery Grid/List View */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className={`mb-12 ${viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6' : 'space-y-4'}`}
-          >
-            {currentItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                variants={itemVariants}
-                className={`group relative ${viewMode === 'list' ? 'flex gap-4 p-4 bg-gray-800/30 rounded-2xl border border-gray-700/50 hover:border-red-500/50' : ''}`}
-              >
-                {viewMode === 'list' ? (
-                  // List View
-                  <div className="flex items-center gap-4 w-full">
-                    <div className="relative">
-                      <input
-                        type="checkbox"
-                        checked={selectedItems.includes(item.id)}
-                        onChange={() => handleSelectItem(item.id)}
-                        className="absolute top-2 left-2 z-20 w-5 h-5 accent-red-600"
-                      />
-                      <div
-                        onClick={() => handleMediaClick(item)}
-                        className="relative w-32 h-24 rounded-xl overflow-hidden cursor-pointer bg-gray-900"
-                      >
-                        {item.type === 'image' ? (
-                          <img
-                            src={item.thumbnail || item.src}
-                            alt={item.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
-                        ) : (
-                          <div className="relative w-full h-full">
-                            <video
-                              src={item.src}
-                              className="w-full h-full object-cover"
-                              muted
-                              playsInline
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="w-10 h-10 bg-red-600/90 rounded-full flex items-center justify-center">
-                                <Play className="w-4 h-4 text-white ml-0.5" />
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="px-3 py-1 bg-gray-800/80 text-gray-300 text-xs font-medium rounded-full capitalize">
-                          {item.category}
-                        </span>
-                        <span className="text-sm text-gray-400">{item.date}</span>
-                        {item.duration && (
-                          <span className="text-sm text-gray-400 flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {item.duration}
-                          </span>
-                        )}
-                      </div>
-                      
-                      <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-red-400 transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-400 mb-2 line-clamp-2">
-                        {item.description}
-                      </p>
-                      
-                      <div className="flex items-center gap-4 text-xs text-gray-500">
-                        <span>👁️ {item.views.toLocaleString()} views</span>
-                        <span>📥 {item.downloads} downloads</span>
-                      </div>
-                    </div>
-                    
-                    <button
-                      onClick={() => handleMediaClick(item)}
-                      className="p-2 rounded-lg bg-gray-800/50 text-gray-400 hover:text-white hover:bg-red-600 transition-all"
-                    >
-                      <Maximize2 className="w-5 h-5" />
-                    </button>
-                  </div>
-                ) : (
-                  // Grid View
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      checked={selectedItems.includes(item.id)}
-                      onChange={() => handleSelectItem(item.id)}
-                      className="absolute top-4 left-4 z-20 w-5 h-5 accent-red-600"
-                    />
-                    <div
-                      onClick={() => handleMediaClick(item)}
-                      className="relative aspect-video rounded-xl overflow-hidden cursor-pointer bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/50 group-hover:border-red-500/50 transition-all duration-500"
-                    >
-                      {item.type === 'image' ? (
-                        <img
-                          src={item.thumbnail || item.src}
-                          alt={item.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                      ) : (
-                        <div className="relative w-full h-full">
-                          <video
-                            src={item.src}
-                            className="w-full h-full object-cover"
-                            muted
-                            playsInline
-                          />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-14 h-14 bg-red-600/90 rounded-full flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-300">
-                              <Play className="w-5 h-5 text-white ml-0.5" />
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="px-3 py-1 bg-gray-900/80 text-gray-300 text-xs font-medium rounded-full capitalize">
-                              {item.category}
-                            </span>
-                            {item.duration && (
-                              <span className="text-sm text-gray-300 bg-gray-900/80 px-2 py-1 rounded">
-                                {item.duration}
-                              </span>
-                            )}
-                          </div>
-                          <h3 className="text-white font-bold text-lg mb-1">{item.title}</h3>
-                          <p className="text-gray-300 text-sm line-clamp-2">{item.description}</p>
-                        </div>
-                      </div>
-                      
-                      {/* Quick Stats */}
-                      <div className="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="text-xs text-gray-300 bg-gray-900/80 px-2 py-1 rounded">
-                          👁️ {item.views.toLocaleString()}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    {/* Bottom Info */}
-                    <div className="mt-3">
-                      <h3 className="text-white font-semibold mb-1 line-clamp-1">{item.title}</h3>
-                      <div className="flex items-center justify-between text-sm text-gray-400">
-                        <span>{item.date}</span>
-                        <span className="flex items-center gap-1">
-                          <Download className="w-3 h-3" />
-                          {item.downloads}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-between mb-12">
-              <div className="text-gray-400 text-sm">
-                Showing {startIndex + 1}-{Math.min(startIndex + itemsPerPage, filteredMedia.length)} of {filteredMedia.length} media
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  disabled={currentPage === 1}
-                  className="p-2 rounded-lg bg-gray-800/50 text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-red-600 hover:text-white transition-all"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                
-                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                  let pageNum;
-                  if (totalPages <= 5) {
-                    pageNum = i + 1;
-                  } else if (currentPage <= 3) {
-                    pageNum = i + 1;
-                  } else if (currentPage >= totalPages - 2) {
-                    pageNum = totalPages - 4 + i;
-                  } else {
-                    pageNum = currentPage - 2 + i;
-                  }
-                  
-                  return (
-                    <button
-                      key={pageNum}
-                      onClick={() => setCurrentPage(pageNum)}
-                      className={`w-10 h-10 rounded-lg font-medium transition-all ${
-                        currentPage === pageNum
-                          ? 'bg-red-600 text-white'
-                          : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-white'
-                      }`}
-                    >
-                      {pageNum}
-                    </button>
-                  );
-                })}
-                
-                <button
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                  disabled={currentPage === totalPages}
-                  className="p-2 rounded-lg bg-gray-800/50 text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-red-600 hover:text-white transition-all"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-400">Items per page:</span>
-                <select
-                  value={itemsPerPage}
-                  onChange={(e) => {
-                    setCurrentPage(1);
-                    // In a real app, you'd update itemsPerPage state here
-                  }}
-                  className="bg-gray-800/50 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-sm focus:outline-none focus:border-red-500"
-                >
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="50">50</option>
-                </select>
-              </div>
-            </div>
           )}
-
-          {/* Selected Items Actions */}
-          {selectedItems.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50"
-            >
-              <div className="flex items-center gap-4 px-6 py-4 bg-gradient-to-r from-gray-800 to-gray-900 rounded-2xl shadow-2xl border border-gray-700/50 backdrop-blur-xl">
-                <span className="text-white font-medium">
-                  {selectedItems.length} item{selectedItems.length !== 1 ? 's' : ''} selected
-                </span>
-                <button
-                  onClick={handleSelectAll}
-                  className="px-4 py-2 bg-gray-700/50 text-gray-300 rounded-lg hover:bg-gray-600/50 hover:text-white transition-all"
-                >
-                  {selectedItems.length === currentItems.length ? 'Deselect All' : 'Select All'}
-                </button>
-                <button
-                  onClick={handleDownload}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all flex items-center gap-2"
-                >
-                  <Download className="w-4 h-4" />
-                  Download Selected
-                </button>
-                <button
-                  onClick={() => setSelectedItems([])}
-                  className="p-2 text-gray-400 hover:text-white"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-            </motion.div>
-          )}
-
-          {/* CTA Section */}
-          <div className="relative z-10 text-center mt-16">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-gray-800/30 to-gray-900/30 backdrop-blur-xl border border-gray-700/50 p-12">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-              <h3 className="text-3xl font-bold text-white mb-4">Need Security Documentation?</h3>
-              <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
-                Contact our media team for professional security documentation, 
-                operational footage, or custom security portfolio development.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <button className="px-8 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-red-500/25 transition-all duration-300 transform hover:scale-105">
-                  Request Media Access
-                </button>
-                <button className="px-8 py-3 bg-transparent border-2 border-gray-600 text-gray-300 font-semibold rounded-xl hover:border-red-500 hover:text-white transition-all duration-300">
-                  Schedule Demo
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Enhanced Lightbox Modal */}
+      {/* LIGHTBOX MODAL */}
       <AnimatePresence>
-        {isModalOpen && selectedMedia && (
+        {selectedItem && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm"
-            onClick={closeModal}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm p-4"
+            onClick={() => setSelectedItem(null)}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25 }}
-              className="relative max-w-6xl w-full max-h-[90vh] bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl overflow-hidden border border-gray-700/50 shadow-2xl"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="relative w-full max-w-6xl bg-slate-900 rounded-2xl overflow-hidden border border-slate-800"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header */}
-              <div className="absolute top-0 left-0 right-0 z-10 p-6 bg-gradient-to-b from-black/80 to-transparent">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <h3 className="text-2xl font-bold text-white">{selectedMedia.title}</h3>
-                    <span className="px-3 py-1 bg-red-600/20 text-red-300 text-sm font-medium rounded-full border border-red-500/30">
-                      {selectedMedia.category}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={handleDownload}
-                      className="p-3 rounded-xl bg-gray-800/50 text-gray-300 hover:text-white hover:bg-red-600 transition-all"
-                      title="Download"
-                    >
-                      <Download className="w-5 h-5" />
-                    </button>
-                    <button
-                      onClick={closeModal}
-                      className="p-3 rounded-xl bg-gray-800/50 text-gray-300 hover:text-white hover:bg-red-600 transition-all"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
+              {/* Header */}
+              <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/80 to-transparent">
+                <div className="flex items-center gap-3">
+                  <span className="text-white/80 font-medium text-sm">
+                    {selectedItem.category}
+                  </span>
+                  <span className="text-white/60 text-sm">
+                    {selectedItem.type === 'video' ? 'Video' : 'Image'}
+                  </span>
                 </div>
+                <button 
+                  onClick={() => setSelectedItem(null)}
+                  className="p-2 bg-white/10 hover:bg-red-600 rounded-full text-white transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
-              {/* Media Content */}
-              <div className="relative h-[70vh] flex items-center justify-center bg-black">
-                {selectedMedia.type === 'image' ? (
-                  <img
-                    src={selectedMedia.src}
-                    alt={selectedMedia.title}
-                    className="max-w-full max-h-full object-contain"
-                  />
+              {/* Content */}
+              <div className="w-full bg-black relative aspect-video">
+                {selectedItem.type === 'video' ? (
+                  <video 
+                    key={selectedItem.src}
+                    className="w-full h-full object-contain"
+                    controls
+                    autoPlay
+                    playsInline
+                  >
+                    <source src={selectedItem.src} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
                 ) : (
-                  <div className="relative w-full h-full">
-                    <video
-                      ref={videoRef}
-                      src={selectedMedia.src}
-                      className="w-full h-full object-contain"
-                      controls
-                      autoPlay
-                      onPlay={() => setIsPlaying(true)}
-                      onPause={() => setIsPlaying(false)}
-                    />
-                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-                      <div className="flex items-center gap-4 bg-black/50 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-                        <button
-                          onClick={togglePlayPause}
-                          className="p-2 rounded-full bg-white text-black hover:bg-red-600 hover:text-white transition-all"
-                        >
-                          {isPlaying ? (
-                            <Pause className="w-5 h-5" />
-                          ) : (
-                            <Play className="w-5 h-5" />
-                          )}
-                        </button>
-                        {selectedMedia.duration && (
-                          <span className="text-white text-sm">
-                            {selectedMedia.duration}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                  <Image
+                    src={selectedItem.src}
+                    alt={selectedItem.title}
+                    fill
+                    className="object-contain"
+                    sizes="100vw"
+                    onError={() => handleImageError(selectedItem.id)}
+                  />
                 )}
               </div>
 
-              {/* Media Info */}
-              <div className="p-8">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-2">
-                    <p className="text-gray-300 text-lg mb-6">{selectedMedia.description}</p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {selectedMedia.tags.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1.5 bg-gray-800/50 text-gray-300 text-sm rounded-lg border border-gray-700/50"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
+              {/* Footer */}
+              <div className="p-6 bg-slate-900 border-t border-slate-800">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-2">{selectedItem.title}</h3>
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <MapPin className="w-4 h-4" />
+                      <span>{selectedItem.location}</span>
                     </div>
                   </div>
-                  
-                  <div className="space-y-6">
-                    <div className="p-6 rounded-xl bg-gray-800/30 border border-gray-700/50">
-                      <h4 className="text-white font-semibold mb-4">Media Details</h4>
-                      <div className="space-y-3">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-400">Upload Date:</span>
-                          <span className="text-white">{selectedMedia.date}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-400">Views:</span>
-                          <span className="text-white">{selectedMedia.views.toLocaleString()}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-400">Downloads:</span>
-                          <span className="text-white">{selectedMedia.downloads}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-400">Type:</span>
-                          <span className="text-white capitalize">{selectedMedia.type}</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <button className="w-full py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-red-500/25 transition-all duration-300">
-                      Request Full Resolution
-                    </button>
-                  </div>
+                  <Button 
+                    variant="outline" 
+                    className="border-slate-700 text-slate-300 hover:bg-red-600 hover:text-white hover:border-red-600 gap-2"
+                    onClick={() => {
+                      // Create download link
+                      const link = document.createElement('a');
+                      link.href = selectedItem.src;
+                      link.download = selectedItem.title.replace(/\s+/g, '-').toLowerCase() + 
+                                      (selectedItem.type === 'video' ? '.mp4' : '.jpg');
+                      link.click();
+                    }}
+                  >
+                    <Download className="w-4 h-4" /> Download
+                  </Button>
                 </div>
               </div>
-
-              {/* Navigation Arrows */}
-              <button
-                onClick={() => {
-                  const currentIndex = filteredMedia.findIndex(m => m.id === selectedMedia.id);
-                  if (currentIndex > 0) {
-                    handleMediaClick(filteredMedia[currentIndex - 1]);
-                  }
-                }}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/50 text-white hover:bg-red-600 transition-all"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button
-                onClick={() => {
-                  const currentIndex = filteredMedia.findIndex(m => m.id === selectedMedia.id);
-                  if (currentIndex < filteredMedia.length - 1) {
-                    handleMediaClick(filteredMedia[currentIndex + 1]);
-                  }
-                }}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/50 text-white hover:bg-red-600 transition-all"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+
+      {/* CTA SECTION */}
+      <section className="relative bg-slate-950 text-white border-t border-slate-800 overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{ 
+          backgroundImage: 'radial-gradient(#ef4444 1px, transparent 1px)', 
+          backgroundSize: '40px 40px' 
+        }}></div>
+        
+        <div className="container mx-auto px-4 lg:px-8 py-24 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="w-16 h-16 mx-auto bg-red-600/10 rounded-2xl flex items-center justify-center mb-8 text-red-600 border border-red-600/20">
+              <ShieldCheck className="w-8 h-8" />
+            </div>
+            
+            <h2 className="text-3xl md:text-5xl font-black mb-6">
+              Need Customized Security?
+            </h2>
+            <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+              Our gallery shows our capabilities, but our service defines our reputation. 
+              Contact us to discuss a tailored security plan for your property.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-6 rounded-lg shadow-lg shadow-red-900/20 text-lg">
+                Request a Quote
+              </Button>
+              <Button variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800 px-8 py-6 rounded-lg text-lg flex items-center gap-2">
+                View Client Testimonials <ChevronRight className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 };
 
-export default SecurityGallery;
+export default Gallery;

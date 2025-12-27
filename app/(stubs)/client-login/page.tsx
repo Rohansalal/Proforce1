@@ -288,8 +288,6 @@
 // };
 
 // export default ClientLogin;
-
-
 'use client';
 
 import { useState } from 'react';
@@ -301,8 +299,8 @@ import {
   Loader2, 
   ArrowRight, 
   Activity, 
-  MapPin, 
-  FileText 
+  Target, 
+  FileBarChart2 
 } from 'lucide-react';
 
 interface LoginFormData {
@@ -335,12 +333,12 @@ const ClientLogin: React.FC = () => {
     setError('');
 
     try {
-      // Create a hidden form to submit to the external site
+      // Create a hidden form to submit to the external site (SilverTracker Backend)
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = 'https://prod.silvertracker.net/Subscriber/Login.aspx';
       form.style.display = 'none';
-      form.target = '_self'; // Opens in same tab
+      form.target = '_self'; 
 
       // Add username field
       const usernameInput = document.createElement('input');
@@ -356,8 +354,7 @@ const ClientLogin: React.FC = () => {
       passwordInput.value = formData.Password;
       form.appendChild(passwordInput);
 
-      // Add any additional hidden fields that might be required
-      // You might need to inspect the actual form on the target site
+      // Add hidden fields required by ASP.NET backend
       const hiddenInput = document.createElement('input');
       hiddenInput.type = 'hidden';
       hiddenInput.name = '__LASTFOCUS';
@@ -388,11 +385,8 @@ const ClientLogin: React.FC = () => {
       eventArgumentInput.value = '';
       form.appendChild(eventArgumentInput);
 
-      // Add the form to the document and submit it
       document.body.appendChild(form);
       form.submit();
-
-      // Remove the form after submission
       document.body.removeChild(form);
 
     } catch (err) {
@@ -404,28 +398,33 @@ const ClientLogin: React.FC = () => {
   return (
     <div className="min-h-screen flex bg-slate-950 font-sans selection:bg-red-500/30">
       
-      {/* LEFT SIDE: LOGIN FORM */}
+      {/* =======================
+          LEFT SIDE: LOGIN FORM 
+         ======================= */}
       <div className="w-full lg:w-1/2 flex flex-col justify-start lg:justify-center items-center px-4 sm:px-6 lg:px-8 relative overflow-hidden pt-32 lg:pt-0">
         
+        {/* Subtle Grid Background */}
         <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '50px 50px' }}></div>
         
         <div className="w-full max-w-md space-y-8 relative z-10">
           
+          {/* Header Branding */}
           <div className="text-center">
             <div className="flex justify-center mb-8">
-               <div className="w-20 h-20 bg-gradient-to-br from-red-700 to-red-900 rounded-2xl flex items-center justify-center shadow-[0_0_40px_-10px_rgba(220,38,38,0.5)] border border-white/10 transform rotate-3 hover:rotate-0 transition-all duration-500">
-                 <ShieldCheck className="w-10 h-10 text-white" />
-               </div>
+               {/* <div className="w-20 h-20 bg-gradient-to-br from-red-700 to-red-900 rounded-2xl flex items-center justify-center shadow-[0_0_40px_-10px_rgba(220,38,38,0.5)] border border-white/10 transform rotate-3 hover:rotate-0 transition-all duration-500">
+                 {/* <ShieldCheck className="w-10 h-10 text-white" /> 
+               </div> */}
             </div>
             <h2 className="text-4xl font-black text-white tracking-tighter">
               PROFORCE<span className="text-red-600">1</span> PORTAL
             </h2>
             <div className="h-1 w-20 bg-gradient-to-r from-transparent via-red-600 to-transparent mx-auto my-4 rounded-full"></div>
-            <p className="text-slate-400 font-medium tracking-wide text-sm">
-              SECURE CLIENT ACCESS GATEWAY
+            <p className="text-slate-400 font-medium tracking-wide text-sm uppercase">
+              Client Intelligence Gateway
             </p>
           </div>
 
+          {/* Login Card */}
           <div className="bg-slate-900/60 backdrop-blur-xl py-10 px-6 shadow-2xl rounded-3xl border border-white/10 sm:px-12 relative overflow-hidden group">
             
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/50 to-transparent opacity-50"></div>
@@ -510,11 +509,11 @@ const ClientLogin: React.FC = () => {
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">
-                    <Loader2 className="w-5 h-5 animate-spin" /> Redirecting...
+                    <Loader2 className="w-5 h-5 animate-spin" /> Authenticating...
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
-                    Access SilverTracker <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    Access Dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 )}
               </button>
@@ -523,7 +522,7 @@ const ClientLogin: React.FC = () => {
             <div className="mt-8 pt-6 border-t border-white/5 text-center">
               <div className="flex items-center justify-center gap-2 text-[10px] text-slate-500 font-medium uppercase tracking-widest">
                 <Lock className="w-3 h-3" />
-                <span>Connecting to SilverTracker Portal</span>
+                <span>Encrypted Connection // 256-bit SSL</span>
               </div>
             </div>
           </div>
@@ -534,67 +533,72 @@ const ClientLogin: React.FC = () => {
         </div>
       </div>
 
-      {/* RIGHT SIDE: FEATURE SHOWCASE */}
+      {/* =======================
+          RIGHT SIDE: FEATURE SHOWCASE (ADVERTISING)
+         ======================= */}
       <div className="hidden lg:flex w-1/2 relative bg-slate-900 border-l border-white/5">
         <div className="absolute inset-0 z-0">
           <Image 
             src="/gallery/command-center-1.jpg"
-            alt="Security Operations Center"
+            alt="ProForce1 Operations Center"
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-30"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-950/80 to-red-950/30" />
+          {/* Enhanced gradient for better text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-950/80 to-red-950/40" />
         </div>
 
         <div className="relative z-10 w-full flex flex-col justify-center px-16 xl:px-24">
           <div className="mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">
+            {/* <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
               </span>
-              Connecting to SilverTracker
-            </div>
+              Intelligence-Led Security
+            </div> */}
+            
             <h2 className="text-5xl font-black text-white mb-6 leading-tight">
-              Direct Integration<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-slate-500">
-                SilverTracker System
+              The ProForce1<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-300">
+                Advantage
               </span>
             </h2>
-            <p className="text-lg text-slate-400 leading-relaxed max-w-xl">
-              Your credentials will be securely transferred to the SilverTracker portal for real-time monitoring and reporting access.
+            
+            <p className="text-lg text-slate-300 leading-relaxed max-w-xl">
+              Log in to experience the next evolution of asset protection. We combine elite tactical personnel with transparent, data-driven technology to give you complete peace of mind.
             </p>
           </div>
 
           <div className="space-y-4 max-w-md">
             {[
               { 
+                icon: Target, 
+                title: "Precision Operations", 
+                desc: "GPS-verified patrols and live checkpoint monitoring ensure every inch of your property is covered." 
+              },
+              { 
                 icon: Activity, 
-                title: "Live Tracking", 
-                desc: "Real-time GPS tracking of security personnel." 
+                title: "Real-Time Transparency", 
+                desc: "No more guessing. View officer movements, shift logs, and incident responses as they happen." 
               },
               { 
-                icon: FileText, 
-                title: "Automated Reports", 
-                desc: "Detailed activity and incident reports." 
-              },
-              { 
-                icon: MapPin, 
-                title: "Geo-fencing", 
-                desc: "Custom zone alerts and boundary monitoring." 
+                icon: FileBarChart2, 
+                title: "Digital Intelligence", 
+                desc: "Instant access to DARs (Daily Activity Reports) and historical data analytics for smarter security decisions." 
               }
             ].map((feature, idx) => (
               <div 
                 key={idx}
-                className="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-red-500/30 transition-all duration-300 cursor-default"
+                className="group flex items-start gap-5 p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-red-500/30 transition-all duration-300 cursor-default"
               >
-                <div className="p-3.5 rounded-xl bg-slate-950 text-red-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-lg">
-                  <feature.icon className="w-6 h-6" />
+                <div className="mt-1 p-3 rounded-xl bg-slate-950 text-red-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-lg border border-white/5">
+                  <feature.icon className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-lg mb-0.5">{feature.title}</h3>
-                  <p className="text-slate-400 text-sm group-hover:text-slate-300 transition-colors">{feature.desc}</p>
+                  <h3 className="text-white font-bold text-lg mb-1">{feature.title}</h3>
+                  <p className="text-slate-400 text-sm group-hover:text-slate-300 transition-colors leading-snug">{feature.desc}</p>
                 </div>
               </div>
             ))}

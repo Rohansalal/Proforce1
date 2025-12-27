@@ -246,13 +246,14 @@ export default function RetailSecurityPage() {
             </p>
             
             {/* Simple CTA Button */}
-            <Button 
-              size="lg" 
-              className="bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
+            <a
+              href="tel:8007797691"
+              aria-label="Call Proforce 1 Dispatch"
+              className="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
             >
               <Phone className="mr-3 w-5 h-5" />
-              Request Retail Security Quote
-            </Button>
+              Request Quote
+            </a>
           </div>
 
           {/* Scroll indicator */}
@@ -661,9 +662,9 @@ export default function RetailSecurityPage() {
                                 "Proforce 1 reduced our shrinkage by 35% in the first six months. Their retail security officers are professional, customer-friendly, and highly effective at loss prevention."
                              </p>
                              <div className="flex items-center gap-3 mt-3">
-                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">JD</div>
+                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">DB</div>
                                 <div>
-                                   <div className="font-bold text-slate-900">John Doe</div>
+                                   <div className="font-bold text-slate-900">Daniel Brooks</div>
                                    <div className="text-sm text-slate-600">Regional Manager, Major Retail Chain</div>
                                 </div>
                              </div>

@@ -266,13 +266,14 @@ export default function OnsiteSecurityPage() {
             </p>
             
             {/* Simple CTA Button */}
-            <Button 
-              size="lg" 
-              className="bg-orange-600 hover:bg-orange-700 text-white px-10 h-16 text-lg font-semibold rounded-lg shadow-lg shadow-orange-900/20"
+            <a
+              href="tel:8007797691"
+              aria-label="Call Proforce 1 Dispatch"
+              className="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
             >
               <Phone className="mr-3 w-5 h-5" />
-              Request Onsite Security Consultation
-            </Button>
+              Request Quote
+            </a>
           </div>
 
           {/* Scroll indicator */}

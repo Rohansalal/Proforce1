@@ -284,13 +284,14 @@ export default function ShoppingCenterSecurityPage() {
             </p>
             
             {/* Simple CTA Button */}
-            <ThemeButton 
-              size="lg" 
-              className="px-10 h-16 text-lg font-semibold"
+            <a
+              href="tel:8007797691"
+              aria-label="Call Proforce 1 Dispatch"
+              className="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
             >
               <Phone className="mr-3 w-5 h-5" />
-              Request Mall Security Assessment
-            </ThemeButton>
+              Request Quote
+            </a>
           </div>
 
           {/* Scroll indicator */}

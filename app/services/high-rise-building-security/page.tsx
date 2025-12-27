@@ -288,17 +288,14 @@ export default function HighRiskBuildingSecurityPage() {
             </p>
             
             {/* Simple CTA Button */}
-            <ThemeButton 
-              size="lg" 
-              className="px-10 h-16 text-lg font-semibold"
-              style={{
-                background: `linear-gradient(135deg, ${THEME.gradientFrom}, ${THEME.gradientTo})`,
-                boxShadow: `0 6px 30px ${THEME.primary}40`
-              }}
+            <a
+              href="tel:8007797691"
+              aria-label="Call Proforce 1 Dispatch"
+              className="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-semibold rounded-lg"
             >
               <Phone className="mr-3 w-5 h-5" />
-              Request Risk Assessment
-            </ThemeButton>
+              Request Quote
+            </a>
           </div>
 
           {/* Scroll indicator */}

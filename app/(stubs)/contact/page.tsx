@@ -71,7 +71,7 @@ export default function ContactPage() {
             "Since their start, ProForce 1 has delivered the highest quality of professional services."
           </h2>
           <div className="flex items-center justify-center gap-3 text-sm font-bold text-slate-500 uppercase tracking-widest">
-            <span className="text-slate-900">John Doe</span>
+            <span className="text-slate-900">Daniel Brooks</span>
             <span className="text-red-300">|</span>
             <span>Director of Operations, Major Healthcare Provider</span>
           </div>
@@ -117,7 +117,7 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5" /> (800) 779-7691
                   </p>
                   <p className="flex items-center gap-3">
-                    <Mail className="w-5 h-5" /> info@proforce1.com
+                    <Mail className="w-5 h-5" /> info@proforce1protection.com
                   </p>
                 </div>
               </div>
@@ -128,7 +128,7 @@ export default function ContactPage() {
                     <h4 className="font-bold text-sm uppercase tracking-wider">Operations Center</h4>
                 </div>
                 <p className="text-3xl font-black text-white tracking-tight">
-                  (800) 911-HELP
+                  (800) 779-7691
                 </p>
               </div>
             </div>
