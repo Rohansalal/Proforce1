@@ -19,7 +19,7 @@ interface BlogPost {
 const BlogSection: React.FC = () => {
   const blogPosts: BlogPost[] = [
     {
-      id: 1,
+      id: 13,
       date: "Aug 29, 2025",
       category: "Personnel",
       title: "Security Culture: How Investing in Your Guards Strengthens Safety",
@@ -29,7 +29,7 @@ const BlogSection: React.FC = () => {
       image: "/blogimage/expansion-map.jpg" // Security guard image
     },
     {
-      id: 2,
+      id: 14,
       date: "Aug 08, 2025",
       category: "Operations",
       title: "Tackling Today's Patrol Challenges: Modern Solutions",
@@ -39,7 +39,7 @@ const BlogSection: React.FC = () => {
       image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=1000&auto=format&fit=crop" // Tech/Patrol image
     },
     {
-      id: 3,
+      id: 15,
       date: "Aug 01, 2025",
       category: "Strategy",
       title: "Why You Should Engage Early with Security Partners",

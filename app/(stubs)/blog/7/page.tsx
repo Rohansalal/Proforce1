@@ -11,7 +11,7 @@ const blogData = {
   author: "Robert Martinez",
   date: "2023-12-28",
   readTime: "4 min read",
-  image: "/blogimage/winter-construction-security.jpg" 
+  image: "/blogimage/construction.jpeg" 
 };
 
 export default function Page() {

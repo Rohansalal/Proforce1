@@ -1,14 +1,17 @@
 "use client"
 
-import { useState } from "react"
-import { Search, Calendar, User, Clock, ArrowRight, Filter, Tag, ShieldAlert } from "lucide-react"
+import { useState, useEffect } from "react" // <--- Added useEffect
+import { Search, Clock, ArrowRight, Filter, ShieldAlert, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image" 
-import Link from "next/link" // <--- 1. Import Link here
+import Link from "next/link"
+
+const ITEMS_PER_PAGE = 8; // <--- Defined items per page
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [searchTerm, setSearchTerm] = useState("")
+  const [currentPage, setCurrentPage] = useState(1) // <--- Added Page State
 
   const categories = [
     "All Topics",
@@ -82,7 +85,7 @@ export default function BlogPage() {
       author: "Michael Brown",
       date: "2024-01-03",
       readTime: "5 min read",
-      image: "/blog/cctv-tech.jpg"
+      image: "/blogimage/security-tech-implementation.jpg"
     },
     {
       id: 7,
@@ -92,7 +95,7 @@ export default function BlogPage() {
       author: "Robert Martinez",
       date: "2023-12-28",
       readTime: "4 min read",
-      image: "/blog/construction-site.jpg"
+      image: "/blogimage/construction.jpeg"
     },
     {
       id: 8,
@@ -102,10 +105,52 @@ export default function BlogPage() {
       author: "Dr. Amanda Foster",
       date: "2023-12-22",
       readTime: "8 min read",
-      image: "/blog/guard-post.jpg"
+      image: "/blogimage/guard-post.jpg"
+    },
+    {
+      id: 9,
+      title: "How AI Is Shaping Patrol Routing and Incident Response",
+      excerpt: "Exploring practical AI-driven tools that optimize patrol patterns and accelerate response times while maintaining officer safety.",
+      category: "Technology",
+      author: "Ethan Park",
+      date: "2024-02-02",
+      readTime: "6 min read",
+      image: "/blogimage/ai-patrol.jpg"
+    },
+    {
+      id: 10,
+      title: "Case Study: Rapid Response Averts Major Loss at Retail Campus",
+      excerpt: "A breakdown of a recent incident where coordinated guards and technology prevented scale theft and minimized downtime.",
+      category: "Industry News",
+      author: "Olivia Green",
+      date: "2024-01-28",
+      readTime: "5 min read",
+      featured: true,
+      image: "/blogimage/retail.jpeg"
+    },
+    {
+      id: 11,
+      title: "Cold Weather Gear and Protocols for Overnight Guards",
+      excerpt: "Recommendations for equipment, shift planning, and vehicle readiness to keep overnight teams safe and operational in cold climates.",
+      category: "Safety Guidelines",
+      author: "Carlos Vega",
+      date: "2023-12-18",
+      readTime: "3 min read",
+      image: "/blogimage/deescalation-training.jpg"
+    },
+    {
+      id: 12,
+      title: "Improving De-escalation: Training Exercises That Work",
+      excerpt: "Practical scenario-based drills to enhance communication, situational awareness, and safe resolution techniques for officers.",
+      category: "Training Insights",
+      author: "Priya Singh",
+      date: "2023-11-30",
+      readTime: "7 min read",
+      image: "/blogimage/de-escalation-training.jpg"
     }
   ]
 
+  // 1. Filter Logic
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = selectedCategory === "all" || post.category === selectedCategory
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -114,20 +159,51 @@ export default function BlogPage() {
     return matchesCategory && matchesSearch
   })
 
+  // 2. Pagination Logic
+  const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE)
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const paginatedPosts = filteredPosts.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+
+  // 3. Reset page to 1 if search or category changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchTerm, selectedCategory])
+
   const featuredPosts = blogPosts.filter(post => post.featured)
+
+  // Scroll to top of grid function
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    // Optional: smooth scroll to grid
+    document.getElementById('blog-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <main className="min-h-screen bg-gray-50 font-sans">
       
       {/* HEADER SECTION */}
       <section className="relative bg-slate-900 text-white pt-40 pb-20 overflow-hidden">
+        <video
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none hidden sm:block motion-reduce:hidden"
+          muted
+          playsInline
+          autoPlay
+          loop
+          preload="metadata"
+          // poster="/videos/security-poster.jpg"
+          aria-hidden="true"
+        >
+          {/* <source src="/videos/security-bg.webm" type="video/webm" /> */}
+          <source src="/Services/retail/retail.mp4" type="video/mp4" />
+        </video>
+
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
         
         <div className="relative mx-auto max-w-7xl px-4 lg:px-8 text-center z-10">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
             PROFORCE<span className="text-red-600">1</span> BLOG
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-black md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
             Expert analysis, operational updates, and safety strategies from Southern California's premier security provider.
           </p>
         </div>
@@ -138,57 +214,56 @@ export default function BlogPage() {
         <section className="py-16 bg-white border-b border-gray-200">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="flex items-center gap-3 mb-8">
-                <div className="w-1 h-8 bg-red-600 rounded-full"></div>
-                <h2 className="text-2xl font-bold text-gray-900 tracking-tight">FEATURED ARTICLES</h2>
+              <div className="w-1 h-8 bg-red-600 rounded-full"></div>
+              <h2 className="text-2xl font-bold text-gray-900 tracking-tight">FEATURED ARTICLES</h2>
             </div>
             
             <div className="grid md:grid-cols-2 gap-8">
               {featuredPosts.map(post => (
-                // <--- 2. WRAPPED FEATURED POST IN LINK
                 <Link key={post.id} href={`/blog/${post.id}`} className="block h-full"> 
-                    <div className="group relative bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-red-100 transition-all duration-300 h-full flex flex-col">
+                  <div className="group relative bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-red-100 transition-all duration-300 h-full flex flex-col">
                     <div className="h-64 relative overflow-hidden group-hover:opacity-90 transition-opacity shrink-0">
-                        <Image 
-                            src={post.image || `/gallery/team-briefing-1.jpg`}
-                            alt={post.title}
-                            fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                        
-                        <span className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded shadow-lg z-10">
-                            Featured
-                        </span>
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-60"></div>
+                      <Image 
+                        src={post.image || `/gallery/team-briefing-1.jpg`}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      
+                      <span className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded shadow-lg z-10">
+                        Featured
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-60"></div>
                     </div>
 
                     <div className="p-8 flex flex-col flex-1">
-                        <div className="flex items-center gap-4 mb-4 text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      <div className="flex items-center gap-4 mb-4 text-xs font-medium text-gray-500 uppercase tracking-wide">
                         <span className="text-red-600 font-bold">{post.category}</span>
                         <span>•</span>
                         <span>{post.readTime}</span>
-                        </div>
-                        
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors leading-tight">
-                            {post.title}
-                        </h3>
-                        <p className="text-gray-600 mb-6 leading-relaxed line-clamp-2">{post.excerpt}</p>
-                        
-                        <div className="flex items-center justify-between pt-6 border-t border-gray-100 mt-auto">
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors leading-tight">
+                        {post.title}
+                      </h3>
+                      <p className="text-gray-600 mb-6 leading-relaxed line-clamp-2">{post.excerpt}</p>
+                      
+                      <div className="flex items-center justify-between pt-6 border-t border-gray-100 mt-auto">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 overflow-hidden">
-                                <User className="w-4 h-4" /> 
-                            </div>
-                            <div className="text-sm">
-                                <p className="font-bold text-gray-900 leading-none">{post.author}</p>
-                                <p className="text-gray-500 text-xs mt-1">{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
-                            </div>
+                          <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 overflow-hidden">
+                            <User className="w-4 h-4" /> 
+                          </div>
+                          <div className="text-sm">
+                            <p className="font-bold text-gray-900 leading-none">{post.author}</p>
+                            <p className="text-gray-500 text-xs mt-1">{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                          </div>
                         </div>
                         <span className="flex items-center text-sm font-bold text-red-600 group-hover:translate-x-1 transition-transform">
-                            Read Now <ArrowRight className="w-4 h-4 ml-2" />
+                          Read Now <ArrowRight className="w-4 h-4 ml-2" />
                         </span>
-                        </div>
+                      </div>
                     </div>
-                    </div>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -197,7 +272,7 @@ export default function BlogPage() {
       )}
 
       {/* Main Blog Content */}
-      <section className="py-16">
+      <section className="py-16" id="blog-grid">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-12">
             
@@ -206,100 +281,121 @@ export default function BlogPage() {
               
               {/* Search Bar - Mobile optimized */}
               <div className="lg:hidden mb-8">
-                 <div className="relative">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input
-                      type="text"
-                      placeholder="Search articles..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none shadow-sm"
-                    />
-                  </div>
+               <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none shadow-sm"
+                />
+               </div>
               </div>
 
-              {/* Blog Grid */}
+              {/* Blog Grid - Updated to use paginatedPosts */}
               <div className="grid md:grid-cols-2 gap-8">
-                {filteredPosts.length > 0 ? (
-                  filteredPosts.map(post => (
-                    // <--- 3. WRAPPED GRID POST IN LINK
+                {paginatedPosts.length > 0 ? (
+                  paginatedPosts.map(post => (
                     <Link key={post.id} href={`/blog/${post.id}`} className="block h-full group">
-                        <article className="flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg hover:border-red-100 transition-all duration-300 h-full">
+                      <article className="flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg hover:border-red-100 transition-all duration-300 h-full">
                         <div className="h-48 bg-slate-100 relative overflow-hidden group-hover:bg-slate-200 transition-colors shrink-0">
-                            
-                            <Image 
-                                src={post.image || `/gallery/patrol-car.jpg`} 
-                                alt={post.title}
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+                          
+                          <Image 
+                            src={post.image || `/gallery/patrol-car.jpg`} 
+                            alt={post.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
                         </div>
                         
                         <div className="p-6 flex-1 flex flex-col">
-                            <div className="flex items-center justify-between mb-3 text-xs">
+                          <div className="flex items-center justify-between mb-3 text-xs">
                             <span className="font-bold text-red-600 uppercase tracking-wider">
-                                {post.category}
+                              {post.category}
                             </span>
                             <span className="flex items-center text-gray-400 font-medium">
-                                <Clock className="w-3 h-3 mr-1" />
-                                {post.readTime}
+                              <Clock className="w-3 h-3 mr-1" />
+                              {post.readTime}
                             </span>
-                            </div>
-                            
-                            <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors leading-tight cursor-pointer">
+                          </div>
+                          
+                          <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors leading-tight cursor-pointer">
                             {post.title}
-                            </h3>
-                            
-                            <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed flex-1">
+                          </h3>
+                          
+                          <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed flex-1">
                             {post.excerpt}
-                            </p>
-                            
-                            <div className="pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
-                                <span className="text-xs font-medium text-gray-500">{post.author}</span>
-                                <span className="text-xs text-gray-400">{new Date(post.date).toLocaleDateString()}</span>
-                            </div>
+                          </p>
+                          
+                          <div className="pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
+                            <span className="text-xs font-medium text-gray-500">{post.author}</span>
+                            <span className="text-xs text-gray-400">{new Date(post.date).toLocaleDateString()}</span>
+                          </div>
                         </div>
-                        </article>
+                      </article>
                     </Link>
                   ))
                 ) : (
                   <div className="col-span-2 text-center py-20 bg-white rounded-xl border border-dashed border-gray-300">
                     <div className="inline-flex p-4 bg-gray-50 rounded-full mb-4">
-                        <Search className="w-8 h-8 text-gray-400" />
+                      <Search className="w-8 h-8 text-gray-400" />
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">No articles found</h3>
                     <p className="text-gray-500">We couldn't find any posts matching "{searchTerm}"</p>
                     <button 
-                        onClick={() => {setSearchTerm(""); setSelectedCategory("all")}}
-                        className="mt-4 text-red-600 font-bold hover:underline"
+                      onClick={() => {setSearchTerm(""); setSelectedCategory("all")}}
+                      className="mt-4 text-red-600 font-bold hover:underline"
                     >
-                        Clear filters
+                      Clear filters
                     </button>
                   </div>
                 )}
               </div>
 
-              {/* Pagination */}
-              <div className="flex justify-center mt-16">
-                <nav className="flex items-center gap-2">
-                  <Button variant="outline" disabled className="border-gray-200 text-gray-400 px-4">
-                    Previous
-                  </Button>
-                  <Button className="bg-red-600 hover:bg-red-700 text-white w-10 h-10 p-0 rounded-lg">
-                    1
-                  </Button>
-                  <Button variant="ghost" className="text-gray-600 hover:bg-gray-100 w-10 h-10 p-0 rounded-lg">
-                    2
-                  </Button>
-                  <Button variant="ghost" className="text-gray-600 hover:bg-gray-100 w-10 h-10 p-0 rounded-lg">
-                    3
-                  </Button>
-                  <Button variant="outline" className="border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-red-600 px-4">
-                    Next
-                  </Button>
-                </nav>
-              </div>
+              {/* Dynamic Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center mt-16">
+                  <nav className="flex items-center gap-2">
+                    {/* Previous Button */}
+                    <Button 
+                      variant="outline" 
+                      onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                      disabled={currentPage === 1}
+                      className="border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-red-600 px-4 disabled:opacity-50"
+                    >
+                      Previous
+                    </Button>
+
+                    {/* Page Numbers */}
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <Button
+                        key={page}
+                        onClick={() => handlePageChange(page)}
+                        variant={currentPage === page ? "default" : "ghost"}
+                        className={`w-10 h-10 p-0 rounded-lg ${
+                          currentPage === page 
+                            ? "bg-red-600 hover:bg-red-700 text-white" 
+                            : "text-gray-600 hover:bg-gray-100"
+                        }`}
+                      >
+                        {page}
+                      </Button>
+                    ))}
+
+                    {/* Next Button */}
+                    <Button 
+                      variant="outline" 
+                      onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                      disabled={currentPage === totalPages}
+                      className="border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-red-600 px-4 disabled:opacity-50"
+                    >
+                      Next
+                    </Button>
+                  </nav>
+                </div>
+              )}
             </div>
 
             {/* Sidebar (Sticky) */}
@@ -323,8 +419,8 @@ export default function BlogPage() {
               {/* Categories Widget */}
               <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm sticky top-24">
                 <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">Categories</h3>
-                    <Filter className="w-4 h-4 text-gray-400" />
+                  <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">Categories</h3>
+                  <Filter className="w-4 h-4 text-gray-400" />
                 </div>
                 <div className="space-y-1">
                   {categories.map(category => (
@@ -347,9 +443,9 @@ export default function BlogPage() {
               </div>
 
               {/* Newsletter Widget */}
-              <div className="bg-slate-900 rounded-xl p-6 text-white relative overflow-hidden">
+              {/* <div className="bg-slate-900 rounded-xl p-6 text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-4 opacity-10">
-                    <ShieldAlert className="w-24 h-24 transform rotate-12" />
+                  <ShieldAlert className="w-24 h-24 transform rotate-12" />
                 </div>
                 <h3 className="text-lg font-bold mb-2 relative z-10">Daily Intel</h3>
                 <p className="text-slate-400 text-xs mb-4 relative z-10 leading-relaxed">
@@ -365,7 +461,7 @@ export default function BlogPage() {
                     Subscribe
                   </Button>
                 </div>
-              </div>
+              </div> */}
 
             </aside>
           </div>
@@ -386,7 +482,7 @@ export default function BlogPage() {
             <Button className="bg-white text-red-700 hover:bg-slate-100 font-bold px-8 py-6 text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all rounded-xl">
               Request Assessment
             </Button>
-            <Button variant="outline" className="border-2 border-red-400 text-white hover:bg-red-800 hover:border-red-800 font-bold px-8 py-6 text-lg rounded-xl">
+            <Button variant="outline" className="border-2 border-red-400 text-black hover:bg-red-800 hover:border-red-800 font-bold px-8 py-6 text-lg rounded-xl">
               Call 24/7 Dispatch
             </Button>
           </div>

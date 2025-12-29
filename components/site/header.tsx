@@ -376,6 +376,7 @@ const NAVIGATION = {
     { href: "/services", label: "Services", isDropdown: true },
     { href: "/gallery", label: "Gallery" },
     { href: "/careers", label: "Careers" },
+    { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ],
   services: [
@@ -386,6 +387,7 @@ const NAVIGATION = {
     { href: "/services/fire-watch-security", label: "Fire Watch" },
     { href: "/services/hospital-security", label: "Hospital Security" },
     { href: "/services/mobile-patrol-security", label: "Mobile Patrol" },
+    { href: "/services", label: "All Services" },
   ]
 }
 
