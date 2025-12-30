@@ -4,14 +4,12 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Play, X, Camera, Filter, Maximize2, 
-  ChevronRight, ShieldCheck, MapPin, Download
+  Play, X, Camera, Maximize2, 
+  ShieldCheck, MapPin, Phone
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { id } from 'date-fns/locale';
 
 // --- 1. REUSED SUB-COMPONENT: Optimized Video Background ---
-// Kept exactly the same to ensure visual consistency with other pages
 const HeroVideo = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -74,7 +72,6 @@ const GALLERY_ITEMS = [
   { id: 18, type: 'image', category: 'Construction', src: '/Services/construction/WhatsApp Image 2025-12-04 at 9.29.40 AM (2).jpeg', title: 'Construction Site Security', location: 'Oakland, CA' },
   { id: 19, type: 'image', category: 'Patrol', src: '/gallery/patrol-car-night.jpg', title: 'Mobile Patrol Unit', location: 'Los Angeles, CA' },
   { id: 20, type: 'image', category: 'Events', src: '/hero/event-security.jpg', title: 'VIP Event Access', location: 'San Diego, CA' },
-
 ];
 
 const CATEGORIES = ['All', 'Patrol', 'Events', 'Technology', 'Team'];
@@ -174,8 +171,8 @@ const Gallery: React.FC = () => {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
                   className={`group relative overflow-hidden rounded-2xl cursor-pointer ${
-                     // "Different Approach": Using span for visual interest
-                     item.id === 1 || item.id === 6 ? 'md:col-span-2 md:row-span-2' : ''
+                      // "Different Approach": Using span for visual interest
+                      item.id === 1 || item.id === 6 ? 'md:col-span-2 md:row-span-2' : ''
                   }`}
                   onClick={() => setSelectedItem(item)}
                 >
@@ -194,22 +191,22 @@ const Gallery: React.FC = () => {
 
                     {/* Content Overlay */}
                     <div className="absolute bottom-0 left-0 w-full p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                       <div className="flex items-center justify-between">
-                         <div>
-                           <div className="text-red-400 text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-2">
-                             {item.type === 'video' ? <Play className="w-3 h-3 fill-current" /> : <Camera className="w-3 h-3" />}
-                             {item.category}
-                           </div>
-                           <h3 className="text-white font-bold text-lg md:text-xl">{item.title}</h3>
-                           <div className="flex items-center gap-1 text-slate-400 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="text-red-400 text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-2">
+                              {item.type === 'video' ? <Play className="w-3 h-3 fill-current" /> : <Camera className="w-3 h-3" />}
+                              {item.category}
+                            </div>
+                            <h3 className="text-white font-bold text-lg md:text-xl">{item.title}</h3>
+                            <div className="flex items-center gap-1 text-slate-400 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
                               <MapPin className="w-3 h-3" /> {item.location}
-                           </div>
-                         </div>
-                         
-                         <div className="bg-white/10 backdrop-blur-md p-3 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0">
-                           <Maximize2 className="w-5 h-5" />
-                         </div>
-                       </div>
+                            </div>
+                          </div>
+                          
+                          <div className="bg-white/10 backdrop-blur-md p-3 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0">
+                            <Maximize2 className="w-5 h-5" />
+                          </div>
+                        </div>
                     </div>
                   </div>
                 </motion.div>
@@ -240,33 +237,33 @@ const Gallery: React.FC = () => {
             >
               {/* Header */}
               <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/60 to-transparent">
-                 <span className="text-white/80 font-mono text-sm border border-white/20 px-3 py-1 rounded-full bg-black/20">
+                  <span className="text-white/80 font-mono text-sm border border-white/20 px-3 py-1 rounded-full bg-black/20">
                     ProForce1 // {selectedItem.category}
-                 </span>
-                 <button 
-                   onClick={() => setSelectedItem(null)}
-                   className="p-2 bg-white/10 hover:bg-red-600 rounded-full text-white transition-colors"
-                 >
-                   <X className="w-5 h-5" />
-                 </button>
+                  </span>
+                  <button 
+                    onClick={() => setSelectedItem(null)}
+                    className="p-2 bg-white/10 hover:bg-red-600 rounded-full text-white transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
               </div>
 
               {/* Content */}
               <div className="aspect-video w-full bg-black relative flex items-center justify-center">
-                 {selectedItem.type === 'video' ? (
-                   <div className="w-full h-full flex items-center justify-center bg-slate-800">
-                     <Play className="w-20 h-20 text-white/50" />
-                     {/* Video Player would go here */}
-                     <span className="absolute bottom-4 text-white text-sm">Video Preview</span>
-                   </div>
-                 ) : (
-                   <Image
-                     src={selectedItem.src}
-                     alt={selectedItem.title}
-                     fill
-                     className="object-contain"
-                   />
-                 )}
+                  {selectedItem.type === 'video' ? (
+                    <div className="w-full h-full flex items-center justify-center bg-slate-800">
+                      <Play className="w-20 h-20 text-white/50" />
+                      {/* Video Player would go here */}
+                      <span className="absolute bottom-4 text-white text-sm">Video Preview</span>
+                    </div>
+                  ) : (
+                    <Image
+                      src={selectedItem.src}
+                      alt={selectedItem.title}
+                      fill
+                      className="object-contain"
+                    />
+                  )}
               </div>
 
               {/* Footer */}
@@ -276,9 +273,7 @@ const Gallery: React.FC = () => {
                     <h3 className="text-2xl font-bold text-white mb-2">{selectedItem.title}</h3>
                     <p className="text-slate-400">Captured in {selectedItem.location}</p>
                   </div>
-                  <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-red-600 hover:text-white hover:border-red-600 gap-2">
-                    <Download className="w-4 h-4" /> Download Asset
-                  </Button>
+                  {/* REMOVED DOWNLOAD ASSET BUTTON HERE */}
                 </div>
               </div>
 
@@ -295,25 +290,41 @@ const Gallery: React.FC = () => {
         
         <div className="container mx-auto px-4 lg:px-8 py-24 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-             <div className="w-16 h-16 mx-auto bg-red-600/10 rounded-2xl flex items-center justify-center mb-8 text-red-600 border border-red-600/20">
-               <ShieldCheck className="w-8 h-8" />
-             </div>
-             
-             <h2 className="text-3xl md:text-5xl font-black mb-6">
-               Need Customized Security?
-             </h2>
-             <p className="text-slate-400 text-lg mb-10 leading-relaxed">
-               Our gallery shows our capabilities, but our service defines our reputation. Contact us to discuss a tailored security plan for your property.
-             </p>
-             
-             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-6 rounded-lg shadow-lg shadow-red-900/20 text-lg">
-                   Request a Quote
+              <div className="w-16 h-16 mx-auto bg-red-600/10 rounded-2xl flex items-center justify-center mb-8 text-red-600 border border-red-600/20">
+                <ShieldCheck className="w-8 h-8" />
+              </div>
+              
+              <h2 className="text-3xl md:text-5xl font-black mb-6">
+                Need Customized Security?
+              </h2>
+              <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+                Our gallery shows our capabilities, but our service defines our reputation. Contact us to discuss a tailored security plan for your property.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-6 rounded-lg shadow-lg shadow-red-900/20 text-lg"
+                  onClick={() => {
+                    const el = document.getElementById('contact');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.href = '/contact';
+                    }
+                  }}
+                >
+                  Request a Quote
                 </Button>
-                <Button variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800 px-8 py-6 rounded-lg text-lg flex items-center gap-2">
-                   View Client Testimonials <ChevronRight className="w-4 h-4" />
-                </Button>
-             </div>
+                 
+                 {/* MODIFIED BUTTON: Changed from Testimonials to Phone Number */}
+                 <Button 
+                    variant="ghost" 
+                    className="text-slate-300 hover:text-white hover:bg-slate-800 px-8 py-6 rounded-lg text-lg flex items-center gap-2"
+                    onClick={() => window.location.href = 'tel:8007797691'}
+                 >
+                    <Phone className="w-5 h-5" /> (800) 779-7691
+                 </Button>
+              </div>
           </div>
         </div>
       </section>

@@ -978,6 +978,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Phone } from "lucide-react";
 
 // ==========================================
 // 1. DATA CONFIGURATION
@@ -1106,7 +1108,7 @@ const servicesData = [
   {
     id: 17,
     title: "Unarmed Security",
-    image: "/Services/transport-security.jpg",
+    image: "/Services/unarmed/unarmed.jpeg",
     description: "Professional unarmed security services tailored for transportation hubs and public spaces.",
     features: ["Crowd Control", "Baggage Screening", "Emergency Response", "Patrol Services"],
     stats: "1M+",
@@ -1301,13 +1303,28 @@ export default function ServicesPage() {
           <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
             Contact us today for a free security assessment. Our team is standing by 24/7.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-orange-600 text-white px-12 py-4 rounded-lg font-bold hover:bg-orange-700 transition-all duration-300 text-lg">
-              Get Free Quote
-            </button>
-            <button className="border-2 border-gray-600 text-white px-12 py-4 rounded-lg font-bold hover:border-white hover:bg-white hover:text-gray-900 transition-all duration-300 text-lg">
-              Call Now: (800) 779-7691
-            </button>
+          {/* <div className="flex flex-col sm:flex-row gap-6 justify-center"> */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-6 rounded-lg shadow-lg shadow-red-900/20 text-lg"
+                  onClick={() => {
+                    const el = document.getElementById('contact');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.href = '/contact';
+                    }
+                  }}
+                >
+                  Request a Quote
+                </Button>
+                <Button 
+                    variant="ghost" 
+                    className="text-slate-300 hover:text-white hover:bg-slate-800 px-8 py-6 rounded-lg text-lg flex items-center gap-2"
+                    onClick={() => window.location.href = 'tel:8007797691'}
+                 >
+                    <Phone className="w-5 h-5" /> (800) 779-7691
+                 </Button>
           </div>
         </div>
       </section>

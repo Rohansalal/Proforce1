@@ -444,19 +444,6 @@ export default function ExecutiveProtectionPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
                   
-                  {/* Badge on image */}
-                  <div 
-                    className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border-l-4"
-                    style={{ borderLeftColor: THEME.primary }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-3 h-3 rounded-full animate-pulse"
-                        style={{ backgroundColor: THEME.primary }}
-                      ></div>
-                      <span className="text-sm font-bold text-slate-900">Close Protection Active</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
