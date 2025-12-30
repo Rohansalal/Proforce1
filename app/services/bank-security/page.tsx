@@ -704,7 +704,7 @@ export default function BankSecurityPage() {
 
                        <div className="space-y-1">
                            <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all" placeholder="(555) 123-4567" />
+                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
                        </div>
 
                        <div className="grid grid-cols-2 gap-5">

@@ -145,7 +145,7 @@ export default function ContactPage() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">Phone Number *</label>
-                  <input required type="tel" className="w-full pb-2 border-b-2 border-slate-200 bg-transparent focus:border-red-600 outline-none transition-colors placeholder:text-slate-300" placeholder="(555) 123-4567" />
+                  <input required type="tel" className="w-full pb-2 border-b-2 border-slate-200 bg-transparent focus:border-red-600 outline-none transition-colors placeholder:text-slate-300" placeholder="(800) 779-7691" />
                 </div>
               </div>
 

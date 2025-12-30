@@ -733,9 +733,9 @@ export default function EventSecurityPage() {
                                 "Proforce 1 managed security for our 500-person conference flawlessly. Their team was professional, discreet, and ensured our event ran smoothly without any incidents."
                              </p>
                              <div className="flex items-center gap-3 mt-3">
-                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">JD</div>
+                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">OG</div>
                                 <div>
-                                   <div className="font-bold text-slate-900">Daniel Brooks</div>
+                                   <div className="font-bold text-slate-900">Olivia Green</div>
                                    <div className="text-sm text-slate-600">Event Director, Major Conference</div>
                                 </div>
                              </div>
@@ -779,7 +779,7 @@ export default function EventSecurityPage() {
 
                        <div className="space-y-1">
                            <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(555) 123-4567" />
+                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
                        </div>
 
                        <div className="grid grid-cols-2 gap-5">

@@ -937,7 +937,7 @@ export default function LossPreventionSecurityPage() {
                            <input 
                              type="tel" 
                              className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="(555) 123-4567"
+                             placeholder="(800) 779-7691"
                              style={{
                                '--tw-ring-color': THEME.primary
                              } as React.CSSProperties}

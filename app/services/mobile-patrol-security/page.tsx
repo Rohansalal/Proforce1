@@ -240,7 +240,7 @@ export default function MobilePatrolPage() {
             className="absolute w-full h-full object-cover"
             poster={IMAGES.hero}
           >
-            <source src="/hero/patrol-services.mp4" type="video/mp4" />
+            <source src="/Services/mobile-partrol/mobile.mp4" type="video/mp4" />
             {/* Fallback if video doesn't load */}
             <Image
               src={IMAGES.hero}
@@ -719,9 +719,9 @@ export default function MobilePatrolPage() {
                                 "Proforce 1's mobile patrol service has significantly reduced incidents at our shopping center. Their visibility and quick response are exceptional."
                              </p>
                              <div className="flex items-center gap-3 mt-3">
-                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">JD</div>
+                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">DR</div>
                                 <div>
-                                   <div className="font-bold text-slate-900">Daniel Brooks</div>
+                                   <div className="font-bold text-slate-900">David Rodriguez</div>
                                    <div className="text-sm text-slate-600">Property Manager, Major Retail Center</div>
                                 </div>
                              </div>
@@ -765,7 +765,7 @@ export default function MobilePatrolPage() {
 
                        <div className="space-y-1">
                            <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(555) 123-4567" />
+                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
                        </div>
 
                        <div className="grid grid-cols-2 gap-5">

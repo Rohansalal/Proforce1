@@ -728,9 +728,9 @@ export default function UnarmedSecurityPage() {
                                 "Proforce 1's unarmed guards have transformed our office security. They're professional, approachable, and provide excellent protection without intimidating our visitors."
                              </p>
                              <div className="flex items-center gap-3 mt-3">
-                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">DB</div>
+                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">MJ</div>
                                 <div>
-                                   <div className="font-bold text-slate-900">Daniel Brooks</div>
+                                   <div className="font-bold text-slate-900">Marcus Johnson</div>
                                    <div className="text-sm text-slate-600">Office Manager, Major Corporation</div>
                                 </div>
                              </div>
@@ -774,7 +774,7 @@ export default function UnarmedSecurityPage() {
 
                        <div className="space-y-1">
                            <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(555) 123-4567" />
+                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
                        </div>
 
                        <div className="grid grid-cols-2 gap-5">

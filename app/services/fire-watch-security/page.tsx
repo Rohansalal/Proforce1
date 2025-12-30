@@ -21,13 +21,13 @@ import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
 const IMAGES = {
-  hero: "/Services/fire-security/fire.jpeg",
-  guard: "/Services/fire-security/fire.jpeg",
+  hero: "/Services/fire-security/bottom.jpeg",
+  guard: "/Services/fire-security/bottom.jpeg",
   technology: "/Services/fire-watch/fire-watch-tech.jpg",
   construction: "/Services/armed-security.jpg",
   officer: "/Services/armed-security.jpg",
   dashboard: "/Services/armed-security.jpg",
-  team: "/Services/armed-security.jpg",
+  team: "/Services/fire-security/lower.jpeg",
   facility: "/Services/armed-security.jpg"
 }
 
@@ -731,9 +731,9 @@ export default function FireWatchSecurityPage() {
                                 "When our sprinkler system failed, Proforce 1 had fire watch officers on site within 2 hours. Their documentation was flawless and kept us compliant with the fire marshal."
                              </p>
                              <div className="flex items-center gap-3 mt-3">
-                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">JD</div>
+                                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">MJ</div>
                                 <div>
-                                   <div className="font-bold text-slate-900">Daniel Brooks</div>
+                                   <div className="font-bold text-slate-900">Marcus Johnson</div>
                                    <div className="text-sm text-slate-600">Property Manager, Commercial Building</div>
                                 </div>
                              </div>
@@ -777,7 +777,7 @@ export default function FireWatchSecurityPage() {
 
                        <div className="space-y-1">
                            <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(555) 123-4567" />
+                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
                        </div>
 
                        <div className="grid grid-cols-2 gap-5">

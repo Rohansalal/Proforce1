@@ -583,7 +583,7 @@ export default function ArmedGuardPage() {
                          "Proforce 1 has transformed how we handle security. Their officers are professional, their reporting is instant, and we finally feel truly protected."
                        </blockquote>
                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center font-bold text-slate-900">JD</div>
+                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center font-bold text-slate-900">DB</div>
                           <div>
                              <div className="text-white font-bold">Daniel Brooks</div>
                              <div className="text-slate-400 text-sm">Director of Operations, Major Tech Firm</div>
@@ -627,7 +627,7 @@ export default function ArmedGuardPage() {
 
                        <div className="space-y-1">
                            <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(555) 123-4567" />
+                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
                        </div>
 
                        <div className="grid grid-cols-2 gap-5">

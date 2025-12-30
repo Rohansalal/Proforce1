@@ -8,6 +8,7 @@ import {
   ChevronRight, ShieldCheck, MapPin, Download
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { id } from 'date-fns/locale';
 
 // --- 1. REUSED SUB-COMPONENT: Optimized Video Background ---
 // Kept exactly the same to ensure visual consistency with other pages
@@ -53,18 +54,27 @@ const HeroVideo = () => {
 
 // --- MOCK DATA ---
 const GALLERY_ITEMS = [
-  { id: 1, type: 'image', category: 'Patrol', src: '/gallery/patrol-car-night.jpg', title: 'Mobile Patrol Unit', location: 'Los Angeles, CA' },
+  { id: 1, type: 'image', category: 'Patrol', src: '/Services/mobile-partrol/WhatsApp Image 2025-12-04 at 9.22.25 AM (1).jpeg', title: 'Mobile Patrol Unit', location: 'Los Angeles, CA' },
   { id: 2, type: 'video', category: 'Events', src: '/hero/event-security.jpg', title: 'VIP Event Access', location: 'San Diego, CA' },
   { id: 3, type: 'image', category: 'Construction', src: '/hero/construction-security.jpg', title: 'Command security', location: 'Irvine, CA' },
   { id: 4, type: 'image', category: 'Patrol', src: '/hero/patrol-services.jpg', title: 'K-9 Unit Patrol', location: 'Sacramento, CA' },
   { id: 5, type: 'image', category: 'Team', src: '/gallery/team-meeting.jpg', title: 'Shift Briefing', location: 'San Francisco, CA' },
-  { id: 6, type: 'video', category: 'Technology', src: '/gallery/drone-shot.jpg', title: 'Aerial Surveillance', location: 'Riverside, CA' },
+  { id: 6, type: 'image', category: 'Technology', src: '/Services/fire-security/bottom.jpeg', title: 'Aerial Surveillance', location: 'Riverside, CA' },
   { id: 7, type: 'image', category: 'Onsite', src: '/gallery/onsite.jpg', title: 'Crowd Control', location: 'Anaheim, CA' },
   { id: 8, type: 'image', category: 'Team', src: '/blogimage/expansion-map.jpg', title: 'Armed Officer', location: 'Beverly Hills, CA' },
-  { id: 9, type: 'video', category: 'Events', src: '/gallery/videos/emergency-response.mp4', title: 'Emergency Response', location: 'Orange County, CA' },
-  { id: 10, type: 'video', category: 'Events', src: '/gallery/videos/armed-security.mp4', title: 'Armed Security', location: 'Beverly Hills, CA' },
-  { id: 11, type: 'video', category: 'Security', src: '/gallery/videos/security.mp4', title: 'Security Operations', location: 'Los Angeles, CA' },
-  { id: 12, type: 'image', category: 'Security', src: '/gallery/command-center-1.jpg', title: 'Command Center', location: 'Los Angeles, CA' }
+  { id: 9, type: 'image', category: 'Fire', src: '/Services/fire-security/lower.jpeg', title: 'Emergency Response', location: 'Orange County, CA' },
+  { id: 10, type: 'image', category: 'Events', src: '/hero/access-control.jpg', title: 'Armed Security', location: 'Beverly Hills, CA' },
+  { id: 11, type: 'image', category: 'Security', src: '/blogimage/guard-post.jpg', title: 'Security Operations', location: 'Los Angeles, CA' },
+  { id: 12, type: 'image', category: 'Security', src: '/gallery/command-center-1.jpg', title: 'Command Center', location: 'Los Angeles, CA' },
+  { id: 13, type: 'image', category: 'onsite', src: '/Services/retail/herosection.jpeg', title: 'Shopping Security', location: 'Los Angeles, CA' },
+  { id: 14, type: 'image', category: 'Security', src: '/Services/loss/footer.jpeg', title: 'Retail Security', location: 'Los Angeles, CA' },
+  { id: 15, type: 'image', category: 'Security', src: '/Services/hospital-security/hospital.jpeg', title: 'Hospital Security', location: 'Los Angeles, CA' },
+  { id: 16, type: 'image', category: 'Fire', src: '/hero/executive-protection.jpg', title: 'executive security', location: 'San Jose, CA' },
+  { id: 17, type: 'image', category: 'Technology', src: '/Services/high-rise-building-security/footer.jpeg', title: 'Security Tech Setup', location: 'Fresno, CA' },
+  { id: 18, type: 'image', category: 'Construction', src: '/Services/construction/WhatsApp Image 2025-12-04 at 9.29.40 AM (2).jpeg', title: 'Construction Site Security', location: 'Oakland, CA' },
+  { id: 19, type: 'image', category: 'Patrol', src: '/gallery/patrol-car-night.jpg', title: 'Mobile Patrol Unit', location: 'Los Angeles, CA' },
+  { id: 20, type: 'image', category: 'Events', src: '/hero/event-security.jpg', title: 'VIP Event Access', location: 'San Diego, CA' },
+
 ];
 
 const CATEGORIES = ['All', 'Patrol', 'Events', 'Technology', 'Team'];
