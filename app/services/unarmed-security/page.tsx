@@ -396,12 +396,16 @@ export default function UnarmedSecurityPage() {
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Unarmed Security Quote
+                                                              <a
+                                            href="tel:8007797691"
+                                              aria-label="Call Proforce 1 Dispatch" >              
+                    <Phone className="mr-3 w-5 h-5"  />
+                    Request Unarmed Security Quote </a>
                   </Button>
                   <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
                     <Shield className="mr-3 w-5 h-5" />
-                    View All Services
+                    <a href="/services">
+                    View All Services</a>
                   </Button>
                 </div>
               </div>

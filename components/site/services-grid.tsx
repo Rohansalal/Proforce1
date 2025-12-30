@@ -329,7 +329,7 @@ const services = [
     id: 4,
     title: "Retail Centers Security", 
     icon: ShoppingBag,
-    backgroundImage: "/Services/shopping-center-security.jpg",
+    backgroundImage: "/Services/retail/retail.jpeg",
     description: "Loss prevention and customer safety solutions that don't disrupt the shopping experience.",
     features: ["Loss Prevention", "Parking Patrol", "Conflict Resolution"]
   },
