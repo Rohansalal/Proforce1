@@ -988,7 +988,7 @@ const servicesData = [
   {
     id: 1,
     title: "High Rise Building Security",
-    image: "/Services/high-rise-security.jpg",
+    image: "/Services//high-rise-building-security/service.png",
     description: "Comprehensive security solutions for high-rise buildings tailored to unique structural requirements.",
     features: ["24/7 Monitoring", "Access Control", "Emergency Response", "CCTV Surveillance"],
     stats: "98%",
@@ -998,7 +998,7 @@ const servicesData = [
   {
     id: 2,
     title: "Fire Watch Security",
-    image: "/Services/fire-watch.jpg",
+    image: "/Services/fire-security/service.png",
     description: "Professional and compliant fire watch services to protect your property and assets around the clock.",
     features: ["Fire Safety Checks", "Emergency Protocols", "Regular Reporting", "Compliance Monitoring"],
     stats: "24/7",
@@ -1028,7 +1028,7 @@ const servicesData = [
   {
     id: 5,
     title: "Financial Institution Security",
-    image: "/Services/bank-security.jpg",
+    image: "/Services/financial-institutions-security/service.png",
     description: "High-level security services for banks and financial institutions, protecting assets and transactions.",
     features: ["Asset Protection", "Access Control", "Alarm Response", "Transaction Security"],
     stats: "100%",
@@ -1078,7 +1078,7 @@ const servicesData = [
   {
     id: 10,
     title: "Loss Prevention Security",
-    image: "/Services/loss-prevention.jpg",
+    image: "/Services/loss/service.png",
     description: "Strategic retail loss prevention focused on reducing shrinkage and improving profitability.",
     features: ["Shoplifting Prevention", "Employee Training", "Inventory Control", "Investigation Services"],
     stats: "60%",
@@ -1098,7 +1098,7 @@ const servicesData = [
   {
     id: 16,
     title: "School / Campus Security",
-    image: "/Services/campus-security.jpg",
+    image: "/Services/school/school.jpg",
     description: "Creating safe educational environments for students, faculty, and staff on campuses.",
     features: ["Access Control", "Emergency Protocols", "Student Safety", "Visitor Management"],
     stats: "500+",
@@ -1367,19 +1367,7 @@ function AnimatedServiceSection({ service, reverse = false, index }: { service: 
               {/* Optional: Dark overlay on image for depth */}
               <div className="absolute inset-0 bg-black/10"></div>
 
-              {/* === THE FLOATING STATS CARD === */}
-              <div className={`absolute bottom-8 left-0 z-20 transition-all duration-700 delay-300 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}>
-                  <div className="bg-white p-6 rounded-r-xl shadow-2xl border-l-[6px] border-orange-500 min-w-[200px]">
-                  <div className="text-4xl font-extrabold text-gray-900 leading-none mb-1">
-                    {service.stats}
-                  </div>
-                  <div className="text-xs text-gray-500 font-bold uppercase tracking-widest">
-                    {service.statsText}
-                  </div>
-                </div>
-              </div>
+   
             </div>
           </div>
 

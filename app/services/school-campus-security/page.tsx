@@ -23,10 +23,10 @@ import { cn } from "@/lib/utils"
 // --- Assets Configuration ---
 const IMAGES = {
   // hero: Replaced by video
-  security: "/Services/school/schooltop.jpeg",
-  technology: "/Services/school/schooltop.jpeg",
-  campus: "/Services/school/schooltop.jpeg",
-  officer: "/Services/school/schooltop.jpeg",
+  security: "/Services/school/school.jpg",
+  technology: "/Services/school/school.jpg",
+  campus: "/Services/school/school.jpg",
+  officer: "/Services/school/school.jpg",
   command: "/blogimage/guard-post.jpg",
   team: "/blogimage/guard-post.jpg",
   facility: "/blogimage/guard-post.jpg"
