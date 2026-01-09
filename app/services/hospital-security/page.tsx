@@ -26,9 +26,9 @@ const IMAGES = {
   technology: "/Services/hospital-security/hospital.jpeg",
   lobby: "/Services/hospital-security/hospital.jpeg",
   officer: "/Services/hospital/hospital-officer.jpg",
-  dashboard: "/Services/armed-security.jpg",
-  team: "/Services/armed-security.jpg",
-  facility: "/Services/armed-security.jpg"
+  dashboard: "/Services/hospital-security/footer.jpeg",
+  team: "/Services/hospital-security/footer.jpeg",
+  facility: "/Services/hospital-security/footer.jpeg"
 }
 
 // --- Animation Variants ---

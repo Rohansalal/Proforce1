@@ -25,10 +25,10 @@ const IMAGES = {
   security: "/Services/event-security/event.jpeg",
   technology: "/Services/event-security/event-tech.jpg",
   crowd: "/Services/event-security/event-crowd.jpg",
-  officer: "/Services/armed-security.jpg",
-  dashboard: "/Services/armed-security.jpg",
-  team: "/Services/armed-security.jpg",
-  facility: "/Services/armed-security.jpg"
+  officer: "/Services/event-security/footer.jpeg",
+  dashboard: "/Services/event-security/footer.jpeg",
+  team: "/Services/event-security/footer.jpeg",
+  facility: "/Services/event-security/footer.jpeg"
 }
 
 // --- Animation Variants ---

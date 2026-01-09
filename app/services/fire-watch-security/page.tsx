@@ -24,11 +24,11 @@ const IMAGES = {
   hero: "/Services/fire-security/bottom.jpeg",
   guard: "/Services/fire-security/bottom.jpeg",
   technology: "/Services/fire-watch/fire-watch-tech.jpg",
-  construction: "/Services/armed-security.jpg",
-  officer: "/Services/armed-security.jpg",
-  dashboard: "/Services/armed-security.jpg",
-  team: "/Services/fire-security/lower.jpeg",
-  facility: "/Services/armed-security.jpg"
+  construction: "/Services/fire-security/construction.jpg",
+  officer: "/Services/fire-security/officer.jpg",
+  dashboard: "/Services/fire-security/lower.jpeg",
+  team: "/Services/fire-security/service.png",
+  facility: "/Services/fire-security/service.png"
 }
 
 // --- Animation Variants ---

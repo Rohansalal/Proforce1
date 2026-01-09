@@ -27,9 +27,9 @@ const IMAGES = {
   technology: "/Services/unarmed/unarmed-tech.jpg",
   patrol: "/Services/unarmed/unarmed-patrol.jpg",
   officer: "/Services/unarmed/unarmed-officer.jpg",
-  dashboard: "/Services/armed-security.jpg",
-  team: "/Services/armed-security.jpg",
-  facility: "/Services/armed-security.jpg"
+  dashboard: "/Services/unarmed/footer.jpeg",
+  team: "/Services/unarmed/footer.jpeg",
+  facility: "/Services/unarmed/footer.jpeg"
 }
 
 // --- Animation Variants ---

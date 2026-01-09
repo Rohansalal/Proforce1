@@ -25,9 +25,9 @@ import { cn } from "@/lib/utils"
 // --- Assets Configuration ---
 const ASSETS = {
   heroVideo: "/Services/loss/video.mp4",
-  store: "/Services/loss/top.jpeg",
-  warehouse: "/Services/loss/top.jpeg",
-  cctv: "/Services/loss/footer.jpeg",
+  store: "/Services/loss/service.png",
+  warehouse: "/Services/loss/service.png",
+  cctv: "/Services/loss/service.png",
   officer: "/Services/loss/footer.jpeg",
   audit: "/Services/loss/footer.jpeg",
   team: "/Services/loss/footer.jpeg",
