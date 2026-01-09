@@ -26,8 +26,8 @@ const ASSETS = {
   residential: "/Services/executive-protection/top.jpeg",
   planning: "/Services/executive-protection/top.jpeg",
   officer: "/Services/executive-protection/top.jpeg",
-  jet: "/Services/executive-protection/footer.jpeg",
-  team: "/Services/executive-protection/footer.jpeg"
+  jet: "/Services/executive-protection/footer.png",
+  team: "/Services/executive-protection/footer.png"
 }
 
 // Custom color theme using #f34100 (Brand Theme)
@@ -811,7 +811,7 @@ export default function ExecutiveProtectionPage() {
                  </div>
                  
                  <div>
-                    <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[400px]">
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[600px]">
                        <Image 
                           src={ASSETS.team} 
                           alt="Proforce 1 Protection Team" 

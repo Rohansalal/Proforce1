@@ -417,7 +417,7 @@ export default function UnarmedSecurityPage() {
                 viewport={{ once: true }}
                 className="lg:col-span-5 relative"
               >
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[600px]">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[800px]">
                   <Image
                     src={IMAGES.security}
                     alt="Professional Unarmed Security Officer"
@@ -429,12 +429,7 @@ export default function UnarmedSecurityPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent" />
                   
                   {/* Badge on image */}
-                  <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-semibold text-slate-900">On Duty Now</span>
-                    </div>
-                  </div>
+           
                 </div>
               </motion.div>
             </div>
@@ -718,7 +713,7 @@ export default function UnarmedSecurityPage() {
                  </div>
                  
                  <div>
-                    <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[400px]">
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[500px]">
                        <Image 
                           src={IMAGES.team} 
                           alt="Proforce 1 Security Team" 

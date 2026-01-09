@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils"
 // --- Assets Configuration ---
 const ASSETS = {
   heroVideo: "/Services/financial-institutions-security/video.mp4", // Video for Hero Section
-  lobby: "/Services/financial-institutions-security/fincial.jpeg",
+  lobby: "/Services/financial-institutions-security/service.png",
   skyline: "/Services/financial-institutions-security/fincial.jpeg",
   concierge: "/Services/financial-institutions-security/fincial.jpeg",
   controlRoom: "/Services/financial-institutions-security/fincial.jpeg",
