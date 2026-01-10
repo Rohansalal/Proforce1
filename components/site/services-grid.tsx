@@ -305,7 +305,7 @@ const services = [
     id: 1,
     title: "High Rise building Security", 
     icon: Building2, 
-    backgroundImage: "/Services/high-rise-security.jpg",
+    backgroundImage: "/Services/high-rise-building-security/service.png",
     description: "Comprehensive access control and monitoring for skyscrapers and multi-tenant properties.",
     features: ["Lobby Ambassadors", "Elevator Control", "24/7 Monitoring"]
   },
@@ -313,7 +313,7 @@ const services = [
     id: 2,
     title: "Fire Watch Security", 
     icon: Flame,
-    backgroundImage: "/Services/fire-watch.jpg",
+    backgroundImage: "/Services/fire-security/service.png",
     description: "Certified fire guards to protect your property during system impairments or high-risk periods.",
     features: ["Certified Guards", "Compliance Logs", "Rapid Deployment"]
   },
@@ -337,7 +337,7 @@ const services = [
     id: 5,
     title: "Financial Institutions  Security", 
     icon: Landmark,
-    backgroundImage: "/Services/bank-security.jpg",
+    backgroundImage: "/Services/financial-institutions-security/service.png",
     description: "High-stakes security with armed protection and advanced surveillance for banks.",
     features: ["Armed Guards", "Vault Security", "Escort Services"]
   },
