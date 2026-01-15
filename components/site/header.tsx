@@ -377,7 +377,7 @@ const NAVIGATION = {
     { href: "/gallery", label: "Gallery" },
     { href: "/careers", label: "Careers" },
     { href: "/blog", label: "Blog" },
-    { href: "/contact", label: "Contact" },
+    { href: "/contact", label: "Contact-Us" },
   ],
   services: [
     { href: "/services/armed-security", label: "Armed Security" },

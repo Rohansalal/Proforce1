@@ -50,7 +50,7 @@ const slides = [
   },
   {
     id: 4,
-    videoSrc: "/hero/fire-watch.mp4",
+    videoSrc: "/Services/fire-security/fire-watch1.mp4",
     title: "Fire Watch",
     subtitle: "NFPA Compliance",
     description: "NFPA-compliant fire watch services ensuring compliance and safety during system outages.",

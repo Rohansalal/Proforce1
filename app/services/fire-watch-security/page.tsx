@@ -21,8 +21,8 @@ import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
 const IMAGES = {
-  hero: "/Services/fire-security/bottom.jpeg",
-  guard: "/Services/fire-security/bottom.jpeg",
+  hero: "/Services/fire-security/bottom1.jpeg",
+  guard: "/Services/fire-security/bottom1.jpeg",
   technology: "/Services/fire-watch/fire-watch-tech.jpg",
   construction: "/Services/fire-security/construction.jpg",
   officer: "/Services/fire-security/officer.jpg",
@@ -252,7 +252,7 @@ export default function FireWatchSecurityPage() {
             className="absolute w-full h-full object-cover"
             poster={IMAGES.hero}
           >
-            <source src="/Services/fire-security/fire-watch.mp4" type="video/mp4" />
+            <source src="/Services/fire-security/fire-watch1.mp4" type="video/mp4" />
             {/* Fallback if video doesn't load */}
             <Image
               src={IMAGES.hero}
