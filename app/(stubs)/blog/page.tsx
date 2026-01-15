@@ -182,7 +182,7 @@ export default function BlogPage() {
     <main className="min-h-screen bg-gray-50 font-sans">
       
       {/* HEADER SECTION */}
-      <section className="relative bg-slate-900 text-white pt-40 pb-20 overflow-hidden">
+      <section className="relative bg-slate-900 text-white pt-40 pb-70 overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none hidden sm:block motion-reduce:hidden"
           muted
@@ -203,7 +203,7 @@ export default function BlogPage() {
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
             PROFORCE<span className="text-red-600">1</span> BLOG
           </h1>
-          <p className="text-lg text-black md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-white md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
             Expert analysis, operational updates, and safety strategies from Southern California's premier security provider.
           </p>
         </div>

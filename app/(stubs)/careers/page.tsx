@@ -110,7 +110,7 @@ export default function CareerPage() {
       {/* =========================================
           1. VIDEO HERO SECTION
       ========================================= */}
-      <section className="relative h-[75vh] w-full overflow-hidden bg-slate-950 flex items-center justify-center">
+      <section className="relative h-[80vh] w-full overflow-hidden   bg-slate-950 flex items-center justify-center">
         
         {/* Background Video Layer */}
         <div className="absolute inset-0 z-0">
