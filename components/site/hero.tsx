@@ -2,16 +2,16 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import Link from "next/link"
-import { 
-  ShieldCheck, 
-  Users, 
-  Flame, 
-  ChevronLeft, 
-  ChevronRight, 
-  ArrowRight, 
+import {
+  ShieldCheck,
+  Users,
+  Flame,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
   Building2
 } from "lucide-react"
-import { cn } from "@/lib/utils" 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
 // --- Configuration ---
@@ -20,7 +20,7 @@ const SLIDE_DURATION = 5000 // 5 Seconds per slide
 const slides = [
   {
     id: 1,
-    videoSrc: "/hero/Video Project.mp4", 
+    videoSrc: "/hero/Video Project.mp4",
     title: "Mobile Patrol",
     subtitle: "Deterrence & Response",
     description: "High-visibility patrol units providing round-the-clock deterrence and rapid response for your properties.",
@@ -70,7 +70,7 @@ const VideoLayer = ({ src, isActive, posterColor }: { src: string, isActive: boo
     if (!video) return
 
     if (isActive) {
-      video.currentTime = 0 
+      video.currentTime = 0
       const playPromise = video.play()
       if (playPromise !== undefined) {
         playPromise.catch((error) => {
@@ -93,14 +93,14 @@ const VideoLayer = ({ src, isActive, posterColor }: { src: string, isActive: boo
     )}>
       {/* Uniform Overlay (No Left Shade) */}
       <div className="absolute inset-0 bg-slate-950/60 z-10" />
-      
+
       <video
         ref={videoRef}
         src={src}
         className="w-full h-full object-cover"
-        muted 
-        loop 
-        playsInline 
+        muted
+        loop
+        playsInline
         preload="auto"
         onError={() => setHasError(true)}
       />
@@ -113,11 +113,11 @@ export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isHovering, setIsHovering] = useState(false)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
-  
+
   // Touch Handling State
   const [touchStart, setTouchStart] = useState<number | null>(null)
   const [touchEnd, setTouchEnd] = useState<number | null>(null)
-  
+
   // Navigation Logic
   const nextSlide = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % slides.length)
@@ -167,7 +167,7 @@ export function Hero() {
   const currentSlide = slides[activeIndex]
 
   return (
-    <section 
+    <section
       className="relative h-[100dvh] w-full bg-slate-950 overflow-hidden"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -177,11 +177,11 @@ export function Hero() {
     >
       {/* --- 1. VIDEO LAYER --- */}
       {slides.map((slide, index) => (
-        <VideoLayer 
+        <VideoLayer
           key={slide.id}
           src={slide.videoSrc}
           isActive={activeIndex === index}
-          posterColor={getThemeStyles(slide.theme)} 
+          posterColor={getThemeStyles(slide.theme)}
         />
       ))}
 
@@ -190,9 +190,9 @@ export function Hero() {
 
       {/* --- 2. CONTENT LAYER --- */}
       <div className="relative z-20 w-full h-full flex flex-col justify-end pb-24 md:justify-center md:pb-0 px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
-        
+
         <div key={activeIndex} className="max-w-4xl space-y-6 animate-in fade-in slide-in-from-left-4 duration-700 fill-mode-forwards">
-          
+
           {/* Badge */}
           <div className="flex items-center gap-3">
             <div className={cn("flex items-center justify-center w-10 h-10 rounded-lg text-white shadow-lg backdrop-blur-sm", getThemeStyles(currentSlide.theme))}>
@@ -216,11 +216,11 @@ export function Hero() {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <Button 
-              asChild 
-              size="lg" 
+            <Button
+              asChild
+              size="lg"
               className={cn(
-                "h-14 px-8 rounded-full text-base font-bold transition-all hover:scale-105 shadow-xl", 
+                "h-14 px-8 rounded-full text-base font-bold transition-all hover:scale-105 shadow-xl",
                 getThemeStyles(currentSlide.theme)
               )}
             >
@@ -228,13 +228,13 @@ export function Hero() {
                 View Service <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>
-            <Button 
-              asChild 
-              size="lg" 
-              variant="outline" 
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
               className="h-14 px-8 rounded-full text-base font-bold bg-white/5 backdrop-blur-sm border-white/20 text-white hover:bg-white hover:text-black transition-all"
             >
-              <Link href="/contact">
+              <Link href={`${currentSlide.link}#quote-section`}>
                 Request Quote
               </Link>
             </Button>
@@ -259,16 +259,16 @@ export function Hero() {
                 "w-1.5 rounded-full transition-all duration-500 mx-auto",
                 idx === activeIndex ? "h-full bg-white/20" : "h-3 bg-white/40 hover:bg-white/80"
               )}>
-                 {/* Desktop Vertical Progress Bar */}
-                 {idx === activeIndex && !isHovering && (
-                  <div 
+                {/* Desktop Vertical Progress Bar */}
+                {idx === activeIndex && !isHovering && (
+                  <div
                     className="absolute bottom-0 left-0 right-0 bg-white w-full animate-progress-vertical"
                     style={{ animationDuration: `${SLIDE_DURATION}ms` }}
                   />
-                 )}
-                 {idx === activeIndex && isHovering && (
-                   <div className="absolute inset-0 bg-white w-full" />
-                 )}
+                )}
+                {idx === activeIndex && isHovering && (
+                  <div className="absolute inset-0 bg-white w-full" />
+                )}
               </div>
             </button>
           ))}
@@ -289,15 +289,15 @@ export function Hero() {
         {/* Mobile Horizontal Progress */}
         <div className="flex gap-2 w-full">
           {slides.map((_, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className={cn(
                 "h-1 rounded-full bg-white/20 transition-all duration-300 relative overflow-hidden",
                 idx === activeIndex ? "flex-1" : "w-2"
               )}
             >
               {idx === activeIndex && (
-                <div 
+                <div
                   className={cn("absolute inset-0 bg-white", !isHovering && "animate-progress-horizontal")}
                   style={{ animationDuration: `${SLIDE_DURATION}ms` }}
                 />
@@ -305,19 +305,19 @@ export function Hero() {
             </div>
           ))}
         </div>
-        
+
         <div className="flex justify-between items-center">
-            <span className="text-white/70 text-sm font-mono tracking-widest">
-              0{activeIndex + 1} / 0{slides.length}
-            </span>
-            <div className="flex gap-3">
-                <Button size="icon" variant="ghost" onClick={prevSlide} className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
-                    <ChevronLeft className="h-5 w-5" />
-                </Button>
-                <Button size="icon" variant="ghost" onClick={nextSlide} className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
-                    <ChevronRight className="h-5 w-5" />
-                </Button>
-            </div>
+          <span className="text-white/70 text-sm font-mono tracking-widest">
+            0{activeIndex + 1} / 0{slides.length}
+          </span>
+          <div className="flex gap-3">
+            <Button size="icon" variant="ghost" onClick={prevSlide} className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+              <ChevronLeft className="h-5 w-5" />
+            </Button>
+            <Button size="icon" variant="ghost" onClick={nextSlide} className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+              <ChevronRight className="h-5 w-5" />
+            </Button>
+          </div>
         </div>
       </div>
 

@@ -427,7 +427,7 @@
 // //   return (
 // //     <section ref={elementRef} className={`min-h-screen flex ${reverse ? 'bg-gray-50' : 'bg-white'}`}>
 // //       <div className={`flex flex-col lg:flex-row w-full ${reverse ? 'lg:flex-row-reverse' : ''}`}>
-        
+
 // //         {/* Image Side - Full Height & Width with Animation */}
 // //         <div className="lg:w-1/2 relative">
 // //           <div className={`relative h-96 lg:h-full min-h-[400px] lg:min-h-screen transition-all duration-1000 transform ${
@@ -477,7 +477,7 @@
 // //                 {service.title}
 // //               </h2>
 // //             </div>
-            
+
 // //             <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
 // //               {service.description}
 // //             </p>
@@ -739,7 +739,7 @@
 
 //   return (
 //     <div className="min-h-screen bg-white overflow-hidden">
-      
+
 //       {/* ------------------------
 //         HERO SECTION (VIDEO BG)
 //         ------------------------
@@ -767,8 +767,8 @@
 //           <div className={`space-y-6 transition-all duration-1000 transform ${
 //             heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
 //           }`}>
-            
-            
+
+
 //             <h1 className="text-5xl lg:text-8xl font-bold text-white mb-6 leading-tight">
 //               When We're There,<br />
 //               <span className="text-orange-500">
@@ -880,7 +880,7 @@
 //     <section ref={elementRef} className={`py-12 lg:py-20 overflow-hidden ${reverse ? 'bg-gray-50' : 'bg-white'}`}>
 //       <div className="max-w-7xl mx-auto px-4 lg:px-8">
 //         <div className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${reverse ? 'lg:flex-row-reverse' : ''}`}>
-          
+
 //           {/* === IMAGE SIDE === 
 //               Matches the style of the image with the overlay card 
 //           */}
@@ -901,7 +901,7 @@
 //                 className="object-cover transition-transform duration-700 group-hover:scale-105"
 //                 quality={90}
 //               />
-              
+
 //               {/* Optional: Dark overlay on image for depth */}
 //               <div className="absolute inset-0 bg-black/10"></div>
 
@@ -928,11 +928,11 @@
 //                 ? 'opacity-100 translate-y-0' 
 //                 : 'opacity-0 translate-y-10'
 //             }`}>
-              
+
 //               <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 leading-tight">
 //                 {service.title}
 //               </h2>
-              
+
 //               <p className="text-lg text-gray-600 leading-relaxed font-medium">
 //                 {service.description}
 //               </p>
@@ -988,7 +988,7 @@ const servicesData = [
   {
     id: 1,
     title: "High Rise Building Security",
-    image: "/Services//high-rise-building-security/service.png",
+    image: "/Services/high-rise-building-security/services.png",
     description: "Comprehensive security solutions for high-rise buildings tailored to unique structural requirements.",
     features: ["24/7 Monitoring", "Access Control", "Emergency Response", "CCTV Surveillance"],
     stats: "98%",
@@ -998,7 +998,7 @@ const servicesData = [
   {
     id: 2,
     title: "Fire Watch Security",
-    image: "/Services/fire-security/service.png",
+    image: "/Services/fire-security/HomePage.png ",
     description: "Professional and compliant fire watch services to protect your property and assets around the clock.",
     features: ["Fire Safety Checks", "Emergency Protocols", "Regular Reporting", "Compliance Monitoring"],
     stats: "24/7",
@@ -1008,7 +1008,7 @@ const servicesData = [
   {
     id: 3,
     title: "Hospital Security",
-    image: "/Services/hospital-security.jpg",
+    image: "/Services/hospital-security/Homepage.png",
     description: "Specialized security environments for healthcare facilities, ensuring safety for patients and staff.",
     features: ["Patient Safety", "Access Control", "Emergency Response", "Visitor Management"],
     stats: "500+",
@@ -1038,7 +1038,7 @@ const servicesData = [
   {
     id: 6,
     title: "Event Security",
-    image: "/Services/event-security/event.jpeg",
+    image: "/Services/event-security/homepage.png",
     description: "Scalable security solutions for events of all sizes, from private gatherings to large concerts.",
     features: ["Crowd Control", "Access Management", "Emergency Planning", "VIP Protection"],
     stats: "5K+",
@@ -1141,7 +1141,7 @@ const useScrollAnimation = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 } 
+      { threshold: 0.1 }
     );
 
     const currentElement = elementRef.current;
@@ -1179,22 +1179,21 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
-      
+
       {/* ------------------------
         HERO SECTION (AUTO SWITCHING VIDEOS)
         ------------------------
       */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
-        
+
         {/* === VIDEO 1 === */}
-        <div className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-          currentVideoIndex === 0 ? "opacity-100 z-10" : "opacity-0 z-0"
-        }`}>
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
+        <div className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${currentVideoIndex === 0 ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover"
           >
             {/* REPLACE WITH YOUR FIRST VIDEO PATH */}
@@ -1203,14 +1202,13 @@ export default function ServicesPage() {
         </div>
 
         {/* === VIDEO 2 === */}
-        <div className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-          currentVideoIndex === 1 ? "opacity-100 z-10" : "opacity-0 z-0"
-        }`}>
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
+        <div className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${currentVideoIndex === 1 ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover"
           >
             {/* REPLACE WITH YOUR SECOND VIDEO PATH */}
@@ -1223,9 +1221,8 @@ export default function ServicesPage() {
 
         {/* Hero Content */}
         <div ref={heroAnimation.elementRef} className="relative z-30 w-full max-w-7xl mx-auto px-4 lg:px-8 text-center">
-          <div className={`space-y-6 transition-all duration-1000 transform ${
-            heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}>
+          <div className={`space-y-6 transition-all duration-1000 transform ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}>
             <h1 className="text-5xl lg:text-8xl font-bold text-white mb-6 leading-tight">
               When We're There,<br />
               <span className="text-orange-500">
@@ -1242,9 +1239,8 @@ export default function ServicesPage() {
       */}
       <section className="py-24 bg-gray-50">
         <div ref={surveillanceAnimation.elementRef} className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center transition-all duration-1000 ${
-            surveillanceAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}>
+          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center transition-all duration-1000 ${surveillanceAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}>
             <div className="space-y-8">
               <div>
                 <h4 className="text-orange-600 font-bold uppercase tracking-widest text-sm mb-2">Technology Driven</h4>
@@ -1263,7 +1259,7 @@ export default function ServicesPage() {
                 { title: "Cloud Operations", desc: "Advanced cloud-based monitoring with real-time alerts." },
                 { title: "Rapid Response", desc: "Immediate dispatch of security teams." }
               ].map((card, index) => (
-                <div 
+                <div
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg border-l-4 border-transparent hover:border-orange-500 transition-all duration-300 cursor-pointer"
                 >
@@ -1282,10 +1278,10 @@ export default function ServicesPage() {
       */}
       <div className="bg-white">
         {servicesData.map((service, index) => (
-          <AnimatedServiceSection 
-            key={service.id} 
-            service={service} 
-            reverse={index % 2 === 1} 
+          <AnimatedServiceSection
+            key={service.id}
+            service={service}
+            reverse={index % 2 === 1}
             index={index}
           />
         ))}
@@ -1304,27 +1300,27 @@ export default function ServicesPage() {
             Contact us today for a free security assessment. Our team is standing by 24/7.
           </p>
           {/* <div className="flex flex-col sm:flex-row gap-6 justify-center"> */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-6 rounded-lg shadow-lg shadow-red-900/20 text-lg"
-                  onClick={() => {
-                    const el = document.getElementById('contact');
-                    if (el) {
-                      el.scrollIntoView({ behavior: 'smooth' });
-                    } else {
-                      window.location.href = '/contact';
-                    }
-                  }}
-                >
-                  Request a Quote
-                </Button>
-                <Button 
-                    variant="ghost" 
-                    className="text-slate-300 hover:text-white hover:bg-slate-800 px-8 py-6 rounded-lg text-lg flex items-center gap-2"
-                    onClick={() => window.location.href = 'tel:8007797691'}
-                 >
-                    <Phone className="w-5 h-5" /> (800) 779-7691
-                 </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-6 rounded-lg shadow-lg shadow-red-900/20 text-lg"
+              onClick={() => {
+                const el = document.getElementById('contact');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  window.location.href = '/contact';
+                }
+              }}
+            >
+              Request a Quote
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-slate-300 hover:text-white hover:bg-slate-800 px-8 py-6 rounded-lg text-lg flex items-center gap-2"
+              onClick={() => window.location.href = 'tel:8007797691'}
+            >
+              <Phone className="w-5 h-5" /> (800) 779-7691
+            </Button>
           </div>
         </div>
       </section>
@@ -1342,19 +1338,18 @@ function AnimatedServiceSection({ service, reverse = false, index }: { service: 
     <section ref={elementRef} className={`py-12 lg:py-20 overflow-hidden ${reverse ? 'bg-gray-50' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         <div className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${reverse ? 'lg:flex-row-reverse' : ''}`}>
-          
+
           {/* === IMAGE SIDE === 
               Matches the style of the image with the overlay card 
           */}
           <div className="w-full lg:w-1/2 relative group">
             {/* Large Image Container */}
-            <div className={`relative h-[400px] lg:h-[550px] w-full rounded-2xl overflow-hidden shadow-xl transition-all duration-1000 transform ${
-              isVisible 
-                ? 'opacity-100 translate-x-0' 
-                : reverse 
-                  ? 'opacity-0 translate-x-20' 
-                  : 'opacity-0 -translate-x-20'
-            }`}>
+            <div className={`relative h-[400px] lg:h-[550px] w-full rounded-2xl overflow-hidden shadow-xl transition-all duration-1000 transform ${isVisible
+              ? 'opacity-100 translate-x-0'
+              : reverse
+                ? 'opacity-0 translate-x-20'
+                : 'opacity-0 -translate-x-20'
+              }`}>
               <Image
                 src={service.image}
                 alt={service.title}
@@ -1363,26 +1358,25 @@ function AnimatedServiceSection({ service, reverse = false, index }: { service: 
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 quality={90}
               />
-              
+
               {/* Optional: Dark overlay on image for depth */}
               <div className="absolute inset-0 bg-black/10"></div>
 
-   
+
             </div>
           </div>
 
           {/* === CONTENT SIDE === */}
           <div className="w-full lg:w-1/2">
-            <div className={`space-y-6 transition-all duration-1000 transform ${
-              isVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-10'
-            }`}>
-              
+            <div className={`space-y-6 transition-all duration-1000 transform ${isVisible
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-10'
+              }`}>
+
               <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 leading-tight">
                 {service.title}
               </h2>
-              
+
               <p className="text-lg text-gray-600 leading-relaxed font-medium">
                 {service.description}
               </p>
@@ -1402,7 +1396,7 @@ function AnimatedServiceSection({ service, reverse = false, index }: { service: 
 
               {/* The "Learn More" Link Style */}
               <div className="pt-6">
-                <Link 
+                <Link
                   href={service.href}
                   className="inline-flex items-center text-orange-600 font-bold text-lg hover:text-orange-700 transition-colors group"
                 >
