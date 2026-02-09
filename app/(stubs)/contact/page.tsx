@@ -257,6 +257,17 @@ export default function ContactPage() {
                     <option value="Unarmed Guarding">Unarmed Guarding</option>
                     <option value="Fire Watch">Fire Watch</option>
                     <option value="Mobile Patrol">Mobile Patrol</option>
+                    <option value="Event Security">Event Security</option>
+                    <option value="Constructionsite Security">Constructionsite Security</option>
+                    <option value="Hospital Security">Hospital Security</option>
+                    <option value="High Rise Building Security">High Rise Building Security</option>
+                    <option value="Retail Security">Retail Security</option>
+                    <option value="Financial Institution Security">Financial Institution Security</option>
+                    <option value="Government Facility Security">Government Facility Security</option>
+                    <option value="Onsite Security 24/7">Onsite Security 24/7</option>
+                    <option value="Loss Prevention Security">Loss Prevention Security</option>
+                    <option value="Executive Protection">Executive Protection</option>
+                    <option value="School / Campus Security">School / Campus Security</option>
                   </select>
                 </div>
                 <div className="space-y-2">
