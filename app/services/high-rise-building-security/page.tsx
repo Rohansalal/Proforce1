@@ -20,9 +20,9 @@ import { cn } from "@/lib/utils"
 // --- Assets Configuration ---
 const ASSETS = {
   heroVideo: "/Services/high-rise-building-security/video.mp4",
-  lobby: "/Services/high-rise-building-security/hero.jpeg",
-  skyline: "/Services/high-rise-building-security/hero.jpeg",
-  concierge: "/Services/high-rise-building-security/hero.jpeg",
+  lobby: "/Services/high-rise-building-security/High Rise building Security.png",
+  skyline: "/Services/high-rise-building-security/High Rise building Security.png",
+  concierge: "/Services/high-rise-building-security/High Rise building Security.png",
   controlRoom: "/Services/high-rise-building-security/hero.jpeg",
   patrol: "/Services/high-rise-building-security/footer.jpeg",
   security: "/Services/high-rise-building-security/footer.jpeg",
