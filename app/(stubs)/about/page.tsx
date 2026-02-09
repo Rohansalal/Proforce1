@@ -834,7 +834,6 @@ const AboutUs: React.FC = () => {
       <section className="pt-24 pb-12 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-            
             {/* Image Side */}
             <motion.div 
               initial={{ opacity: 0, x: -30 }}
@@ -842,7 +841,7 @@ const AboutUs: React.FC = () => {
               transition={{ duration: 0.8 }}
               className="w-full lg:w-1/2 relative"
             >
-              <div className="absolute -inset-4 bg-red-600/5 rounded-3xl transform -rotate-2"></div>
+              <div className="absolute inset-0 bg-red-600/5 rounded-3xl"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-100">
                 <Image
                   src="/security-guard-patrol-vehicle-at-night.jpg" 

@@ -498,12 +498,12 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link href="/privacy" className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
+                <Link href="/privacy-policy" className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/term&condition" className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
+                <Link href="/terms-and-conditions" className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
                   Terms & Conditions
                 </Link>
               </li>
