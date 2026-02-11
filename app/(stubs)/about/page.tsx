@@ -30,7 +30,7 @@ const HeroVideo = () => {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
       <Image
-        src="/security-guard-patrol-vehicle-at-night.jpg"
+        src="/AboutUs.jpg"
         alt="Security Background"
         fill
         className="object-cover opacity-40 scale-105"
@@ -145,7 +145,7 @@ const AboutUs: React.FC = () => {
               <div className="absolute inset-0 bg-red-600/5 rounded-3xl"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-100">
                 <Image
-                  src="/security-guard-patrol-vehicle-at-night.jpg"
+                  src="/AboutUs.jpg"
                   alt="ProForce1 Security Team"
                   width={800}
                   height={600}

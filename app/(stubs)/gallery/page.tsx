@@ -53,9 +53,9 @@ const HeroVideo = () => {
 // --- MOCK DATA ---
 const GALLERY_ITEMS = [
   { id: 1, type: 'image', category: 'Patrol', src: '/Services/mobile-partrol/WhatsApp Image 2025-12-04 at 9.22.25 AM (1).jpeg', title: 'Mobile Patrol Unit', location: 'Los Angeles, CA' },
-  { id: 2, type: 'video', category: 'Events', src: '/hero/event-security.jpg', title: 'VIP Event Access', location: 'San Diego, CA' },
+  { id: 2, type: 'image', category: 'Events', src: '/Services/event-security/event.jpeg', title: 'VIP Event Access', location: 'San Diego, CA' },
   { id: 3, type: 'image', category: 'Construction', src: '/hero/construction-security.jpg', title: 'Command security', location: 'Irvine, CA' },
-  { id: 4, type: 'image', category: 'Patrol', src: '/hero/patrol-services.jpg', title: 'K-9 Unit Patrol', location: 'Sacramento, CA' },
+  { id: 4, type: 'image', category: 'Patrol', src: '/gallery/k-9.png', title: 'K-9 Unit Patrol', location: 'Sacramento, CA' },
   { id: 5, type: 'image', category: 'Team', src: '/gallery/team-meeting.jpg', title: 'Shift Briefing', location: 'San Francisco, CA' },
   { id: 6, type: 'image', category: 'Technology', src: '/Services/fire-security/bottom.jpeg', title: 'Aerial Surveillance', location: 'Riverside, CA' },
   { id: 7, type: 'image', category: 'Onsite', src: '/gallery/onsite.jpg', title: 'Crowd Control', location: 'Anaheim, CA' },
@@ -67,11 +67,11 @@ const GALLERY_ITEMS = [
   { id: 13, type: 'image', category: 'onsite', src: '/Services/retail/herosection.jpeg', title: 'Shopping Security', location: 'Los Angeles, CA' },
   { id: 14, type: 'image', category: 'Security', src: '/Services/loss/footer.jpeg', title: 'Retail Security', location: 'Los Angeles, CA' },
   { id: 15, type: 'image', category: 'Security', src: '/Services/hospital-security/hospital.jpeg', title: 'Hospital Security', location: 'Los Angeles, CA' },
-  { id: 16, type: 'image', category: 'Fire', src: '/hero/executive-protection.jpg', title: 'executive security', location: 'San Jose, CA' },
+  { id: 16, type: 'image', category: 'Fire', src: '/gallery/executive security.png', title: 'executive security', location: 'San Jose, CA' },
   { id: 17, type: 'image', category: 'Technology', src: '/Services/high-rise-building-security/footer.jpeg', title: 'Security Tech Setup', location: 'Fresno, CA' },
   { id: 18, type: 'image', category: 'Construction', src: '/Services/construction/WhatsApp Image 2025-12-04 at 9.29.40 AM (2).jpeg', title: 'Construction Site Security', location: 'Oakland, CA' },
-  { id: 19, type: 'image', category: 'Patrol', src: '/gallery/patrol-car-night.jpg', title: 'Mobile Patrol Unit', location: 'Los Angeles, CA' },
-  { id: 20, type: 'image', category: 'Events', src: '/hero/event-security.jpg', title: 'VIP Event Access', location: 'San Diego, CA' },
+  { id: 19, type: 'image', category: 'Patrol', src: '/gallery/mobile partol unit.jpeg', title: 'Mobile Patrol Unit', location: 'Los Angeles, CA' },
+  { id: 20, type: 'image', category: 'Events', src: '/gallery/VIP.png', title: 'VIP Event Access', location: 'San Diego, CA' },
 ];
 
 const CATEGORIES = ['All', 'Patrol', 'Events', 'Technology', 'Team'];

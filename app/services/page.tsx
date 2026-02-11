@@ -998,7 +998,7 @@ const servicesData = [
   {
     id: 2,
     title: "Fire Watch Security",
-    image: "/Services/fire-security/HomePage.png ",
+    image: "/Services/fire-security/HomePage.png",
     description: "Professional and compliant fire watch services to protect your property and assets around the clock.",
     features: ["Fire Safety Checks", "Emergency Protocols", "Regular Reporting", "Compliance Monitoring"],
     stats: "24/7",
