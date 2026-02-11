@@ -11,20 +11,10 @@ import { Button } from "@/components/ui/button";
 
 // --- 1. REUSED SUB-COMPONENT: Optimized Video Background ---
 const HeroVideo = () => {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(error => {
-        console.log("Autoplay prevented:", error);
-      });
-    }
-  }, []);
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
-
       <video
         ref={videoRef}
         autoPlay
@@ -32,11 +22,9 @@ const HeroVideo = () => {
         muted
         playsInline
         preload="auto"
-        onLoadedData={() => setIsVideoLoaded(true)}
-        className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ease-in-out ${isVideoLoaded ? 'opacity-40' : 'opacity-0'
-          }`}
+        className="absolute inset-0 w-full h-full object-cover scale-105 opacity-40 transition-opacity duration-700"
       >
-        <source src="/AboutUS.mp4" type="video/mp4" />
+        <source src="/AboutUs.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/50 to-slate-900/90 z-10" />
     </div>

@@ -9,39 +9,19 @@ import {
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
-// --- SUB-COMPONENT: Optimized Video Background ---
+// --- 1. SUB-COMPONENT: Optimized Video Background ---
 const HeroVideo = () => {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.muted = true;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.error("Autoplay was prevented:", error);
-        });
-      }
-    }
-  }, []);
-
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
-
       <video
-        ref={videoRef}
-        className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ease-in-out ${isVideoLoaded ? 'opacity-40' : 'opacity-0'
-          }`}
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
-        onLoadedData={() => setIsVideoLoaded(true)}
+        className="absolute inset-0 w-full h-full object-cover scale-105 opacity-40 transition-opacity duration-1000"
       >
-        <source src="/AboutUS.mp4" type="video/mp4" />
+        <source src="/AboutUs.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/50 to-slate-900/90 z-10" />
@@ -72,22 +52,7 @@ const AboutUs: React.FC = () => {
           1. HERO SECTION 
           ==================== */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-900 text-white">
-        {/* Inline hero video (plays AboutUs.mp4) */}
-        <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
-
-          <video
-            className="absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ease-in-out opacity-40"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-          >
-            <source src="/AboutUs.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/50 to-slate-900/90 z-10" />
-        </div>
+        <HeroVideo />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-20 text-center">
           <motion.div
