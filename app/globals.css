@@ -625,11 +625,7 @@
 }
 
 /* Smooth transitions for all interactive elements */
-* {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
+/* Global transitions removed for performance. Use utility classes instead. */
 
 /* Backdrop blur support for older browsers */
 @supports not (backdrop-filter: blur(10px)) {

@@ -92,7 +92,7 @@ export default function Page() {
             <li><strong>Dismounts:</strong> The driver must not stay in the car. Checking doors physically (handle shaking) is mandatory.</li>
         </ul>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">3. GPS Reporting & Geofencing</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">3. GPS Reporting &amp; Geofencing</h3>
         <p className="mb-4">
           How do you know the patrol actually happened? Modern best practices require digital transparency. 
           ProForce1 vehicles are equipped with GPS tracking that logs:

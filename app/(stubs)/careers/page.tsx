@@ -297,7 +297,7 @@ export default function CareerPage() {
                                 </select>
                             </div>
                             <div className="md:col-span-2 space-y-2">
-                                <label className="text-sm font-semibold text-slate-700">Qualifications & Licenses</label>
+                                <label className="text-sm font-semibold text-slate-700">Qualifications &amp; Licenses</label>
                                 <textarea name="message" rows={4} value={formData.message} onChange={handleInputChange} 
                                     className="w-full px-4 py-3 bg-white border border-slate-200 rounded-md focus:ring-2 focus:ring-red-600 outline-none transition-all" 
                                     placeholder="List your BSIS permits, firearms qualifications, and relevant field experience..." />
@@ -335,8 +335,8 @@ export default function CareerPage() {
               <div className="mx-auto max-w-7xl px-4 lg:px-8">
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                   {[
-                    { icon: DollarSign, title: "Top-Tier Pay", desc: "Above market rates & bonuses." },
-                    { icon: GraduationCap, title: "Academy Training", desc: "Paid certifications & upskilling." },
+                    { icon: DollarSign, title: "Top-Tier Pay", desc: "Above market rates &amp; bonuses." },
+                    { icon: GraduationCap, title: "Academy Training", desc: "Paid certifications &amp; upskilling." },
                     { icon: Shield, title: "Tactical Gear", desc: "Advanced equipment provided." },
                     { icon: Users, title: "Elite Network", desc: "Work with the best in the industry." },
                   ].map((benefit, i) => (
@@ -358,7 +358,7 @@ export default function CareerPage() {
             <section className="py-20 bg-slate-50">
               <div className="mx-auto max-w-7xl px-4 lg:px-8">
                 
-                {/* Search & Filter Toolbar */}
+                {/* Search &amp; Filter Toolbar */}
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                    <div>
                      <h2 className="text-2xl font-black text-slate-900 tracking-tight">DEPLOYMENT OPPORTUNITIES</h2>

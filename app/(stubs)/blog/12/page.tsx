@@ -7,7 +7,7 @@ const blogData = {
   id: 12,
   title: "Improving De-escalation: Training Exercises That Work",
   excerpt: "The best weapon a security officer has is their voice. Explore the specific role-playing scenarios and 'Verbal Judo' techniques we use to train officers to diffuse volatility without physical force.",
-  category: "Training & Development",
+  category: "Training &amp; Development",
   author: "Lisa Chang",
   date: "2024-11-28",
   readTime: "6 min read",

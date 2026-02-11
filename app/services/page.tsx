@@ -428,7 +428,7 @@
 // //     <section ref={elementRef} className={`min-h-screen flex ${reverse ? 'bg-gray-50' : 'bg-white'}`}>
 // //       <div className={`flex flex-col lg:flex-row w-full ${reverse ? 'lg:flex-row-reverse' : ''}`}>
 
-// //         {/* Image Side - Full Height & Width with Animation */}
+// //         {/* Image Side - Full Height &amp; Width with Animation */}
 // //         <div className="lg:w-1/2 relative">
 // //           <div className={`relative h-96 lg:h-full min-h-[400px] lg:min-h-screen transition-all duration-1000 transform ${
 // //             isVisible 

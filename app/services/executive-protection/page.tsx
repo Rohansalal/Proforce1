@@ -125,7 +125,7 @@ const whyChooseUs = [
       "Low-profile security presence",
       "Seamless integration with family/staff",
       "Strict confidentiality (NDAs)",
-      "Cultural etiquette & protocol trained",
+      "Cultural etiquette &amp; protocol trained",
       "Respect for personal privacy"
     ],
     note: "We provide uncompromising safety without intrusion, allowing you to conduct business and life as usual."
@@ -136,7 +136,7 @@ const whyChooseUs = [
     description: "Proactive threat analysis and advance work",
     points: [
       "Vulnerability assessments",
-      "Travel route planning & analysis",
+      "Travel route planning &amp; analysis",
       "Venue advance work",
       "Real-time threat monitoring",
       "Intelligence gathering"
@@ -162,9 +162,9 @@ const whyChooseUs = [
     description: "Immediate action in high-pressure scenarios",
     points: [
       "Medical emergency response (TCCC/CPR)",
-      "Evacuation & extraction protocols",
+      "Evacuation &amp; extraction protocols",
       "Active threat neutralization",
-      "Kidnap & ransom prevention",
+      "Kidnap &amp; ransom prevention",
       "Law enforcement liaison"
     ],
     note: "Our agents are trained to think clearly and act decisively when seconds count."
@@ -224,13 +224,13 @@ const epServices = [
 
 const clientTypes = [
   { name: "C-Level Executives", icon: <Briefcase className="w-6 h-6" />, description: "Corporate leadership protection" },
-  { name: "High Net Worth", icon: <Crown className="w-6 h-6" />, description: "Family & asset security" },
-  { name: "Public Figures", icon: <Star className="w-6 h-6" />, description: "Celebrity & talent details" },
+  { name: "High Net Worth", icon: <Crown className="w-6 h-6" />, description: "Family &amp; asset security" },
+  { name: "Public Figures", icon: <Star className="w-6 h-6" />, description: "Celebrity &amp; talent details" },
   { name: "Diplomats", icon: <Globe className="w-6 h-6" />, description: "Foreign dignitary protection" },
   { name: "Witness Protection", icon: <Shield className="w-6 h-6" />, description: "High-risk legal security" },
   { name: "Media Crews", icon: <Camera className="w-6 h-6" />, description: "News team protection" },
   { name: "Family Offices", icon: <Users className="w-6 h-6" />, description: "Private family security" },
-  { name: "Legal Professionals", icon: <Building className="w-6 h-6" />, description: "Court & trial security" }
+  { name: "Legal Professionals", icon: <Building className="w-6 h-6" />, description: "Court &amp; trial security" }
 ]
 
 const trustFactors = [
@@ -239,7 +239,7 @@ const trustFactors = [
   { title: "Strict Confidentiality", description: "Your privacy and reputation are our absolute priority." },
   { title: "Medical Training", description: "Agents certified in TCCC, CPR, and First Aid." },
   { title: "Rapid Deployment", description: "Teams available for immediate, short-notice assignments." },
-  { title: "Licensed & Insured", description: "Fully compliant with BSIS and state regulations." }
+  { title: "Licensed &amp; Insured", description: "Fully compliant with BSIS and state regulations." }
 ]
 
 // --- Main Page Component ---
@@ -276,7 +276,7 @@ export default function ExecutiveProtectionPage() {
             </span>
             <br />
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
-              Uncompromising Safety & Discretion
+              Uncompromising Safety &amp; Discretion
             </span>
           </div>
 
@@ -338,7 +338,7 @@ export default function ExecutiveProtectionPage() {
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" style={{ color: THEME.primary }} />
                         </div>
-                        <span className="text-slate-700 font-medium">Former military & law enforcement agents</span>
+                        <span className="text-slate-700 font-medium">Former military &amp; law enforcement agents</span>
                       </div>
                       <div className="flex items-start gap-3">
                         <div 
@@ -466,9 +466,9 @@ export default function ExecutiveProtectionPage() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
                 "Targeted attacks",
-                "Kidnap & Ransom",
+                "Kidnap &amp; Ransom",
                 "Corporate espionage",
-                "Stalking & harassment",
+                "Stalking &amp; harassment",
                 "Workplace violence",
                 "Public appearances",
                 "Travel risks",
@@ -693,7 +693,7 @@ export default function ExecutiveProtectionPage() {
                     <Radio className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white">Intelligence & Logistics</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">Intelligence &amp; Logistics</h3>
                     <p className="text-slate-300">Advanced planning and real-time monitoring for seamless movement</p>
                   </div>
                 </div>
@@ -723,7 +723,7 @@ export default function ExecutiveProtectionPage() {
                   <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 flex flex-col justify-center items-center">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-white mb-2">Advance Work</div>
-                      <p className="text-slate-300 text-sm">Strategic planning & logistics</p>
+                      <p className="text-slate-300 text-sm">Strategic planning &amp; logistics</p>
                     </div>
                   </div>
                 </div>
@@ -1045,7 +1045,7 @@ export default function ExecutiveProtectionPage() {
                                    <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Service Area</div>
                                    <div className="text-base text-slate-300">
                                       Global Protection<br/>
-                                      Logistics & Support
+                                      Logistics &amp; Support
                                    </div>
                                </div>
                            </div>

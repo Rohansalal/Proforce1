@@ -113,7 +113,7 @@ const whyChooseUs = [
     note: "Most construction theft happens after dark and during weekends. Our mobile patrols provide protection during these vulnerable periods."
   },
   {
-    title: "Access Control & Gate Monitoring",
+    title: "Access Control &amp; Gate Monitoring",
     icon: <DoorOpen className="w-8 h-8 text-white" />,
     description: "Comprehensive site access management to ensure only authorized personnel enter",
     points: [
@@ -126,7 +126,7 @@ const whyChooseUs = [
     note: "By controlling who enters your site, we prevent unauthorized access and reduce liability risks significantly."
   },
   {
-    title: "Tool & Equipment Protection",
+    title: "Tool &amp; Equipment Protection",
     icon: <Wrench className="w-8 h-8 text-white" />,
     description: "Specialized security for valuable construction assets and materials",
     points: [
@@ -221,7 +221,7 @@ const trustFactors = [
   { title: "20+ Years Experience", description: "Decades of construction security expertise" },
   { title: "California Focused", description: "Over a decade protecting sites across California" },
   { title: "Highly Trained Officers", description: "Licensed, uniformed security professionals" },
-  { title: "Strong Communication", description: "Regular updates with site supervisors & project managers" },
+  { title: "Strong Communication", description: "Regular updates with site supervisors &amp; project managers" },
   { title: "Fast Response", description: "Immediate response to incidents and emergencies" },
   { title: "Customized Security Plans", description: "Tailored protection based on your project timeline" }
 ]
@@ -625,7 +625,7 @@ export default function ConstructionSecurityPage() {
                     <FileCheck className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white">Advanced Digital Reporting & Site Transparency</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">Advanced Digital Reporting &amp; Site Transparency</h3>
                     <p className="text-slate-300">Real-time visibility of your site's security status</p>
                   </div>
                 </div>
@@ -662,12 +662,12 @@ export default function ConstructionSecurityPage() {
         </div>
       </section>
 
-      {/* 5. Industries & Projects We Cover */}
+      {/* 5. Industries &amp; Projects We Cover */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
            <div className="text-center mb-16">
               <SectionHeading>
-                Industries & Projects <br/> We <span className="text-red-600">Cover</span>
+                Industries &amp; Projects <br/> We <span className="text-red-600">Cover</span>
               </SectionHeading>
               <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-12">
                 Our construction security expertise spans all types of building projects across California
@@ -790,7 +790,7 @@ export default function ConstructionSecurityPage() {
                                    <option>Construction Site Security</option>
                                    <option>24/7 On-Site Guards</option>
                                    <option>Mobile Patrol Services</option>
-                                   <option>Access Control & Gate Security</option>
+                                   <option>Access Control &amp; Gate Security</option>
                                    <option>Equipment Protection</option>
                                    <option>Fire Watch for Construction</option>
                                </select>

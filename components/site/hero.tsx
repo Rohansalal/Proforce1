@@ -64,8 +64,15 @@ const slides = [
 const VideoLayer = ({ src, isActive, posterColor }: { src: string, isActive: boolean, posterColor: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hasError, setHasError] = useState(false)
+  const [shouldRender, setShouldRender] = useState(isActive)
 
   useEffect(() => {
+    if (isActive) setShouldRender(true)
+  }, [isActive])
+
+  useEffect(() => {
+    if (!shouldRender) return
+
     const video = videoRef.current
     if (!video) return
 
@@ -80,9 +87,9 @@ const VideoLayer = ({ src, isActive, posterColor }: { src: string, isActive: boo
     } else {
       video.pause()
     }
-  }, [isActive])
+  }, [isActive, shouldRender])
 
-  if (hasError) {
+  if (hasError || !shouldRender) {
     return <div className={cn("absolute inset-0 w-full h-full", posterColor)} />
   }
 
@@ -101,7 +108,7 @@ const VideoLayer = ({ src, isActive, posterColor }: { src: string, isActive: boo
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         onError={() => setHasError(true)}
       />
     </div>

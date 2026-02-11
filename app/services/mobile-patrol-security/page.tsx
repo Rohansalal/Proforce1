@@ -110,7 +110,7 @@ const whyChooseUs = [
     note: "Our officers exit the vehicle to conduct detailed on-foot inspections of your entire property."
   },
   {
-    title: "Lock-Up & Security Services",
+    title: "Lock-Up &amp; Security Services",
     icon: <LockIcon className="w-8 h-8 text-white" />,
     description: "Complete opening and closing security services",
     points: [
@@ -153,7 +153,7 @@ const patrolServices = [
   {
     title: "Lock Services",
     icon: <LockIcon className="w-6 h-6" />,
-    description: "Secure opening & closing",
+    description: "Secure opening &amp; closing",
     details: ["Gate security", "Building access", "24/7 protection"]
   },
   {
@@ -194,8 +194,8 @@ const industries = [
   { name: "Office Buildings", icon: <Building2 className="w-6 h-6" />, description: "Corporate campus patrol" },
   { name: "Industrial Parks", icon: <Factory className="w-6 h-6" />, description: "Industrial facility security" },
   { name: "Construction Sites", icon: <Wrench className="w-6 h-6" />, description: "Site equipment protection" },
-  { name: "Hotels & Resorts", icon: <Hotel className="w-6 h-6" />, description: "Hospitality security patrol" },
-  { name: "Schools & Colleges", icon: <GraduationCap className="w-6 h-6" />, description: "Educational campus safety" },
+  { name: "Hotels &amp; Resorts", icon: <Hotel className="w-6 h-6" />, description: "Hospitality security patrol" },
+  { name: "Schools &amp; Colleges", icon: <GraduationCap className="w-6 h-6" />, description: "Educational campus safety" },
   { name: "Parking Structures", icon: <ParkingCircle className="w-6 h-6" />, description: "Parking facility security" },
   { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Storage facility patrol" },
   { name: "Retail Stores", icon: <ShoppingBag className="w-6 h-6" />, description: "Store perimeter security" },
@@ -444,8 +444,8 @@ export default function MobilePatrolPage() {
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
-                "Theft & vandalism",
-                "Trespassing & loitering",
+                "Theft &amp; vandalism",
+                "Trespassing &amp; loitering",
                 "Homeless activity",
                 "After-hours access",
                 "Suspicious vehicles",
@@ -652,7 +652,7 @@ export default function MobilePatrolPage() {
         <div className="container mx-auto px-6">
            <div className="text-center mb-16">
               <SectionHeading>
-                Industries & Properties <br/> We <span className="text-red-600">Serve</span>
+                Industries &amp; Properties <br/> We <span className="text-red-600">Serve</span>
               </SectionHeading>
               <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-12">
                 Mobile Patrol is ideal for a wide range of properties and industries across California

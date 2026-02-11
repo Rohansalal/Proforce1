@@ -85,7 +85,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Access Control & Guest Screening",
+    title: "Access Control &amp; Guest Screening",
     icon: <Ticket className="w-8 h-8 text-white" />,
     description: "Comprehensive entry management for authorized access only",
     points: [
@@ -98,7 +98,7 @@ const whyChooseUs = [
     note: "We ensure only authorized guests, vendors, and staff enter your event while maintaining a welcoming atmosphere."
   },
   {
-    title: "Crowd Management & Guest Safety",
+    title: "Crowd Management &amp; Guest Safety",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Skilled professionals guiding large groups safely and efficiently",
     points: [
@@ -111,7 +111,7 @@ const whyChooseUs = [
     note: "Our team ensures your event runs smoothly with professional crowd management that prioritizes guest safety."
   },
   {
-    title: "Emergency Response & First Aid Support",
+    title: "Emergency Response &amp; First Aid Support",
     icon: <Siren className="w-8 h-8 text-white" />,
     description: "Immediate response capabilities for any situation",
     points: [
@@ -124,7 +124,7 @@ const whyChooseUs = [
     note: "Our trained officers respond immediately to emergencies, ensuring guest safety and event continuity."
   },
   {
-    title: "VIP & Executive Protection",
+    title: "VIP &amp; Executive Protection",
     icon: <Crown className="w-8 h-8 text-white" />,
     description: "Discreet, professional protection for high-profile attendees",
     points: [
@@ -142,13 +142,13 @@ const eventServices = [
   {
     title: "Access Control",
     icon: <Ticket className="w-6 h-6" />,
-    description: "Guest screening & entry management",
+    description: "Guest screening &amp; entry management",
     details: ["Ticket verification", "VIP entrances", "Staff access"]
   },
   {
     title: "Crowd Management",
     icon: <Users className="w-6 h-6" />,
-    description: "Large group safety & flow control",
+    description: "Large group safety &amp; flow control",
     details: ["Guest flow", "Exit management", "Overcrowding prevention"]
   },
   {
@@ -160,7 +160,7 @@ const eventServices = [
   {
     title: "Parking Security",
     icon: <Car className="w-6 h-6" />,
-    description: "Vehicle & lot protection",
+    description: "Vehicle &amp; lot protection",
     details: ["Entry/exit control", "Theft prevention", "Traffic management"]
   },
   {
@@ -193,8 +193,8 @@ const eventTypes = [
   { name: "Corporate Conferences", icon: <Briefcase className="w-6 h-6" />, description: "Business event security" },
   { name: "Networking Events", icon: <Users className="w-6 h-6" />, description: "Professional gathering protection" },
   { name: "Award Ceremonies", icon: <Award className="w-6 h-6" />, description: "Formal event security" },
-  { name: "Weddings & Private Parties", icon: <Heart className="w-6 h-6" />, description: "Celebration security" },
-  { name: "Festivals & Outdoor Events", icon: <Music className="w-6 h-6" />, description: "Large outdoor event protection" },
+  { name: "Weddings &amp; Private Parties", icon: <Heart className="w-6 h-6" />, description: "Celebration security" },
+  { name: "Festivals &amp; Outdoor Events", icon: <Music className="w-6 h-6" />, description: "Large outdoor event protection" },
   { name: "Fashion Shows", icon: <ShoppingBag className="w-6 h-6" />, description: "Runway and show security" },
   { name: "Convention Center Events", icon: <Building2 className="w-6 h-6" />, description: "Large venue protection" },
   { name: "Community Gatherings", icon: <UsersIcon className="w-6 h-6" />, description: "Public event security" },

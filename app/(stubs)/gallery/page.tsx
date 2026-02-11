@@ -109,7 +109,7 @@ const Gallery: React.FC = () => {
           >
             <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-red-400 text-xs font-bold tracking-[0.2em] uppercase mb-8 shadow-2xl">
               <Camera className="w-3 h-3 fill-current" /> 
-              Media & Evidence
+              Media &amp; Evidence
             </motion.div>
             
             <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tighter leading-[1.1] drop-shadow-2xl">
@@ -455,7 +455,7 @@ export default Gallery;
 //           >
 //             <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-red-400 text-xs font-bold tracking-[0.2em] uppercase mb-8 shadow-2xl">
 //               <Camera className="w-3 h-3" /> 
-//               Media & Evidence
+//               Media &amp; Evidence
 //             </motion.div>
             
 //             <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tighter leading-[1.1] drop-shadow-2xl">

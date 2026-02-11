@@ -111,7 +111,7 @@ const whyChooseUs = [
     note: "Our static guards serve as the first line of defense and provide a visible deterrent to potential security threats."
   },
   {
-    title: "Mobile Patrol & Facility Rounds",
+    title: "Mobile Patrol &amp; Facility Rounds",
     icon: <Navigation className="w-8 h-8 text-white" />,
     description: "Regular patrols to monitor your entire facility and identify security vulnerabilities",
     points: [
@@ -124,7 +124,7 @@ const whyChooseUs = [
     note: "Mobile patrols ensure comprehensive coverage of your facility, identifying and addressing security gaps before they become incidents."
   },
   {
-    title: "Access Control & Visitor Management",
+    title: "Access Control &amp; Visitor Management",
     icon: <Key className="w-8 h-8 text-white" />,
     description: "Comprehensive access control systems and visitor screening protocols",
     points: [
@@ -137,7 +137,7 @@ const whyChooseUs = [
     note: "Proper access control prevents unauthorized entry while maintaining smooth operations for authorized personnel."
   },
   {
-    title: "Emergency Response & Crisis Management",
+    title: "Emergency Response &amp; Crisis Management",
     icon: <AlertCircle className="w-8 h-8 text-white" />,
     description: "Rapid response capabilities for emergencies and critical incidents",
     points: [
@@ -208,11 +208,11 @@ const facilityTypes = [
   { name: "Warehouses", icon: <Warehouse className="w-6 h-6" />, description: "Storage facility security" },
   { name: "Construction Sites", icon: <HardHat className="w-6 h-6" />, description: "Construction zone protection" },
   { name: "Data Centers", icon: <Server className="w-6 h-6" />, description: "IT facility security" },
-  { name: "Educational Facilities", icon: <GraduationCap className="w-6 h-6" />, description: "School & campus security" },
+  { name: "Educational Facilities", icon: <GraduationCap className="w-6 h-6" />, description: "School &amp; campus security" },
   { name: "Healthcare Facilities", icon: <Users className="w-6 h-6" />, description: "Medical facility protection" },
   { name: "Residential Complexes", icon: <Home className="w-6 h-6" />, description: "Apartment security" },
   { name: "Government Buildings", icon: <Building className="w-6 h-6" />, description: "Public facility security" },
-  { name: "Hotel & Hospitality", icon: <Home className="w-6 h-6" />, description: "Hospitality venue protection" },
+  { name: "Hotel &amp; Hospitality", icon: <Home className="w-6 h-6" />, description: "Hospitality venue protection" },
   { name: "Research Facilities", icon: <CircuitBoard className="w-6 h-6" />, description: "Laboratory security" },
   { name: "Utility Plants", icon: <Zap className="w-6 h-6" />, description: "Utility facility protection" }
 ]
@@ -565,7 +565,7 @@ export default function OnsiteSecurityPage() {
             ))}
           </div>
 
-          {/* Technology & Reporting Section */}
+          {/* Technology &amp; Reporting Section */}
           <div className="max-w-4xl mx-auto mt-20">
             <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/20 rounded-2xl p-10 relative overflow-hidden shadow-2xl">
               {/* Pattern overlay */}
@@ -779,7 +779,7 @@ export default function OnsiteSecurityPage() {
                        
                        <h3 className="text-2xl font-bold mb-8 leading-snug">
                           Protect Your<br/>
-                          Facility & Assets
+                          Facility &amp; Assets
                        </h3>
                        
                        <div className="space-y-8">

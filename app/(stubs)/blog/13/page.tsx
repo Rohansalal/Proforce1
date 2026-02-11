@@ -80,7 +80,7 @@ export default function Page() {
           The data is immutable and timestamped.
         </div>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Challenge 2: Alert Fatigue & Burnout</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Challenge 2: Alert Fatigue &amp; Burnout</h3>
         <p className="mb-4">
           <strong>The Issue:</strong> Security officers often work long, monotonous hours. Staring at a bank of 
           silent monitors or walking the same empty hallway for 8 hours leads to &quot;alert fatigue,&quot; where the brain 

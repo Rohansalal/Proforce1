@@ -120,7 +120,7 @@ const whyChooseUs = [
     icon: <Lock className="w-8 h-8 text-white" />,
     description: "Specialized protocols for securing currency and sensitive data",
     points: [
-      "Vault & safe deposit monitoring",
+      "Vault &amp; safe deposit monitoring",
       "Cash-in-transit coordination",
       "Teller line protection",
       "ATM skimming prevention",
@@ -129,14 +129,14 @@ const whyChooseUs = [
     note: "Financial institutions require a higher level of vigilance. We protect your assets with military precision."
   },
   {
-    title: "Customer & Staff Safety",
+    title: "Customer &amp; Staff Safety",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Maintaining a secure yet welcoming banking environment",
     points: [
       "Lobby ambassador services",
       "Conflict de-escalation",
       "Disorderly conduct management",
-      "Opening & closing escorts",
+      "Opening &amp; closing escorts",
       "Emergency evacuation leadership"
     ],
     note: "We balance strict security with customer service, ensuring your clients feel safe and valued."
@@ -159,7 +159,7 @@ const whyChooseUs = [
     icon: <Siren className="w-8 h-8 text-white" />,
     description: "Immediate action for alarms and threats",
     points: [
-      "Robbery deterrence & response",
+      "Robbery deterrence &amp; response",
       "Panic alarm verification",
       "Suspicious activity intervention",
       "Law enforcement liaison",
@@ -222,7 +222,7 @@ const servicesList = [
 
 
 const buildingTypes = [
-  { name: "Retail Banks", icon: <Landmark className="w-6 h-6" />, description: "Branch locations & lobbies" },
+  { name: "Retail Banks", icon: <Landmark className="w-6 h-6" />, description: "Branch locations &amp; lobbies" },
   { name: "Credit Unions", icon: <Users className="w-6 h-6" />, description: "Member-focused centers" },
   { name: "Investment Firms", icon: <BarChart3 className="w-6 h-6" />, description: "Wealth management offices" }, 
   { name: "Corporate HQs", icon: <Building className="w-6 h-6" />, description: "Financial centers" },
@@ -235,7 +235,7 @@ const buildingTypes = [
 
 const trustFactors = [
   { title: "Financial Expertise", description: "Specialized training in banking security protocols and robbery response." },
-  { title: "Armed & Unarmed", description: "Flexible staffing options based on your branch's risk profile." },
+  { title: "Armed &amp; Unarmed", description: "Flexible staffing options based on your branch's risk profile." },
   { title: "Technologically Integrated", description: "Seamless coordination with your alarm and camera systems." },
   { title: "Customer Focused", description: "Officers who understand they are ambassadors for your financial brand." },
   { title: "24/7 Dispatch", description: "Immediate support and coordination with local law enforcement." },
@@ -276,7 +276,7 @@ export default function FinancialSecurityPage() {
             </span>
             <br />
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
-              Protecting Assets & Trust
+              Protecting Assets &amp; Trust
             </span>
           </div>
 
@@ -338,7 +338,7 @@ export default function FinancialSecurityPage() {
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" style={{ color: THEME.primary }} />
                         </div>
-                        <span className="text-slate-700 font-medium">Armed & unarmed staffing options</span>
+                        <span className="text-slate-700 font-medium">Armed &amp; unarmed staffing options</span>
                       </div>
                       <div className="flex items-start gap-3">
                         <div 
@@ -347,7 +347,7 @@ export default function FinancialSecurityPage() {
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" style={{ color: THEME.primary }} />
                         </div>
-                        <span className="text-slate-700 font-medium">ATM & parking lot patrols</span>
+                        <span className="text-slate-700 font-medium">ATM &amp; parking lot patrols</span>
                       </div>
                       <div className="flex items-start gap-3">
                         <div 
@@ -927,7 +927,7 @@ export default function FinancialSecurityPage() {
                                >
                                    <option>Branch Lobby Security</option>
                                    <option>ATM Security Services</option>
-                                   <option>Vault & Cash Handling</option>
+                                   <option>Vault &amp; Cash Handling</option>
                                    <option>Financial Fraud Prevention</option>
                                    <option>Compliance Security</option>
                                    <option>Full Banking Security Package</option>
@@ -943,7 +943,7 @@ export default function FinancialSecurityPage() {
                                >
                                    <option>Commercial Bank</option>
                                    <option>Credit Union</option>
-                                   <option>Savings & Loan</option>
+                                   <option>Savings &amp; Loan</option>
                                    <option>Investment Bank</option>
                                    <option>ATM Network</option>
                                    <option>Financial Services</option>

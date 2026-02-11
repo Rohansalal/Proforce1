@@ -117,7 +117,7 @@ const VideoBackground = ({ src }: { src: string }) => {
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Threat Assessment & Hardening",
+    title: "Threat Assessment &amp; Hardening",
     icon: <ShieldAlert className="w-8 h-8 text-white" />,
     description: "Proactive identification of vulnerabilities in high-risk environments",
     points: [
@@ -135,7 +135,7 @@ const whyChooseUs = [
     description: "Highly trained officers for elevated threat levels",
     points: [
       "Officers with military/LEO backgrounds",
-      "Tactical gear & firearms training",
+      "Tactical gear &amp; firearms training",
       "Conflict de-escalation mastery",
       "Crisis intervention capabilities",
       "Strict command structure"
@@ -143,12 +143,12 @@ const whyChooseUs = [
     note: "When the risk is high, you need more than a standard guard. You need a tactical security professional."
   },
   {
-    title: "Advanced Surveillance & Intel",
+    title: "Advanced Surveillance &amp; Intel",
     icon: <Eye className="w-8 h-8 text-white" />,
     description: "24/7 monitoring and intelligence-led operations",
     points: [
       "Real-time threat intelligence",
-      "Integrated CCTV & analytics",
+      "Integrated CCTV &amp; analytics",
       "Drone surveillance options",
       "Biometric access monitoring",
       "Digital incident logging"
@@ -156,7 +156,7 @@ const whyChooseUs = [
     note: "We maintain total situational awareness to anticipate and neutralize potential breaches."
   },
   {
-    title: "Emergency & Lockdown Protocols",
+    title: "Emergency &amp; Lockdown Protocols",
     icon: <Siren className="w-8 h-8 text-white" />,
     description: "Immediate, decisive action during critical incidents",
     points: [

@@ -86,7 +86,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Access Control & Visitor Management",
+    title: "Access Control &amp; Visitor Management",
     icon: <DoorOpen className="w-8 h-8 text-white" />,
     description: "Secure entry and exit monitoring with professional presence",
     points: [
@@ -99,7 +99,7 @@ const whyChooseUs = [
     note: "Our officers ensure that only authorized individuals access your property while maintaining a welcoming environment."
   },
   {
-    title: "Foot Patrol & Perimeter Monitoring",
+    title: "Foot Patrol &amp; Perimeter Monitoring",
     icon: <Footprints className="w-8 h-8 text-white" />,
     description: "Continuous walking patrols for comprehensive property protection",
     points: [
@@ -112,7 +112,7 @@ const whyChooseUs = [
     note: "Our officers maintain constant vigilance through regular patrols, identifying and addressing security concerns proactively."
   },
   {
-    title: "Loss Prevention & Theft Deterrence",
+    title: "Loss Prevention &amp; Theft Deterrence",
     icon: <ShoppingCart className="w-8 h-8 text-white" />,
     description: "Visible presence that prevents theft and maintains order",
     points: [
@@ -125,7 +125,7 @@ const whyChooseUs = [
     note: "We balance strong security presence with approachable professionalism to protect assets without intimidating customers."
   },
   {
-    title: "Emergency Response & Incident Management",
+    title: "Emergency Response &amp; Incident Management",
     icon: <Siren className="w-8 h-8 text-white" />,
     description: "Trained professionals ready to handle any situation",
     points: [
@@ -143,7 +143,7 @@ const securityServices = [
   {
     title: "Access Control",
     icon: <DoorOpen className="w-6 h-6" />,
-    description: "Visitor management & secure",
+    description: "Visitor management &amp; secure",
     details: ["ID verification", "Visitor logs", "Gate security"]
   },
   {
@@ -161,19 +161,19 @@ const securityServices = [
   {
     title: "Loss Prevention",
     icon: <ShoppingCart className="w-6 h-6" />,
-    description: "Theft deterrence & prevention",
+    description: "Theft deterrence &amp; prevention",
     details: ["Retail security", "Shoplifting prevention", "Asset protection"]
   },
   {
     title: "Lobby Security",
     icon: <Building2 className="w-6 h-6" />,
-    description: "Front desk & reception security",
+    description: "Front desk &amp; reception security",
     details: ["Guest greeting", "Access control", "Professional presence"]
   },
   {
     title: "Parking Security",
     icon: <CarIcon className="w-6 h-6" />,
-    description: "Lot monitoring & traffic control",
+    description: "Lot monitoring &amp; traffic control",
     details: ["Vehicle patrols", "Break-in prevention", "Parking enforcement"]
   },
   {
@@ -193,10 +193,10 @@ const securityServices = [
 const industries = [
   { name: "Corporate Offices", icon: <Building2 className="w-6 h-6" />, description: "Business campus security" },
   { name: "Retail Stores", icon: <ShoppingBag className="w-6 h-6" />, description: "Shopping center protection" },
-  { name: "Hotels & Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest and property security" },
+  { name: "Hotels &amp; Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest and property security" },
   { name: "Construction Sites", icon: <Wrench className="w-6 h-6" />, description: "Site equipment protection" },
   { name: "Residential Communities", icon: <Home className="w-6 h-6" />, description: "Apartment complex security" },
-  { name: "Schools & Colleges", icon: <School className="w-6 h-6" />, description: "Educational facility safety" },
+  { name: "Schools &amp; Colleges", icon: <School className="w-6 h-6" />, description: "Educational facility safety" },
   { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Industrial site protection" },
   { name: "Medical Facilities", icon: <Hospital className="w-6 h-6" />, description: "Healthcare security" },
   { name: "Car Dealerships", icon: <CarIcon className="w-6 h-6" />, description: "Automotive lot security" },

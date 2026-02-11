@@ -77,7 +77,7 @@ export default function BlogPostTwo() {
           seamlessly into professional environments while maintaining rigorous safety standards.
         </p>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Retail & Commercial Security Solutions</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Retail &amp; Commercial Security Solutions</h3>
         <p className="mb-4">
           From luxury retail in Union Square to commercial centers in Sacramento, loss prevention 
           and asset protection remain critical issues. Our expansion team brings:
@@ -88,7 +88,7 @@ export default function BlogPostTwo() {
             <li><strong>Customer Service Oriented Officers:</strong> Security that enhances the customer experience.</li>
         </ul>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Local Hiring & Community Engagement</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Local Hiring &amp; Community Engagement</h3>
         <p className="mb-4">
           We believe in local expertise. As part of this expansion, ProForce1 is committed to hiring 
           over 200 security professionals from the Northern California region over the next year. 

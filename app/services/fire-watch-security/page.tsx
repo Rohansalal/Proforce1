@@ -111,7 +111,7 @@ const whyChooseUs = [
     note: "Our priority is safety, fast response, and preventing damage to life and property."
   },
   {
-    title: "Compliant Documentation & Logs",
+    title: "Compliant Documentation &amp; Logs",
     icon: <Clipboard className="w-8 h-8 text-white" />,
     description: "Accurate records meeting all fire marshal requirements",
     points: [
@@ -124,7 +124,7 @@ const whyChooseUs = [
     note: "We maintain comprehensive logs that satisfy all regulatory requirements and inspection standards."
   },
   {
-    title: "Construction & Renovation Fire Watch",
+    title: "Construction &amp; Renovation Fire Watch",
     icon: <HardHat className="w-8 h-8 text-white" />,
     description: "Specialized fire safety for construction and hot-work projects",
     points: [
@@ -202,13 +202,13 @@ const fireWatchReasons = [
 
 const industries = [
   { name: "Commercial Buildings", icon: <Building2 className="w-6 h-6" />, description: "Office building fire safety" },
-  { name: "Hotels & Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest accommodation protection" },
+  { name: "Hotels &amp; Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest accommodation protection" },
   { name: "Construction Sites", icon: <HardHat className="w-6 h-6" />, description: "Construction project safety" },
   { name: "Apartment Complexes", icon: <Home className="w-6 h-6" />, description: "Residential community protection" },
   { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Storage facility fire watch" },
   { name: "Manufacturing Facilities", icon: <Settings className="w-6 h-6" />, description: "Production plant safety" },
   { name: "Retail Centers", icon: <ShoppingBag className="w-6 h-6" />, description: "Shopping mall protection" },
-  { name: "Schools & Universities", icon: <School className="w-6 h-6" />, description: "Educational facility safety" },
+  { name: "Schools &amp; Universities", icon: <School className="w-6 h-6" />, description: "Educational facility safety" },
   { name: "Hospitals", icon: <Hospital className="w-6 h-6" />, description: "Medical center fire watch" },
   { name: "Public Facilities", icon: <BuildingIcon className="w-6 h-6" />, description: "Government building protection" },
   { name: "Event Venues", icon: <Users className="w-6 h-6" />, description: "Special event fire safety" },

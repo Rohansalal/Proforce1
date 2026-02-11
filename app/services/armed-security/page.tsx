@@ -83,14 +83,14 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Highly Trained & Licensed",
+    title: "Highly Trained &amp; Licensed",
     icon: <GraduationCap className="w-8 h-8 text-white" />,
     description: "All armed personnel undergo rigorous training and certification",
     points: [
       "California BSIS Firearm Certification",
       "Ongoing live-fire training",
       "De-escalation and conflict-resolution training",
-      "Emergency response & crisis management",
+      "Emergency response &amp; crisis management",
       "Advanced situational awareness training"
     ],
     note: "We ensure every armed officer is prepared mentally and physically to handle critical situations safely and professionally."
@@ -100,9 +100,9 @@ const whyChooseUs = [
     icon: <ShieldCheck className="w-8 h-8 text-white" />,
     description: "Armed guards provide immediate deterrence for various environments",
     points: [
-      "High-value retail stores & jewelry stores",
-      "Financial institutions & banks",
-      "Commercial buildings & corporate offices",
+      "High-value retail stores &amp; jewelry stores",
+      "Financial institutions &amp; banks",
+      "Commercial buildings &amp; corporate offices",
       "Hotels and hospitality venues",
       "Construction sites with valuable equipment"
     ],
@@ -116,7 +116,7 @@ const whyChooseUs = [
       "Real-time GPS tracking",
       "Time-stamped photo logs",
       "Detailed incident reports",
-      "Patrol logs & activity summaries",
+      "Patrol logs &amp; activity summaries",
       "Live updates to your inbox"
     ],
     note: "You receive complete transparency and accountability on every shift."
@@ -139,8 +139,8 @@ const whyChooseUs = [
 const industries = [
   { name: "Jewelry Stores", icon: <Gem className="w-6 h-6" />, description: "High-value retail protection" },
   { name: "Luxury Retailers", icon: <ShoppingBag className="w-6 h-6" />, description: "Premium brand security" },
-  { name: "Hotels & Resorts", icon: <Hotel className="w-6 h-6" />, description: "Hospitality security" },
-  { name: "Banks & Financial", icon: <Banknote className="w-6 h-6" />, description: "Financial institution protection" },
+  { name: "Hotels &amp; Resorts", icon: <Hotel className="w-6 h-6" />, description: "Hospitality security" },
+  { name: "Banks &amp; Financial", icon: <Banknote className="w-6 h-6" />, description: "Financial institution protection" },
   { name: "Corporate Offices", icon: <Building2 className="w-6 h-6" />, description: "Business campus security" },
   { name: "Commercial Centers", icon: <Building className="w-6 h-6" />, description: "Shopping center protection" },
   { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Logistics facility security" },
@@ -148,7 +148,7 @@ const industries = [
   { name: "Cannabis Facilities", icon: <Leaf className="w-6 h-6" />, description: "High-risk retail protection" },
   { name: "Private Events", icon: <Users className="w-6 h-6" />, description: "VIP event security" },
   { name: "Government Sites", icon: <Shield className="w-6 h-6" />, description: "Municipal facility protection" },
-  { name: "Construction Sites", icon: <Truck className="w-6 h-6" />, description: "Equipment & site security" }
+  { name: "Construction Sites", icon: <Truck className="w-6 h-6" />, description: "Equipment &amp; site security" }
 ]
 
 const trustFactors = [
@@ -299,7 +299,7 @@ export default function ArmedGuardPage() {
                         <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                           <CheckCircle2 className="w-3.5 h-3.5 text-red-600" />
                         </div>
-                        <span className="text-slate-700 font-medium">Unmatched professionalism & rapid response</span>
+                        <span className="text-slate-700 font-medium">Unmatched professionalism &amp; rapid response</span>
                       </div>
                     </div>
                   </div>

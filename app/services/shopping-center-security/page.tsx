@@ -120,7 +120,7 @@ const whyChooseUs = [
     description: "Creating a secure and welcoming atmosphere for shoppers",
     points: [
       "Visible officer presence",
-      "Customer assistance & directions",
+      "Customer assistance &amp; directions",
       "Lost child reunification protocols",
       "Disorderly conduct management",
       "Emergency medical response"
@@ -145,23 +145,23 @@ const whyChooseUs = [
     icon: <Store className="w-8 h-8 text-white" />,
     description: "Supporting retail partners and their assets",
     points: [
-      "Opening & closing escorts",
+      "Opening &amp; closing escorts",
       "High-risk store monitoring",
-      "Delivery & loading dock security",
+      "Delivery &amp; loading dock security",
       "Alarm response coordination",
       "Tenant relation services"
     ],
     note: "We work as an extension of your property management team to support your tenants."
   },
   {
-    title: "Crowd & Event Control",
+    title: "Crowd &amp; Event Control",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Managing high-traffic periods and special events",
     points: [
       "Holiday season crowd management",
       "Special event security",
       "Flash mob prevention protocols",
-      "Protest & demonstration handling",
+      "Protest &amp; demonstration handling",
       "Evacuation leadership"
     ],
     note: "Our officers are trained to manage large crowds calmly and effectively."
@@ -188,7 +188,7 @@ const servicesList = [
     details: ["24/7 surveillance", "Dispatch coordination", "Evidence retrieval"]
   },
   {
-    title: "Lost & Found",
+    title: "Lost &amp; Found",
     icon: <Search className="w-6 h-6" />,
     description: "Customer service",
     details: ["Property logging", "Return verification", "Assistance desk"]
@@ -222,9 +222,9 @@ const servicesList = [
 const propertyTypes = [
   { name: "Regional Malls", icon: <Building className="w-6 h-6" />, description: "Large enclosed shopping centers" },
   { name: "Strip Malls", icon: <Store className="w-6 h-6" />, description: "Open-air retail plazas" },
-  { name: "Lifestyle Centers", icon: <LayoutDashboard className="w-6 h-6" />, description: "Mixed-use retail & dining" },
+  { name: "Lifestyle Centers", icon: <LayoutDashboard className="w-6 h-6" />, description: "Mixed-use retail &amp; dining" },
   { name: "Outlet Centers", icon: <ShoppingBag className="w-6 h-6" />, description: "High-traffic discount destinations" },
-  { name: "Food Courts", icon: <Utensils className="w-6 h-6" />, description: "Dining area safety & busing" },
+  { name: "Food Courts", icon: <Utensils className="w-6 h-6" />, description: "Dining area safety &amp; busing" },
   { name: "Luxury Retail", icon: <Gift className="w-6 h-6" />, description: "High-end boutique protection" },
   { name: "Parking Structures", icon: <Car className="w-6 h-6" />, description: "Multi-level garage security" },
   { name: "Pop-Up Events", icon: <Zap className="w-6 h-6" />, description: "Temporary retail activations" }
@@ -233,7 +233,7 @@ const propertyTypes = [
 const trustFactors = [
   { title: "Retail Expertise", description: "Officers trained specifically in retail environment challenges and customer service." },
   { title: "Visible Deterrence", description: "Uniformed presence that discourages theft and misconduct." },
-  { title: "Liability Reduction", description: "Proactive hazard reporting (spills, lights out) to prevent slip & falls." },
+  { title: "Liability Reduction", description: "Proactive hazard reporting (spills, lights out) to prevent slip &amp; falls." },
   { title: "Law Enforcement Liaison", description: "Strong partnerships with local police for rapid support." },
   { title: "24/7 Dispatch", description: "Always-on communication for immediate incident reporting." },
   { title: "Advanced Reporting", description: "Digital logs and GPS tracking for full accountability." }
@@ -273,7 +273,7 @@ export default function ShoppingCenterSecurityPage() {
             </span>
             <br />
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
-              Safe & Secure Retail Environments
+              Safe &amp; Secure Retail Environments
             </span>
           </div>
 
@@ -379,7 +379,7 @@ export default function ShoppingCenterSecurityPage() {
                         </div>
                         <div>
                           <div className="text-sm font-bold text-slate-900">Guest Safety First</div>
-                          <div className="text-xs text-slate-600">Secure & welcoming environments</div>
+                          <div className="text-xs text-slate-600">Secure &amp; welcoming environments</div>
                         </div>
                       </div>
                     </div>
@@ -721,7 +721,7 @@ export default function ShoppingCenterSecurityPage() {
                   <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 flex flex-col justify-center items-center">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-white mb-2">Connected</div>
-                      <p className="text-slate-300 text-sm">Real-time data & reporting</p>
+                      <p className="text-slate-300 text-sm">Real-time data &amp; reporting</p>
                     </div>
                   </div>
                 </div>
@@ -1044,7 +1044,7 @@ export default function ShoppingCenterSecurityPage() {
                                <div>
                                    <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Service Area</div>
                                    <div className="text-base text-slate-300">
-                                      Serving Malls & Centers<br/>
+                                      Serving Malls &amp; Centers<br/>
                                       Across California
                                    </div>
                                </div>

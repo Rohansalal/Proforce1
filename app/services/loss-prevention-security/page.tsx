@@ -124,7 +124,7 @@ const VideoBackground = ({ src }: { src: string }) => {
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Shoplifting Prevention & Apprehension",
+    title: "Shoplifting Prevention &amp; Apprehension",
     icon: <ShoppingBag className="w-8 h-8 text-white" />,
     description: "Professional loss prevention officers trained to prevent and apprehend shoplifters",
     points: [
@@ -137,7 +137,7 @@ const whyChooseUs = [
     note: "Our loss prevention officers are trained in legal apprehension procedures that minimize liability while maximizing recovery."
   },
   {
-    title: "Employee Theft Investigation & Prevention",
+    title: "Employee Theft Investigation &amp; Prevention",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Comprehensive programs to identify and prevent internal theft",
     points: [
@@ -163,7 +163,7 @@ const whyChooseUs = [
     note: "Organized Retail Crime costs businesses billions annually. Our specialized training helps identify and prevent ORC activity before it impacts your bottom line."
   },
   {
-    title: "Inventory Shrinkage Analysis & Prevention",
+    title: "Inventory Shrinkage Analysis &amp; Prevention",
     icon: <BarChart3 className="w-8 h-8 text-white" />,
     description: "Data-driven approaches to identify and reduce inventory shrinkage",
     points: [
@@ -181,7 +181,7 @@ const lossPreventionServices = [
   {
     title: "Shoplifting Prevention",
     icon: <ShoppingBag className="w-6 h-6" />,
-    description: "Theft deterrence & apprehension",
+    description: "Theft deterrence &amp; apprehension",
     details: ["Plainclothes surveillance", "Legal apprehensions", "ORC prevention"]
   },
   {
@@ -217,7 +217,7 @@ const lossPreventionServices = [
   {
     title: "Digital Reporting",
     icon: <FileBarChart className="w-6 h-6" />,
-    description: "Loss analytics & reporting",
+    description: "Loss analytics &amp; reporting",
     details: ["Shrinkage analysis", "Incident tracking", "Compliance reporting"]
   },
   {
@@ -328,7 +328,7 @@ export default function LossPreventionSecurityPage() {
                     Loss Prevention Specialists
                     <br />
                     <span style={{ color: THEME.primary }}>
-                      Reducing Shrinkage & Protecting Profits
+                      Reducing Shrinkage &amp; Protecting Profits
                     </span>
                   </h2>
                 </div>
@@ -701,7 +701,7 @@ export default function LossPreventionSecurityPage() {
             ))}
           </div>
 
-          {/* Analytics & Reporting Section */}
+          {/* Analytics &amp; Reporting Section */}
           <div className="max-w-4xl mx-auto mt-20">
             <div 
               className="backdrop-blur-xl rounded-2xl p-10 relative overflow-hidden shadow-2xl"
@@ -722,7 +722,7 @@ export default function LossPreventionSecurityPage() {
                     <BarChart3 className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white">Loss Prevention Analytics & Reporting</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">Loss Prevention Analytics &amp; Reporting</h3>
                     <p className="text-slate-300">Data-driven insights to identify shrinkage patterns and prevent losses</p>
                   </div>
                 </div>
@@ -953,7 +953,7 @@ export default function LossPreventionSecurityPage() {
                                    '--tw-ring-color': THEME.primary
                                  } as React.CSSProperties}
                                >
-                                   <option>Shoplifting Prevention & Apprehension</option>
+                                   <option>Shoplifting Prevention &amp; Apprehension</option>
                                    <option>Employee Theft Investigation</option>
                                    <option>Organized Retail Crime Prevention</option>
                                    <option>Return Fraud Prevention</option>

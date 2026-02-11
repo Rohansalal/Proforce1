@@ -62,7 +62,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Armed Bank Security & Robbery Prevention",
+    title: "Armed Bank Security &amp; Robbery Prevention",
     icon: <Shield className="w-8 h-8 text-white" />,
     description: "Highly trained armed security personnel for bank branch protection",
     points: [
@@ -75,7 +75,7 @@ const whyChooseUs = [
     note: "Our armed bank security officers are trained to protect your staff, customers, and assets during high-risk situations while maintaining compliance with banking regulations."
   },
   {
-    title: "Cash Handling & ATM Security",
+    title: "Cash Handling &amp; ATM Security",
     icon: <Banknote className="w-8 h-8 text-white" />,
     description: "Comprehensive protection for cash operations and ATM facilities",
     points: [
@@ -88,7 +88,7 @@ const whyChooseUs = [
     note: "We implement layered security measures to protect your most valuable assets during transport, storage, and customer transactions."
   },
   {
-    title: "Vault & Safe Deposit Security",
+    title: "Vault &amp; Safe Deposit Security",
     icon: <Vault className="w-8 h-8 text-white" />,
     description: "Advanced security for bank vaults and safe deposit facilities",
     points: [
@@ -101,7 +101,7 @@ const whyChooseUs = [
     note: "Our specialized training includes vault security protocols, dual control procedures, and regulatory compliance for secure deposit facilities."
   },
   {
-    title: "Bank Lobby & Customer Service Security",
+    title: "Bank Lobby &amp; Customer Service Security",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Customer-focused security that enhances the banking experience",
     points: [
@@ -131,7 +131,7 @@ const bankServices = [
   {
     title: "Vault Security",
     icon: <Vault className="w-6 h-6" />,
-    description: "Vault & safe deposit",
+    description: "Vault &amp; safe deposit",
     details: ["Access control", "Dual control", "Compliance audits"]
   },
   {
@@ -182,7 +182,7 @@ const bankTypes = [
 ]
 
 const trustFactors = [
-  { title: "FDIC & FINRA Compliant", description: "Security protocols meeting banking regulations" },
+  { title: "FDIC &amp; FINRA Compliant", description: "Security protocols meeting banking regulations" },
   { title: "25+ Years Experience", description: "Decades of specialized bank security expertise" },
   { title: "Armed Guard Certified", description: "State-certified armed security personnel" },
   { title: "Bank-Specific Training", description: "Specialized training for banking environments" },
@@ -273,7 +273,7 @@ export default function BankSecurityPage() {
                     Bank Security Specialists
                     <br />
                     <span className="text-teal-600">
-                      Protecting Financial Assets & Customer Trust
+                      Protecting Financial Assets &amp; Customer Trust
                     </span>
                   </h2>
                 </div>
@@ -541,7 +541,7 @@ export default function BankSecurityPage() {
             ))}
           </div>
 
-          {/* Compliance & Fraud Prevention Section */}
+          {/* Compliance &amp; Fraud Prevention Section */}
           <div className="max-w-4xl mx-auto mt-20">
             <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/20 rounded-2xl p-10 relative overflow-hidden">
               {/* Pattern overlay */}
@@ -553,7 +553,7 @@ export default function BankSecurityPage() {
                     <FileCheck className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white">Regulatory Compliance & Fraud Prevention</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">Regulatory Compliance &amp; Fraud Prevention</h3>
                     <p className="text-slate-300">Comprehensive security meeting banking regulations and preventing financial crimes</p>
                   </div>
                 </div>
@@ -712,10 +712,10 @@ export default function BankSecurityPage() {
                                <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
                                <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-slate-700">
                                    <option>Armed Bank Branch Security</option>
-                                   <option>ATM Security & Protection</option>
-                                   <option>Vault & Safe Deposit Security</option>
+                                   <option>ATM Security &amp; Protection</option>
+                                   <option>Vault &amp; Safe Deposit Security</option>
                                    <option>Cash-In-Transit Security</option>
-                                   <option>Fraud Prevention & Monitoring</option>
+                                   <option>Fraud Prevention &amp; Monitoring</option>
                                    <option>Full Bank Security Package</option>
                                </select>
                             </div>

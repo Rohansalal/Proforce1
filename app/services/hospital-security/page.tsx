@@ -98,7 +98,7 @@ const whyChooseUs = [
     note: "Our officers are specially trained to handle the unique challenges of emergency departments while maintaining patient dignity and safety."
   },
   {
-    title: "Patient & Staff Safety",
+    title: "Patient &amp; Staff Safety",
     icon: <Heart className="w-8 h-8 text-white" />,
     description: "Comprehensive protection for vulnerable patients and healthcare workers",
     points: [
@@ -111,7 +111,7 @@ const whyChooseUs = [
     note: "We prioritize the safety of both patients and healthcare staff in accordance with Joint Commission standards."
   },
   {
-    title: "Access Control & Visitor Management",
+    title: "Access Control &amp; Visitor Management",
     icon: <DoorOpen className="w-8 h-8 text-white" />,
     description: "Secure entry management for sensitive healthcare environments",
     points: [
@@ -618,7 +618,7 @@ export default function HospitalSecurityPage() {
                     <FileCheck className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white">Healthcare Compliance & Digital Reporting</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">Healthcare Compliance &amp; Digital Reporting</h3>
                     <p className="text-slate-300">Comprehensive documentation for accreditation and incident management</p>
                   </div>
                 </div>
@@ -783,8 +783,8 @@ export default function HospitalSecurityPage() {
                                    <option>Hospital Security Team</option>
                                    <option>Emergency Department Security</option>
                                    <option>Behavioral Health Security</option>
-                                   <option>Access Control & Visitor Management</option>
-                                   <option>Narcotics & Pharmacy Security</option>
+                                   <option>Access Control &amp; Visitor Management</option>
+                                   <option>Narcotics &amp; Pharmacy Security</option>
                                    <option>Full Hospital Security Package</option>
                                </select>
                             </div>

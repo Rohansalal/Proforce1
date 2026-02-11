@@ -56,7 +56,7 @@
 //             className="space-y-12 text-slate-700 leading-relaxed text-lg"
 //           >
 //             <motion.div variants={fadeInUp}>
-//               <p>Please read these terms & conditions carefully before using Our Service.</p>
+//               <p>Please read these terms &amp; conditions carefully before using Our Service.</p>
 //             </motion.div>
 
 //             <motion.div variants={fadeInUp}>
@@ -171,7 +171,7 @@ const TermsAndConditions: React.FC = () => {
             className="space-y-12 text-gray-700 leading-relaxed text-lg"
           >
             <motion.div variants={fadeInUp} className="bg-white p-6 rounded-lg shadow-sm">
-              <p>Please read these terms & conditions carefully before using Our Service.</p>
+              <p>Please read these terms &amp; conditions carefully before using Our Service.</p>
             </motion.div>
 
             <motion.div variants={fadeInUp} className="bg-white p-6 rounded-lg shadow-sm">

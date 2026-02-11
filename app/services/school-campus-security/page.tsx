@@ -67,7 +67,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Campus Entry Control & Visitor Management",
+    title: "Campus Entry Control &amp; Visitor Management",
     icon: <Shield className="w-8 h-8 text-white" />,
     description: "Secure access control systems for school campuses and facilities",
     points: [
@@ -80,7 +80,7 @@ const whyChooseUs = [
     note: "Our campus security officers are trained to manage school access while maintaining a welcoming environment for students, staff, and authorized visitors."
   },
   {
-    title: "Student Safety & Behavioral Intervention",
+    title: "Student Safety &amp; Behavioral Intervention",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Student-focused security that promotes positive behavior and safety",
     points: [
@@ -93,7 +93,7 @@ const whyChooseUs = [
     note: "We balance security with student support, creating environments where students feel safe, respected, and able to focus on learning."
   },
   {
-    title: "Emergency Response & Crisis Management",
+    title: "Emergency Response &amp; Crisis Management",
     icon: <AlertCircle className="w-8 h-8 text-white" />,
     description: "Comprehensive emergency protocols for educational facilities",
     points: [
@@ -106,7 +106,7 @@ const whyChooseUs = [
     note: "Our officers are trained in school-specific emergency protocols and work closely with school administrators and first responders."
   },
   {
-    title: "School Event & Extracurricular Security",
+    title: "School Event &amp; Extracurricular Security",
     icon: <Calendar className="w-8 h-8 text-white" />,
     description: "Specialized security for school events and activities",
     points: [
@@ -758,11 +758,11 @@ export default function SchoolCampusSecurityPage() {
                                <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
                                <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
                                        style={{ '--tw-ring-color': BRAND_HEX } as React.CSSProperties}>
-                                   <option>Campus Entry Control & Visitor Management</option>
-                                   <option>Student Safety & Behavioral Intervention</option>
-                                   <option>Emergency Response & Crisis Management</option>
-                                   <option>School Event & Extracurricular Security</option>
-                                   <option>Traffic & Parking Safety</option>
+                                   <option>Campus Entry Control &amp; Visitor Management</option>
+                                   <option>Student Safety &amp; Behavioral Intervention</option>
+                                   <option>Emergency Response &amp; Crisis Management</option>
+                                   <option>School Event &amp; Extracurricular Security</option>
+                                   <option>Traffic &amp; Parking Safety</option>
                                    <option>Full School Security Package</option>
                                </select>
                             </div>

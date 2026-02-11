@@ -62,7 +62,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Loss Prevention & Theft Deterrence",
+    title: "Loss Prevention &amp; Theft Deterrence",
     icon: <ShoppingCart className="w-8 h-8 text-white" />,
     description: "Professional protection against shoplifting and organized retail crime",
     points: [
@@ -75,7 +75,7 @@ const whyChooseUs = [
     note: "Our officers are trained to reduce shrinkage while maintaining positive customer interactions and minimizing liability."
   },
   {
-    title: "Customer Safety & Experience",
+    title: "Customer Safety &amp; Experience",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Ensuring a safe, welcoming shopping environment for all customers",
     points: [
@@ -88,7 +88,7 @@ const whyChooseUs = [
     note: "We balance security with hospitality to create an environment where customers feel safe and valued."
   },
   {
-    title: "Parking Lot & Perimeter Security",
+    title: "Parking Lot &amp; Perimeter Security",
     icon: <Car className="w-8 h-8 text-white" />,
     description: "Comprehensive protection for retail parking areas and exterior spaces",
     points: [
@@ -101,7 +101,7 @@ const whyChooseUs = [
     note: "Most retail crime starts in parking areas. Our proactive patrols prevent incidents before they reach store interiors."
   },
   {
-    title: "Emergency Response & Incident Management",
+    title: "Emergency Response &amp; Incident Management",
     icon: <AlertCircle className="w-8 h-8 text-white" />,
     description: "Rapid response to retail-specific emergencies and incidents",
     points: [
@@ -119,19 +119,19 @@ const retailServices = [
   {
     title: "Loss Prevention",
     icon: <ShoppingCart className="w-6 h-6" />,
-    description: "Theft deterrence & prevention",
+    description: "Theft deterrence &amp; prevention",
     details: ["Shoplifting prevention", "ORC deterrence", "High-value protection"]
   },
   {
     title: "Customer Safety",
     icon: <Users className="w-6 h-6" />,
-    description: "Shopper protection & assistance",
+    description: "Shopper protection &amp; assistance",
     details: ["Crowd management", "Customer service", "Emergency response"]
   },
   {
     title: "Parking Security",
     icon: <Car className="w-6 h-6" />,
-    description: "Lot & garage protection",
+    description: "Lot &amp; garage protection",
     details: ["Vehicle patrols", "Break-in prevention", "Traffic management"]
   },
   {
@@ -718,7 +718,7 @@ export default function RetailSecurityPage() {
                                    <option>Retail Security Team</option>
                                    <option>Loss Prevention Officers</option>
                                    <option>Parking Lot Security</option>
-                                   <option>Access Control & Entry Management</option>
+                                   <option>Access Control &amp; Entry Management</option>
                                    <option>Mobile Patrol Services</option>
                                    <option>Full Retail Security Package</option>
                                </select>
