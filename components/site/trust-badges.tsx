@@ -110,7 +110,7 @@ export function TrustBadges() {
       hoverShadow: "group-hover:shadow-blue-500/20",
       // SVG logo as data URI for Google G logo
       logoSvg: (
-        <svg viewBox="0 0 48 48" className="w-16 h-16">
+        <svg viewBox="0 0 48 48" className="w-12 h-12">
           <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
           <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
           <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
@@ -132,7 +132,7 @@ export function TrustBadges() {
       hoverShadow: "group-hover:shadow-green-500/20",
       // Trustpilot star logo
       logoSvg: (
-        <svg viewBox="0 0 126 30" className="w-24 h-12">
+        <svg viewBox="0 0 126 30" className="w-28 h-12">
           <g fill="#00B67A">
             <path d="M30.4 13.4L23 13.8l-2.8-6.8c-.3-.8-1.4-.8-1.8 0l-2.8 6.8-7.4.4c-.9 0-1.2 1.1-.5 1.6l6 4.4-2.3 7.2c-.3.8.7 1.5 1.4 1l6.2-4.5 6.2 4.5c.7.5 1.7-.2 1.4-1l-2.3-7.2 6-4.4c.7-.5.4-1.6-.5-1.6z" />
             <text x="36" y="20" fontFamily="Arial, sans-serif" fontSize="12" fontWeight="bold" fill="#191919">Trustpilot</text>
@@ -154,7 +154,7 @@ export function TrustBadges() {
       hoverShadow: "group-hover:shadow-blue-600/20",
       // BBB torch logo simplified
       logoSvg: (
-        <svg viewBox="0 0 100 50" className="w-20 h-10">
+        <svg viewBox="0 0 100 50" className="w-16 h-8">
           <g fill="#005a78">
             <rect x="20" y="15" width="10" height="30" rx="2" />
             <path d="M15 10 Q25 5 35 10 L30 15 Q25 12 20 15 Z" fill="#005a78" />
@@ -175,7 +175,7 @@ export function TrustBadges() {
           <Star
             key={i}
             className={cn(
-              "w-5 h-5 transition-all duration-300",
+              "w-4 h-4 transition-all duration-300",
               i < starCount
                 ? "text-yellow-400 fill-yellow-400 drop-shadow-sm"
                 : "text-slate-200 fill-slate-200"
@@ -187,7 +187,7 @@ export function TrustBadges() {
   }
 
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden">
+    <section className="relative py-16 md:py-20 overflow-hidden">
 
       {/* Background with Building Image */}
       <div className="absolute inset-0 z-0">
@@ -216,9 +216,9 @@ export function TrustBadges() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
-            Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">Businesses Across California</span>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4">
+            Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">Businesses Across CA</span>
           </h2>
         </div>
 
@@ -235,12 +235,12 @@ export function TrustBadges() {
             >
               {/* Card Container - Unique design per platform */}
               <div className={cn(
-                "relative h-full rounded-3xl p-8 transition-all duration-500 overflow-hidden",
+                "relative h-full rounded-2xl p-6 transition-all duration-500 overflow-hidden",
                 badge.bgPattern,
-                "border-2 border-slate-200/50",
-                "shadow-xl hover:shadow-2xl",
+                "border border-slate-200/50",
+                "shadow-lg hover:shadow-xl",
                 badge.hoverShadow,
-                "transform hover:scale-[1.02] hover:-translate-y-2"
+                "transform hover:scale-[1.01] hover:-translate-y-1"
               )}>
 
                 {/* Decorative gradient overlay on hover */}
@@ -251,7 +251,7 @@ export function TrustBadges() {
                 )} />
 
                 {/* Platform Logo/Brand */}
-                <div className="relative z-10 mb-6 flex items-center justify-between">
+                <div className="relative z-10 mb-4 flex items-center justify-between">
                   <div className="transform transition-transform duration-500 group-hover:scale-110">
                     {badge.logoSvg}
                   </div>
@@ -273,7 +273,7 @@ export function TrustBadges() {
                 {/* Rating Display */}
                 <div className="relative z-10 mb-6">
                   <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-6xl md:text-7xl font-black text-slate-900 tracking-tighter leading-none">
+                    <span className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter leading-none">
                       {badge.rating}
                     </span>
                     <div className="flex flex-col">
@@ -296,7 +296,7 @@ export function TrustBadges() {
                 </div>
 
                 {/* Divider */}
-                <div className="relative z-10 w-full h-[2px] bg-gradient-to-r from-transparent via-slate-300 to-transparent mb-6" />
+                <div className="relative z-10 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-300 to-transparent mb-4" />
 
                 {/* CTA Link */}
                 <div className="relative z-10 flex items-center justify-between">
@@ -325,6 +325,6 @@ export function TrustBadges() {
           ))}
         </div>
       </div>
-    </section>
+    </section >
   )
 }
