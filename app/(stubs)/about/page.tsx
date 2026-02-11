@@ -29,13 +29,7 @@ const HeroVideo = () => {
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
-      <Image
-        src="/AboutUs.jpg"
-        alt="Security Background"
-        fill
-        className="object-cover opacity-40 scale-105"
-        priority
-      />
+
       <video
         ref={videoRef}
         className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ease-in-out ${isVideoLoaded ? 'opacity-40' : 'opacity-0'
@@ -80,13 +74,7 @@ const AboutUs: React.FC = () => {
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-900 text-white">
         {/* Inline hero video (plays AboutUs.mp4) */}
         <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
-          <Image
-            src="/AboutUs.jpg"
-            alt="Security Background"
-            fill
-            className="object-cover opacity-40 scale-105"
-            priority
-          />
+
           <video
             className="absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ease-in-out opacity-40"
             autoPlay
@@ -118,7 +106,7 @@ const AboutUs: React.FC = () => {
             <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-7xl font-black mb-8 tracking-tighter leading-[1.1] drop-shadow-2xl">
               BUILT ON EXPERIENCE, <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
-                INTEGRITY &amp; INNOVATION
+                INTEGRITY & INNOVATION
               </span>
             </motion.h1>
 

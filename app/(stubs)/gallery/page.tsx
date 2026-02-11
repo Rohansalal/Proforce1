@@ -24,13 +24,7 @@ const HeroVideo = () => {
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
-      <Image
-        src="/AboutUs.jpg"
-        alt="Security Background"
-        fill
-        className="object-cover opacity-40 scale-105"
-        priority
-      />
+
       <video
         ref={videoRef}
         autoPlay
@@ -96,7 +90,7 @@ const Gallery: React.FC = () => {
       {/* ====================
           1. HERO SECTION (Consistent Design)
           ==================== */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-slate-900 text-white">
+      <section className="relative h-[90vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-slate-900 text-white">
         <HeroVideo />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-20 text-center">
@@ -108,7 +102,7 @@ const Gallery: React.FC = () => {
           >
             <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-red-400 text-xs font-bold tracking-[0.2em] uppercase mb-8 shadow-2xl">
               <Camera className="w-3 h-3 fill-current" />
-              Media &amp; Evidence
+              Media & Evidence
             </motion.div>
 
             <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tighter leading-[1.1] drop-shadow-2xl">
