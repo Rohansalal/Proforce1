@@ -81,7 +81,7 @@ const AboutUs: React.FC = () => {
         {/* Inline hero video (plays AboutUs.mp4) */}
         <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
           <Image
-            src="/video-poster.jpg"
+            src="/AboutUs.jpg"
             alt="Security Background"
             fill
             className="object-cover opacity-40 scale-105"
@@ -204,7 +204,7 @@ const AboutUs: React.FC = () => {
           ==================== */}
       <section className="py-20 bg-slate-900 relative overflow-hidden">
         {/* Background Gradients */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/noise.png')] opacity-5"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-5" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-yellow-600/20 blur-[100px] rounded-full"></div>
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">

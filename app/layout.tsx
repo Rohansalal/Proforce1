@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   title: 'ProForce1 Privacy Policy: Data Protection and User Privacy',
   description: 'Discover ProForce1 Privacy Policy-insights on data protection and user privacy. We prioritize security, handling your information responsibly',
   keywords: 'privacy policy, data protection, user privacy, security services',
-  
+
   // --- ADD THIS SECTION ---
   icons: {
     icon: '/logo.png', // The path to your image in the public folder
@@ -93,8 +93,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="scroll-smooth fusion-extension-loaded">
-      <body className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
         <Suspense fallback={<div>Loading...</div>}>
           {/* <TopAnalytics /> */}
           <Header />

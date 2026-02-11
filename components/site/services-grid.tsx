@@ -87,7 +87,7 @@ export function ServicesGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8"
+          className="relative flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8"
         >
           <div className="max-w-3xl relative">
             <div className="absolute -left-6 top-0 w-1 h-full bg-red-600 rounded-full hidden md:block" />
