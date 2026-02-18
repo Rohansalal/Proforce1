@@ -14,6 +14,13 @@ const partners = [
   { id: 8, name: "Costco", src: "/partners/costo.jpg" },
   { id: 9, name: "Flatiron", src: "/partners/flatiron.jpg" },
   { id: 10, name: "Hotel IR", src: "/partners/Hotel-Ir.jpg" },
+  { id: 11, name: "City Orange", src: "/partners/ornageofcity1.png"},
+  { id: 12, name: "Motel6", src: "/partners/motel6.png" },
+  { id: 13, name: "cropped-afc ", src: "/partners/cropped-afc-logo.png" },
+  { id: 14, name: "Placentia", src: "/partners/Document.png" },
+  { id: 15, name: "REMAX", src: "/partners/Remaxlogo.png" },
+  { id: 16, name: "Sheraton Garden Grove", src: "/partners/SHERATON GARDEN GROVE .png" },
+  { id: 17, name: "Hoag urgent cares", src: "/partners/hoga.png" },
 ]
 
 export function OurPartners() {
