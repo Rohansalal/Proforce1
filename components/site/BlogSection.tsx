@@ -97,7 +97,7 @@ const BlogSection: React.FC = () => {
                   <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-wider rounded-full group-hover:bg-red-50 group-hover:text-red-600 transition-colors">
                     {post.category}
                   </span>
-                  <div className="flex items-center text-slate-400 text-xs font-medium">
+                  <div className="flex items-center text-slate-500 text-xs font-semibold">
                     <Calendar className="w-3 h-3 mr-1" />
                     {post.date}
                   </div>
@@ -122,7 +122,7 @@ const BlogSection: React.FC = () => {
                   <User className="w-3 h-3 mr-2" />
                   {post.author}
                 </div>
-                <div className="flex items-center text-xs font-medium text-slate-400 group-hover:text-red-600 transition-colors">
+                <div className="flex items-center text-xs font-semibold text-slate-500 group-hover:text-red-600 transition-colors">
                   Read Article <ArrowRight className="w-3 h-3 ml-1" />
                 </div>
               </div>

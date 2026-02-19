@@ -40,7 +40,9 @@ export function CookieConsentBanner() {
           .
         </AlertDescription>
         <div className="mt-4 flex gap-4">
-          <Button onClick={handleAccept}>Accept All</Button>
+          <Button onClick={handleAccept} aria-label="Accept all cookies" className="bg-slate-900 text-white hover:bg-slate-800">
+            Accept All
+          </Button>
         </div>
       </Alert>
     </div>

@@ -98,7 +98,9 @@ export default function RootLayout({
         <Suspense fallback={<div>Loading...</div>}>
           {/* <TopAnalytics /> */}
           <Header />
-          {children}
+          <main id="main-content">
+            {children}
+          </main>
           <Footer />
         </Suspense>
         <Analytics />

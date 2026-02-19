@@ -47,12 +47,12 @@
 // //   return (
 // //     <footer className="bg-slate-950 text-white pt-20 pb-10 border-t border-slate-900 font-sans">
 // //       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        
+
 // //         {/* =========================================
 // //             TOP SECTION: LOGO (Left) & SOCIALS (Right)
 // //            ========================================= */}
 // //         <div className="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-12 mb-14 gap-10">
-          
+
 // //           {/* Logo Section */}
 // //           <div className="flex-shrink-0">
 // //              <Link href="/">
@@ -86,7 +86,7 @@
 // //             MAIN GRID CONTENT
 // //            ========================================= */}
 // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10 mb-20">
-          
+
 // //           {/* Col 1: Contact Info */}
 // //           <div className="space-y-8">
 // //             <h3 className="text-xl font-bold uppercase tracking-wider text-white">Contact Info</h3>
@@ -173,7 +173,7 @@
 // //            ========================================= */}
 // //         <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500">
 // //           <p>© {new Date().getFullYear()} ProForce 1 Protection Services. All Rights Reserved.</p>
-          
+
 // //         </div>
 
 // //       </div>
@@ -231,12 +231,12 @@
 //   return (
 //     <footer className="bg-slate-950 text-white pt-20 pb-10 border-t border-slate-900 font-sans">
 //       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        
+
 //         {/* =========================================
 //             TOP SECTION: LOGO (Left) & SOCIALS (Right)
 //            ========================================= */}
 //         <div className="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-12 mb-14 gap-10">
-          
+
 //           {/* Logo Section - Replaced Image with Text */}
 //           <div className="flex-shrink-0">
 //              <Link href="/" className="group block">
@@ -266,7 +266,7 @@
 //             MAIN GRID CONTENT
 //            ========================================= */}
 //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10 mb-20">
-          
+
 //           {/* Col 1: Contact Info */}
 //           <div className="space-y-8">
 //             <h3 className="text-xl font-bold uppercase tracking-wider text-white">Contact Info</h3>
@@ -353,7 +353,7 @@
 //            ========================================= */}
 //         <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500">
 //           <p>© {new Date().getFullYear()} ProForce 1 Protection Services. All Rights Reserved.</p>
-          
+
 //         </div>
 
 //       </div>
@@ -366,15 +366,15 @@
 "use client"
 
 import Link from "next/link"
-import { 
-  Facebook, 
-  Instagram, 
-  Linkedin, 
-  Twitter, 
-  Youtube, 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -411,15 +411,15 @@ export function Footer() {
   return (
     <footer className="bg-slate-950 text-white pt-20 pb-10 border-t border-slate-900 font-sans">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        
+
         {/* =========================================
             TOP SECTION: LOGO (Left) & SOCIALS (Right)
            ========================================= */}
         <div className="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-12 mb-14 gap-10">
-          
+
           {/* Logo Section - Stylized 'O' to match Image */}
           <div className="flex-shrink-0">
-             <Link href="/" className="group block">
+            <Link href="/" className="group block">
               <span className="text-4xl font-black tracking-tighter text-white group-hover:opacity-90 transition-opacity whitespace-nowrap">
                 PR
                 {/* stylized O with a vertical cut */}
@@ -435,10 +435,10 @@ export function Footer() {
           {/* Social Icons Section */}
           <div className="flex items-center gap-6">
             {socialLinks.map((social, index) => (
-              <Link 
-                key={index} 
+              <Link
+                key={index}
                 href={social.href}
-                className="text-slate-400 hover:text-red-600 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1"
+                className="text-slate-300 hover:text-red-600 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1"
                 aria-label={social.label}
               >
                 {/* Increased Icon Size slightly for balance */}
@@ -452,14 +452,14 @@ export function Footer() {
             MAIN GRID CONTENT
            ========================================= */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10 mb-20">
-          
+
           {/* Col 1: Contact Info */}
           <div className="space-y-8">
             <h3 className="text-xl font-bold uppercase tracking-wider text-white">Contact Info</h3>
-            <div className="space-y-5 text-base text-slate-400 leading-relaxed">
+            <div className="space-y-5 text-base text-slate-300 leading-relaxed">
               <div className="flex items-start gap-4">
                 <MapPin className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
-                <p>1671 W Katella ave suite 106<br/>Anaheim, CA, US 92802</p>
+                <p>1671 W Katella ave suite 106<br />Anaheim, CA, US 92802</p>
               </div>
               <div className="flex items-center gap-4">
                 <Phone className="w-6 h-6 text-red-600 flex-shrink-0" />
@@ -475,7 +475,7 @@ export function Footer() {
           {/* Col 2: Services */}
           <div>
             <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-8">Our Services</h3>
-            <ul className="space-y-4 text-base text-slate-400">
+            <ul className="space-y-4 text-base text-slate-300">
               {servicesLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
@@ -489,7 +489,7 @@ export function Footer() {
           {/* Col 3: Quick Links */}
           <div>
             <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-8">Company</h3>
-            <ul className="space-y-4 text-base text-slate-400">
+            <ul className="space-y-4 text-base text-slate-300">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
@@ -515,16 +515,16 @@ export function Footer() {
             <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-6">
               Stay Secure
             </h3>
-            <p className="text-base text-slate-400 mb-8 leading-relaxed">
+            <p className="text-base text-slate-300 mb-8 leading-relaxed">
               Get expert security tips, case studies, and industry updates delivered directly to your inbox.
             </p>
             <form className="space-y-4">
-              <Input 
-                type="email" 
-                placeholder="Email Address *" 
+              <Input
+                type="email"
+                placeholder="Email Address *"
                 className="bg-slate-900 border-slate-800 focus-visible:ring-red-600 text-white placeholder:text-slate-500 h-14 text-base"
               />
-              <Button 
+              <Button
                 className="w-full h-14 font-bold uppercase tracking-widest hover:bg-red-800 transition-colors shadow-lg text-base"
                 style={{ backgroundColor: PROFORCE_RED }}
               >
@@ -537,9 +537,9 @@ export function Footer() {
         {/* =========================================
             BOTTOM BAR
            ========================================= */}
-        <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500">
+        <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-300">
           <p>© {new Date().getFullYear()} ProForce 1 Protection Services. All Rights Reserved.</p>
-          
+
         </div>
 
       </div>

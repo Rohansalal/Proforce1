@@ -109,8 +109,11 @@ const VideoLayer = ({ src, isActive, posterColor }: { src: string, isActive: boo
         loop
         playsInline
         preload="metadata"
+        {...(isActive ? { fetchpriority: "high" } : {})}
         onError={() => setHasError(true)}
-      />
+      >
+        <track kind="captions" />
+      </video>
     </div>
   )
 }
@@ -260,7 +263,8 @@ export function Hero() {
             <button
               key={idx}
               onClick={() => setActiveIndex(idx)}
-              className="group relative h-20 w-3 flex flex-col justify-end overflow-hidden focus:outline-none transition-all"
+              aria-label={`Go to slide ${idx + 1}`}
+              className="group relative h-20 w-10 flex flex-col justify-end items-center overflow-hidden focus:outline-none transition-all"
             >
               <div className={cn(
                 "w-1.5 rounded-full transition-all duration-500 mx-auto",
@@ -282,10 +286,10 @@ export function Hero() {
         </div>
 
         <div className="flex gap-4">
-          <Button size="icon" variant="ghost" onClick={prevSlide} className="h-12 w-12 rounded-full border border-white/20 hover:bg-white hover:text-black text-white transition-all">
+          <Button size="icon" variant="ghost" onClick={prevSlide} aria-label="Previous slide" className="h-12 w-12 rounded-full border border-white/20 hover:bg-white hover:text-black text-white transition-all">
             <ChevronLeft className="h-6 w-6" />
           </Button>
-          <Button size="icon" variant="ghost" onClick={nextSlide} className="h-12 w-12 rounded-full border border-white/20 hover:bg-white hover:text-black text-white transition-all">
+          <Button size="icon" variant="ghost" onClick={nextSlide} aria-label="Next slide" className="h-12 w-12 rounded-full border border-white/20 hover:bg-white hover:text-black text-white transition-all">
             <ChevronRight className="h-6 w-6" />
           </Button>
         </div>
@@ -318,10 +322,10 @@ export function Hero() {
             0{activeIndex + 1} / 0{slides.length}
           </span>
           <div className="flex gap-3">
-            <Button size="icon" variant="ghost" onClick={prevSlide} className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+            <Button size="icon" variant="ghost" onClick={prevSlide} aria-label="Previous slide" className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
               <ChevronLeft className="h-5 w-5" />
             </Button>
-            <Button size="icon" variant="ghost" onClick={nextSlide} className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+            <Button size="icon" variant="ghost" onClick={nextSlide} aria-label="Next slide" className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
               <ChevronRight className="h-5 w-5" />
             </Button>
           </div>
