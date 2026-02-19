@@ -104,13 +104,13 @@ export default function BlogPost() {
           <li><strong>First Aid & CPR:</strong> Ensuring our guards are prepared for medical emergencies on campus.</li>
         </ul>
 
-        <div className="bg-red-50 border-l-4 border-red-600 p-8 md:p-10 my-12 rounded-r-xl">
+        {/* <div className="bg-red-50 border-l-4 border-red-600 p-8 md:p-10 my-12 rounded-r-xl">
           <h4 className="text-2xl font-bold text-red-900 mb-4 tracking-tight">A Partnership for Safety</h4>
           <p className="text-red-800 text-lg leading-relaxed mb-0">
             "Having ProForce 1 on site has transformed our daily operations. Knowing that our entrances are monitored by professionals who truly care about the safety of our children allows our teachers to focus on what they do best: teaching."
           </p>
           <p className="text-red-700 font-bold mt-4 uppercase tracking-wider text-sm">— School Administrator Perspective</p>
-        </div>
+        </div> */}
 
         <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-6 tracking-tight">Conclusion</h2>
         <p className="mb-10">

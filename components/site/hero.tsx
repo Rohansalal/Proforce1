@@ -65,22 +65,15 @@ const slides = [
 ]
 
 // --- SUB-COMPONENT: Video Player ---
-const VideoSlide = ({ src, poster, isActive, posterColor }: { src: string, poster: string, isActive: boolean, posterColor: string }) => {
+const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor }: { src: string, poster: string, isActive: boolean, isPreloading: boolean, posterColor: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hasError, setHasError] = useState(false)
-  const [shouldRender, setShouldRender] = useState(isActive)
-  const [isMobile, setIsMobile] = useState(false)
+  const [shouldRender, setShouldRender] = useState(isActive || isPreloading)
 
+  // Ensure checking for updates on props change
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768)
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  useEffect(() => {
-    if (isActive) setShouldRender(true)
-  }, [isActive])
+    if (isActive || isPreloading) setShouldRender(true)
+  }, [isActive, isPreloading])
 
   useEffect(() => {
     if (!shouldRender) return
@@ -89,7 +82,8 @@ const VideoSlide = ({ src, poster, isActive, posterColor }: { src: string, poste
     if (!video) return
 
     if (isActive) {
-      video.currentTime = 0
+      // Reset time if needed or just ensure it plays
+      // video.currentTime = 0 // Optional: reset on slide change if desired
       const playPromise = video.play()
       if (playPromise !== undefined) {
         playPromise.catch((error) => {
@@ -107,37 +101,26 @@ const VideoSlide = ({ src, poster, isActive, posterColor }: { src: string, poste
 
   return (
     <div className={cn(
-      "absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out",
+      "absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out will-change-transform",
       isActive ? "opacity-100 z-10" : "opacity-0 z-0"
     )}>
       {/* Uniform Overlay */}
       <div className="absolute inset-0 bg-slate-950/60 z-10" />
 
-      {/* Conditionally render video only on desktop to save 22MB+ on mobile */}
-      {!isMobile && (
-        <video
-          ref={videoRef}
-          src={src}
-          poster={poster}
-          className="w-full h-full object-cover"
-          muted
-          loop
-          playsInline
-          preload={isActive ? "auto" : "none"}
-          {...(isActive ? { fetchPriority: "high" } : {})}
-          onError={() => setHasError(true)}
-        >
-          <track kind="captions" />
-        </video>
-      )}
-
-      {/* Mobile-only background image to replace video and save payload */}
-      {isMobile && (
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${poster})` }}
-        />
-      )}
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        className="w-full h-full object-cover"
+        muted
+        loop
+        playsInline
+        preload={isActive || isPreloading ? "auto" : "none"} // Preload if active or next
+        {...(isActive ? { fetchPriority: "high" } : {})}
+        onError={() => setHasError(true)}
+      >
+        <track kind="captions" />
+      </video>
     </div>
   )
 }
@@ -210,15 +193,19 @@ export function Hero() {
       onTouchEnd={onTouchEndHandler}
     >
       {/* --- 1. VIDEO LAYER --- */}
-      {slides.map((slide, index) => (
-        <VideoSlide
-          key={slide.id}
-          src={slide.videoSrc}
-          poster={slide.poster}
-          isActive={activeIndex === index}
-          posterColor={getThemeStyles(slide.theme)}
-        />
-      ))}
+      {slides.map((slide, index) => {
+        const nextIndex = (activeIndex + 1) % slides.length
+        return (
+          <VideoSlide
+            key={slide.id}
+            src={slide.videoSrc}
+            poster={slide.poster}
+            isActive={activeIndex === index}
+            isPreloading={nextIndex === index}
+            posterColor={getThemeStyles(slide.theme)}
+          />
+        )
+      })}
 
       {/* Global Gradients (No Left Shade) */}
       <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-slate-950 via-transparent to-slate-950/20" />
