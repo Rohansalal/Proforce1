@@ -1,13 +1,18 @@
-
+import dynamic from "next/dynamic"
 import { Hero } from "@/components/site/hero"
 import { TrustBadges } from "@/components/site/trust-badges"
-import { ServicesGrid } from "@/components/site/services-grid"
-import { HowWeWork } from "@/components/site/how-we-work"
-import { StatsSection } from "@/components/site/stats-section"
-import OurPartners from "@/components/site/our-partners"
-import BlogSection from "@/components/site/BlogSection"
-import FAQSection from "@/components/site/FAQSection"
-import Testimonials from "@/components/site/testimonials"
+
+// Below-the-fold components are loaded dynamically
+const ServicesGrid = dynamic(() => import("@/components/site/services-grid"), {
+  loading: () => <div className="h-96 bg-slate-50 animate-pulse" />
+})
+const HowWeWork = dynamic(() => import("@/components/site/how-we-work").then(mod => mod.HowWeWork), { ssr: true })
+const StatsSection = dynamic(() => import("@/components/site/stats-section").then(mod => mod.StatsSection), { ssr: true })
+const OurPartners = dynamic(() => import("@/components/site/our-partners"), { ssr: false })
+const FAQSection = dynamic(() => import("@/components/site/FAQSection"), { ssr: true })
+const Testimonials = dynamic(() => import("@/components/site/testimonials"), { ssr: true })
+const BlogSection = dynamic(() => import("@/components/site/BlogSection"), { ssr: true })
+
 export default function HomePage() {
   return (
     <>
@@ -17,10 +22,9 @@ export default function HomePage() {
       <HowWeWork />
       <StatsSection />
       <OurPartners />
-       <FAQSection />
-       <Testimonials />
-       
-       <BlogSection />
+      <FAQSection />
+      <Testimonials />
+      <BlogSection />
     </>
   )
 }

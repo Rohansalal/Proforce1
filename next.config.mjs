@@ -17,6 +17,7 @@ const nextConfig = {
       },
     ],
   },
+  swcMinify: true,
   compress: true,
   experimental: {
     optimizePackageImports: [

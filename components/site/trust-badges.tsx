@@ -196,9 +196,9 @@ export function TrustBadges() {
           src="/Services/high-rise-building-security/Homepage2.png"
           alt="Building Background"
           fill
-          className="object-cover opacity-50"
-          priority
-          sizes="100vw"
+          className="object-cover opacity-30"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          quality={50}
         />
 
         {/* Lighter Gradient Overlays - Let building show through */}
