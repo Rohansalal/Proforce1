@@ -82,8 +82,8 @@ const BlogSection: React.FC = () => {
                   alt={post.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
-                  sizes="(max-width: 640px) 384px, (max-width: 1200px) 50vw, 33vw"
-                  quality={70}
+                  sizes="(max-width: 768px) 95vw, 30vw"
+                  quality={50}
                 />
 
                 {/* Optional Overlay Gradient for text contrast if you ever overlay text */}

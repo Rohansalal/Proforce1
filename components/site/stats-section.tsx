@@ -8,53 +8,45 @@ export function StatsSection() {
 
   const stats = [
     { k: 1000, label: "Events Served", suffix: "+" },
-    { k:460, label: "Qualified Staff", suffix: "" },
+    { k: 460, label: "Qualified Staff", suffix: "" },
     { k: 2, label: "Our Locations", suffix: "" },
-    { k:550, label: "Areas Serving", suffix: "+" },
+    { k: 550, label: "Areas Serving", suffix: "+" },
   ]
 
   const [counts, setCounts] = useState(stats.map(() => 0))
 
   useEffect(() => {
+    if (hasAnimated) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true)
-          
-          stats.forEach((stat, index) => {
-            let current = 0
-            const target = stat.k
-            const increment = target / 50
-            const duration = 2000
-            const stepTime = duration / 50
+        if (entry.isIntersecting) {
+          setHasAnimated(true);
+          const duration = 2000;
+          const startTime = performance.now();
 
-            const timer = setInterval(() => {
-              current += increment
-              if (current >= target) {
-                current = target
-                clearInterval(timer)
-              }
-              setCounts(prev => {
-                const newCounts = [...prev]
-                newCounts[index] = Math.floor(current)
-                return newCounts
-              })
-            }, stepTime)
-          })
+          const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            setCounts(stats.map(stat => Math.floor(progress * stat.k)));
+
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            }
+          };
+
+          requestAnimationFrame(animate);
         }
       },
-      { threshold: 0.3 }
-    )
+      { threshold: 0.1 }
+    );
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+      observer.observe(sectionRef.current);
     }
 
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-    }
+    return () => observer.disconnect();
   }, [hasAnimated, stats])
 
   return (

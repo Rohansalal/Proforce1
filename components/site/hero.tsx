@@ -69,6 +69,14 @@ const VideoSlide = ({ src, poster, isActive, posterColor }: { src: string, poste
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hasError, setHasError] = useState(false)
   const [shouldRender, setShouldRender] = useState(isActive)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     if (isActive) setShouldRender(true)
@@ -102,23 +110,34 @@ const VideoSlide = ({ src, poster, isActive, posterColor }: { src: string, poste
       "absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out",
       isActive ? "opacity-100 z-10" : "opacity-0 z-0"
     )}>
-      {/* Uniform Overlay (No Left Shade) */}
+      {/* Uniform Overlay */}
       <div className="absolute inset-0 bg-slate-950/60 z-10" />
 
-      <video
-        ref={videoRef}
-        src={src}
-        poster={poster}
-        className="w-full h-full object-cover"
-        muted
-        loop
-        playsInline
-        preload={isActive ? "auto" : "metadata"}
-        {...(isActive ? { fetchpriority: "high" } : {})}
-        onError={() => setHasError(true)}
-      >
-        <track kind="captions" />
-      </video>
+      {/* Conditionally render video only on desktop to save 22MB+ on mobile */}
+      {!isMobile && (
+        <video
+          ref={videoRef}
+          src={src}
+          poster={poster}
+          className="w-full h-full object-cover"
+          muted
+          loop
+          playsInline
+          preload={isActive ? "auto" : "none"}
+          {...(isActive ? { fetchPriority: "high" } : {})}
+          onError={() => setHasError(true)}
+        >
+          <track kind="captions" />
+        </video>
+      )}
+
+      {/* Mobile-only background image to replace video and save payload */}
+      {isMobile && (
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${poster})` }}
+        />
+      )}
     </div>
   )
 }
