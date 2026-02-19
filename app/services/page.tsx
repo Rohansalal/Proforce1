@@ -1354,9 +1354,10 @@ function AnimatedServiceSection({ service, reverse = false, index }: { service: 
                 src={service.image}
                 alt={service.title}
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 640px) 384px, (max-width: 1200px) 50vw, 600px"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
-                quality={90}
+                quality={70}
+                priority={index < 2}
               />
 
               {/* Optional: Dark overlay on image for depth */}

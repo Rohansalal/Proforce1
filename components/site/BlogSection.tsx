@@ -53,7 +53,7 @@ const BlogSection: React.FC = () => {
   return (
     <section className="py-24 bg-white border-t border-slate-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div className="max-w-2xl">
@@ -72,20 +72,21 @@ const BlogSection: React.FC = () => {
         {/* Blog Grid */}
         <div className="grid gap-8 md:grid-cols-3">
           {blogPosts.map((post) => (
-            <article 
-              key={post.id} 
+            <article
+              key={post.id}
               className="group flex flex-col h-full bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-slate-300 transition-all duration-300"
             >
               {/* IMAGE CONTAINER */}
               <div className="relative w-full h-56 overflow-hidden bg-slate-100">
-                <Image 
-                  src={post.image} 
+                <Image
+                  src={post.image}
                   alt={post.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 384px, (max-width: 1200px) 50vw, 33vw"
+                  quality={70}
                 />
-                
+
                 {/* Optional Overlay Gradient for text contrast if you ever overlay text */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
@@ -131,7 +132,7 @@ const BlogSection: React.FC = () => {
 
         {/* Mobile View All Button */}
         <div className="mt-12 text-center md:hidden">
-          <Link 
+          <Link
             href="/blog"
             className="inline-flex items-center justify-center w-full px-6 py-3 border border-slate-300 rounded-lg text-slate-700 font-semibold hover:bg-slate-50 transition-colors"
           >

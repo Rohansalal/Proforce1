@@ -132,7 +132,9 @@ export function ServicesGrid() {
                     alt={service.title}
                     fill
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 618px) 100vw, (max-width: 1000px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 384px, (max-width: 1200px) 50vw, 33vw"
+                    quality={70}
+                    priority={service.id <= 3}
                   />
                   <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/0 transition-colors duration-500" />
                 </div>

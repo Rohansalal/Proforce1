@@ -12,7 +12,10 @@ export function CookieConsentBanner() {
   useEffect(() => {
     const consent = getCookie('proforce_cookie_consent')
     if (!consent) {
-      setShowBanner(true)
+      const timer = setTimeout(() => {
+        setShowBanner(true)
+      }, 2000)
+      return () => clearTimeout(timer)
     }
   }, [])
 
