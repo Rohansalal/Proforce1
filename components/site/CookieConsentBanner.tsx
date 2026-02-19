@@ -14,7 +14,7 @@ export function CookieConsentBanner() {
     if (!consent) {
       const timer = setTimeout(() => {
         setShowBanner(true)
-      }, 2000)
+      }, 5000) // Delayed further to avoid LCP interference
       return () => clearTimeout(timer)
     }
   }, [])
@@ -29,20 +29,28 @@ export function CookieConsentBanner() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
-      <Alert>
-        <AlertTitle>We use cookies</AlertTitle>
-        <AlertDescription>
-          We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. Read our{' '}
-          <Link href="/privacy-policy" className="underline">
-            Privacy Policy
-          </Link>
-          .
-        </AlertDescription>
-        <div className="mt-4 flex gap-4">
-          <Button onClick={handleAccept} aria-label="Accept all cookies" className="bg-slate-900 text-white hover:bg-slate-800">
-            Accept All
-          </Button>
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-2 md:p-4">
+      <Alert className="max-w-2xl mx-auto shadow-2xl border-slate-200">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+          <div className="flex-1">
+            <AlertTitle className="text-sm font-bold">Cookie Policy</AlertTitle>
+            <AlertDescription className="text-xs text-slate-600 leading-tight">
+              We use cookies to enhance your experience and analyze traffic. By clicking "Accept", you consent to our use of cookies. See our{' '}
+              <Link href="/privacy-policy" className="underline hover:text-red-600">
+                Privacy Policy
+              </Link>.
+            </AlertDescription>
+          </div>
+          <div className="shrink-0">
+            <Button
+              size="sm"
+              onClick={handleAccept}
+              aria-label="Accept all cookies"
+              className="bg-slate-900 text-white hover:bg-red-700 text-xs px-6"
+            >
+              Accept
+            </Button>
+          </div>
         </div>
       </Alert>
     </div>

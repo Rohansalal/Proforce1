@@ -17,10 +17,13 @@ const nextConfig = {
       },
     ],
   },
+  compress: true,
   experimental: {
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
+      'phosphor-react',
+      'date-fns',
       '@radix-ui/react-accordion',
       '@radix-ui/react-alert-dialog',
       '@radix-ui/react-aspect-ratio',

@@ -410,7 +410,7 @@ const ProforceLogo = ({ isCompact = false }: { isCompact?: boolean }) => (
         fill
         className="object-contain drop-shadow-sm"
         sizes="64px"
-        quality={60}
+        quality={50}
         priority
       />
     </div>

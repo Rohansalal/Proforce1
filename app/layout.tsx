@@ -95,8 +95,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://vitals.vercel-insights.com" />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <link rel="preload" as="image" href="/hero/patrol-services.jpg" fetchPriority="high" />
       </head>
       <body className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
