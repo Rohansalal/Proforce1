@@ -19,6 +19,15 @@ interface BlogPost {
 const BlogSection: React.FC = () => {
   const blogPosts: BlogPost[] = [
     {
+      id: 1,
+      date: "Feb 19, 2026",
+      category: "Safety Guidelines",
+      title: "Securing the Future: Professional School Security Solutions",
+      excerpt: "Educational environments require a specialized approach. Discover how ProForce 1 partners with schools to ensure a safe learning haven for students.",
+      author: "Operations Manager",
+      image: "/blogimage/School.jpeg"
+    },
+    {
       id: 13,
       date: "Aug 29, 2025",
       category: "Personnel",
@@ -37,16 +46,6 @@ const BlogSection: React.FC = () => {
       commentCount: 8,
       author: "Security Director",
       image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=1000&auto=format&fit=crop" // Tech/Patrol image
-    },
-    {
-      id: 15,
-      date: "Aug 01, 2025",
-      category: "Strategy",
-      title: "Why You Should Engage Early with Security Partners",
-      excerpt: "When organizations begin planning for a new physical security provider, timing is everything. Early engagement prevents gaps in coverage and ensures compliance...",
-      commentCount: 5,
-      author: "Risk Analyst",
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop" // Strategy/Meeting image
     }
   ];
 

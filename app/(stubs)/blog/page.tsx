@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react" // <--- Added useEffect
 import { Search, Clock, ArrowRight, Filter, ShieldAlert, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Image from "next/image" 
+import Image from "next/image"
 import Link from "next/link"
 
 const ITEMS_PER_PAGE = 8; // <--- Defined items per page
@@ -27,6 +27,17 @@ export default function BlogPage() {
   const blogPosts = [
     {
       id: 1,
+      title: "Securing the Future: Professional Security Solutions for Educational Institutions",
+      excerpt: "Educational environments require a specialized, compassionate, yet firm approach to security. Discover how ProForce 1 partners with schools like South Bay Montessori to ensure a safe learning haven.",
+      category: "Safety Guidelines",
+      author: "Operations Manager",
+      date: "2026-02-19",
+      readTime: "6 min read",
+      featured: true,
+      image: "/blogimage/School.jpeg"
+    },
+    {
+      id: 16,
       title: "Top 10 Security Measures Every Business Should Implement in 2024",
       excerpt: "Discover the essential security protocols that can protect your business from emerging threats and ensure comprehensive safety for your assets and personnel.",
       category: "Security Tips",
@@ -34,7 +45,7 @@ export default function BlogPage() {
       date: "2024-01-15",
       readTime: "5 min read",
       featured: true,
-      image: "/blogimage/business-security.jpg" 
+      image: "/blogimage/Business.jpeg"
     },
     {
       id: 2,
@@ -147,17 +158,49 @@ export default function BlogPage() {
       date: "2023-11-30",
       readTime: "7 min read",
       image: "/blogimage/de-escalation-training.jpg"
+    },
+    {
+      id: 13,
+      date: "2025-08-29",
+      category: "Personnel",
+      title: "Security Culture: How Investing in Your Guards Strengthens Safety",
+      excerpt: "When most people think of security, they picture surveillance cameras and access control. However, the human element remains the strongest deterrent against threats...",
+      author: "Chief Operations Officer",
+      readTime: "5 min read",
+      image: "/blogimage/expansion-map.jpg"
+    },
+    {
+      id: 14,
+      date: "2025-08-08",
+      category: "Operations",
+      title: "Tackling Today's Patrol Challenges: Modern Solutions",
+      excerpt: "The world of on-ground patrol is changing fast. Security teams are facing new risks requiring GPS tracking and real-time digital reporting technology...",
+      author: "Security Director",
+      readTime: "4 min read",
+      image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      id: 15,
+      date: "2025-08-01",
+      category: "Strategy",
+      title: "Why You Should Engage Early with Security Partners",
+      excerpt: "When organizations begin planning for a new physical security provider, timing is everything. Early engagement prevents gaps in coverage and ensures compliance...",
+      author: "Risk Analyst",
+      readTime: "6 min read",
+      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop"
     }
   ]
 
   // 1. Filter Logic
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesCategory = selectedCategory === "all" || post.category === selectedCategory
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          post.author.toLowerCase().includes(searchTerm.toLowerCase())
-    return matchesCategory && matchesSearch
-  })
+  const filteredPosts = blogPosts
+    .filter(post => {
+      const matchesCategory = selectedCategory === "all" || post.category === selectedCategory
+      const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.author.toLowerCase().includes(searchTerm.toLowerCase())
+      return matchesCategory && matchesSearch
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // Sort by Date Descending (Newest First)
 
   // 2. Pagination Logic
   const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE)
@@ -180,7 +223,7 @@ export default function BlogPage() {
 
   return (
     <main className="min-h-screen bg-gray-50 font-sans">
-      
+
       {/* HEADER SECTION */}
       <section className="relative bg-slate-900 text-white pt-40 pb-70 overflow-hidden">
         <video
@@ -198,7 +241,7 @@ export default function BlogPage() {
         </video>
 
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-        
+
         <div className="relative mx-auto max-w-7xl px-4 lg:px-8 text-center z-10">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
             PROFORCE<span className="text-red-600">1</span> BLOG
@@ -217,19 +260,19 @@ export default function BlogPage() {
               <div className="w-1 h-8 bg-red-600 rounded-full"></div>
               <h2 className="text-2xl font-bold text-gray-900 tracking-tight">FEATURED ARTICLES</h2>
             </div>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               {featuredPosts.map(post => (
-                <Link key={post.id} href={`/blog/${post.id}`} className="block h-full"> 
+                <Link key={post.id} href={`/blog/${post.id}`} className="block h-full">
                   <div className="group relative bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-red-100 transition-all duration-300 h-full flex flex-col">
                     <div className="h-64 relative overflow-hidden group-hover:opacity-90 transition-opacity shrink-0">
-                      <Image 
+                      <Image
                         src={post.image || `/gallery/team-briefing-1.jpg`}
                         alt={post.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      
+
                       <span className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded shadow-lg z-10">
                         Featured
                       </span>
@@ -242,16 +285,16 @@ export default function BlogPage() {
                         <span>•</span>
                         <span>{post.readTime}</span>
                       </div>
-                      
+
                       <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors leading-tight">
                         {post.title}
                       </h3>
                       <p className="text-gray-600 mb-6 leading-relaxed line-clamp-2">{post.excerpt}</p>
-                      
+
                       <div className="flex items-center justify-between pt-6 border-t border-gray-100 mt-auto">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 overflow-hidden">
-                            <User className="w-4 h-4" /> 
+                            <User className="w-4 h-4" />
                           </div>
                           <div className="text-sm">
                             <p className="font-bold text-gray-900 leading-none">{post.author}</p>
@@ -275,22 +318,22 @@ export default function BlogPage() {
       <section className="py-16" id="blog-grid">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-12">
-            
+
             {/* Main Content Area */}
             <div className="lg:w-3/4">
-              
+
               {/* Search Bar - Mobile optimized */}
               <div className="lg:hidden mb-8">
-               <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search articles..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none shadow-sm"
-                />
-               </div>
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none shadow-sm"
+                  />
+                </div>
               </div>
 
               {/* Blog Grid - Updated to use paginatedPosts */}
@@ -300,16 +343,16 @@ export default function BlogPage() {
                     <Link key={post.id} href={`/blog/${post.id}`} className="block h-full group">
                       <article className="flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg hover:border-red-100 transition-all duration-300 h-full">
                         <div className="h-48 bg-slate-100 relative overflow-hidden group-hover:bg-slate-200 transition-colors shrink-0">
-                          
-                          <Image 
-                            src={post.image || `/gallery/patrol-car.jpg`} 
+
+                          <Image
+                            src={post.image || `/gallery/patrol-car.jpg`}
                             alt={post.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                           />
                           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
                         </div>
-                        
+
                         <div className="p-6 flex-1 flex flex-col">
                           <div className="flex items-center justify-between mb-3 text-xs">
                             <span className="font-bold text-red-600 uppercase tracking-wider">
@@ -320,15 +363,15 @@ export default function BlogPage() {
                               {post.readTime}
                             </span>
                           </div>
-                          
+
                           <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors leading-tight cursor-pointer">
                             {post.title}
                           </h3>
-                          
+
                           <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed flex-1">
                             {post.excerpt}
                           </p>
-                          
+
                           <div className="pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
                             <span className="text-xs font-medium text-gray-500">{post.author}</span>
                             <span className="text-xs text-gray-400">{new Date(post.date).toLocaleDateString()}</span>
@@ -344,8 +387,8 @@ export default function BlogPage() {
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">No articles found</h3>
                     <p className="text-gray-500">We couldn't find any posts matching "{searchTerm}"</p>
-                    <button 
-                      onClick={() => {setSearchTerm(""); setSelectedCategory("all")}}
+                    <button
+                      onClick={() => { setSearchTerm(""); setSelectedCategory("all") }}
                       className="mt-4 text-red-600 font-bold hover:underline"
                     >
                       Clear filters
@@ -359,8 +402,8 @@ export default function BlogPage() {
                 <div className="flex justify-center mt-16">
                   <nav className="flex items-center gap-2">
                     {/* Previous Button */}
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
                       className="border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-red-600 px-4 disabled:opacity-50"
@@ -374,19 +417,18 @@ export default function BlogPage() {
                         key={page}
                         onClick={() => handlePageChange(page)}
                         variant={currentPage === page ? "default" : "ghost"}
-                        className={`w-10 h-10 p-0 rounded-lg ${
-                          currentPage === page 
-                            ? "bg-red-600 hover:bg-red-700 text-white" 
-                            : "text-gray-600 hover:bg-gray-100"
-                        }`}
+                        className={`w-10 h-10 p-0 rounded-lg ${currentPage === page
+                          ? "bg-red-600 hover:bg-red-700 text-white"
+                          : "text-gray-600 hover:bg-gray-100"
+                          }`}
                       >
                         {page}
                       </Button>
                     ))}
 
                     {/* Next Button */}
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                       disabled={currentPage === totalPages}
                       className="border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-red-600 px-4 disabled:opacity-50"
@@ -400,7 +442,7 @@ export default function BlogPage() {
 
             {/* Sidebar (Sticky) */}
             <aside className="lg:w-1/4 space-y-8">
-              
+
               {/* Desktop Search */}
               <div className="hidden lg:block bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
                 <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">Search</h3>
@@ -427,11 +469,10 @@ export default function BlogPage() {
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category === "All Topics" ? "all" : category)}
-                      className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 flex items-center justify-between group ${
-                        (selectedCategory === category || (selectedCategory === "all" && category === "All Topics"))
-                          ? 'bg-red-50 text-red-700 font-bold' 
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                      }`}
+                      className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 flex items-center justify-between group ${(selectedCategory === category || (selectedCategory === "all" && category === "All Topics"))
+                        ? 'bg-red-50 text-red-700 font-bold'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                        }`}
                     >
                       <span>{category}</span>
                       {(selectedCategory === category || (selectedCategory === "all" && category === "All Topics")) && (

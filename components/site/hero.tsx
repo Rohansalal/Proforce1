@@ -21,6 +21,7 @@ const slides = [
   {
     id: 1,
     videoSrc: "/hero/Video Project.mp4",
+    poster: "/hero/patrol-services.jpg",
     title: "Mobile Patrol",
     subtitle: "Deterrence & Response",
     description: "High-visibility patrol units providing round-the-clock deterrence and rapid response for your properties.",
@@ -31,6 +32,7 @@ const slides = [
   {
     id: 2,
     videoSrc: "/hero/armed-security.mp4",
+    poster: "/hero/armed-security.jpg",
     title: "Armed Protection",
     subtitle: "Elite Tactical Units",
     description: "Elite, highly-trained armed personnel for high-risk environments requiring elevated security measures.",
@@ -41,6 +43,7 @@ const slides = [
   {
     id: 3,
     videoSrc: "/hero/construction-security.mp4",
+    poster: "/hero/construction-security.jpg",
     title: "Construction",
     subtitle: "Site Integrity",
     description: "Specialized site security preventing theft, vandalism, and unauthorized access to your projects.",
@@ -51,6 +54,7 @@ const slides = [
   {
     id: 4,
     videoSrc: "/Services/fire-security/fire-watch1.mp4",
+    poster: "/hero/fire-watch.jpg",
     title: "Fire Watch",
     subtitle: "NFPA Compliance",
     description: "NFPA-compliant fire watch services ensuring compliance and safety during system outages.",
@@ -61,7 +65,7 @@ const slides = [
 ]
 
 // --- SUB-COMPONENT: Video Player ---
-const VideoLayer = ({ src, isActive, posterColor }: { src: string, isActive: boolean, posterColor: string }) => {
+const VideoSlide = ({ src, poster, isActive, posterColor }: { src: string, poster: string, isActive: boolean, posterColor: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hasError, setHasError] = useState(false)
   const [shouldRender, setShouldRender] = useState(isActive)
@@ -104,11 +108,12 @@ const VideoLayer = ({ src, isActive, posterColor }: { src: string, isActive: boo
       <video
         ref={videoRef}
         src={src}
+        poster={poster}
         className="w-full h-full object-cover"
         muted
         loop
         playsInline
-        preload="metadata"
+        preload={isActive ? "auto" : "metadata"}
         {...(isActive ? { fetchpriority: "high" } : {})}
         onError={() => setHasError(true)}
       >
@@ -187,9 +192,10 @@ export function Hero() {
     >
       {/* --- 1. VIDEO LAYER --- */}
       {slides.map((slide, index) => (
-        <VideoLayer
+        <VideoSlide
           key={slide.id}
           src={slide.videoSrc}
+          poster={slide.poster}
           isActive={activeIndex === index}
           posterColor={getThemeStyles(slide.theme)}
         />

@@ -14,7 +14,7 @@ const partners = [
   { id: 8, name: "Costco", src: "/partners/costo.jpg" },
   { id: 9, name: "Flatiron", src: "/partners/flatiron.jpg" },
   { id: 10, name: "Hotel IR", src: "/partners/Hotel-Ir.jpg" },
-  { id: 11, name: "City Orange", src: "/partners/ornageofcity1.png"},
+  { id: 11, name: "City Orange", src: "/partners/ornageofcity1.png" },
   { id: 12, name: "Motel6", src: "/partners/motel6.png" },
   { id: 13, name: "cropped-afc ", src: "/partners/cropped-afc-logo.png" },
   { id: 14, name: "Placentia", src: "/partners/Document.png" },
@@ -26,7 +26,7 @@ const partners = [
 export function OurPartners() {
   return (
     <section className="py-24 bg-white relative overflow-hidden">
-      
+
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
 
@@ -46,13 +46,13 @@ export function OurPartners() {
           We duplicate the list to create a seamless loop.
       */}
       <div className="relative w-full overflow-hidden">
-        
+
         {/* Gradient Masks for Fade Effect */}
         <div className="absolute top-0 left-0 h-full w-24 md:w-48 bg-gradient-to-r from-white to-transparent z-20" />
         <div className="absolute top-0 right-0 h-full w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-20" />
 
         {/* Scrolling Track */}
-        <div className="flex w-max animate-scroll hover:pause">
+        <div className="flex w-max animate-scroll hover:pause will-change-transform">
           {/* First Set */}
           <div className="flex items-center gap-12 md:gap-24 px-6 md:px-12">
             {partners.map((partner) => (
@@ -77,6 +77,7 @@ export function OurPartners() {
         }
         .animate-scroll {
           animation: scroll 40s linear infinite; /* Adjusted for 0.5 speed feel */
+          will-change: transform;
         }
         .hover\:pause:hover {
           animation-play-state: paused;

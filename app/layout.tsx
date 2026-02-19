@@ -46,12 +46,10 @@ import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
-import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Header } from "@/components/site/header"
 import { Footer } from "@/components/site/footer"
 import { Suspense } from "react"
-import { CookieConsentBanner } from "@/components/site/CookieConsentBanner"
 
 export const metadata: Metadata = {
   title: 'ProForce1 Privacy Policy: Data Protection and User Privacy',
@@ -87,6 +85,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { LayoutClientWrapper } from "@/components/site/layout-client-wrapper"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -94,6 +94,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://vitals.vercel-insights.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link rel="preload" as="image" href="/hero/patrol-services.jpg" fetchPriority="high" />
+      </head>
       <body className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
         <Suspense fallback={<div>Loading...</div>}>
           {/* <TopAnalytics /> */}
@@ -103,8 +108,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </Suspense>
-        <Analytics />
-        <CookieConsentBanner />
+        <LayoutClientWrapper />
       </body>
     </html>
   )

@@ -401,7 +401,7 @@ const ProforceLogo = ({ isCompact = false }: { isCompact?: boolean }) => (
     <div
       className={cn(
         "relative flex-shrink-0 transition-all duration-300 ease-out",
-        isCompact ? "w-8 h-8 md:w-10 md:h-10" : "w-10 h-10 md:w-16 md:h-16"
+        isCompact ? "w-6 h-6 md:w-8 md:h-8" : "w-10 h-10 md:w-16 md:h-16"
       )}
     >
       <Image
@@ -409,8 +409,8 @@ const ProforceLogo = ({ isCompact = false }: { isCompact?: boolean }) => (
         alt="ProForce 1 Shield Logo"
         fill
         className="object-contain drop-shadow-sm"
-        sizes="(max-width: 768px) 64px, 80px"
-        quality={75}
+        sizes="64px"
+        quality={60}
         priority
       />
     </div>
