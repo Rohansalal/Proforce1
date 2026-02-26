@@ -273,8 +273,8 @@ export function Hero() {
         sizes="100vw"
         quality={70}
         className={cn(
-          "object-cover transition-opacity duration-1000 z-0",
-          activeIndex === 0 ? "opacity-100" : "opacity-0"
+          "object-cover z-0 pointer-events-none",
+          activeIndex !== 0 && "hidden"
         )}
       />
 
