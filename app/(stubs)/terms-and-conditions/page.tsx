@@ -73,7 +73,7 @@
 //                 <li><strong>Service</strong> refers to the Website.</li>
 //                 <li><strong>Terms and Conditions</strong> (also referred as “Terms”) mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the Free Terms and Conditions Generator.</li>
 //                 <li><strong>Third-party Social Media Service</strong> means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.</li>
-//                 <li><strong>Website</strong> refers to PROFORCE1 PROTECTION SERVICES, accessible from https://proforc1.com/</li>
+//                 <li><strong>Website</strong> refers to PROFORCE1 PROTECTION SERVICES, accessible from https://proforce1protection.com//</li>
 //                 <li><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
 //               </ul>
 //             </motion.div>
@@ -188,7 +188,7 @@ const TermsAndConditions: React.FC = () => {
                 <li><strong className="text-gray-800">Service</strong> refers to the Website.</li>
                 <li><strong className="text-gray-800">Terms and Conditions</strong> (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the Free Terms and Conditions Generator.</li>
                 <li><strong className="text-gray-800">Third-party Social Media Service</strong> means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.</li>
-                <li><strong className="text-gray-800">Website</strong> refers to PROFORCE1 PROTECTION SERVICES, accessible from https://proforc1.com/</li>
+                <li><strong className="text-gray-800">Website</strong> refers to PROFORCE1 PROTECTION SERVICES, accessible from https://proforce1protection.com//</li>
                 <li><strong className="text-gray-800">You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
               </ul>
             </motion.div>
@@ -287,13 +287,13 @@ const TermsAndConditions: React.FC = () => {
               <p className="text-gray-600 mb-4">If you have any questions about these Terms and Conditions, You can contact us:</p>
               <div className="mt-4 space-y-3 text-gray-600">
                 <p className="flex items-center gap-2">
-                  <span className="font-semibold text-gray-800">By email:</span> 
+                  <span className="font-semibold text-gray-800">By email:</span>
                   <a href="mailto:INFO@PROFORCE1PROTECTION.COM" className="text-red-600 hover:text-red-800 transition-colors">
                     INFO@PROFORCE1PROTECTION.COM
                   </a>
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="font-semibold text-gray-800">By phone number:</span> 
+                  <span className="font-semibold text-gray-800">By phone number:</span>
                   <a href="tel:8007797691" className="text-red-600 hover:text-red-800 transition-colors">
                     (800) 779-7691
                   </a>

@@ -497,16 +497,6 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/privacy-policy" className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms-and-conditions" className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
-                  Terms & Conditions
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -537,9 +527,17 @@ export function Footer() {
         {/* =========================================
             BOTTOM BAR
            ========================================= */}
-        <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-300">
+        <div className="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-400">
           <p>© {new Date().getFullYear()} ProForce 1 Protection Services. All Rights Reserved.</p>
 
+          <div className="flex items-center gap-6 font-medium">
+            <Link href="/privacy-policy" className="hover:text-red-500 transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-and-conditions" className="hover:text-red-500 transition-colors">
+              Terms & Conditions
+            </Link>
+          </div>
         </div>
 
       </div>

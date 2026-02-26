@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import {
   ShieldCheck,
   Users,
@@ -13,6 +14,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { motion, AnimatePresence } from "framer-motion"
 
 // --- Configuration ---
 const SLIDE_DURATION = 5000 // 5 Seconds per slide
@@ -20,7 +22,7 @@ const SLIDE_DURATION = 5000 // 5 Seconds per slide
 const slides = [
   {
     id: 1,
-    videoSrc: "/hero/Video Project.mp4",
+    videoSrc: "/hero/patrol-services.mp4",
     poster: "/hero/patrol-services.jpg",
     title: "Mobile Patrol",
     subtitle: "Deterrence & Response",
@@ -65,10 +67,11 @@ const slides = [
 ]
 
 // --- SUB-COMPONENT: Video Player ---
-const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor }: { src: string, poster: string, isActive: boolean, isPreloading: boolean, posterColor: string }) => {
+const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor, onVideoEnd, onDurationUpdate }: { src: string, poster: string, isActive: boolean, isPreloading: boolean, posterColor: string, onVideoEnd: () => void, onDurationUpdate: (duration: number) => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hasError, setHasError] = useState(false)
   const [shouldRender, setShouldRender] = useState(isActive || isPreloading)
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
   // Ensure checking for updates on props change
   useEffect(() => {
@@ -81,22 +84,51 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor }: { src:
     const video = videoRef.current
     if (!video) return
 
+    if (video.readyState >= 3) {
+      setIsVideoLoaded(true)
+    }
+
     if (isActive) {
-      // Reset time if needed or just ensure it plays
-      // video.currentTime = 0 // Optional: reset on slide change if desired
       const playPromise = video.play()
       if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.warn("Auto-play was prevented by the browser:", error)
-        })
+        playPromise.catch((error) => console.warn(error))
       }
     } else {
       video.pause()
+      video.currentTime = 0 // Reset time for next views
     }
   }, [isActive, shouldRender])
 
+  // Timer fallback for error state
+  useEffect(() => {
+    if (hasError && isActive) {
+      const timer = setTimeout(onVideoEnd, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [hasError, isActive, onVideoEnd])
+
+  const handleDuration = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    const dur = e.currentTarget.duration
+    if (dur && dur > 0 && dur !== Infinity) {
+      onDurationUpdate(dur * 1000)
+    }
+  }
+
   if (hasError || !shouldRender) {
-    return <div className={cn("absolute inset-0 w-full h-full", posterColor)} />
+    return (
+      <div className={cn("absolute inset-0 w-full h-full transition-opacity duration-1000", isActive ? "opacity-100 z-10" : "opacity-0 z-0", posterColor)}>
+        {poster && (
+          <Image
+            src={poster}
+            alt="Slide poster"
+            fill
+            className="object-cover opacity-100"
+            priority={isActive}
+          />
+        )}
+        <div className="absolute inset-0 bg-slate-950/60 z-10" />
+      </div>
+    )
   }
 
   return (
@@ -105,31 +137,57 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor }: { src:
       isActive ? "opacity-100 z-10" : "opacity-0 z-0"
     )}>
       {/* Uniform Overlay */}
-      <div className="absolute inset-0 bg-slate-950/60 z-10" />
+      <div className="absolute inset-0 bg-slate-950/60 z-20" />
 
+      {/* Poster Image (shown while loading) */}
+      <Image
+        src={poster}
+        alt="Slide poster"
+        fill
+        className={cn(
+          "object-cover transition-opacity duration-1000 z-0",
+          isVideoLoaded ? "opacity-0" : "opacity-100"
+        )}
+        priority={isActive}
+      />
+
+      {/* Video */}
       <video
         ref={videoRef}
         src={src}
-        poster={poster}
-        className="w-full h-full object-cover"
+        className={cn(
+          "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 z-10",
+          isVideoLoaded ? "opacity-100" : "opacity-0"
+        )}
         muted
-        loop
         playsInline
         preload={isActive || isPreloading ? "auto" : "none"} // Preload if active or next
         {...(isActive ? { fetchPriority: "high" } : {})}
+        onCanPlay={() => setIsVideoLoaded(true)}
+        onLoadedMetadata={handleDuration}
+        onLoadedData={(e) => {
+          setIsVideoLoaded(true)
+          handleDuration(e)
+        }}
+        onEnded={onVideoEnd}
         onError={() => setHasError(true)}
-      >
-        <track kind="captions" />
-      </video>
+      />
     </div>
   )
 }
 
-// --- MAIN COMPONENT ---
 export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isHovering, setIsHovering] = useState(false)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const [durations, setDurations] = useState<number[]>(slides.map(() => SLIDE_DURATION))
+
+  const handleDurationUpdate = useCallback((index: number, duration: number) => {
+    setDurations((prev) => {
+      if (prev[index] === duration) return prev
+      const newDurations = [...prev]
+      newDurations[index] = duration
+      return newDurations
+    })
+  }, [])
 
   // Touch Handling State
   const [touchStart, setTouchStart] = useState<number | null>(null)
@@ -144,27 +202,13 @@ export function Hero() {
     setActiveIndex((prev) => (prev - 1 + slides.length) % slides.length)
   }, [])
 
-  // *** RESTORED: Auto-Play Timer (5 Seconds) ***
-  useEffect(() => {
-    if (isHovering) {
-      if (timerRef.current) clearInterval(timerRef.current)
-      return
-    }
-    timerRef.current = setInterval(nextSlide, SLIDE_DURATION)
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current)
-    }
-  }, [nextSlide, isHovering])
-
   // Mobile Swipe Logic
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null)
     setTouchStart(e.targetTouches[0].clientX)
-    setIsHovering(true)
   }
   const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX)
   const onTouchEndHandler = () => {
-    setIsHovering(false)
     if (!touchStart || !touchEnd) return
     const distance = touchStart - touchEnd
     if (distance > 50) nextSlide()
@@ -185,9 +229,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative h-[100dvh] w-full bg-slate-950 overflow-hidden"
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      className="relative h-[85dvh] w-full bg-slate-950 overflow-hidden"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEndHandler}
@@ -203,6 +245,8 @@ export function Hero() {
             isActive={activeIndex === index}
             isPreloading={nextIndex === index}
             posterColor={getThemeStyles(slide.theme)}
+            onVideoEnd={nextSlide}
+            onDurationUpdate={(dur) => handleDurationUpdate(index, dur)}
           />
         )
       })}
@@ -211,90 +255,102 @@ export function Hero() {
       <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-slate-950 via-transparent to-slate-950/20" />
 
       {/* --- 2. CONTENT LAYER --- */}
-      <div className="relative z-20 w-full h-full flex flex-col justify-end pb-24 md:justify-center md:pb-0 px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
+      <div className="relative z-20 w-full h-full flex flex-col justify-center pb-20 pt-16 md:justify-center md:pb-0 px-5 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
 
-        <div key={activeIndex} className="max-w-4xl space-y-6 animate-in fade-in slide-in-from-left-4 duration-700 fill-mode-forwards">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIndex}
+            className="max-w-4xl space-y-4 md:space-y-6"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+              },
+              exit: { opacity: 0, x: -30, transition: { duration: 0.4 } }
+            }}
+          >
 
-          {/* Badge */}
-          <div className="flex items-center gap-3">
-            <div className={cn("flex items-center justify-center w-10 h-10 rounded-lg text-white shadow-lg backdrop-blur-sm", getThemeStyles(currentSlide.theme))}>
-              {currentSlide.icon}
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs md:text-sm font-bold tracking-widest text-white uppercase shadow-sm">
-              <span className={cn("w-2 h-2 rounded-full animate-pulse", getThemeStyles(currentSlide.theme).split(" ")[0])} />
-              {currentSlide.subtitle}
-            </div>
-          </div>
-
-          {/* Title */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white uppercase leading-[0.9] tracking-tighter drop-shadow-2xl">
-            {currentSlide.title}
-          </h1>
-
-          {/* Description */}
-          <p className="text-lg md:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl drop-shadow-lg">
-            {currentSlide.description}
-          </p>
-
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <Button
-              asChild
-              size="lg"
-              className={cn(
-                "h-14 px-8 rounded-full text-base font-bold transition-all hover:scale-105 shadow-xl",
-                getThemeStyles(currentSlide.theme)
-              )}
+            {/* Badge */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, x: -30 },
+                visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 20, stiffness: 100 } }
+              }}
+              className="flex items-center gap-2 md:gap-3"
             >
-              <Link href={currentSlide.link}>
-                View Service <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-14 px-8 rounded-full text-base font-bold bg-white/5 backdrop-blur-sm border-white/20 text-white hover:bg-white hover:text-black transition-all"
+              <div className={cn("flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg text-white shadow-lg backdrop-blur-sm", getThemeStyles(currentSlide.theme))}>
+                {/* Scale icon down on mobile */}
+                <div className="scale-75 md:scale-100">{currentSlide.icon}</div>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] md:text-sm font-bold tracking-widest text-white uppercase shadow-sm">
+                <span className={cn("w-1.5 h-1.5 md:w-2 md:h-2 rounded-full animate-pulse", getThemeStyles(currentSlide.theme).split(" ")[0])} />
+                {currentSlide.subtitle}
+              </div>
+            </motion.div>
+
+            {/* Title */}
+            <motion.h1
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, stiffness: 100 } }
+              }}
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase leading-[0.95] tracking-tighter drop-shadow-2xl"
             >
-              <Link href={`${currentSlide.link}#quote-section`}>
-                Request Quote
-              </Link>
-            </Button>
-          </div>
-        </div>
+              {currentSlide.title}
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, stiffness: 100 } }
+              }}
+              className="text-base sm:text-lg md:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl drop-shadow-lg pr-4 md:pr-0"
+            >
+              {currentSlide.description}
+            </motion.p>
+
+            {/* Buttons */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, stiffness: 100 } }
+              }}
+              className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 md:pt-4 w-full sm:w-auto"
+            >
+              <Button
+                asChild
+                className={cn(
+                  "h-12 md:h-14 px-6 md:px-8 rounded-full text-sm md:text-base font-bold transition-all hover:scale-105 shadow-xl w-full sm:w-auto",
+                  getThemeStyles(currentSlide.theme)
+                )}
+              >
+                <Link href={currentSlide.link} className="flex items-center justify-center">
+                  View Service <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="h-12 md:h-14 px-6 md:px-8 rounded-full text-sm md:text-base font-bold bg-white/5 backdrop-blur-sm border-white/20 text-white hover:bg-white hover:text-black transition-all w-full sm:w-auto"
+              >
+                <Link href={`${currentSlide.link}#quote-section`} className="flex items-center justify-center">
+                  Request Quote
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* --- 3. DESKTOP NAVIGATION --- */}
       <div className="absolute bottom-12 right-12 z-30 hidden lg:flex flex-col items-end gap-6">
         <div className="font-mono text-2xl font-bold text-white tracking-widest opacity-90">
           0{activeIndex + 1} <span className="text-white/40 text-lg">/ 0{slides.length}</span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          {slides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveIndex(idx)}
-              aria-label={`Go to slide ${idx + 1}`}
-              className="group relative h-20 w-10 flex flex-col justify-end items-center overflow-hidden focus:outline-none transition-all"
-            >
-              <div className={cn(
-                "w-1.5 rounded-full transition-all duration-500 mx-auto",
-                idx === activeIndex ? "h-full bg-white/20" : "h-3 bg-white/40 hover:bg-white/80"
-              )}>
-                {/* Desktop Vertical Progress Bar */}
-                {idx === activeIndex && !isHovering && (
-                  <div
-                    className="absolute bottom-0 left-0 right-0 bg-white w-full animate-progress-vertical"
-                    style={{ animationDuration: `${SLIDE_DURATION}ms` }}
-                  />
-                )}
-                {idx === activeIndex && isHovering && (
-                  <div className="absolute inset-0 bg-white w-full" />
-                )}
-              </div>
-            </button>
-          ))}
         </div>
 
         <div className="flex gap-4">
@@ -308,9 +364,9 @@ export function Hero() {
       </div>
 
       {/* --- 4. MOBILE NAVIGATION --- */}
-      <div className="absolute bottom-6 left-6 right-6 z-30 flex lg:hidden flex-col gap-4">
+      <div className="absolute bottom-6 left-5 right-5 z-30 flex lg:hidden flex-col gap-3">
         {/* Mobile Horizontal Progress */}
-        <div className="flex gap-2 w-full">
+        <div className="flex gap-1.5 w-full">
           {slides.map((_, idx) => (
             <div
               key={idx}
@@ -321,8 +377,8 @@ export function Hero() {
             >
               {idx === activeIndex && (
                 <div
-                  className={cn("absolute inset-0 bg-white", !isHovering && "animate-progress-horizontal")}
-                  style={{ animationDuration: `${SLIDE_DURATION}ms` }}
+                  className="absolute inset-0 bg-white animate-progress-horizontal"
+                  style={{ animationDuration: `${durations[activeIndex]}ms` }}
                 />
               )}
             </div>
@@ -364,6 +420,10 @@ export function Hero() {
           animation-name: progress-vertical;
           animation-timing-function: linear;
           animation-fill-mode: forwards;
+        }
+
+        .pause-animation {
+          animation-play-state: paused !important;
         }
       `}</style>
     </section>

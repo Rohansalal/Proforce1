@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { motion } from "framer-motion"
 
 // Flattened data structure for continuous loop
 const partners = [
@@ -31,15 +32,18 @@ export function OurPartners() {
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
 
       <div className="container mx-auto px-4 relative z-10 mb-16">
-        <div className="text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
           <span className="text-red-600 font-mono text-sm tracking-widest uppercase mb-4 block">Trusted Globally</span>
           <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6 font-serif">
             Our Valued <span className="italic text-red-700">Partners</span>
           </h2>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto font-light">
-            We are proud to protect the assets and personnel of these industry leaders.
-          </p>
-        </div>
+        </motion.div>
       </div>
 
       {/* INFINITE SCROLL CONTAINER 
@@ -51,38 +55,39 @@ export function OurPartners() {
         <div className="absolute top-0 left-0 h-full w-24 md:w-48 bg-gradient-to-r from-white to-transparent z-20" />
         <div className="absolute top-0 right-0 h-full w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-20" />
 
-        {/* Scrolling Track */}
-        <div className="flex w-max animate-scroll hover:pause will-change-transform">
-          {/* First Set */}
-          <div className="flex items-center gap-12 md:gap-24 px-6 md:px-12">
-            {partners.map((partner) => (
-              <PartnerLogo key={`a-${partner.id}`} partner={partner} />
-            ))}
-          </div>
-          {/* Duplicate Set (Immediate Follow-up) */}
-          <div className="flex items-center gap-12 md:gap-24 px-6 md:px-12">
-            {partners.map((partner) => (
-              <PartnerLogo key={`b-${partner.id}`} partner={partner} />
-            ))}
-          </div>
+        {/* Scrolling Track Using Framer Motion */}
+        <div className="flex w-full group">
+          <motion.div
+            className="flex gap-12 md:gap-24 px-6 md:px-12 w-max"
+            animate={{
+              x: ["0%", "-50%"]
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 40,
+                ease: "linear",
+              },
+            }}
+            style={{ willChange: "transform" }}
+          >
+            {/* First Set */}
+            <div className="flex items-center gap-12 md:gap-24">
+              {partners.map((partner) => (
+                <PartnerLogo key={`a-${partner.id}`} partner={partner} />
+              ))}
+            </div>
+            {/* Duplicate Set (Immediate Follow-up) */}
+            <div className="flex items-center gap-12 md:gap-24">
+              {partners.map((partner) => (
+                <PartnerLogo key={`b-${partner.id}`} partner={partner} />
+              ))}
+            </div>
+          </motion.div>
         </div>
 
       </div>
-
-      {/* Global Style for Animation */}
-      <style jsx global>{`
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-scroll {
-          animation: scroll 40s linear infinite; /* Adjusted for 0.5 speed feel */
-          will-change: transform;
-        }
-        .hover\:pause:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   )
 }

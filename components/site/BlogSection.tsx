@@ -4,6 +4,7 @@ import React from 'react';
 import { Calendar, User, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 interface BlogPost {
   id: number;
@@ -54,7 +55,13 @@ const BlogSection: React.FC = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"
+        >
           <div className="max-w-2xl">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4">
               Security Insights & <span className="text-red-600">News</span>
@@ -66,12 +73,28 @@ const BlogSection: React.FC = () => {
           <Link href="/blog" className="hidden md:flex items-center font-semibold text-slate-900 hover:text-red-600 transition-colors">
             View All Articles <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Blog Grid */}
-        <div className="grid gap-8 md:grid-cols-3">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15 }
+            }
+          }}
+          className="grid gap-8 md:grid-cols-3"
+        >
           {blogPosts.map((post) => (
-            <article
+            <motion.article
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } }
+              }}
               key={post.id}
               className="group flex flex-col h-full bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-slate-300 transition-all duration-300"
             >
@@ -125,19 +148,24 @@ const BlogSection: React.FC = () => {
                   Read Article <ArrowRight className="w-3 h-3 ml-1" />
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
 
         {/* Mobile View All Button */}
-        <div className="mt-12 text-center md:hidden">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center md:hidden"
+        >
           <Link
             href="/blog"
             className="inline-flex items-center justify-center w-full px-6 py-3 border border-slate-300 rounded-lg text-slate-700 font-semibold hover:bg-slate-50 transition-colors"
           >
             View All Insights
           </Link>
-        </div>
+        </motion.div>
 
       </div>
     </section>

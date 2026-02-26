@@ -980,6 +980,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // ==========================================
 // 1. DATA CONFIGURATION
@@ -1128,44 +1129,9 @@ const servicesData = [
 ];
 
 // ==========================================
-// 2. HOOKS
-// ==========================================
-const useScrollAnimation = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const elementRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const currentElement = elementRef.current;
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
-    };
-  }, []);
-
-  return { elementRef, isVisible };
-};
-
-// ==========================================
 // 3. MAIN COMPONENT
 // ==========================================
 export default function ServicesPage() {
-  const heroAnimation = useScrollAnimation();
-  const surveillanceAnimation = useScrollAnimation();
-
   // Video Switching Logic
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
@@ -1220,17 +1186,22 @@ export default function ServicesPage() {
         <div className="absolute inset-0 bg-black/60 z-20"></div>
 
         {/* Hero Content */}
-        <div ref={heroAnimation.elementRef} className="relative z-30 w-full max-w-7xl mx-auto px-4 lg:px-8 text-center">
-          <div className={`space-y-6 transition-all duration-1000 transform ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}>
-            <h1 className="text-5xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="relative z-30 w-full max-w-7xl mx-auto px-4 lg:px-8 text-center"
+        >
+          <div className="space-y-6">
+            <h1 className="text-5xl lg:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
               When We're There,<br />
               <span className="text-orange-500">
                 You Feel It.
               </span>
             </h1>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ------------------------
@@ -1238,10 +1209,21 @@ export default function ServicesPage() {
         ------------------------
       */}
       <section className="py-24 bg-gray-50">
-        <div ref={surveillanceAnimation.elementRef} className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center transition-all duration-1000 ${surveillanceAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}>
-            <div className="space-y-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: { opacity: 0, y: 40 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.8, staggerChildren: 0.2 } }
+            }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+          >
+            <motion.div
+              variants={{ hidden: { opacity: 0, x: -30 }, visible: { opacity: 1, x: 0 } }}
+              className="space-y-8"
+            >
               <div>
                 <h4 className="text-orange-600 font-bold uppercase tracking-widest text-sm mb-2">Technology Driven</h4>
                 <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
@@ -1251,9 +1233,12 @@ export default function ServicesPage() {
               <p className="text-lg text-gray-600 leading-relaxed">
                 When an alarm is triggered or unusual activity is seen on CCTV, our team at our Cloud Operations Center respond immediately. We also respond to alerts from worker devices and trackers on valuable assets.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid gap-6">
+            <motion.div
+              variants={{ hidden: { opacity: 0, x: 30 }, visible: { opacity: 1, x: 0 } }}
+              className="grid gap-6"
+            >
               {[
                 { title: "24/7 Monitoring", desc: "Continuous surveillance with immediate response." },
                 { title: "Cloud Operations", desc: "Advanced cloud-based monitoring with real-time alerts." },
@@ -1267,8 +1252,8 @@ export default function ServicesPage() {
                   <p className="text-gray-500">{card.desc}</p>
                 </div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -1332,24 +1317,31 @@ export default function ServicesPage() {
 // 4. ANIMATED COMPONENT (MATCHING UPLOADED IMAGE STYLE)
 // ==========================================
 function AnimatedServiceSection({ service, reverse = false, index }: { service: any, reverse?: boolean, index: number }) {
-  const { elementRef, isVisible } = useScrollAnimation();
-
   return (
-    <section ref={elementRef} className={`py-12 lg:py-20 overflow-hidden ${reverse ? 'bg-gray-50' : 'bg-white'}`}>
+    <section className={`py-12 lg:py-20 overflow-hidden ${reverse ? 'bg-gray-50' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
-        <div className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${reverse ? 'lg:flex-row-reverse' : ''}`}>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+          }}
+          className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${reverse ? 'lg:flex-row-reverse' : ''}`}
+        >
 
-          {/* === IMAGE SIDE === 
-              Matches the style of the image with the overlay card 
-          */}
-          <div className="w-full lg:w-1/2 relative group">
+          {/* === IMAGE SIDE === */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, x: reverse ? 50 : -50, scale: 0.95 },
+              visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.8, ease: "easeOut" } }
+            }}
+            className="w-full lg:w-1/2 relative group"
+            style={{ willChange: "transform" }}
+          >
             {/* Large Image Container */}
-            <div className={`relative h-[400px] lg:h-[550px] w-full rounded-2xl overflow-hidden shadow-xl transition-all duration-1000 transform ${isVisible
-              ? 'opacity-100 translate-x-0'
-              : reverse
-                ? 'opacity-0 translate-x-20'
-                : 'opacity-0 -translate-x-20'
-              }`}>
+            <div className="relative h-[400px] lg:h-[550px] w-full rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src={service.image}
                 alt={service.title}
@@ -1359,31 +1351,32 @@ function AnimatedServiceSection({ service, reverse = false, index }: { service: 
                 quality={70}
                 priority={index < 2}
               />
-
               {/* Optional: Dark overlay on image for depth */}
               <div className="absolute inset-0 bg-black/10"></div>
-
-
             </div>
-          </div>
+          </motion.div>
 
           {/* === CONTENT SIDE === */}
-          <div className="w-full lg:w-1/2">
-            <div className={`space-y-6 transition-all duration-1000 transform ${isVisible
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-10'
-              }`}>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, x: reverse ? -50 : 50 },
+              visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.1 } }
+            }}
+            className="w-full lg:w-1/2"
+            style={{ willChange: "transform" }}
+          >
+            <div className="space-y-6">
 
-              <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 leading-tight">
+              <motion.h2 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="text-3xl lg:text-5xl font-bold text-gray-900 leading-tight">
                 {service.title}
-              </h2>
+              </motion.h2>
 
-              <p className="text-lg text-gray-600 leading-relaxed font-medium">
+              <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="text-lg text-gray-600 leading-relaxed font-medium">
                 {service.description}
-              </p>
+              </motion.p>
 
               {/* Bullet Points - Orange Dots Style */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-8 pt-2">
+              <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }} className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-8 pt-2">
                 {service.features && service.features.map((feature: string, featureIndex: number) => (
                   <div key={featureIndex} className="flex items-center space-x-3">
                     {/* The Orange Dot */}
@@ -1393,10 +1386,10 @@ function AnimatedServiceSection({ service, reverse = false, index }: { service: 
                     </span>
                   </div>
                 ))}
-              </div>
+              </motion.div>
 
               {/* The "Learn More" Link Style */}
-              <div className="pt-6">
+              <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="pt-6">
                 <Link
                   href={service.href}
                   className="inline-flex items-center text-orange-600 font-bold text-lg hover:text-orange-700 transition-colors group"
@@ -1408,12 +1401,12 @@ function AnimatedServiceSection({ service, reverse = false, index }: { service: 
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </Link>
-              </div>
+              </motion.div>
 
             </div>
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -27,7 +27,7 @@ const BRAND = {
 const NAVIGATION = {
   primary: [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About Us" },
+    { href: "/about", label: "About" },
     { href: "/services", label: "Services", isDropdown: true },
     { href: "/gallery", label: "Gallery" },
     { href: "/careers", label: "Careers" },

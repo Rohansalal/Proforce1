@@ -99,10 +99,6 @@ const Gallery: React.FC = () => {
                 ACTION
               </span>
             </motion.h1>
-
-            <motion.p variants={fadeInUp} className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              Transparency is key. Explore our fleet, technology, and officers in the field protecting assets across California.
-            </motion.p>
           </motion.div>
         </div>
       </section>
