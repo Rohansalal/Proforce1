@@ -394,10 +394,6 @@ export function Hero() {
 
       {/* --- 3. DESKTOP NAVIGATION --- */}
       <div className="absolute bottom-12 right-12 z-30 hidden lg:flex flex-col items-end gap-6">
-        <div className="font-mono text-2xl font-bold text-white tracking-widest opacity-90">
-          0{activeIndex + 1} <span className="text-white/40 text-lg">/ 0{slides.length}</span>
-        </div>
-
         <div className="flex gap-4">
           <Button size="icon" variant="ghost" onClick={prevSlide} aria-label="Previous slide" className="h-12 w-12 rounded-full border border-white/20 hover:bg-white hover:text-black text-white transition-all">
             <ChevronLeft className="h-6 w-6" />
@@ -430,10 +426,7 @@ export function Hero() {
           ))}
         </div>
 
-        <div className="flex justify-between items-center">
-          <span className="text-white/70 text-sm font-mono tracking-widest">
-            0{activeIndex + 1} / 0{slides.length}
-          </span>
+        <div className="flex justify-end items-center">
           <div className="flex gap-3">
             <Button size="icon" variant="ghost" onClick={prevSlide} aria-label="Previous slide" className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
               <ChevronLeft className="h-5 w-5" />
