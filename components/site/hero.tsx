@@ -152,28 +152,29 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
       {/* Uniform Overlay */}
       <div className="absolute inset-0 bg-slate-950/60 z-20" />
 
-      {/* Poster Image (shown while loading) */}
+      {/* Poster Image (Mobile Only Layer to save bandwidth) */}
       <Image
         src={poster}
         alt="Slide poster"
         fill
-        sizes="100vw"
-        quality={60}
+        sizes="(max-width: 768px) 100vw, 1vw"
+        quality={40}
         className={cn(
-          "object-cover transition-opacity duration-1000 z-0",
+          "object-cover transition-opacity duration-1000 z-0 md:hidden",
           isVideoLoaded ? "opacity-0" : "opacity-100"
         )}
         priority={isFirst}
         fetchPriority={isFirst ? "high" : "auto"}
       />
 
-      {/* Video */}
+      {/* Video (Desktop Only) */}
       {!isMobile && (
         <video
           ref={videoRef}
           src={src}
+          poster={poster}
           className={cn(
-            "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 z-10",
+            "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 z-10 hidden md:block",
             isVideoLoaded ? "opacity-100" : "opacity-0"
           )}
           muted
