@@ -1,3 +1,5 @@
+import bundleAnalyzer from '@next/bundle-analyzer'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -18,6 +20,7 @@ const nextConfig = {
   },
   compress: true,
   experimental: {
+    optimizeCss: true, // Uses critters to inline critical CSS and block 150ms render-halts
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
@@ -53,4 +56,8 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+export default withBundleAnalyzer(nextConfig)
