@@ -1,12 +1,15 @@
 'use client'
 
+import dynamic from "next/dynamic"
+
 import ServicesGrid from "@/components/site/services-grid"
-import { HowWeWork } from "@/components/site/how-we-work"
-import { StatsSection } from "@/components/site/stats-section"
-import OurPartners from "@/components/site/our-partners"
-import FAQSection from "@/components/site/FAQSection"
-import Testimonials from "@/components/site/testimonials"
-import BlogSection from "@/components/site/BlogSection"
+
+const HowWeWork = dynamic(() => import("@/components/site/how-we-work").then(mod => mod.HowWeWork))
+const StatsSection = dynamic(() => import("@/components/site/stats-section").then(mod => mod.StatsSection))
+const OurPartners = dynamic(() => import("@/components/site/our-partners"))
+const FAQSection = dynamic(() => import("@/components/site/FAQSection"))
+const Testimonials = dynamic(() => import("@/components/site/testimonials"))
+const BlogSection = dynamic(() => import("@/components/site/BlogSection"))
 
 export function HomeDynamicSections() {
     return (

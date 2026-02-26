@@ -125,6 +125,8 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
   }
 
   if (hasError || !shouldRender || isMobile) {
+    if (!shouldRender) return null; // Massive DOM savings
+
     return (
       <div className={cn("absolute inset-0 w-full h-full transition-opacity duration-1000 will-change-transform", isActive ? "opacity-100 z-10" : "opacity-0 z-0", posterColor)}>
         {poster && (
@@ -133,7 +135,7 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
             alt="Slide poster"
             fill
             className="object-cover opacity-100"
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 1vw"
             quality={60}
             priority={isFirst}
             fetchPriority={isFirst ? "high" : "auto"}
@@ -179,8 +181,8 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
           )}
           muted
           playsInline
-          preload={isActive || isPreloading ? "auto" : "none"} // Preload if active or next
-          {...(isActive || isFirst ? { fetchPriority: "high" } : {})}
+          preload="none" // STRICTLY DO NOT PRELOAD - Wait for .play() event to download data!
+          {...(isFirst ? { fetchPriority: "high" } : {})}
           onCanPlay={() => setIsVideoLoaded(true)}
           onLoadedMetadata={handleDuration}
           onLoadedData={(e) => {
