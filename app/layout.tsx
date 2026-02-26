@@ -44,8 +44,14 @@
 
 import type React from "react"
 import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
+import { Montserrat } from "next/font/google"
 import "./globals.css"
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap"
+})
 import { Header } from "@/components/site/header"
 import { Footer } from "@/components/site/footer"
 import { Suspense } from "react"
@@ -202,7 +208,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`font-sans antialiased ${GeistSans.variable}`} suppressHydrationWarning>
+      <body className={`font-sans antialiased ${montserrat.variable}`} suppressHydrationWarning>
         <Suspense fallback={<div>Loading...</div>}>
           {/* <TopAnalytics /> */}
           <Header />

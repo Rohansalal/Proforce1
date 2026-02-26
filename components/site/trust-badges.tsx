@@ -102,7 +102,7 @@ export function TrustBadges() {
       platform: "Google",
       link: "https://www.google.com/maps/place/Proforce+1+Protection+Services/@33.803992,-117.94251,17z/data=!4m6!3m5!1s0x80dd297f06432c89:0x94d7d2198a9f8ae7!8m2!3d33.803992!4d-117.9403213!16s%2Fg%2F11jfmcmp0k?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D",
       rating: "5.0",
-      reviewCount: "100+",
+      reviewCount: "70+",
       reviewLabel: "Google Reviews",
       // Google brand colors - multicolor gradient
       brandGradient: "from-[#4285F4] via-[#EA4335] to-[#FBBC04]",
@@ -147,7 +147,7 @@ export function TrustBadges() {
       link: "https://www.bbb.org/us/ca/anaheim/profile/security-guards/proforce-1-protection-services-1126-1000083561",
       rating: "A+",
       reviewCount: "Accredited",
-      reviewLabel: "Since 2015",
+      reviewLabel: "Since 2019",
       // BBB blue professional
       brandGradient: "from-[#005a78] to-[#003d52]",
       bgPattern: "bg-gradient-to-br from-blue-50 to-slate-50",

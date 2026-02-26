@@ -123,41 +123,6 @@ const ProforceLogo = ({ isCompact = false }: { isCompact?: boolean }) => (
   </div>
 )
 
-const UtilityBar = ({ isVisible }: { isVisible: boolean }) => (
-  <div
-    className="w-full bg-slate-950 text-white hidden lg:block overflow-hidden transition-all duration-500 ease-in-out will-change-[height,opacity]"
-    style={{
-      height: isVisible ? '40px' : '0px',
-      opacity: isVisible ? 1 : 0
-    }}
-  >
-    <div className="container mx-auto px-6 h-full flex justify-between items-center text-xs font-bold tracking-widest">
-      <div className="flex items-center gap-4 text-slate-300">
-        <span className="flex items-center gap-2 uppercase">
-          <ShieldCheck size={14} className="text-red-600" />
-          Licensed & Insured: {BRAND.contact.license}
-        </span>
-      </div>
-      <div className="flex items-center gap-6">
-        <a
-          href={`mailto:${BRAND.contact.email}`}
-          className="flex items-center gap-2 hover:text-red-500 transition-colors uppercase"
-          aria-label="Email us"
-        >
-          <Mail size={14} /> {BRAND.contact.email}
-        </a>
-        <a
-          href={`tel:${BRAND.contact.phone.replace(/\D/g, '')}`}
-          className="flex items-center gap-2 hover:text-red-500 transition-colors uppercase"
-          aria-label="Call us"
-        >
-          <Phone size={14} /> {BRAND.contact.phone}
-        </a>
-      </div>
-    </div>
-  </div>
-)
-
 /**
  * Mobile Navigation Drawer
  */
@@ -321,7 +286,6 @@ export function Header() {
             : "bg-white shadow-sm border-transparent"
         )}
       >
-        <UtilityBar isVisible={!isScrolled} />
 
         <div className="w-full relative z-20">
           <div className="container mx-auto px-4 lg:px-6">
@@ -367,16 +331,18 @@ export function Header() {
             </div>
           </div>
         </div>
-      </header>
+      </header >
 
       {/* SPACER DIV */}
-      <div
-        className={cn(
-          "transition-all duration-300",
-          isScrolled
-            ? "h-[60px] lg:h-[100px]"
-            : "h-[60px] lg:h-[145px]"
-        )}
+      < div
+        className={
+          cn(
+            "transition-all duration-300",
+            isScrolled
+              ? "h-[60px] lg:h-[80px]"
+              : "h-[60px] lg:h-[105px]"
+          )
+        }
       />
     </>
   )

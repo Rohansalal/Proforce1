@@ -95,7 +95,7 @@ export function OurPartners() {
 function PartnerLogo({ partner }: { partner: { name: string, src: string } }) {
   return (
     <div className="relative w-24 h-16 md:w-48 md:h-32 flex-shrink-0 group cursor-pointer">
-      <div className="relative w-full h-full flex items-center justify-center grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-in-out transform group-hover:scale-110">
+      <div className="relative w-full h-full flex items-center justify-center transition-all duration-500 ease-in-out transform group-hover:scale-110">
         <Image
           src={partner.src}
           alt={partner.name}

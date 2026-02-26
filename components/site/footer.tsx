@@ -409,18 +409,18 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-slate-950 text-white pt-20 pb-10 border-t border-slate-900 font-sans">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <footer className="bg-slate-950 text-white pt-12 pb-6 border-t border-slate-900 font-sans">
+      <div className="mx-auto max-w-7xl px-4 lg:px-8">
 
         {/* =========================================
             TOP SECTION: LOGO (Left) & SOCIALS (Right)
            ========================================= */}
-        <div className="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-12 mb-14 gap-10">
+        <div className="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-8 mb-8 gap-6">
 
           {/* Logo Section - Stylized 'O' to match Image */}
           <div className="flex-shrink-0">
             <Link href="/" className="group block">
-              <span className="text-4xl font-black tracking-tighter text-white group-hover:opacity-90 transition-opacity whitespace-nowrap">
+              <span className="text-3xl font-black tracking-tighter text-white group-hover:opacity-90 transition-opacity whitespace-nowrap">
                 PR
                 {/* stylized O with a vertical cut */}
                 <span className="relative inline-block">
@@ -451,31 +451,31 @@ export function Footer() {
         {/* =========================================
             MAIN GRID CONTENT
            ========================================= */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 mb-12">
 
           {/* Col 1: Contact Info */}
-          <div className="space-y-8">
-            <h3 className="text-xl font-bold uppercase tracking-wider text-white">Contact Info</h3>
-            <div className="space-y-5 text-base text-slate-300 leading-relaxed">
-              <div className="flex items-start gap-4">
-                <MapPin className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
+          <div className="space-y-6">
+            <h3 className="text-lg font-bold uppercase tracking-wider text-white">Contact Info</h3>
+            <div className="space-y-4 text-sm text-slate-300 leading-relaxed">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
                 <p>1671 W Katella ave suite 106<br />Anaheim, CA, US 92802</p>
               </div>
-              <div className="flex items-center gap-4">
-                <Phone className="w-6 h-6 text-red-600 flex-shrink-0" />
-                <a href="tel:8007797891" className="hover:text-white transition-colors font-medium text-lg">(800) 779-7691</a>
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-red-600 flex-shrink-0" />
+                <a href="tel:8007797891" className="hover:text-white transition-colors font-medium text-base">(800) 779-7691</a>
               </div>
-              <div className="flex items-center gap-4">
-                <Mail className="w-6 h-6 text-red-600 flex-shrink-0" />
-                <a href="mailto:info@proforce1protection.com" className="hover:text-white transition-colors uppercase text-sm font-bold tracking-wide">info@proforce1protection.com</a>
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-red-600 flex-shrink-0" />
+                <a href="mailto:info@proforce1protection.com" className="hover:text-white transition-colors uppercase text-xs font-bold tracking-wide">info@proforce1protection.com</a>
               </div>
             </div>
           </div>
 
           {/* Col 2: Services */}
           <div>
-            <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-8">Our Services</h3>
-            <ul className="space-y-4 text-base text-slate-300">
+            <h3 className="text-lg font-bold uppercase tracking-wider text-white mb-6">Our Services</h3>
+            <ul className="space-y-3 text-sm text-slate-300">
               {servicesLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
@@ -488,8 +488,8 @@ export function Footer() {
 
           {/* Col 3: Quick Links */}
           <div>
-            <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-8">Company</h3>
-            <ul className="space-y-4 text-base text-slate-300">
+            <h3 className="text-lg font-bold uppercase tracking-wider text-white mb-6">Company</h3>
+            <ul className="space-y-3 text-sm text-slate-300">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="hover:text-red-500 hover:pl-2 transition-all duration-300 inline-block">
@@ -502,20 +502,20 @@ export function Footer() {
 
           {/* Col 4: Newsletter */}
           <div className="lg:pl-4">
-            <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-6">
+            <h3 className="text-lg font-bold uppercase tracking-wider text-white mb-4">
               Stay Secure
             </h3>
-            <p className="text-base text-slate-300 mb-8 leading-relaxed">
-              Get expert security tips, case studies, and industry updates delivered directly to your inbox.
+            <p className="text-sm text-slate-300 mb-6 leading-relaxed">
+              Get expert security tips, case studies, and industry updates.
             </p>
-            <form className="space-y-4">
+            <form className="space-y-3">
               <Input
                 type="email"
                 placeholder="Email Address *"
-                className="bg-slate-900 border-slate-800 focus-visible:ring-red-600 text-white placeholder:text-slate-500 h-14 text-base"
+                className="bg-slate-900 border-slate-800 focus-visible:ring-red-600 text-white placeholder:text-slate-500 h-11 text-sm rounded-none"
               />
               <Button
-                className="w-full h-14 font-bold uppercase tracking-widest hover:bg-red-800 transition-colors shadow-lg text-base"
+                className="w-full h-11 font-bold uppercase tracking-widest hover:bg-red-800 transition-colors shadow-none text-sm rounded-none"
                 style={{ backgroundColor: PROFORCE_RED }}
               >
                 Subscribe
@@ -527,7 +527,7 @@ export function Footer() {
         {/* =========================================
             BOTTOM BAR
            ========================================= */}
-        <div className="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-400">
+        <div className="border-t border-slate-900 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <p>© {new Date().getFullYear()} ProForce 1 Protection Services. All Rights Reserved.</p>
 
           <div className="flex items-center gap-6 font-medium">
