@@ -154,20 +154,22 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
       {/* Uniform Overlay */}
       <div className="absolute inset-0 bg-slate-950/60 z-20" />
 
-      {/* Poster Image (Mobile Only Layer to save bandwidth) */}
-      <Image
-        src={poster}
-        alt="Slide poster"
-        fill
-        sizes="(max-width: 768px) 100vw, 1vw"
-        quality={40}
-        className={cn(
-          "object-cover transition-opacity duration-1000 z-0 md:hidden",
-          isVideoLoaded ? "opacity-0" : "opacity-100"
-        )}
-        priority={isFirst}
-        fetchPriority={isFirst ? "high" : "auto"}
-      />
+      {/* Poster Image (For subsequent slides or mobile) */}
+      {!isFirst && (
+        <Image
+          src={poster}
+          alt="Slide poster"
+          fill
+          sizes="(max-width: 768px) 100vw, 1vw"
+          quality={40}
+          className={cn(
+            "object-cover transition-opacity duration-1000 z-0",
+            isVideoLoaded ? "opacity-0" : "opacity-100"
+          )}
+          priority={false}
+          fetchPriority="auto"
+        />
+      )}
 
       {/* Video (Desktop Only) */}
       {!isMobile && (
@@ -200,6 +202,13 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
 export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [durations, setDurations] = useState<number[]>(slides.map(() => SLIDE_DURATION))
+  const [allowVideos, setAllowVideos] = useState(false) // DELAY VIDEO MOUNTING
+
+  // Delay the mounting of background videos by 1.5s to free up Main Thread
+  useEffect(() => {
+    const timer = setTimeout(() => setAllowVideos(true), 1500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleDurationUpdate = useCallback((index: number, duration: number) => {
     setDurations((prev) => {
@@ -255,8 +264,22 @@ export function Hero() {
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEndHandler}
     >
-      {/* --- 1. VIDEO LAYER --- */}
-      {slides.map((slide, index) => {
+      {/* --- 0. STATIC LCP IMAGE ROOT (Guarantees pure HTML render without JS hydration blocking) --- */}
+      <Image
+        src={slides[0].poster}
+        alt="Hero Background"
+        fill
+        priority
+        sizes="100vw"
+        quality={70}
+        className={cn(
+          "object-cover transition-opacity duration-1000 z-0",
+          activeIndex === 0 ? "opacity-100" : "opacity-0"
+        )}
+      />
+
+      {/* --- 1. VIDEO LAYER (Delayed by 1.5s to unblock TBT) --- */}
+      {allowVideos && slides.map((slide, index) => {
         const nextIndex = (activeIndex + 1) % slides.length
         return (
           <VideoSlide

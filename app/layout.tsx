@@ -45,7 +45,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
 import "./globals.css"
 import { Header } from "@/components/site/header"
 import { Footer } from "@/components/site/footer"
@@ -203,7 +202,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+      <body className={`font-sans antialiased ${GeistSans.variable}`} suppressHydrationWarning>
         <Suspense fallback={<div>Loading...</div>}>
           {/* <TopAnalytics /> */}
           <Header />
