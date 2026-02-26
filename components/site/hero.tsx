@@ -67,11 +67,20 @@ const slides = [
 ]
 
 // --- SUB-COMPONENT: Video Player ---
-const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor, onVideoEnd, onDurationUpdate }: { src: string, poster: string, isActive: boolean, isPreloading: boolean, posterColor: string, onVideoEnd: () => void, onDurationUpdate: (duration: number) => void }) => {
+const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor, onVideoEnd, onDurationUpdate }: { src: string, poster: string, isActive: boolean, isPreloading: boolean, isFirst: boolean, posterColor: string, onVideoEnd: () => void, onDurationUpdate: (duration: number) => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hasError, setHasError] = useState(false)
   const [shouldRender, setShouldRender] = useState(isActive || isPreloading)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
+  const [isMobile, setIsMobile] = useState(false) // Defer video on mobile
+
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Ensure checking for updates on props change
   useEffect(() => {
@@ -79,7 +88,7 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor, onVideoE
   }, [isActive, isPreloading])
 
   useEffect(() => {
-    if (!shouldRender) return
+    if (!shouldRender || isMobile) return
 
     const video = videoRef.current
     if (!video) return
@@ -97,15 +106,16 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor, onVideoE
       video.pause()
       video.currentTime = 0 // Reset time for next views
     }
-  }, [isActive, shouldRender])
+  }, [isActive, shouldRender, isMobile])
 
-  // Timer fallback for error state
+  // Timer fallback for error state AND mobile devices (which don't load the video)
   useEffect(() => {
-    if (hasError && isActive) {
-      const timer = setTimeout(onVideoEnd, 5000)
+    if ((hasError || isMobile) && isActive) {
+      const timer = setTimeout(onVideoEnd, 5000) // Fallback to 5s if video cannot play
+      onDurationUpdate(5000)
       return () => clearTimeout(timer)
     }
-  }, [hasError, isActive, onVideoEnd])
+  }, [hasError, isMobile, isActive, onVideoEnd, onDurationUpdate])
 
   const handleDuration = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const dur = e.currentTarget.duration
@@ -114,16 +124,19 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor, onVideoE
     }
   }
 
-  if (hasError || !shouldRender) {
+  if (hasError || !shouldRender || isMobile) {
     return (
-      <div className={cn("absolute inset-0 w-full h-full transition-opacity duration-1000", isActive ? "opacity-100 z-10" : "opacity-0 z-0", posterColor)}>
+      <div className={cn("absolute inset-0 w-full h-full transition-opacity duration-1000 will-change-transform", isActive ? "opacity-100 z-10" : "opacity-0 z-0", posterColor)}>
         {poster && (
           <Image
             src={poster}
             alt="Slide poster"
             fill
             className="object-cover opacity-100"
-            priority={isActive}
+            sizes="100vw"
+            quality={60}
+            priority={isFirst}
+            fetchPriority={isFirst ? "high" : "auto"}
           />
         )}
         <div className="absolute inset-0 bg-slate-950/60 z-10" />
@@ -144,34 +157,39 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, posterColor, onVideoE
         src={poster}
         alt="Slide poster"
         fill
+        sizes="100vw"
+        quality={60}
         className={cn(
           "object-cover transition-opacity duration-1000 z-0",
           isVideoLoaded ? "opacity-0" : "opacity-100"
         )}
-        priority={isActive}
+        priority={isFirst}
+        fetchPriority={isFirst ? "high" : "auto"}
       />
 
       {/* Video */}
-      <video
-        ref={videoRef}
-        src={src}
-        className={cn(
-          "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 z-10",
-          isVideoLoaded ? "opacity-100" : "opacity-0"
-        )}
-        muted
-        playsInline
-        preload={isActive || isPreloading ? "auto" : "none"} // Preload if active or next
-        {...(isActive ? { fetchPriority: "high" } : {})}
-        onCanPlay={() => setIsVideoLoaded(true)}
-        onLoadedMetadata={handleDuration}
-        onLoadedData={(e) => {
-          setIsVideoLoaded(true)
-          handleDuration(e)
-        }}
-        onEnded={onVideoEnd}
-        onError={() => setHasError(true)}
-      />
+      {!isMobile && (
+        <video
+          ref={videoRef}
+          src={src}
+          className={cn(
+            "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 z-10",
+            isVideoLoaded ? "opacity-100" : "opacity-0"
+          )}
+          muted
+          playsInline
+          preload={isActive || isPreloading ? "auto" : "none"} // Preload if active or next
+          {...(isActive || isFirst ? { fetchPriority: "high" } : {})}
+          onCanPlay={() => setIsVideoLoaded(true)}
+          onLoadedMetadata={handleDuration}
+          onLoadedData={(e) => {
+            setIsVideoLoaded(true)
+            handleDuration(e)
+          }}
+          onEnded={onVideoEnd}
+          onError={() => setHasError(true)}
+        />
+      )}
     </div>
   )
 }
@@ -244,6 +262,7 @@ export function Hero() {
             poster={slide.poster}
             isActive={activeIndex === index}
             isPreloading={nextIndex === index}
+            isFirst={index === 0}
             posterColor={getThemeStyles(slide.theme)}
             onVideoEnd={nextSlide}
             onDurationUpdate={(dur) => handleDurationUpdate(index, dur)}
