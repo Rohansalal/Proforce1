@@ -111,7 +111,7 @@ export function TrustBadges() {
       hoverShadow: "group-hover:shadow-blue-500/20",
       // SVG logo as data URI for Google G logo
       logoSvg: (
-        <svg viewBox="0 0 48 48" className="w-12 h-12">
+        <svg viewBox="0 0 48 48" className="w-10 h-10">
           <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
           <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
           <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
@@ -133,7 +133,7 @@ export function TrustBadges() {
       hoverShadow: "group-hover:shadow-green-500/20",
       // Trustpilot star logo
       logoSvg: (
-        <svg viewBox="0 0 126 30" className="w-28 h-12">
+        <svg viewBox="0 0 126 30" className="w-24 h-10">
           <g fill="#00B67A">
             <path d="M30.4 13.4L23 13.8l-2.8-6.8c-.3-.8-1.4-.8-1.8 0l-2.8 6.8-7.4.4c-.9 0-1.2 1.1-.5 1.6l6 4.4-2.3 7.2c-.3.8.7 1.5 1.4 1l6.2-4.5 6.2 4.5c.7.5 1.7-.2 1.4-1l-2.3-7.2 6-4.4c.7-.5.4-1.6-.5-1.6z" />
             <text x="36" y="20" fontFamily="Arial, sans-serif" fontSize="12" fontWeight="bold" fill="#191919">Trustpilot</text>
@@ -155,7 +155,7 @@ export function TrustBadges() {
       hoverShadow: "group-hover:shadow-blue-600/20",
       // BBB torch logo simplified
       logoSvg: (
-        <svg viewBox="0 0 100 50" className="w-16 h-8">
+        <svg viewBox="0 0 100 50" className="w-14 h-7">
           <g fill="#005a78">
             <rect x="20" y="15" width="10" height="30" rx="2" />
             <path d="M15 10 Q25 5 35 10 L30 15 Q25 12 20 15 Z" fill="#005a78" />
@@ -206,31 +206,10 @@ export function TrustBadges() {
   }
 
   return (
-    <section className="relative py-16 md:py-20 overflow-hidden">
+    <section className="relative z-20 -mt-16 md:-mt-24 pb-8 overflow-hidden" style={{ fontFamily: '"Inter", sans-serif' }}>
 
-      {/* Background with Building Image */}
-      <div className="absolute inset-0 z-0">
-        {/* Building Background Image */}
-        <Image
-          src="/Services/high-rise-building-security/Homepage2.png"
-          alt="Building Background"
-          fill
-          className="object-cover opacity-30"
-          sizes="(max-width: 768px) 100vw, 50vw"
-          quality={50}
-        />
-
-        {/* Lighter Gradient Overlays - Let building show through */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/80 via-slate-900/70 to-slate-950/80" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/40" />
-
-        {/* Static gradient orbs instead of animated to save GPU repaints */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl delay-1000" />
-
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjAzIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20" />
-      </div>
+      {/* Float cleanly without background */}
+      <div className="absolute inset-x-0 h-40 bg-gradient-to-t from-slate-50 to-transparent bottom-0 z-0 pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
@@ -240,11 +219,12 @@ export function TrustBadges() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4">
-            Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">Businesses Across CA</span>
-          </h2>
+          {/* <h2 className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-white drop-shadow-md mb-2">
+            Trusted by <span className="text-red-500">Businesses Across California</span>
+          </h2> */}
+          <br />
         </motion.div>
 
         {/* Cards Grid */}
@@ -267,10 +247,10 @@ export function TrustBadges() {
             >
               {/* Card Container - Unique design per platform */}
               <div className={cn(
-                "relative h-full rounded-2xl p-6 transition-all duration-500 overflow-hidden",
+                "relative h-full rounded-sm p-4 md:p-5 transition-all duration-500 overflow-hidden",
                 badge.bgPattern,
                 "border border-slate-200/50",
-                "shadow-lg hover:shadow-xl",
+                "shadow-lg hover:shadow-2xl",
                 badge.hoverShadow,
                 "transform hover:scale-[1.01] hover:-translate-y-1"
               )}>
@@ -296,16 +276,16 @@ export function TrustBadges() {
                 </div>
 
                 {/* Platform Name */}
-                <div className="relative z-10 mb-2">
-                  <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest">
+                <div className="relative z-10 mb-2 mt-1">
+                  <h3 className="text-[10px] md:text-sm font-bold text-slate-500 uppercase tracking-widest">
                     {badge.platform}
                   </h3>
                 </div>
 
                 {/* Rating Display */}
-                <div className="relative z-10 mb-6">
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter leading-none">
+                <div className="relative z-10 mb-5">
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <span className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter leading-none">
                       {badge.rating}
                     </span>
                     <div className="flex flex-col">

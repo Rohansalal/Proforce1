@@ -44,10 +44,10 @@
 
 import type React from "react"
 import type { Metadata } from "next"
-import { Montserrat } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
 
-const montserrat = Montserrat({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap"
@@ -208,7 +208,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`font-sans antialiased ${montserrat.variable}`} suppressHydrationWarning>
+      <body className={`font-sans antialiased ${inter.variable}`} style={{ fontFamily: "var(--font-sans), sans-serif" }} suppressHydrationWarning>
         <Suspense fallback={<div>Loading...</div>}>
           {/* <TopAnalytics /> */}
           <Header />

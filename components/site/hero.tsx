@@ -25,8 +25,8 @@ const slides = [
     videoSrc: "/hero/patrol-services.mp4",
     poster: "/hero/patrol-services.jpg",
     title: "Mobile Patrol",
-    subtitle: "Deterrence & Response",
-    description: "High-visibility patrol units providing round-the-clock deterrence and rapid response for your properties.",
+    subtitle: "Mobile Security Patrols",
+    description: "Highly-visible, proactive patrol units ensuring round-the-clock safety and rapid response for your California business or property.",
     link: "/services/mobile-patrol-security",
     icon: <ShieldCheck className="w-6 h-6" />,
     theme: "blue"
@@ -35,9 +35,9 @@ const slides = [
     id: 2,
     videoSrc: "/hero/armed-security.mp4",
     poster: "/hero/armed-security.jpg",
-    title: "Armed Protection",
-    subtitle: "Elite Tactical Units",
-    description: "Elite, highly-trained armed personnel for high-risk environments requiring elevated security measures.",
+    title: "Armed Security",
+    subtitle: "Armed Protection Guards",
+    description: "Trained tactical personnel equipped to instantly neutralize threats and secure high-risk environments with absolute authority.",
     link: "/services/armed-security",
     icon: <Users className="w-6 h-6" />,
     theme: "red"
@@ -46,9 +46,9 @@ const slides = [
     id: 3,
     videoSrc: "/hero/construction-security.mp4",
     poster: "/hero/construction-security.jpg",
-    title: "Construction",
-    subtitle: "Site Integrity",
-    description: "Specialized site security preventing theft, vandalism, and unauthorized access to your projects.",
+    title: "Construction Security",
+    subtitle: "Construction Security",
+    description: "Stop equipment theft and unauthorized access dead in its tracks with dedicated, strict monitoring for your active build projects.",
     link: "/services/construction-security",
     icon: <Building2 className="w-6 h-6" />,
     theme: "amber"
@@ -57,9 +57,9 @@ const slides = [
     id: 4,
     videoSrc: "/Services/fire-security/fire-watch1.mp4",
     poster: "/hero/fire-watch.jpg",
-    title: "Fire Watch",
-    subtitle: "NFPA Compliance",
-    description: "NFPA-compliant fire watch services ensuring compliance and safety during system outages.",
+    title: "Fire Watch Security",
+    subtitle: "Certified Fire Watch",
+    description: "Ensure full NFPA compliance and protect your assets from catastrophe during system outages with strict 24/7 fire guard service.",
     link: "/services/fire-watch-security",
     icon: <Flame className="w-6 h-6" />,
     theme: "orange"
@@ -247,10 +247,12 @@ export function Hero() {
 
   const getThemeStyles = (theme: string) => {
     switch (theme) {
-      case "blue": return "bg-blue-600 shadow-blue-500/30"
-      case "red": return "bg-red-600 shadow-red-500/30"
-      case "amber": return "bg-amber-600 shadow-amber-500/30"
-      case "orange": return "bg-orange-600 shadow-orange-500/30"
+      // case "blue": return "bg-blue-600 shadow-blue-500/30"
+      // case "red": return "bg-red-600 shadow-red-500/30"
+      case "blue": return "bg-red-600 shadow-red-500/20"
+      case "red": return "bg-red-600 shadow-red-500/20"
+      case "amber": return "bg-red-600 shadow-red-500/20"
+      case "orange": return "bg-red-600 shadow-red-500/20"
       default: return "bg-slate-600"
     }
   }
@@ -260,6 +262,7 @@ export function Hero() {
   return (
     <section
       className="relative h-[85dvh] w-full bg-slate-950 overflow-hidden"
+      style={{ fontFamily: '"Inter", sans-serif' }}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEndHandler}
@@ -343,7 +346,7 @@ export function Hero() {
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, stiffness: 100 } }
               }}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase leading-[0.95] tracking-tighter drop-shadow-2xl"
+              className="relative z-50 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white uppercase leading-[0.95] tracking-tighter drop-shadow-2xl"
             >
               {currentSlide.title}
             </motion.h1>
@@ -365,16 +368,16 @@ export function Hero() {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, stiffness: 100 } }
               }}
-              className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 md:pt-4 w-full sm:w-auto"
+              className="relative z-50 flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 md:pt-4 w-full sm:w-auto"
             >
               <Button
                 asChild
                 className={cn(
-                  "h-12 md:h-14 px-6 md:px-8 rounded-full text-sm md:text-base font-bold transition-all hover:scale-105 shadow-xl w-full sm:w-auto",
+                  "h-12 md:h-14 px-6 md:px-8 rounded-full text-sm md:text-base font-bold transition-all hover:scale-105 shadow-xl w-full sm:w-auto pointer-events-auto",
                   getThemeStyles(currentSlide.theme)
                 )}
               >
-                <Link href={currentSlide.link} className="flex items-center justify-center">
+                <Link href={currentSlide.link} className="flex items-center justify-center pointer-events-auto">
                   View Service <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
                 </Link>
               </Button>

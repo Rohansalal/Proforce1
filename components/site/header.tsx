@@ -32,7 +32,7 @@ const NAVIGATION = {
     { href: "/gallery", label: "Gallery" },
     { href: "/careers", label: "Careers" },
     { href: "/blog", label: "Blog" },
-    { href: "/contact", label: "Contact-Us" },
+    { href: "/contact", label: "Contact" },
   ],
   services: [
     { href: "/services/armed-security", label: "Armed Security" },
@@ -81,7 +81,7 @@ const ProforceLogo = ({ isCompact = false }: { isCompact?: boolean }) => (
 
         {/* CUSTOM SPLIT "O" */}
         <div className={cn(
-          "relative flex items-center justify-center mx-[2px]",
+          "relative flex items-center justify-center mx-[2px] translate-y-[2px] md:translate-y-[3px]",
           isCompact ? "h-[18px] w-[15px] md:h-[28px] md:w-[24px]" : "h-[22px] w-[19px] md:h-[42px] md:w-[36px]"
         )}>
           <svg viewBox="0 0 100 100" className="w-full h-full text-slate-950 overflow-visible">
@@ -113,7 +113,7 @@ const ProforceLogo = ({ isCompact = false }: { isCompact?: boolean }) => (
 
         {/* "1" - BOLD RED */}
         <span className={cn(
-          "font-[900] text-red-700 ml-1",
+          "font-[900] text-red-600 ml-1",
           isCompact ? "text-xl md:text-3xl" : "text-2xl md:text-5xl"
         )}>
           1
@@ -196,10 +196,10 @@ const MobileMenu = () => {
               </div>
             ))}
           </nav>
-          <div className="p-6 border-t border-slate-100 bg-slate-50 mt-auto pb-10">
-            <Button asChild className="w-full h-14 text-lg bg-red-700 hover:bg-red-800 uppercase tracking-widest font-bold shadow-lg shadow-red-900/10">
+          <div className="p-6 border-t border-slate-100 bg-slate-50 mt-auto pb-10 space-y-3">
+            <Button asChild className="w-full h-14 text-lg bg-red-600 shadow-red-500/20 shadow-lg hover:bg-red-700 text-white uppercase tracking-widest font-black active:scale-95 transition-all">
               <Link href="/client-login" onClick={handleLinkClick}>
-                <User className="mr-2 h-5 w-5" /> Client Portal
+                <User className="mr-2 h-5 w-5 text-white" /> Client Portal
               </Link>
             </Button>
           </div>
@@ -315,13 +315,13 @@ export function Header() {
                 isScrolled ? "mt-0 pt-0 scale-95" : "-mt-2 pt-0"
               )}>
                 <DesktopNav />
-                <div className="ml-10">
+                <div className="ml-8 flex items-center gap-3">
                   <Button asChild size={isScrolled ? "sm" : "lg"} className={cn(
-                    "bg-slate-900 hover:bg-slate-800 text-white font-bold uppercase tracking-widest rounded-none shadow-md transition-all flex items-center gap-2",
+                    "bg-red-600 shadow-red-500/20 shadow-lg hover:bg-red-700 hover:shadow-red-500/40 text-white font-black uppercase tracking-[0.2em] rounded-none transition-all hover:-translate-y-0.5 flex items-center gap-2",
                     isScrolled ? "px-6 h-10 text-xs" : "px-8 h-12 text-sm"
                   )}>
                     <Link href="/client-login">
-                      <User className="w-4 h-4" />
+                      <User className="w-4 h-4 text-white" />
                       Client Portal
                     </Link>
                   </Button>

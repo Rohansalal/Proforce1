@@ -54,7 +54,7 @@ const allTestimonials = [...testimonials, ...testimonials]
 
 export function Testimonials() {
   return (
-    <section className="py-24 bg-slate-950 relative overflow-hidden font-sans text-white">
+    <section className="py-24 bg-slate-950 relative overflow-hidden font-sans text-white" style={{ fontFamily: '"Inter", sans-serif' }}>
 
       {/* Background Decorative Elements */}
       {/* Background Patterns similar to how-we-work.tsx */}
@@ -69,23 +69,23 @@ export function Testimonials() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6">
-              Trusted by Industry Leaders
+            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase mb-6 leading-[1.1]">
+              Trusted &nbsp;by <span className="text-red-700">&nbsp;Industry Leaders</span>
             </h2>
 
             {/* Star Rating Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-6 shadow-sm backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-sm mb-6 shadow-sm backdrop-blur-sm">
               <div className="flex gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
                 ))}
               </div>
-              <span className="text-sm font-bold text-white ml-2">4.9/5 Rating</span>
+              <span className="text-sm font-black uppercase tracking-[0.2em] text-white ml-2 mt-0.5">4.9/5 Rating</span>
             </div>
           </motion.div>
         </div>
@@ -109,29 +109,29 @@ export function Testimonials() {
             {allTestimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="w-[320px] md:w-[400px] flex-shrink-0 bg-white/[0.02] p-8 rounded-3xl border border-white/5 hover:bg-white/[0.05] hover:border-red-500/30 transition-all duration-300 relative group/card backdrop-blur-md"
+                className="w-[320px] md:w-[400px] flex-shrink-0 bg-[#0F1423] p-8 md:p-10 rounded-md border border-slate-800 hover:border-red-700/50 transition-all duration-500 relative group/card hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-900/10"
               >
-                {/* Top Gradient Border */}
-                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500 to-red-700 rounded-t-2xl transform scale-x-0 group-hover/card:scale-x-100 transition-transform duration-500 origin-left" />
+                {/* Permanent Top Red Border */}
+                <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#E60000] rounded-t-md" />
 
                 {/* Quote Icon */}
-                <div className="mb-6 opacity-20 group-hover/card:opacity-100 transition-opacity duration-300 flex justify-between items-start">
-                  <Quote className="w-8 h-8 text-red-600 fill-red-600" />
+                <div className="mb-8 opacity-100 flex justify-between items-start">
+                  <Quote className="w-10 h-10 text-[#E60000] fill-[#E60000]" />
                 </div>
 
                 {/* Quote Text */}
-                <p className="text-slate-300 mb-8 leading-relaxed text-lg font-medium relative z-10 min-h-[140px]">
+                <p className="text-slate-200 mb-8 leading-relaxed text-base font-medium relative z-10 min-h-[120px]">
                   "{testimonial.quote}"
                 </p>
 
                 {/* Author Info */}
-                <div className="flex items-center gap-4 border-t border-white/10 pt-6">
-                  <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center font-bold text-xl text-slate-400 group-hover/card:text-red-500 group-hover/card:bg-slate-900 transition-colors duration-300">
+                <div className="flex items-center gap-4 border-t border-slate-800 pt-6">
+                  <div className="w-12 h-12 rounded-md bg-[#0A0D18] flex items-center justify-center font-black text-xl text-[#E60000]">
                     {testimonial.name.charAt(0)}
                   </div>
                   <div>
-                    <p className="font-bold text-white text-base">{testimonial.name}</p>
-                    <p className="text-xs text-slate-400 uppercase tracking-widest font-bold">
+                    <p className="font-bold text-white text-sm uppercase tracking-wider">{testimonial.name}</p>
+                    <p className="text-xs text-slate-400 uppercase tracking-widest font-bold mt-0.5">
                       {testimonial.position}, {testimonial.company}
                     </p>
                   </div>

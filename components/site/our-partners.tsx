@@ -26,22 +26,24 @@ const partners = [
 
 export function OurPartners() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-white relative overflow-hidden" style={{ fontFamily: '"Inter", sans-serif' }}>
 
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
 
-      <div className="container mx-auto px-4 relative z-10 mb-16">
+      <div className="container mx-auto px-4 relative z-10 mb-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <span className="text-red-600 font-mono text-sm tracking-widest uppercase mb-4 block">Trusted Globally</span>
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6 font-serif">
-            Our Valued <span className="italic text-red-700">Partners</span>
+          <span className="text-red-700 font-black tracking-[0.2em] text-xs mb-3 block uppercase">
+            Trusted Globally
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase leading-[1.1]">
+            Our&nbsp;Valued <span className="text-slate-400">&nbsp;Partners</span>
           </h2>
         </motion.div>
       </div>
@@ -51,9 +53,9 @@ export function OurPartners() {
       */}
       <div className="relative w-full overflow-hidden">
 
-        {/* Gradient Masks for Fade Effect */}
-        <div className="absolute top-0 left-0 h-full w-24 md:w-48 bg-gradient-to-r from-white to-transparent z-20" />
-        <div className="absolute top-0 right-0 h-full w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-20" />
+        {/* Gradient Masks for Fade Effect - Removed as requested */}
+        {/* <div className="absolute top-0 left-0 h-full w-24 md:w-48 bg-gradient-to-r from-white to-transparent z-20" />
+        <div className="absolute top-0 right-0 h-full w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-20" /> */}
 
         {/* Scrolling Track Using Framer Motion */}
         <div className="flex w-full group">

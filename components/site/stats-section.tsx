@@ -51,7 +51,9 @@ export function StatsSection() {
   }, [hasAnimated, stats])
 
   return (
-    <section ref={sectionRef} className="bg-foreground text-background">
+    <section ref={sectionRef} className="bg-slate-950 text-white border-t border-white/10 relative overflow-hidden" style={{ fontFamily: '"Inter", sans-serif' }}>
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -63,7 +65,7 @@ export function StatsSection() {
             transition: { staggerChildren: 0.15 }
           }
         }}
-        className="mx-auto max-w-7xl px-4 lg:px-8 py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+        className="relative z-10 mx-auto max-w-7xl px-4 lg:px-8 py-10 md:py-14 grid gap-8 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4"
       >
         {stats.map((stat, index) => (
           <motion.div
@@ -76,13 +78,13 @@ export function StatsSection() {
               }
             }}
             key={stat.label}
-            className="text-center"
+            className="text-center group"
           >
-            <div className="text-4xl md:text-5xl font-bold text-red-400">
+            <div className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700 tracking-tighter mb-2 group-hover:scale-110 transition-transform duration-500">
               {counts[index]}
               {stat.suffix}
             </div>
-            <div className="text-lg opacity-90 mt-2">{stat.label}</div>
+            <div className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-slate-400">{stat.label}</div>
           </motion.div>
         ))}
       </motion.div>

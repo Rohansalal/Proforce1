@@ -375,6 +375,7 @@ import {
   Mail,
   Phone,
   MapPin,
+  ShieldCheck,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -451,11 +452,11 @@ export function Footer() {
         {/* =========================================
             MAIN GRID CONTENT
            ========================================= */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-12">
 
           {/* Col 1: Contact Info */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-bold uppercase tracking-wider text-white">Contact Info</h3>
+          <div className="space-y-6 lg:col-span-4">
+            <h3 className="text-lg font-bold uppercase tracking-wider text-white">Contact </h3>
             <div className="space-y-4 text-sm text-slate-300 leading-relaxed">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
@@ -469,11 +470,15 @@ export function Footer() {
                 <Mail className="w-5 h-5 text-red-600 flex-shrink-0" />
                 <a href="mailto:info@proforce1protection.com" className="hover:text-white transition-colors uppercase text-xs font-bold tracking-wide">info@proforce1protection.com</a>
               </div>
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="w-5 h-5 text-red-600 flex-shrink-0" />
+                <span className="text-slate-300 uppercase text-xs font-bold tracking-wide">State License# PPO 120753</span>
+              </div>
             </div>
           </div>
 
           {/* Col 2: Services */}
-          <div>
+          <div className="lg:col-span-3">
             <h3 className="text-lg font-bold uppercase tracking-wider text-white mb-6">Our Services</h3>
             <ul className="space-y-3 text-sm text-slate-300">
               {servicesLinks.map((link) => (
@@ -487,7 +492,7 @@ export function Footer() {
           </div>
 
           {/* Col 3: Quick Links */}
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="text-lg font-bold uppercase tracking-wider text-white mb-6">Company</h3>
             <ul className="space-y-3 text-sm text-slate-300">
               {quickLinks.map((link) => (
@@ -501,7 +506,7 @@ export function Footer() {
           </div>
 
           {/* Col 4: Newsletter */}
-          <div className="lg:pl-4">
+          <div className="lg:col-span-3 lg:pl-4">
             <h3 className="text-lg font-bold uppercase tracking-wider text-white mb-4">
               Stay Secure
             </h3>

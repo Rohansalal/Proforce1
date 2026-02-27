@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 
-const WHATSAPP_NUMBER = "18007797691"; // Remove dashes/brackets. Must include country code, e.g., 1 for US
+const WHATSAPP_NUMBER = "639193757597"; // Remove dashes/brackets. Must include country code, e.g., 1 for US
 
 const services = [
     "Armed Security",
