@@ -80,27 +80,16 @@ const ProforceLogo = ({ isCompact = false }: { isCompact?: boolean }) => (
         </span>
 
         {/* CUSTOM SPLIT "O" */}
-        <div className={cn(
-          "relative flex items-center justify-center mx-[2px] translate-y-[2px] md:translate-y-[3px]",
-          isCompact ? "h-[18px] w-[15px] md:h-[28px] md:w-[24px]" : "h-[22px] w-[19px] md:h-[42px] md:w-[36px]"
+        <span className={cn(
+          "relative inline-block font-[900] tracking-tighter mx-[1px] md:mx-[2px]",
+          isCompact ? "text-xl md:text-3xl" : "text-2xl md:text-5xl"
         )}>
-          <svg viewBox="0 0 100 100" className="w-full h-full text-slate-950 overflow-visible">
-            <path
-              d="M 42 12 C 8 12 8 88 42 88"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="24"
-              strokeLinecap="butt"
-            />
-            <path
-              d="M 58 88 C 92 88 92 12 58 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="24"
-              strokeLinecap="butt"
-            />
-          </svg>
-        </div>
+          O
+          <span className={cn(
+            "absolute inset-y-0 left-1/2 -translate-x-1/2 bg-white block",
+            isCompact ? "w-[2px] md:w-[3px]" : "w-[3px] md:w-[5px]"
+          )}></span>
+        </span>
 
         {/* "FORCE" - MEDIUM WEIGHT */}
         {/* Changed from 'font-light' (Thin) to 'font-medium' (Medium Bold) */}
