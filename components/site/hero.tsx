@@ -72,15 +72,6 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
   const [hasError, setHasError] = useState(false)
   const [shouldRender, setShouldRender] = useState(isActive || isPreloading)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
-  const [isMobile, setIsMobile] = useState(false) // Defer video on mobile
-
-  // Detect mobile
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
 
   // Ensure checking for updates on props change
   useEffect(() => {
@@ -88,7 +79,7 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
   }, [isActive, isPreloading])
 
   useEffect(() => {
-    if (!shouldRender || isMobile) return
+    if (!shouldRender) return
 
     const video = videoRef.current
     if (!video) return
@@ -106,16 +97,16 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
       video.pause()
       video.currentTime = 0 // Reset time for next views
     }
-  }, [isActive, shouldRender, isMobile])
+  }, [isActive, shouldRender])
 
-  // Timer fallback for error state AND mobile devices (which don't load the video)
+  // Timer fallback for error state
   useEffect(() => {
-    if ((hasError || isMobile) && isActive) {
+    if (hasError && isActive) {
       const timer = setTimeout(onVideoEnd, 5000) // Fallback to 5s if video cannot play
       onDurationUpdate(5000)
       return () => clearTimeout(timer)
     }
-  }, [hasError, isMobile, isActive, onVideoEnd, onDurationUpdate])
+  }, [hasError, isActive, onVideoEnd, onDurationUpdate])
 
   const handleDuration = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const dur = e.currentTarget.duration
@@ -124,7 +115,7 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
     }
   }
 
-  if (hasError || !shouldRender || isMobile) {
+  if (hasError || !shouldRender) {
     if (!shouldRender) return null; // Massive DOM savings
 
     return (
@@ -171,30 +162,28 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
         />
       )}
 
-      {/* Video (Desktop Only) */}
-      {!isMobile && (
-        <video
-          ref={videoRef}
-          src={src}
-          poster={poster}
-          className={cn(
-            "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 z-10 hidden md:block",
-            isVideoLoaded ? "opacity-100" : "opacity-0"
-          )}
-          muted
-          playsInline
-          preload="none" // STRICTLY DO NOT PRELOAD - Wait for .play() event to download data!
-          {...(isFirst ? { fetchPriority: "high" } : {})}
-          onCanPlay={() => setIsVideoLoaded(true)}
-          onLoadedMetadata={handleDuration}
-          onLoadedData={(e) => {
-            setIsVideoLoaded(true)
-            handleDuration(e)
-          }}
-          onEnded={onVideoEnd}
-          onError={() => setHasError(true)}
-        />
-      )}
+      {/* Video (All Devices) */}
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        className={cn(
+          "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 z-10",
+          isVideoLoaded ? "opacity-100" : "opacity-0"
+        )}
+        muted
+        playsInline
+        preload="none" // STRICTLY DO NOT PRELOAD - Wait for .play() event to download data!
+        {...(isFirst ? { fetchPriority: "high" } : {})}
+        onCanPlay={() => setIsVideoLoaded(true)}
+        onLoadedMetadata={handleDuration}
+        onLoadedData={(e) => {
+          setIsVideoLoaded(true)
+          handleDuration(e)
+        }}
+        onEnded={onVideoEnd}
+        onError={() => setHasError(true)}
+      />
     </div>
   )
 }
@@ -303,7 +292,7 @@ export function Hero() {
       <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-slate-950 via-transparent to-slate-950/20" />
 
       {/* --- 2. CONTENT LAYER --- */}
-      <div className="relative z-20 w-full h-full flex flex-col justify-center pb-20 pt-16 md:justify-center md:pb-0 px-5 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
+      <div className="relative z-20 w-full h-full flex flex-col justify-center pb-32 pt-16 md:justify-center md:pb-0 px-6 md:px-12 lg:px-24 mx-auto">
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -346,7 +335,7 @@ export function Hero() {
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, stiffness: 100 } }
               }}
-              className="relative z-50 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white uppercase leading-[0.95] tracking-tighter drop-shadow-2xl"
+              className="relative z-50 text-[40px] leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-tighter drop-shadow-2xl"
             >
               {currentSlide.title}
             </motion.h1>
@@ -357,7 +346,7 @@ export function Hero() {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, stiffness: 100 } }
               }}
-              className="text-base sm:text-lg md:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl drop-shadow-lg pr-4 md:pr-0"
+              className="text-sm sm:text-base md:text-xl text-slate-200 font-medium leading-relaxed max-w-[280px] sm:max-w-md md:max-w-2xl drop-shadow-lg"
             >
               {currentSlide.description}
             </motion.p>
@@ -384,7 +373,7 @@ export function Hero() {
               <Button
                 asChild
                 variant="outline"
-                className="h-12 md:h-14 px-6 md:px-8 rounded-full text-sm md:text-base font-bold bg-white/5 backdrop-blur-sm border-white/20 text-white hover:bg-white hover:text-black transition-all w-full sm:w-auto"
+                className="h-12 md:h-14 px-6 md:px-8 rounded-full text-sm md:text-base font-bold bg-white/5 backdrop-blur-sm border-white/20 text-white hover:bg-white hover:text-black transition-all w-full sm:w-auto pointer-events-auto"
               >
                 <Link href={`${currentSlide.link}#quote-section`} className="flex items-center justify-center">
                   Request Quote
