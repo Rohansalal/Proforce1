@@ -186,7 +186,7 @@ const MobileMenu = () => {
             ))}
           </nav>
           <div className="p-6 border-t border-slate-100 bg-slate-50 mt-auto pb-10 space-y-3">
-            <Button asChild className="w-full h-14 text-lg bg-red-600 shadow-red-500/20 shadow-lg hover:bg-red-700 text-white uppercase tracking-widest font-black active:scale-95 transition-all">
+            <Button asChild className="w-full h-14 text-lg bg-red-600 shadow-red-500/20 shadow-lg hover:bg-red-700 text-white uppercase tracking-widest font-black rounded-full active:scale-95 transition-all">
               <Link href="/client-login" onClick={handleLinkClick}>
                 <User className="mr-2 h-5 w-5 text-white" /> Client Portal
               </Link>
@@ -306,7 +306,7 @@ export function Header() {
                 <DesktopNav />
                 <div className="ml-8 flex items-center gap-3">
                   <Button asChild size={isScrolled ? "sm" : "lg"} className={cn(
-                    "bg-red-600 shadow-red-500/20 shadow-lg hover:bg-red-700 hover:shadow-red-500/40 text-white font-black uppercase tracking-[0.2em] rounded-none transition-all hover:-translate-y-0.5 flex items-center gap-2",
+                    "bg-red-600 shadow-red-500/20 shadow-lg hover:bg-red-700 hover:shadow-red-500/40 text-white font-black uppercase tracking-[0.2em] rounded-full transition-all hover:-translate-y-0.5 flex items-center gap-2",
                     isScrolled ? "px-6 h-10 text-xs" : "px-8 h-12 text-sm"
                   )}>
                     <Link href="/client-login">

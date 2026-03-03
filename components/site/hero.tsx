@@ -22,8 +22,8 @@ const SLIDE_DURATION = 5000 // 5 Seconds per slide
 const slides = [
   {
     id: 1,
-    videoSrc: "/hero/patrol-services.mp4",
-    poster: "/hero/patrol-services.jpg",
+    videoSrc: "Services/mobile-partrol/mobile.mp4",
+    poster: "/Services/mobile-partrol/mobile.jpg",
     title: "Mobile Patrol",
     subtitle: "Mobile Security Patrols",
     description: "Highly-visible, proactive patrol units ensuring round-the-clock safety and rapid response for your California business or property.",
