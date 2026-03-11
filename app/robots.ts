@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: ['/private/'],
         },
-        sitemap: 'https://proforce1protection.com//sitemap.xml',
+        sitemap: 'https://proforce1protection.com/sitemap.xml',
     }
 }

@@ -254,8 +254,10 @@ const DesktopNav = () => {
  */
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     const handleScroll = () => {
       const scrollPosition = window.scrollY
       setIsScrolled(scrollPosition > 20)
@@ -270,7 +272,7 @@ export function Header() {
       <header
         className={cn(
           "fixed top-0 left-0 w-full z-[110] font-sans transition-all duration-300",
-          isScrolled
+          mounted && isScrolled
             ? "bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200"
             : "bg-white shadow-sm border-transparent"
         )}

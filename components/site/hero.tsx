@@ -73,7 +73,6 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
   const [shouldRender, setShouldRender] = useState(isActive || isPreloading)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
-  // Ensure checking for updates on props change
   useEffect(() => {
     if (isActive || isPreloading) setShouldRender(true)
   }, [isActive, isPreloading])
@@ -91,22 +90,23 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
     if (isActive) {
       const playPromise = video.play()
       if (playPromise !== undefined) {
-        playPromise.catch((error) => console.warn(error))
+        playPromise.catch(() => {
+          // Auto-play blocked - show poster instead
+          setIsVideoLoaded(false)
+        })
       }
     } else if (isPreloading) {
-      // Preload video data when preloading
       video.preload = "auto"
       video.load()
     } else {
       video.pause()
-      video.currentTime = 0 // Reset time for next views
+      video.currentTime = 0
     }
   }, [isActive, isPreloading, shouldRender])
 
-  // Timer fallback for error state
   useEffect(() => {
     if (hasError && isActive) {
-      const timer = setTimeout(onVideoEnd, 5000) // Fallback to 5s if video cannot play
+      const timer = setTimeout(onVideoEnd, 5000)
       onDurationUpdate(5000)
       return () => clearTimeout(timer)
     }
@@ -120,7 +120,7 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
   }
 
   if (hasError || !shouldRender) {
-    if (!shouldRender) return null; // Massive DOM savings
+    if (!shouldRender) return null;
 
     return (
       <div className={cn("absolute inset-0 w-full h-full transition-opacity duration-1000 will-change-transform", isActive ? "opacity-100 z-10" : "opacity-0 z-0", posterColor)}>
@@ -130,7 +130,7 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
             alt="Slide poster"
             fill
             className="object-cover opacity-100"
-            sizes="(max-width: 768px) 100vw, 1vw"
+            sizes="100vw"
             quality={60}
             priority={isFirst}
             fetchPriority={isFirst ? "high" : "auto"}
@@ -141,11 +141,10 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
     )
   }
 
-  // Preload strategy: first video loads metadata+buffer, subsequent preload aggressively, others none
   const getPreloadValue = () => {
-    if (isFirst) return "metadata" // First video: load metadata immediately for fast start
-    if (isPreloading) return "auto" // Next slide: preload full video
-    return "none" // Others: don't preload
+    if (isFirst) return "auto"
+    if (isPreloading) return "auto"
+    return "none"
   }
 
   return (
@@ -153,27 +152,22 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
       "absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out will-change-transform",
       isActive ? "opacity-100 z-10" : "opacity-0 z-0"
     )}>
-      {/* Uniform Overlay */}
       <div className="absolute inset-0 bg-slate-950/60 z-20" />
 
-      {/* Poster Image (For subsequent slides or mobile) */}
-      {!isFirst && (
-        <Image
-          src={poster}
-          alt="Slide poster"
-          fill
-          sizes="(max-width: 768px) 100vw, 1vw"
-          quality={40}
-          className={cn(
-            "object-cover transition-opacity duration-1000 z-0",
-            isVideoLoaded ? "opacity-0" : "opacity-100"
-          )}
-          priority={false}
-          fetchPriority="auto"
-        />
-      )}
+      <Image
+        src={poster}
+        alt="Slide poster"
+        fill
+        sizes="100vw"
+        quality={40}
+        className={cn(
+          "object-cover transition-opacity duration-1000 z-0",
+          isVideoLoaded ? "opacity-0" : "opacity-100"
+        )}
+        priority={isFirst}
+        fetchPriority={isFirst ? "high" : "auto"}
+      />
 
-      {/* Video (All Devices) */}
       <video
         ref={videoRef}
         src={src}

@@ -19,7 +19,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/services/event-security',
         '/services/mobile-patrol-security',
         '/services/construction-security',
-        '/services/fire-watch-security'
+        '/services/fire-watch-security',
+        '/services/shopping-center-security',
+        '/services/school-campus-security',
+        '/services/retail-centers-security',
+        '/services/on-site-security',
+        '/services/loss-prevention-security',
+        '/services/hospital-security',
+        '/services/high-rise-building-security',
+        '/services/financial-institutions-security',
+        '/services/factories-storage-security',
+        '/services/executive-protection',
+        '/services/bank-security',
     ]
 
     return routes.map((route) => ({

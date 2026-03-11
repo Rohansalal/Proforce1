@@ -64,15 +64,12 @@ export const metadata: Metadata = {
   },
   description: 'ProForce 1 provides comprehensive elite security services across California. We specialize in Armed, Unarmed, Event, Mobile Patrol, and Construction Security.',
   keywords: [
-    // Top Hyper-Local Keywords (High Conversion)
-    'security guards Anaheim',
+    'security guard company Anaheim',
     'security guard company California',
     'security services Orange County',
     'Anaheim security company',
     'private security guard Anaheim',
     'security guard services Orange County',
-
-    // Service Specific (High Intent)
     'armed security guards Anaheim',
     'unarmed security guards Orange County',
     'mobile patrol services Anaheim',
@@ -81,12 +78,17 @@ export const metadata: Metadata = {
     'fire watch security services Orange County',
     'corporate security Anaheim',
     'executive protection California',
-
-    // Brand & General
+    '24/7 security guard services',
+    'professional security services California',
     'best security company CA',
     'proforce1 protection services',
     'hospital security guards',
-    'access control systems Anaheim'
+    'access control systems Anaheim',
+    'security guard for events California',
+    'retail security guards Orange County',
+    'warehouse security California',
+    'commercial security services Anaheim',
+    'residential security guards Orange County',
   ],
   authors: [{ name: 'ProForce 1' }],
   creator: 'ProForce 1',
@@ -138,10 +140,14 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  verification: {
+    google: 'YOUR_GOOGLE_SITE_VERIFICATION_CODE_HERE',
+  },
 };
 
 import { LayoutClientWrapper } from "@/components/site/layout-client-wrapper"
 import { WhatsAppWidget } from "@/components/site/WhatsAppWidget"
+import { SmoothScroll } from "@/components/site/smooth-scroll"
 
 export default function RootLayout({
   children,
@@ -208,14 +214,16 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`font-sans antialiased ${inter.variable}`} style={{ fontFamily: "var(--font-sans), sans-serif" }} suppressHydrationWarning>
+<body className={`font-sans antialiased ${inter.variable}`} style={{ fontFamily: "var(--font-sans), sans-serif" }} suppressHydrationWarning>
         <Suspense fallback={<div>Loading...</div>}>
-          {/* <TopAnalytics /> */}
-          <Header />
-          <main id="main-content">
-            {children}
-          </main>
-          <Footer />
+          <SmoothScroll>
+            {/* <TopAnalytics /> */}
+            <Header />
+            <main id="main-content">
+              {children}
+            </main>
+            <Footer />
+          </SmoothScroll>
         </Suspense>
         <LayoutClientWrapper />
         <WhatsAppWidget />
