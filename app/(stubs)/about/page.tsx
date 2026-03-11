@@ -264,7 +264,7 @@ const AboutUs: React.FC = () => {
             {/* Feature 4 */}
             <FeatureCard
               icon={<Headphones className="w-8 h-8" />}
-              title="Real-Time Comms"
+              title="Real-Time communication"
               desc="Clients never have to wonder what’s happening. We provide immediate notifications."
               list={['24/7 Dispatch', 'Direct Mgmt Access', 'Daily Summaries', 'Fast Response']}
             />
