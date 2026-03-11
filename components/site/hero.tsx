@@ -93,11 +93,15 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
       if (playPromise !== undefined) {
         playPromise.catch((error) => console.warn(error))
       }
+    } else if (isPreloading) {
+      // Preload video data when preloading
+      video.preload = "auto"
+      video.load()
     } else {
       video.pause()
       video.currentTime = 0 // Reset time for next views
     }
-  }, [isActive, shouldRender])
+  }, [isActive, isPreloading, shouldRender])
 
   // Timer fallback for error state
   useEffect(() => {
@@ -137,6 +141,13 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
     )
   }
 
+  // Preload strategy: first video loads metadata+buffer, subsequent preload aggressively, others none
+  const getPreloadValue = () => {
+    if (isFirst) return "metadata" // First video: load metadata immediately for fast start
+    if (isPreloading) return "auto" // Next slide: preload full video
+    return "none" // Others: don't preload
+  }
+
   return (
     <div className={cn(
       "absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out will-change-transform",
@@ -173,7 +184,7 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
         )}
         muted
         playsInline
-        preload="none" // STRICTLY DO NOT PRELOAD - Wait for .play() event to download data!
+        preload={getPreloadValue()}
         {...(isFirst ? { fetchPriority: "high" } : {})}
         onCanPlay={() => setIsVideoLoaded(true)}
         onLoadedMetadata={handleDuration}
@@ -192,12 +203,21 @@ export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [durations, setDurations] = useState<number[]>(slides.map(() => SLIDE_DURATION))
   const [allowVideos, setAllowVideos] = useState(false) // DELAY VIDEO MOUNTING
+  const [preloadIndex, setPreloadIndex] = useState<number | null>(null) // Track which video to preload
 
-  // Delay the mounting of background videos by 1.5s to free up Main Thread
+  // Reduce delay to 800ms - enough to unblock TBT but faster than before
   useEffect(() => {
-    const timer = setTimeout(() => setAllowVideos(true), 1500)
+    const timer = setTimeout(() => setAllowVideos(true), 800)
     return () => clearTimeout(timer)
   }, [])
+
+  // Preload next video when active video starts playing
+  useEffect(() => {
+    if (allowVideos) {
+      const nextIndex = (activeIndex + 1) % slides.length
+      setPreloadIndex(nextIndex)
+    }
+  }, [activeIndex, allowVideos])
 
   const handleDurationUpdate = useCallback((index: number, duration: number) => {
     setDurations((prev) => {
@@ -270,20 +290,21 @@ export function Hero() {
         )}
       />
 
-      {/* --- 1. VIDEO LAYER (Delayed by 1.5s to unblock TBT) --- */}
-      {allowVideos && slides.map((slide, index) => {
+      {/* --- 1. VIDEO LAYER (Delayed by 800ms to unblock TBT) --- */}
+      {allowVideos && slides.map((slide, slideIndex) => {
         const nextIndex = (activeIndex + 1) % slides.length
+        const isPreloading = preloadIndex === slideIndex && slideIndex !== activeIndex
         return (
           <VideoSlide
             key={slide.id}
             src={slide.videoSrc}
             poster={slide.poster}
-            isActive={activeIndex === index}
-            isPreloading={nextIndex === index}
-            isFirst={index === 0}
+            isActive={activeIndex === slideIndex}
+            isPreloading={isPreloading}
+            isFirst={slideIndex === 0}
             posterColor={getThemeStyles(slide.theme)}
             onVideoEnd={nextSlide}
-            onDurationUpdate={(dur) => handleDurationUpdate(index, dur)}
+            onDurationUpdate={(dur) => handleDurationUpdate(slideIndex, dur)}
           />
         )
       })}
