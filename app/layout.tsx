@@ -141,7 +141,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'YOUR_GOOGLE_SITE_VERIFICATION_CODE_HERE',
+    google: 'jPKoTLOUoKNIwZ5euUJwJ3P0qonk2nvt7d6ofI8Zjvw',
   },
 };
 
