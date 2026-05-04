@@ -208,6 +208,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="S1fN6M8mq5lqUp8RgxRyubUgBCAvJlPrz5yZu3UgjiQ" />
         <link rel="preload" as="image" href="/hero/patrol-services.jpg" fetchPriority="high" />
         <script
           type="application/ld+json"
