@@ -102,10 +102,19 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
+  manifest: '/site.webmanifest',
   openGraph: {
     title: 'ProForce 1 - Professional Security Services & Protection',
     description: 'Elite security services across California. Armed, Unarmed, Event & Patrol Security.',
@@ -161,8 +170,8 @@ export default function RootLayout({
     "@type": "SecurityService",
     name: "ProForce 1 Protection Services",
     url: "https://proforce1protection.com/",
-    logo: "https://proforce1protection.com//logo.png",
-    image: "https://proforce1protection.com//logo.png",
+    logo: "https://proforce1protection.com/android-chrome-512x512.png",
+    image: "https://proforce1protection.com/android-chrome-512x512.png",
     description: "Elite security services across California including Armed, Unarmed, Event, Mobile Patrol, and Construction Security.",
     telephone: "800-779-7691",
     email: "info@proforce1protection.com",
