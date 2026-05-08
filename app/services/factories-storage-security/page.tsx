@@ -1,8 +1,38 @@
-// app/services/factories-storage-security/page.tsx
 import ServiceTemplate from "@/components/site/service-template"
+import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
+
+export const metadata = buildServiceMetadata({
+  title: "Factory & Warehouse Security in Orange County",
+  description:
+    "24/7 factory, warehouse, and storage facility security across California. Access control, perimeter patrols, loading-dock protection and inventory security from BSIS-licensed officers.",
+  slug: "factories-storage-security",
+  keywords: [
+    "factory security guards California",
+    "warehouse security Orange County",
+    "manufacturing plant security",
+    "distribution center security",
+    "storage facility security guards",
+    "industrial security California",
+    "loading dock security",
+    "cold storage security",
+  ],
+})
+
+const jsonLd = buildServiceJsonLd({
+  name: "Factory & Warehouse Security Services",
+  description:
+    "Comprehensive industrial security for manufacturing plants, warehouses, distribution centers, and storage facilities across California — including access control, perimeter patrols, inventory protection, and loading-dock security.",
+  slug: "factories-storage-security",
+  serviceType: "Industrial Security",
+})
 
 export default function FactoriesStorageSecurityPage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     <ServiceTemplate
       title="Factories &amp; Storage Facility Security in Orange County"
       intro="Comprehensive security solutions for manufacturing plants, warehouses, distribution centers, and storage facilities throughout Orange County."
@@ -147,5 +177,6 @@ export default function FactoriesStorageSecurityPage() {
         <li>Third-party logistics and distribution centers</li>
       </ul>
     </ServiceTemplate>
+    </>
   )
 }
