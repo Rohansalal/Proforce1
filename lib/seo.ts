@@ -64,6 +64,22 @@ export function buildServiceJsonLd({
       url: SITE_URL,
       telephone: "800-779-7691",
       email: "info@proforce1protection.com",
+      identifier: {
+        "@type": "PropertyValue",
+        propertyID: "California BSIS PPO License",
+        value: "PPO 120753",
+      },
+      hasCredential: {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "license",
+        name: "California Private Patrol Operator License",
+        identifier: "PPO 120753",
+        recognizedBy: {
+          "@type": "GovernmentOrganization",
+          name: "California Bureau of Security and Investigative Services",
+          url: "https://www.bsis.ca.gov/",
+        },
+      },
       address: {
         "@type": "PostalAddress",
         streetAddress: "1671 W Katella Ave Suite 106",
