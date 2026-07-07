@@ -1,81 +1,44 @@
-"use client";
+"use client"
 
-import React from 'react';
-import { Calendar, User, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { ArrowRight, Calendar, Clock, User } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { motion } from "framer-motion"
+import { formatBlogDate, getRecentBlogPosts } from "@/lib/blog-posts"
 
-interface BlogPost {
-  id: number;
-  date: string;
-  category: string;
-  title: string;
-  excerpt: string;
-  commentCount?: number;
-  author: string;
-  image: string; // Added image property
-}
-
-const BlogSection: React.FC = () => {
-  const blogPosts: BlogPost[] = [
-    {
-      id: 1,
-      date: "Feb 19, 2026",
-      category: "Safety Guidelines",
-      title: "Securing the Future: Professional School Security Solutions",
-      excerpt: "Educational environments require a specialized approach. Discover how ProForce 1 partners with schools to ensure a safe learning haven for students.",
-      author: "Operations Manager",
-      image: "/blogimage/School.jpeg"
-    },
-    {
-      id: 13,
-      date: "Aug 29, 2025",
-      category: "Personnel",
-      title: "Security Culture: How Investing in Your Guards Strengthens Safety",
-      excerpt: "When most people think of security, they picture surveillance cameras and access control. However, the human element remains the strongest deterrent against threats...",
-      commentCount: 12,
-      author: "Chief Operations Officer",
-      image: "/blogimage/expansion-map.jpg" // Security guard image
-    },
-    {
-      id: 14,
-      date: "Aug 08, 2025",
-      category: "Operations",
-      title: "Tackling Today's Patrol Challenges: Modern Solutions",
-      excerpt: "The world of on-ground patrol is changing fast. Security teams are facing new risks requiring GPS tracking and real-time digital reporting technology...",
-      commentCount: 8,
-      author: "Security Director",
-      image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=1000&auto=format&fit=crop" // Tech/Patrol image
-    }
-  ];
+export default function BlogSection() {
+  const blogPosts = getRecentBlogPosts(3)
 
   return (
-    <section className="py-24 bg-white border-t border-slate-100">
+    <section className="border-t border-slate-100 bg-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"
+          className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
         >
           <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4">
-              Security Insights & <span className="text-red-600">News</span>
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-red-600">
+              Security intelligence
+            </p>
+            <h2 className="mb-4 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
+              Professional insights from the ProForce1 field team.
             </h2>
-            <p className="text-lg text-slate-600">
-              Expert analysis, operational updates, and safety strategies from the Proforce 1 team.
+            <p className="text-lg leading-relaxed text-slate-600">
+              Practical guidance, operational updates, and safety strategies for properties, schools,
+              events, and business teams.
             </p>
           </div>
-          <Link href="/blog" className="hidden md:flex items-center font-semibold text-slate-900 hover:text-red-600 transition-colors">
-            View All Articles <ArrowRight className="ml-2 w-4 h-4" />
+          <Link
+            href="/blog"
+            className="hidden items-center rounded-full border border-slate-200 px-5 py-3 text-sm font-bold text-slate-900 transition hover:border-red-200 hover:bg-red-50 hover:text-red-700 md:flex"
+          >
+            View all articles <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </motion.div>
 
-        {/* Blog Grid */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -84,92 +47,86 @@ const BlogSection: React.FC = () => {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.15 }
-            }
+              transition: { staggerChildren: 0.12 },
+            },
           }}
           className="grid gap-8 md:grid-cols-3"
         >
-          {blogPosts.map((post) => (
+          {blogPosts.map((post, index) => (
             <motion.article
               variants={{
                 hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } }
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { type: "spring", stiffness: 100, damping: 15 },
+                },
               }}
               key={post.id}
-              className="group flex flex-col h-full bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-slate-300 transition-all duration-300"
+              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-xl"
             >
-              {/* IMAGE CONTAINER */}
-              <div className="relative w-full h-56 overflow-hidden bg-slate-100">
+              <Link href={`/blog/${post.id}`} className="relative block h-56 overflow-hidden bg-slate-100">
                 <Image
                   src={post.image}
                   alt={post.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 95vw, 30vw"
-                  quality={50}
+                  quality={60}
+                  priority={index === 0}
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-70" />
+                <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-xs font-black uppercase tracking-wide text-red-700 shadow-sm">
+                  {post.category}
+                </span>
+              </Link>
 
-                {/* Optional Overlay Gradient for text contrast if you ever overlay text */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-
-              {/* Card Content */}
-              <div className="flex flex-col flex-grow p-6 pb-4">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-wider rounded-full group-hover:bg-red-50 group-hover:text-red-600 transition-colors">
-                    {post.category}
+              <div className="flex flex-1 flex-col p-6">
+                <div className="mb-4 flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-500">
+                  <span className="inline-flex items-center gap-1">
+                    <Calendar className="h-3.5 w-3.5" />
+                    {formatBlogDate(post.date)}
                   </span>
-                  <div className="flex items-center text-slate-500 text-xs font-semibold">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    {post.date}
-                  </div>
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="h-3.5 w-3.5" />
+                    {post.readTime}
+                  </span>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-bold text-slate-900 mb-3 leading-snug group-hover:text-red-600 transition-colors">
-                  <Link href={`/blog/${post.id}`}>
-                    {post.title}
-                  </Link>
+                <h3 className="mb-3 text-xl font-black leading-snug text-slate-950 transition-colors group-hover:text-red-700">
+                  <Link href={`/blog/${post.id}`}>{post.title}</Link>
                 </h3>
 
-                {/* Excerpt */}
-                <p className="text-slate-600 text-sm leading-relaxed line-clamp-3 mb-6">
+                <p className="mb-6 line-clamp-3 text-sm leading-relaxed text-slate-600">
                   {post.excerpt}
                 </p>
-              </div>
 
-              {/* Card Footer (Author & Read More) */}
-              <div className="mt-auto px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-                <div className="flex items-center text-xs font-medium text-slate-500">
-                  <User className="w-3 h-3 mr-2" />
-                  {post.author}
-                </div>
-                <div className="flex items-center text-xs font-semibold text-slate-500 group-hover:text-red-600 transition-colors">
-                  Read Article <ArrowRight className="w-3 h-3 ml-1" />
+                <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-5">
+                  <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-500">
+                    <User className="h-3.5 w-3.5" />
+                    {post.author}
+                  </span>
+                  <Link
+                    href={`/blog/${post.id}`}
+                    className="inline-flex items-center text-xs font-black uppercase tracking-wide text-red-700"
+                  >
+                    Read <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                  </Link>
                 </div>
               </div>
             </motion.article>
           ))}
         </motion.div>
 
-        {/* Mobile View All Button */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-12 text-center md:hidden"
-        >
+        <div className="mt-12 text-center md:hidden">
           <Link
             href="/blog"
-            className="inline-flex items-center justify-center w-full px-6 py-3 border border-slate-300 rounded-lg text-slate-700 font-semibold hover:bg-slate-50 transition-colors"
+            className="inline-flex w-full items-center justify-center rounded-xl border border-slate-300 px-6 py-3 font-bold text-slate-800 transition hover:bg-slate-50"
           >
-            View All Insights
+            View all insights
           </Link>
-        </motion.div>
-
+        </div>
       </div>
     </section>
-  );
-};
-
-export default BlogSection;
+  )
+}

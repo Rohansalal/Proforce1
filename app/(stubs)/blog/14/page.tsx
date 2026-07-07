@@ -11,7 +11,7 @@ const blogData = {
   author: "David Chen",
   date: "2024-12-05",
   readTime: "5 min read",
-  image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=1000&auto=format&fit=crop" 
+  image: "/blogimage/security-tech-implementation.jpg" 
 };
 
 export default function Page() {

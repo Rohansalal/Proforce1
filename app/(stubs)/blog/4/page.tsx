@@ -7,11 +7,11 @@ const blogData = {
   id: 4,
   title: "Understanding BSIS Requirements: What Every Security Professional Needs to Know",
   excerpt: "Navigating the California Bureau of Security and Investigative Services regulations can be complex. Here is your essential guide to licensing and compliance.",
-  category: "Compliance &amp; Licensing",
+  category: "Compliance & Licensing",
   author: "David Chen",
   date: "2024-06-15",
   readTime: "7 min read",
-  image: "/blogimage/bsis-requirements.jpg" 
+  image: "/blogimage/training-class.jpg" 
 };
 
 // Explicitly defining the component function
@@ -46,7 +46,7 @@ export default function BlogPostFour() {
 
       {/* Featured Image */}
       <div className="relative w-full h-[400px] mb-10 rounded-xl overflow-hidden shadow-lg">
-        {/* Note: Ensure the image exists in public/blogimage/bsis-requirements.jpg */}
+        {/* Featured training image for BSIS compliance guidance */}
         <Image 
           src={blogData.image}
           alt={blogData.title}

@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next'
+import { getSortedBlogPosts } from '@/lib/blog-posts'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://proforce1protection.com/'
+    const baseUrl = 'https://proforce1protection.com'
 
     // Dynamic lists would normally be grabbed from CMS, static pages listed here
     const routes = [
@@ -33,10 +34,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/services/bank-security',
     ]
 
-    return routes.map((route) => ({
+    const staticRoutes = routes.map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
-        changeFrequency: 'weekly',
+        changeFrequency: 'weekly' as const,
         priority: route === '' ? 1 : 0.8,
     }))
+
+    const blogRoutes = getSortedBlogPosts().map((post) => ({
+        url: `${baseUrl}/blog/${post.id}`,
+        lastModified: new Date(`${post.date}T12:00:00`),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }))
+
+    return [...staticRoutes, ...blogRoutes]
 }

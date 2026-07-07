@@ -1,312 +1,167 @@
 "use client"
 
-import { useState, useEffect } from "react" // <--- Added useEffect
-import { Search, Clock, ArrowRight, Filter, ShieldAlert, User } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useEffect, useMemo, useState } from "react"
+import { ArrowRight, CalendarDays, Clock, Filter, Search, ShieldCheck, User } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import {
+  BLOG_CATEGORIES,
+  BLOG_POSTS,
+  formatBlogDate,
+  getFeaturedBlogPosts,
+  getSortedBlogPosts,
+} from "@/lib/blog-posts"
 
-const ITEMS_PER_PAGE = 8; // <--- Defined items per page
+const ITEMS_PER_PAGE = 8
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [searchTerm, setSearchTerm] = useState("")
-  const [currentPage, setCurrentPage] = useState(1) // <--- Added Page State
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const categories = [
-    "All Topics",
-    "Security Tips",
-    "Industry News",
-    "Company Updates",
-    "Safety Guidelines",
-    "Training Insights",
-    "Event Security",
-    "Technology"
-  ]
+  const blogPosts = useMemo(() => getSortedBlogPosts(), [])
+  const featuredPosts = useMemo(() => getFeaturedBlogPosts().slice(0, 4), [])
 
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Securing the Future: Professional Security Solutions for Educational Institutions",
-      excerpt: "Educational environments require a specialized, compassionate, yet firm approach to security. Discover how ProForce 1 partners with schools like South Bay Montessori to ensure a safe learning haven.",
-      category: "Safety Guidelines",
-      author: "Operations Manager",
-      date: "2026-02-19",
-      readTime: "6 min read",
-      featured: true,
-      image: "/blogimage/School.jpeg"
-    },
-    {
-      id: 16,
-      title: "Top 10 Security Measures Every Business Should Implement in 2024",
-      excerpt: "Discover the essential security protocols that can protect your business from emerging threats and ensure comprehensive safety for your assets and personnel.",
-      category: "Security Tips",
-      author: "Marcus Johnson",
-      date: "2024-01-15",
-      readTime: "5 min read",
-      featured: true,
-      image: "/blogimage/Business.jpeg"
-    },
-    {
-      id: 2,
-      title: "ProForce1 Expands Services to Northern California Markets",
-      excerpt: "We're excited to announce our expansion into Northern California, bringing our premium security services to San Francisco, Sacramento, and surrounding areas.",
-      category: "Company Updates",
-      author: "Sarah Chen",
-      date: "2024-01-12",
-      readTime: "3 min read",
-      featured: true,
-      image: "/blogimage/expansion-map.jpg"
-    },
-    {
-      id: 3,
-      title: "The Future of Event Security: Technology and Training Integration",
-      excerpt: "How modern technology combined with advanced training protocols is revolutionizing event security management and crowd control.",
-      category: "Event Security",
-      author: "David Rodriguez",
-      date: "2024-01-10",
-      readTime: "7 min read",
-      image: "/blogimage/event-tech.jpg"
-    },
-    {
-      id: 4,
-      title: "Understanding BSIS Requirements: What Every Security Professional Needs to Know",
-      excerpt: "A comprehensive guide to California's Bureau of Security and Investigative Services requirements and compliance standards.",
-      category: "Training Insights",
-      author: "Lisa Thompson",
-      date: "2024-01-08",
-      readTime: "6 min read",
-      image: "/blogimage/training-class.jpg"
-    },
-    {
-      id: 5,
-      title: "Mobile Patrol Best Practices for Commercial Properties",
-      excerpt: "Learn how effective mobile patrol strategies can significantly reduce security incidents and enhance property protection.",
-      category: "Security Tips",
-      author: "James Wilson",
-      date: "2024-01-05",
-      readTime: "4 min read",
-      image: "/blogimage/patrol-car.jpg"
-    },
-    {
-      id: 6,
-      title: "New Security Technology Implementation at ProForce1",
-      excerpt: "How we're integrating cutting-edge surveillance and communication technology to enhance our security operations.",
-      category: "Technology",
-      author: "Michael Brown",
-      date: "2024-01-03",
-      readTime: "5 min read",
-      image: "/blogimage/security-tech-implementation.jpg"
-    },
-    {
-      id: 7,
-      title: "Winter Security Considerations for Construction Sites",
-      excerpt: "Essential security measures to protect construction sites during winter months when visibility decreases and risks increase.",
-      category: "Safety Guidelines",
-      author: "Robert Martinez",
-      date: "2023-12-28",
-      readTime: "4 min read",
-      image: "/blogimage/construction.jpeg"
-    },
-    {
-      id: 8,
-      title: "The Psychology of Deterrence in Physical Security",
-      excerpt: "Understanding how visible security measures and professional presence can prevent incidents before they occur.",
-      category: "Security Tips",
-      author: "Dr. Amanda Foster",
-      date: "2023-12-22",
-      readTime: "8 min read",
-      image: "/blogimage/guard-post.jpg"
-    },
-    {
-      id: 9,
-      title: "How AI Is Shaping Patrol Routing and Incident Response",
-      excerpt: "Exploring practical AI-driven tools that optimize patrol patterns and accelerate response times while maintaining officer safety.",
-      category: "Technology",
-      author: "Ethan Park",
-      date: "2024-02-02",
-      readTime: "6 min read",
-      image: "/blogimage/ai-patrol.jpg"
-    },
-    {
-      id: 10,
-      title: "Case Study: Rapid Response Averts Major Loss at Retail Campus",
-      excerpt: "A breakdown of a recent incident where coordinated guards and technology prevented scale theft and minimized downtime.",
-      category: "Industry News",
-      author: "Olivia Green",
-      date: "2024-01-28",
-      readTime: "5 min read",
-      featured: true,
-      image: "/blogimage/retail.jpeg"
-    },
-    {
-      id: 11,
-      title: "Cold Weather Gear and Protocols for Overnight Guards",
-      excerpt: "Recommendations for equipment, shift planning, and vehicle readiness to keep overnight teams safe and operational in cold climates.",
-      category: "Safety Guidelines",
-      author: "Carlos Vega",
-      date: "2023-12-18",
-      readTime: "3 min read",
-      image: "/blogimage/deescalation-training.jpg"
-    },
-    {
-      id: 12,
-      title: "Improving De-escalation: Training Exercises That Work",
-      excerpt: "Practical scenario-based drills to enhance communication, situational awareness, and safe resolution techniques for officers.",
-      category: "Training Insights",
-      author: "Priya Singh",
-      date: "2023-11-30",
-      readTime: "7 min read",
-      image: "/blogimage/de-escalation-training.jpg"
-    },
-    {
-      id: 13,
-      date: "2025-08-29",
-      category: "Personnel",
-      title: "Security Culture: How Investing in Your Guards Strengthens Safety",
-      excerpt: "When most people think of security, they picture surveillance cameras and access control. However, the human element remains the strongest deterrent against threats...",
-      author: "Chief Operations Officer",
-      readTime: "5 min read",
-      image: "/blogimage/expansion-map.jpg"
-    },
-    {
-      id: 14,
-      date: "2025-08-08",
-      category: "Operations",
-      title: "Tackling Today's Patrol Challenges: Modern Solutions",
-      excerpt: "The world of on-ground patrol is changing fast. Security teams are facing new risks requiring GPS tracking and real-time digital reporting technology...",
-      author: "Security Director",
-      readTime: "4 min read",
-      image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=1000&auto=format&fit=crop"
-    },
-    {
-      id: 15,
-      date: "2025-08-01",
-      category: "Strategy",
-      title: "Why You Should Engage Early with Security Partners",
-      excerpt: "When organizations begin planning for a new physical security provider, timing is everything. Early engagement prevents gaps in coverage and ensures compliance...",
-      author: "Risk Analyst",
-      readTime: "6 min read",
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop"
-    }
-  ]
+  const categoryCounts = useMemo(() => {
+    return BLOG_POSTS.reduce<Record<string, number>>((counts, post) => {
+      counts[post.category] = (counts[post.category] ?? 0) + 1
+      return counts
+    }, {})
+  }, [])
 
-  // 1. Filter Logic
-  const filteredPosts = blogPosts
-    .filter(post => {
+  const filteredPosts = useMemo(() => {
+    const search = searchTerm.trim().toLowerCase()
+
+    return blogPosts.filter((post) => {
       const matchesCategory = selectedCategory === "all" || post.category === selectedCategory
-      const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.author.toLowerCase().includes(searchTerm.toLowerCase())
+      const matchesSearch =
+        !search ||
+        post.title.toLowerCase().includes(search) ||
+        post.excerpt.toLowerCase().includes(search) ||
+        post.author.toLowerCase().includes(search) ||
+        post.category.toLowerCase().includes(search)
+
       return matchesCategory && matchesSearch
     })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // Sort by Date Descending (Newest First)
+  }, [blogPosts, searchTerm, selectedCategory])
 
-  // 2. Pagination Logic
-  const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE)
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / ITEMS_PER_PAGE))
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
   const paginatedPosts = filteredPosts.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
-  // 3. Reset page to 1 if search or category changes
   useEffect(() => {
     setCurrentPage(1)
   }, [searchTerm, selectedCategory])
 
-  const featuredPosts = blogPosts.filter(post => post.featured)
-
-  // Scroll to top of grid function
   const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-    // Optional: smooth scroll to grid
-    document.getElementById('blog-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+    setCurrentPage(pageNumber)
+    document.getElementById("blog-grid")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
 
   return (
-    <main className="min-h-screen bg-gray-50 font-sans">
-
-      {/* HEADER SECTION */}
-      <section className="relative bg-slate-900 text-white pt-40 pb-70 overflow-hidden">
+    <main className="min-h-screen bg-slate-50 font-sans">
+      <section className="relative overflow-hidden bg-slate-950 px-4 pb-28 pt-40 text-white">
         <video
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none hidden sm:block motion-reduce:hidden"
+          className="absolute inset-0 hidden h-full w-full select-none object-cover opacity-35 motion-reduce:hidden sm:block"
           muted
           playsInline
           autoPlay
           loop
           preload="metadata"
-          // poster="/videos/security-poster.jpg"
           aria-hidden="true"
         >
-          {/* <source src="/videos/security-bg.webm" type="video/webm" /> */}
           <source src="/Services/retail/retail.mp4" type="video/mp4" />
         </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/35 via-slate-950/70 to-slate-950" />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
+            backgroundSize: "30px 30px",
+          }}
+        />
 
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-
-        <div className="relative mx-auto max-w-7xl px-4 lg:px-8 text-center z-10">
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
-            PROFORCE<span className="text-red-600">1</span> BLOG
+        <div className="relative z-10 mx-auto max-w-5xl text-center">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-red-100 backdrop-blur">
+            <ShieldCheck className="h-4 w-4 text-red-400" />
+            ProForce1 security insights
+          </div>
+          <h1 className="mb-6 text-4xl font-black tracking-tight md:text-6xl">
+            Field-tested guidance for safer properties.
           </h1>
-          <p className="text-lg text-white md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Expert analysis, operational updates, and safety strategies from Southern California's premier security provider.
+          <p className="mx-auto max-w-3xl text-lg leading-relaxed text-slate-200 md:text-xl">
+            Explore practical security articles covering guard operations, event safety, patrol
+            strategy, compliance, training, technology, and real-world response planning.
           </p>
         </div>
       </section>
 
-      {/* Featured Posts */}
       {featuredPosts.length > 0 && (
-        <section className="py-16 bg-white border-b border-gray-200">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-1 h-8 bg-red-600 rounded-full"></div>
-              <h2 className="text-2xl font-bold text-gray-900 tracking-tight">FEATURED ARTICLES</h2>
+        <section className="-mt-14 bg-transparent px-4">
+          <div className="relative z-20 mx-auto max-w-7xl">
+            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.22em] text-red-700">
+                  Featured articles
+                </p>
+                <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">
+                  Start with the latest priorities.
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-relaxed text-slate-600">
+                Curated reads for decision-makers who need clear security planning guidance.
+              </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {featuredPosts.map(post => (
-                <Link key={post.id} href={`/blog/${post.id}`} className="block h-full">
-                  <div className="group relative bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-red-100 transition-all duration-300 h-full flex flex-col">
-                    <div className="h-64 relative overflow-hidden group-hover:opacity-90 transition-opacity shrink-0">
+            <div className="grid gap-6 lg:grid-cols-4">
+              {featuredPosts.map((post, index) => (
+                <Link key={post.id} href={`/blog/${post.id}`} className="group block h-full">
+                  <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 transition duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-2xl">
+                    <div className="relative h-56 overflow-hidden bg-slate-200">
                       <Image
-                        src={post.image || `/gallery/team-briefing-1.jpg`}
+                        src={post.image}
                         alt={post.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 1024px) 90vw, 25vw"
+                        priority={index === 0}
                       />
-
-                      <span className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded shadow-lg z-10">
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/10 to-transparent" />
+                      <span className="absolute left-4 top-4 rounded-full bg-red-600 px-3 py-1 text-xs font-black uppercase tracking-wide text-white shadow-lg">
                         Featured
                       </span>
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-60"></div>
+                      <span className="absolute bottom-4 left-4 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-slate-900">
+                        {post.category}
+                      </span>
                     </div>
 
-                    <div className="p-8 flex flex-col flex-1">
-                      <div className="flex items-center gap-4 mb-4 text-xs font-medium text-gray-500 uppercase tracking-wide">
-                        <span className="text-red-600 font-bold">{post.category}</span>
-                        <span>•</span>
-                        <span>{post.readTime}</span>
-                      </div>
-
-                      <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors leading-tight">
-                        {post.title}
-                      </h3>
-                      <p className="text-gray-600 mb-6 leading-relaxed line-clamp-2">{post.excerpt}</p>
-
-                      <div className="flex items-center justify-between pt-6 border-t border-gray-100 mt-auto">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 overflow-hidden">
-                            <User className="w-4 h-4" />
-                          </div>
-                          <div className="text-sm">
-                            <p className="font-bold text-gray-900 leading-none">{post.author}</p>
-                            <p className="text-gray-500 text-xs mt-1">{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
-                          </div>
-                        </div>
-                        <span className="flex items-center text-sm font-bold text-red-600 group-hover:translate-x-1 transition-transform">
-                          Read Now <ArrowRight className="w-4 h-4 ml-2" />
+                    <div className="flex flex-1 flex-col p-6">
+                      <div className="mb-3 flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-500">
+                        <span className="inline-flex items-center gap-1">
+                          <CalendarDays className="h-3.5 w-3.5" />
+                          {formatBlogDate(post.date)}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <Clock className="h-3.5 w-3.5" />
+                          {post.readTime}
                         </span>
                       </div>
+                      <h3 className="mb-3 text-xl font-black leading-tight text-slate-950 transition-colors group-hover:text-red-700">
+                        {post.title}
+                      </h3>
+                      <p className="mb-6 line-clamp-3 text-sm leading-relaxed text-slate-600">
+                        {post.excerpt}
+                      </p>
+                      <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-5">
+                        <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-500">
+                          <User className="h-3.5 w-3.5" />
+                          {post.author}
+                        </span>
+                        <ArrowRight className="h-4 w-4 text-red-700 transition-transform group-hover:translate-x-1" />
+                      </div>
                     </div>
-                  </div>
+                  </article>
                 </Link>
               ))}
             </div>
@@ -314,82 +169,90 @@ export default function BlogPage() {
         </section>
       )}
 
-      {/* Main Blog Content */}
-      <section className="py-16" id="blog-grid">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-12">
+      <section className="px-4 py-16" id="blog-grid">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]">
+            <div>
+              <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:flex-row md:items-center md:justify-between">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-red-700">
+                    Article library
+                  </p>
+                  <h2 className="mt-2 text-2xl font-black text-slate-950">
+                    {filteredPosts.length} security article{filteredPosts.length === 1 ? "" : "s"}
+                  </h2>
+                </div>
 
-            {/* Main Content Area */}
-            <div className="lg:w-3/4">
-
-              {/* Search Bar - Mobile optimized */}
-              <div className="lg:hidden mb-8">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <div className="relative w-full md:max-w-sm">
+                  <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
                   <input
                     type="text"
                     placeholder="Search articles..."
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none shadow-sm"
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-sm outline-none transition focus:border-red-400 focus:bg-white focus:ring-4 focus:ring-red-100"
                   />
                 </div>
               </div>
 
-              {/* Blog Grid - Updated to use paginatedPosts */}
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid gap-6 md:grid-cols-2">
                 {paginatedPosts.length > 0 ? (
-                  paginatedPosts.map(post => (
-                    <Link key={post.id} href={`/blog/${post.id}`} className="block h-full group">
-                      <article className="flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg hover:border-red-100 transition-all duration-300 h-full">
-                        <div className="h-48 bg-slate-100 relative overflow-hidden group-hover:bg-slate-200 transition-colors shrink-0">
-
+                  paginatedPosts.map((post) => (
+                    <Link key={post.id} href={`/blog/${post.id}`} className="group block h-full">
+                      <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-xl">
+                        <div className="relative h-52 overflow-hidden bg-slate-100">
                           <Image
-                            src={post.image || `/gallery/patrol-car.jpg`}
+                            src={post.image}
                             alt={post.title}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            sizes="(max-width: 768px) 95vw, 45vw"
                           />
-                          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 to-transparent" />
                         </div>
 
-                        <div className="p-6 flex-1 flex flex-col">
-                          <div className="flex items-center justify-between mb-3 text-xs">
-                            <span className="font-bold text-red-600 uppercase tracking-wider">
+                        <div className="flex flex-1 flex-col p-6">
+                          <div className="mb-4 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-500">
+                            <span className="rounded-full bg-red-50 px-3 py-1 uppercase tracking-wide text-red-700">
                               {post.category}
                             </span>
-                            <span className="flex items-center text-gray-400 font-medium">
-                              <Clock className="w-3 h-3 mr-1" />
+                            <span className="inline-flex items-center gap-1">
+                              <Clock className="h-3.5 w-3.5" />
                               {post.readTime}
                             </span>
                           </div>
 
-                          <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors leading-tight cursor-pointer">
+                          <h3 className="mb-3 text-xl font-black leading-tight text-slate-950 transition-colors group-hover:text-red-700">
                             {post.title}
                           </h3>
 
-                          <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed flex-1">
+                          <p className="mb-5 line-clamp-3 flex-1 text-sm leading-relaxed text-slate-600">
                             {post.excerpt}
                           </p>
 
-                          <div className="pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
-                            <span className="text-xs font-medium text-gray-500">{post.author}</span>
-                            <span className="text-xs text-gray-400">{new Date(post.date).toLocaleDateString()}</span>
+                          <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-5 text-xs font-semibold text-slate-500">
+                            <span>{post.author}</span>
+                            <time dateTime={post.date}>{formatBlogDate(post.date)}</time>
                           </div>
                         </div>
                       </article>
                     </Link>
                   ))
                 ) : (
-                  <div className="col-span-2 text-center py-20 bg-white rounded-xl border border-dashed border-gray-300">
-                    <div className="inline-flex p-4 bg-gray-50 rounded-full mb-4">
-                      <Search className="w-8 h-8 text-gray-400" />
+                  <div className="col-span-full rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-20 text-center">
+                    <div className="mb-4 inline-flex rounded-full bg-slate-100 p-4">
+                      <Search className="h-8 w-8 text-slate-400" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">No articles found</h3>
-                    <p className="text-gray-500">We couldn't find any posts matching "{searchTerm}"</p>
+                    <h3 className="mb-2 text-xl font-black text-slate-950">No articles found</h3>
+                    <p className="text-slate-500">
+                      We could not find any posts matching "{searchTerm}".
+                    </p>
                     <button
-                      onClick={() => { setSearchTerm(""); setSelectedCategory("all") }}
-                      className="mt-4 text-red-600 font-bold hover:underline"
+                      onClick={() => {
+                        setSearchTerm("")
+                        setSelectedCategory("all")
+                      }}
+                      className="mt-5 font-black text-red-700 hover:underline"
                     >
                       Clear filters
                     </button>
@@ -397,41 +260,39 @@ export default function BlogPage() {
                 )}
               </div>
 
-              {/* Dynamic Pagination */}
-              {totalPages > 1 && (
-                <div className="flex justify-center mt-16">
-                  <nav className="flex items-center gap-2">
-                    {/* Previous Button */}
+              {filteredPosts.length > ITEMS_PER_PAGE && (
+                <div className="mt-14 flex justify-center">
+                  <nav className="flex flex-wrap items-center justify-center gap-2" aria-label="Blog pagination">
                     <Button
                       variant="outline"
                       onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
-                      className="border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-red-600 px-4 disabled:opacity-50"
+                      className="border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-red-700 disabled:opacity-50"
                     >
                       Previous
                     </Button>
 
-                    {/* Page Numbers */}
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
                       <Button
                         key={page}
                         onClick={() => handlePageChange(page)}
                         variant={currentPage === page ? "default" : "ghost"}
-                        className={`w-10 h-10 p-0 rounded-lg ${currentPage === page
-                          ? "bg-red-600 hover:bg-red-700 text-white"
-                          : "text-gray-600 hover:bg-gray-100"
-                          }`}
+                        className={
+                          currentPage === page
+                            ? "h-10 w-10 bg-red-600 p-0 text-white hover:bg-red-700"
+                            : "h-10 w-10 p-0 text-slate-600 hover:bg-slate-100"
+                        }
+                        aria-current={currentPage === page ? "page" : undefined}
                       >
                         {page}
                       </Button>
                     ))}
 
-                    {/* Next Button */}
                     <Button
                       variant="outline"
                       onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                       disabled={currentPage === totalPages}
-                      className="border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-red-600 px-4 disabled:opacity-50"
+                      className="border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-red-700 disabled:opacity-50"
                     >
                       Next
                     </Button>
@@ -440,92 +301,90 @@ export default function BlogPage() {
               )}
             </div>
 
-            {/* Sidebar (Sticky) */}
-            <aside className="lg:w-1/4 space-y-8">
-
-              {/* Desktop Search */}
-              <div className="hidden lg:block bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">Search</h3>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 outline-none text-sm transition-all"
-                  />
+            <aside className="space-y-6">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:sticky lg:top-24">
+                <div className="mb-5 flex items-center justify-between">
+                  <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-950">
+                    Categories
+                  </h3>
+                  <Filter className="h-4 w-4 text-slate-400" />
                 </div>
-              </div>
 
-              {/* Categories Widget */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm sticky top-24">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">Categories</h3>
-                  <Filter className="w-4 h-4 text-gray-400" />
-                </div>
-                <div className="space-y-1">
-                  {categories.map(category => (
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setSelectedCategory("all")}
+                    className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm transition ${
+                      selectedCategory === "all"
+                        ? "bg-red-50 font-black text-red-700"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"
+                    }`}
+                  >
+                    <span>All Topics</span>
+                    <span>{BLOG_POSTS.length}</span>
+                  </button>
+
+                  {BLOG_CATEGORIES.map((category) => (
                     <button
                       key={category}
-                      onClick={() => setSelectedCategory(category === "All Topics" ? "all" : category)}
-                      className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 flex items-center justify-between group ${(selectedCategory === category || (selectedCategory === "all" && category === "All Topics"))
-                        ? 'bg-red-50 text-red-700 font-bold'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                        }`}
+                      onClick={() => setSelectedCategory(category)}
+                      className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm transition ${
+                        selectedCategory === category
+                          ? "bg-red-50 font-black text-red-700"
+                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"
+                      }`}
                     >
                       <span>{category}</span>
-                      {(selectedCategory === category || (selectedCategory === "all" && category === "All Topics")) && (
-                        <div className="w-1.5 h-1.5 rounded-full bg-red-600"></div>
-                      )}
+                      <span>{categoryCounts[category] ?? 0}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* Newsletter Widget */}
-              {/* <div className="bg-slate-900 rounded-xl p-6 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-10">
-                  <ShieldAlert className="w-24 h-24 transform rotate-12" />
-                </div>
-                <h3 className="text-lg font-bold mb-2 relative z-10">Daily Intel</h3>
-                <p className="text-slate-400 text-xs mb-4 relative z-10 leading-relaxed">
-                  Get the latest security briefings and industry updates directly to your inbox.
+              <div className="overflow-hidden rounded-2xl bg-slate-950 p-6 text-white shadow-xl">
+                <p className="mb-3 text-sm font-black uppercase tracking-[0.2em] text-red-300">
+                  Need guidance?
                 </p>
-                <div className="space-y-3 relative z-10">
-                  <input
-                    type="email"
-                    placeholder="Email address"
-                    className="w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white text-sm focus:border-red-500 outline-none"
-                  />
-                  <Button className="w-full bg-red-600 hover:bg-red-700 text-white text-sm font-bold">
-                    Subscribe
-                  </Button>
-                </div>
-              </div> */}
-
+                <h3 className="mb-3 text-2xl font-black leading-tight">
+                  Turn security insight into a site plan.
+                </h3>
+                <p className="mb-6 text-sm leading-relaxed text-slate-300">
+                  Speak with ProForce1 about guard coverage, patrol strategy, event staffing, or
+                  compliance-ready reporting.
+                </p>
+                <Link
+                  href="/contact"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-red-600 px-5 py-3 text-sm font-black text-white transition hover:bg-red-700"
+                >
+                  Request assessment <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </div>
             </aside>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-red-700 to-red-600 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div className="mx-auto max-w-4xl px-4 lg:px-8 text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-black mb-6 tracking-tight">
-            READY TO SECURE YOUR ASSETS?
+      <section className="relative overflow-hidden bg-gradient-to-r from-red-700 to-red-600 px-4 py-20 text-white">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="mb-6 text-3xl font-black tracking-tight md:text-4xl">
+            Ready to secure your people, property, and operations?
           </h2>
-          <p className="text-xl mb-10 text-red-100 max-w-2xl mx-auto leading-relaxed">
-            Contact ProForce1 today for a comprehensive security assessment and a customized protection plan tailored to your needs.
+          <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-red-50">
+            Contact ProForce1 for a practical security assessment and a protection plan tailored
+            to your risk profile.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-white text-red-700 hover:bg-slate-100 font-bold px-8 py-6 text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all rounded-xl">
-              Request Assessment
-            </Button>
-            <Button variant="outline" className="border-2 border-red-400 text-black hover:bg-red-800 hover:border-red-800 font-bold px-8 py-6 text-lg rounded-xl">
-              Call 24/7 Dispatch
-            </Button>
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              href="/contact"
+              className="rounded-xl bg-white px-8 py-4 text-base font-black text-red-700 shadow-xl transition hover:-translate-y-1 hover:bg-slate-100"
+            >
+              Request assessment
+            </Link>
+            <Link
+              href="tel:+18005550117"
+              className="rounded-xl border-2 border-red-200 px-8 py-4 text-base font-black text-white transition hover:-translate-y-1 hover:bg-red-800"
+            >
+              Call 24/7 dispatch
+            </Link>
           </div>
         </div>
       </section>

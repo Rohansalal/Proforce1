@@ -11,7 +11,7 @@ const blogData = {
   author: "Michael Ross",
   date: "2024-12-18",
   readTime: "5 min read",
-  image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop" 
+  image: "/blogimage/business-security.jpg" 
 };
 
 export default function Page() {
