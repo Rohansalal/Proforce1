@@ -250,7 +250,7 @@ const AboutUs: React.FC = () => {
               icon={<UserCheck className="w-8 h-8" />}
               title="Professional Officers"
               desc="We take pride in supplying officers who represent your business with respect. Our team is:"
-              list={['Fully BSIS Licensed', 'Background Checked', 'Trained in De-escalation', 'Uniformed &amp; Professional']}
+              list={['Fully BSIS Licensed', 'Background Checked', 'Trained in De-escalation', 'Uniformed & Professional']}
             />
 
             {/* Feature 3 */}
@@ -273,7 +273,7 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* ====================
-          4. VISION &amp; PROMISE 
+          4. VISION & PROMISE 
           ==================== */}
       <section className="py-24 bg-slate-50 border-b border-gray-200">
         <div className="container mx-auto px-4 lg:px-8">

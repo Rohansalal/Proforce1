@@ -17,6 +17,7 @@ import {
   BuildingIcon, School, Hospital, ParkingCircle
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -111,7 +112,7 @@ const whyChooseUs = [
     note: "Our priority is safety, fast response, and preventing damage to life and property."
   },
   {
-    title: "Compliant Documentation &amp; Logs",
+    title: "Compliant Documentation & Logs",
     icon: <Clipboard className="w-8 h-8 text-white" />,
     description: "Accurate records meeting all fire marshal requirements",
     points: [
@@ -124,7 +125,7 @@ const whyChooseUs = [
     note: "We maintain comprehensive logs that satisfy all regulatory requirements and inspection standards."
   },
   {
-    title: "Construction &amp; Renovation Fire Watch",
+    title: "Construction & Renovation Fire Watch",
     icon: <HardHat className="w-8 h-8 text-white" />,
     description: "Specialized fire safety for construction and hot-work projects",
     points: [
@@ -202,13 +203,13 @@ const fireWatchReasons = [
 
 const industries = [
   { name: "Commercial Buildings", icon: <Building2 className="w-6 h-6" />, description: "Office building fire safety" },
-  { name: "Hotels &amp; Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest accommodation protection" },
+  { name: "Hotels & Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest accommodation protection" },
   { name: "Construction Sites", icon: <HardHat className="w-6 h-6" />, description: "Construction project safety" },
   { name: "Apartment Complexes", icon: <Home className="w-6 h-6" />, description: "Residential community protection" },
   { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Storage facility fire watch" },
   { name: "Manufacturing Facilities", icon: <Settings className="w-6 h-6" />, description: "Production plant safety" },
   { name: "Retail Centers", icon: <ShoppingBag className="w-6 h-6" />, description: "Shopping mall protection" },
-  { name: "Schools &amp; Universities", icon: <School className="w-6 h-6" />, description: "Educational facility safety" },
+  { name: "Schools & Universities", icon: <School className="w-6 h-6" />, description: "Educational facility safety" },
   { name: "Hospitals", icon: <Hospital className="w-6 h-6" />, description: "Medical center fire watch" },
   { name: "Public Facilities", icon: <BuildingIcon className="w-6 h-6" />, description: "Government building protection" },
   { name: "Event Venues", icon: <Users className="w-6 h-6" />, description: "Special event fire safety" },
@@ -405,13 +406,17 @@ export default function FireWatchSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Fire Watch Quote
+                  <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Fire Watch Quote
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <Flame className="mr-3 w-5 h-5" />
-                    View Compliance Requirements
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <Flame className="mr-3 w-5 h-5" />
+                      View Compliance Requirements
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -514,7 +519,7 @@ export default function FireWatchSecurityPage() {
       </section>
 
       {/* 4. Fire Watch Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -758,61 +763,16 @@ export default function FireWatchSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Fire Watch Service</h2>
                    <p className="text-slate-500 mb-10 text-lg">Need immediate coverage? We are available 24/7 for emergency fire watch.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@company.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Fire Watch Security</option>
-                                   <option>Construction Fire Watch</option>
-                                   <option>Emergency Fire Watch</option>
-                                   <option>Hot-Work Monitoring</option>
-                                   <option>24/7 Fire Watch Coverage</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Industry</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Commercial Building</option>
-                                   <option>Construction Site</option>
-                                   <option>Hospitality</option>
-                                   <option>Residential</option>
-                                   <option>Industrial</option>
-                                   <option>Healthcare</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Fire Safety Situation</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Describe your fire system status and safety requirements..." />
-                       </div>
-                       
-                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
-                           Request Emergency Fire Watch
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="Fire Watch Security"
+                       buttonLabel="Request Emergency Fire Watch"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Fire Watch Security", "Construction Fire Watch", "Emergency Fire Watch", "Hot-Work Monitoring", "24/7 Fire Watch Coverage"]}
+                       propertyLabel="Industry"
+                       propertyOptions={["Commercial Building", "Construction Site", "Hospitality", "Residential", "Industrial", "Healthcare"]}
+                       messageLabel="Fire Safety Situation"
+                       messagePlaceholder="Describe your fire system status and safety requirements..."
+                   />
                </div>
 
                {/* Info Side - Dark */}

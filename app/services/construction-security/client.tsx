@@ -19,6 +19,7 @@ import {
   School, Hospital, AlertCircle, MapPin as MapPinIcon, Warehouse
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -113,7 +114,7 @@ const whyChooseUs = [
     note: "Most construction theft happens after dark and during weekends. Our mobile patrols provide protection during these vulnerable periods."
   },
   {
-    title: "Access Control &amp; Gate Monitoring",
+    title: "Access Control & Gate Monitoring",
     icon: <DoorOpen className="w-8 h-8 text-white" />,
     description: "Comprehensive site access management to ensure only authorized personnel enter",
     points: [
@@ -126,7 +127,7 @@ const whyChooseUs = [
     note: "By controlling who enters your site, we prevent unauthorized access and reduce liability risks significantly."
   },
   {
-    title: "Tool &amp; Equipment Protection",
+    title: "Tool & Equipment Protection",
     icon: <Wrench className="w-8 h-8 text-white" />,
     description: "Specialized security for valuable construction assets and materials",
     points: [
@@ -221,7 +222,7 @@ const trustFactors = [
   { title: "20+ Years Experience", description: "Decades of construction security expertise" },
   { title: "California Focused", description: "Over a decade protecting sites across California" },
   { title: "Highly Trained Officers", description: "Licensed, uniformed security professionals" },
-  { title: "Strong Communication", description: "Regular updates with site supervisors &amp; project managers" },
+  { title: "Strong Communication", description: "Regular updates with site supervisors & project managers" },
   { title: "Fast Response", description: "Immediate response to incidents and emergencies" },
   { title: "Customized Security Plans", description: "Tailored protection based on your project timeline" }
 ]
@@ -407,13 +408,17 @@ export default function ConstructionSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Construction Security Quote
+                  <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Construction Security Quote
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <HardHat className="mr-3 w-5 h-5" />
-                    View Site Security Plans
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <HardHat className="mr-3 w-5 h-5" />
+                      View Site Security Plans
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -517,7 +522,7 @@ export default function ConstructionSecurityPage() {
       </section>
 
       {/* 4. Construction Security Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -625,7 +630,7 @@ export default function ConstructionSecurityPage() {
                     <FileCheck className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white">Advanced Digital Reporting &amp; Site Transparency</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">Advanced Digital Reporting & Site Transparency</h3>
                     <p className="text-slate-300">Real-time visibility of your site's security status</p>
                   </div>
                 </div>
@@ -662,12 +667,12 @@ export default function ConstructionSecurityPage() {
         </div>
       </section>
 
-      {/* 5. Industries &amp; Projects We Cover */}
+      {/* 5. Industries & Projects We Cover */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
            <div className="text-center mb-16">
               <SectionHeading>
-                Industries &amp; Projects <br/> We <span className="text-red-600">Cover</span>
+                Industries & Projects <br/> We <span className="text-red-600">Cover</span>
               </SectionHeading>
               <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-12">
                 Our construction security expertise spans all types of building projects across California
@@ -761,62 +766,16 @@ export default function ConstructionSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request a Free Proposal</h2>
                    <p className="text-slate-500 mb-10 text-lg">Whether you need short-term coverage or a long-term security partner for your construction project.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@company.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Construction Site Security</option>
-                                   <option>24/7 On-Site Guards</option>
-                                   <option>Mobile Patrol Services</option>
-                                   <option>Access Control &amp; Gate Security</option>
-                                   <option>Equipment Protection</option>
-                                   <option>Fire Watch for Construction</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Project Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Residential Construction</option>
-                                   <option>Commercial Building</option>
-                                   <option>Industrial Project</option>
-                                   <option>Infrastructure</option>
-                                   <option>Renovation/Remodel</option>
-                                   <option>Demolition</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Project Details</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Tell us about your construction project and security needs..." />
-                       </div>
-                       
-                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
-                           Request Construction Security Proposal
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="Construction Security"
+                       buttonLabel="Request Construction Security Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Construction Site Security", "24/7 On-Site Guards", "Mobile Patrol Services", "Access Control & Gate Security", "Equipment Protection", "Fire Watch for Construction"]}
+                       propertyLabel="Project Type"
+                       propertyOptions={["Residential Construction", "Commercial Building", "Industrial Project", "Infrastructure", "Renovation/Remodel", "Demolition"]}
+                       messageLabel="Project Details"
+                       messagePlaceholder="Tell us about your construction project and security needs..."
+                   />
                </div>
 
                {/* Info Side - Dark */}

@@ -428,7 +428,7 @@
 // //     <section ref={elementRef} className={`min-h-screen flex ${reverse ? 'bg-gray-50' : 'bg-white'}`}>
 // //       <div className={`flex flex-col lg:flex-row w-full ${reverse ? 'lg:flex-row-reverse' : ''}`}>
 
-// //         {/* Image Side - Full Height &amp; Width with Animation */}
+// //         {/* Image Side - Full Height & Width with Animation */}
 // //         <div className="lg:w-1/2 relative">
 // //           <div className={`relative h-96 lg:h-full min-h-[400px] lg:min-h-screen transition-all duration-1000 transform ${
 // //             isVisible 
@@ -1300,11 +1300,13 @@ export default function ServicesPage() {
               Request a Quote
             </Button>
             <Button
+              asChild
               variant="ghost"
               className="text-slate-300 hover:text-white hover:bg-slate-800 px-8 py-6 rounded-lg text-lg flex items-center gap-2"
-              onClick={() => window.location.href = 'tel:8007797691'}
             >
-              <Phone className="w-5 h-5" /> (800) 779-7691
+              <a href="tel:+18007797691" aria-label="Call ProForce 1">
+                <Phone className="w-5 h-5" /> (800) 779-7691
+              </a>
             </Button>
           </div>
         </div>

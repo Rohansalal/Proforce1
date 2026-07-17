@@ -15,6 +15,7 @@ import {
   Server, Radio, HardHat, Factory
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -117,7 +118,7 @@ const VideoBackground = ({ src }: { src: string }) => {
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Threat Assessment &amp; Hardening",
+    title: "Threat Assessment & Hardening",
     icon: <ShieldAlert className="w-8 h-8 text-white" />,
     description: "Proactive identification of vulnerabilities in high-risk environments",
     points: [
@@ -135,7 +136,7 @@ const whyChooseUs = [
     description: "Highly trained officers for elevated threat levels",
     points: [
       "Officers with military/LEO backgrounds",
-      "Tactical gear &amp; firearms training",
+      "Tactical gear & firearms training",
       "Conflict de-escalation mastery",
       "Crisis intervention capabilities",
       "Strict command structure"
@@ -143,12 +144,12 @@ const whyChooseUs = [
     note: "When the risk is high, you need more than a standard guard. You need a tactical security professional."
   },
   {
-    title: "Advanced Surveillance &amp; Intel",
+    title: "Advanced Surveillance & Intel",
     icon: <Eye className="w-8 h-8 text-white" />,
     description: "24/7 monitoring and intelligence-led operations",
     points: [
       "Real-time threat intelligence",
-      "Integrated CCTV &amp; analytics",
+      "Integrated CCTV & analytics",
       "Drone surveillance options",
       "Biometric access monitoring",
       "Digital incident logging"
@@ -156,7 +157,7 @@ const whyChooseUs = [
     note: "We maintain total situational awareness to anticipate and neutralize potential breaches."
   },
   {
-    title: "Emergency &amp; Lockdown Protocols",
+    title: "Emergency & Lockdown Protocols",
     icon: <Siren className="w-8 h-8 text-white" />,
     description: "Immediate, decisive action during critical incidents",
     points: [
@@ -417,17 +418,22 @@ export default function HighRiskBuildingSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <ThemeButton size="lg" className="px-10 h-14 text-base font-semibold">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Site Audit
+                  <ThemeButton asChild size="lg" className="px-10 h-14 text-base font-semibold">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Site Audit
+                    </a>
                   </ThemeButton>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
                     className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg"
                   >
-                    <ShieldCheck className="mr-3 w-5 h-5" />
-                    View Capabilities
+                    <a href="#services-section">
+                      <ShieldCheck className="mr-3 w-5 h-5" />
+                      View Capabilities
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -554,7 +560,7 @@ export default function HighRiskBuildingSecurityPage() {
       </section>
 
       {/* 4. Service Capabilities Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -866,105 +872,17 @@ export default function HighRiskBuildingSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Security Audit</h2>
                    <p className="text-slate-500 mb-10 text-lg">Confidential consultation for high-risk and critical infrastructure protection.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input 
-                                 type="text" 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all"
-                                 placeholder="John"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input 
-                                 type="text" 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                                 placeholder="Doe"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input 
-                             type="email" 
-                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="john@company.com"
-                             style={{
-                               '--tw-ring-color': THEME.primary
-                             } as React.CSSProperties}
-                           />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input 
-                             type="tel" 
-                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="(800) 779-7691"
-                             style={{
-                               '--tw-ring-color': THEME.primary
-                             } as React.CSSProperties}
-                           />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               >
-                                   <option>Perimeter Defense</option>
-                                   <option>Tactical Guarding</option>
-                                   <option>Threat Assessment</option>
-                                   <option>Control Room Ops</option>
-                                   <option>Full Site Security</option>
-                               </select>
-                           </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Facility Type</label>
-                               <select 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               >
-                                   <option>Government Building</option>
-                                   <option>Data Center</option>
-                                   <option>Industrial Plant</option>
-                                   <option>Corporate HQ</option>
-                                   <option>Research Lab</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea 
-                             rows={3} 
-                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="Describe your security requirements and threat profile..."
-                             style={{
-                               '--tw-ring-color': THEME.primary
-                             } as React.CSSProperties}
-                           />
-                       </div>
-                       
-                       <ThemeButton className="w-full h-14 text-lg font-bold mt-2">
-                           Request Security Assessment
-                       </ThemeButton>
-                   </form>
+                   <QuoteForm
+                       serviceName="High-Rise Building Security"
+                       buttonLabel="Request Security Assessment"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Perimeter Defense", "Tactical Guarding", "Threat Assessment", "Control Room Ops", "Full Site Security"]}
+                       propertyLabel="Facility Type"
+                       propertyOptions={["Government Building", "Data Center", "Industrial Plant", "Corporate HQ", "Research Lab"]}
+                       messageLabel="Security Needs"
+                       messagePlaceholder="Describe your security requirements and threat profile..."
+                       accentClassName="bg-[#f34100] hover:bg-[#d63100] shadow-[#f34100]/30"
+                   />
                </div>
 
                {/* Info Side - Dark */}

@@ -18,6 +18,7 @@ import {
   Wrench, ParkingCircle
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -86,7 +87,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Access Control &amp; Visitor Management",
+    title: "Access Control & Visitor Management",
     icon: <DoorOpen className="w-8 h-8 text-white" />,
     description: "Secure entry and exit monitoring with professional presence",
     points: [
@@ -99,7 +100,7 @@ const whyChooseUs = [
     note: "Our officers ensure that only authorized individuals access your property while maintaining a welcoming environment."
   },
   {
-    title: "Foot Patrol &amp; Perimeter Monitoring",
+    title: "Foot Patrol & Perimeter Monitoring",
     icon: <Footprints className="w-8 h-8 text-white" />,
     description: "Continuous walking patrols for comprehensive property protection",
     points: [
@@ -112,7 +113,7 @@ const whyChooseUs = [
     note: "Our officers maintain constant vigilance through regular patrols, identifying and addressing security concerns proactively."
   },
   {
-    title: "Loss Prevention &amp; Theft Deterrence",
+    title: "Loss Prevention & Theft Deterrence",
     icon: <ShoppingCart className="w-8 h-8 text-white" />,
     description: "Visible presence that prevents theft and maintains order",
     points: [
@@ -125,7 +126,7 @@ const whyChooseUs = [
     note: "We balance strong security presence with approachable professionalism to protect assets without intimidating customers."
   },
   {
-    title: "Emergency Response &amp; Incident Management",
+    title: "Emergency Response & Incident Management",
     icon: <Siren className="w-8 h-8 text-white" />,
     description: "Trained professionals ready to handle any situation",
     points: [
@@ -143,7 +144,7 @@ const securityServices = [
   {
     title: "Access Control",
     icon: <DoorOpen className="w-6 h-6" />,
-    description: "Visitor management &amp; secure",
+    description: "Visitor management & secure",
     details: ["ID verification", "Visitor logs", "Gate security"]
   },
   {
@@ -161,19 +162,19 @@ const securityServices = [
   {
     title: "Loss Prevention",
     icon: <ShoppingCart className="w-6 h-6" />,
-    description: "Theft deterrence &amp; prevention",
+    description: "Theft deterrence & prevention",
     details: ["Retail security", "Shoplifting prevention", "Asset protection"]
   },
   {
     title: "Lobby Security",
     icon: <Building2 className="w-6 h-6" />,
-    description: "Front desk &amp; reception security",
+    description: "Front desk & reception security",
     details: ["Guest greeting", "Access control", "Professional presence"]
   },
   {
     title: "Parking Security",
     icon: <CarIcon className="w-6 h-6" />,
-    description: "Lot monitoring &amp; traffic control",
+    description: "Lot monitoring & traffic control",
     details: ["Vehicle patrols", "Break-in prevention", "Parking enforcement"]
   },
   {
@@ -193,10 +194,10 @@ const securityServices = [
 const industries = [
   { name: "Corporate Offices", icon: <Building2 className="w-6 h-6" />, description: "Business campus security" },
   { name: "Retail Stores", icon: <ShoppingBag className="w-6 h-6" />, description: "Shopping center protection" },
-  { name: "Hotels &amp; Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest and property security" },
+  { name: "Hotels & Hospitality", icon: <Hotel className="w-6 h-6" />, description: "Guest and property security" },
   { name: "Construction Sites", icon: <Wrench className="w-6 h-6" />, description: "Site equipment protection" },
   { name: "Residential Communities", icon: <Home className="w-6 h-6" />, description: "Apartment complex security" },
-  { name: "Schools &amp; Colleges", icon: <School className="w-6 h-6" />, description: "Educational facility safety" },
+  { name: "Schools & Colleges", icon: <School className="w-6 h-6" />, description: "Educational facility safety" },
   { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Industrial site protection" },
   { name: "Medical Facilities", icon: <Hospital className="w-6 h-6" />, description: "Healthcare security" },
   { name: "Car Dealerships", icon: <CarIcon className="w-6 h-6" />, description: "Automotive lot security" },
@@ -395,17 +396,17 @@ export default function UnarmedSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                                                              <a
-                                            href="tel:8007797691"
-                                              aria-label="Call Proforce 1 Dispatch" >              
-                    <Phone className="mr-3 w-5 h-5"  />
-                    Request Unarmed Security Quote </a>
+                  <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Unarmed Security Quote
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <Shield className="mr-3 w-5 h-5" />
-                    <a href="/services">
-                    View All Services</a>
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <Shield className="mr-3 w-5 h-5" />
+                      View All Services
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -510,7 +511,7 @@ export default function UnarmedSecurityPage() {
       </section>
 
       {/* 4. Security Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -754,60 +755,16 @@ export default function UnarmedSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Security Proposal</h2>
                    <p className="text-slate-500 mb-10 text-lg">Whether you need long-term coverage, temporary protection, or short-notice security.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@company.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Unarmed Security Guard</option>
-                                   <option>Access Control</option>
-                                   <option>Loss Prevention</option>
-                                   <option>Mobile Patrol</option>
-                                   <option>Event Security</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Industry</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Corporate Office</option>
-                                   <option>Retail</option>
-                                   <option>Hospitality</option>
-                                   <option>Residential</option>
-                                   <option>Industrial</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Tell us about your property and security requirements..." />
-                       </div>
-                       
-                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
-                           Request Unarmed Security Proposal
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="Unarmed Security"
+                       buttonLabel="Request Unarmed Security Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Unarmed Security Guard", "Access Control", "Loss Prevention", "Mobile Patrol", "Event Security"]}
+                       propertyLabel="Industry"
+                       propertyOptions={["Corporate Office", "Retail", "Hospitality", "Residential", "Industrial"]}
+                       messageLabel="Security Needs"
+                       messagePlaceholder="Tell us about your property and security requirements..."
+                   />
                </div>
 
                {/* Info Side - Dark */}

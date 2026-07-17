@@ -17,6 +17,7 @@ import {
   Calendar
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -62,7 +63,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Loss Prevention &amp; Theft Deterrence",
+    title: "Loss Prevention & Theft Deterrence",
     icon: <ShoppingCart className="w-8 h-8 text-white" />,
     description: "Professional protection against shoplifting and organized retail crime",
     points: [
@@ -75,7 +76,7 @@ const whyChooseUs = [
     note: "Our officers are trained to reduce shrinkage while maintaining positive customer interactions and minimizing liability."
   },
   {
-    title: "Customer Safety &amp; Experience",
+    title: "Customer Safety & Experience",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Ensuring a safe, welcoming shopping environment for all customers",
     points: [
@@ -88,7 +89,7 @@ const whyChooseUs = [
     note: "We balance security with hospitality to create an environment where customers feel safe and valued."
   },
   {
-    title: "Parking Lot &amp; Perimeter Security",
+    title: "Parking Lot & Perimeter Security",
     icon: <Car className="w-8 h-8 text-white" />,
     description: "Comprehensive protection for retail parking areas and exterior spaces",
     points: [
@@ -101,7 +102,7 @@ const whyChooseUs = [
     note: "Most retail crime starts in parking areas. Our proactive patrols prevent incidents before they reach store interiors."
   },
   {
-    title: "Emergency Response &amp; Incident Management",
+    title: "Emergency Response & Incident Management",
     icon: <AlertCircle className="w-8 h-8 text-white" />,
     description: "Rapid response to retail-specific emergencies and incidents",
     points: [
@@ -119,19 +120,19 @@ const retailServices = [
   {
     title: "Loss Prevention",
     icon: <ShoppingCart className="w-6 h-6" />,
-    description: "Theft deterrence &amp; prevention",
+    description: "Theft deterrence & prevention",
     details: ["Shoplifting prevention", "ORC deterrence", "High-value protection"]
   },
   {
     title: "Customer Safety",
     icon: <Users className="w-6 h-6" />,
-    description: "Shopper protection &amp; assistance",
+    description: "Shopper protection & assistance",
     details: ["Crowd management", "Customer service", "Emergency response"]
   },
   {
     title: "Parking Security",
     icon: <Car className="w-6 h-6" />,
-    description: "Lot &amp; garage protection",
+    description: "Lot & garage protection",
     details: ["Vehicle patrols", "Break-in prevention", "Traffic management"]
   },
   {
@@ -348,13 +349,17 @@ export default function RetailSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Retail Security Quote
+                  <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Retail Security Quote
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <Store className="mr-3 w-5 h-5" />
-                    View Retail Solutions
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <Store className="mr-3 w-5 h-5" />
+                      View Retail Solutions
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -463,7 +468,7 @@ export default function RetailSecurityPage() {
       </section>
 
       {/* 4. Retail Security Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -689,62 +694,16 @@ export default function RetailSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Retail Security Proposal</h2>
                    <p className="text-slate-500 mb-10 text-lg">Specialized security solutions for retail centers and shopping environments.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@retailcompany.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Retail Security Team</option>
-                                   <option>Loss Prevention Officers</option>
-                                   <option>Parking Lot Security</option>
-                                   <option>Access Control &amp; Entry Management</option>
-                                   <option>Mobile Patrol Services</option>
-                                   <option>Full Retail Security Package</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Retail Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Shopping Mall</option>
-                                   <option>Department Store</option>
-                                   <option>Boutique/Luxury Retail</option>
-                                   <option>Supermarket/Grocery</option>
-                                   <option>Outlet Center</option>
-                                   <option>Strip Mall</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Tell us about your retail center and specific security requirements..." />
-                       </div>
-                       
-                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
-                           Request Retail Security Proposal
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="Retail Center Security"
+                       buttonLabel="Request Retail Security Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Retail Security Team", "Loss Prevention Officers", "Parking Lot Security", "Access Control & Entry Management", "Mobile Patrol Services", "Full Retail Security Package"]}
+                       propertyLabel="Retail Type"
+                       propertyOptions={["Shopping Mall", "Department Store", "Boutique/Luxury Retail", "Supermarket/Grocery", "Outlet Center", "Strip Mall"]}
+                       messageLabel="Security Needs"
+                       messagePlaceholder="Tell us about your retail center and specific security requirements..."
+                   />
                </div>
 
                {/* Info Side - Dark */}

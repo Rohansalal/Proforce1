@@ -18,6 +18,7 @@ import {
   Coffee, Utensils, Bus, Car, Bike, Footprints
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -67,7 +68,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Campus Entry Control &amp; Visitor Management",
+    title: "Campus Entry Control & Visitor Management",
     icon: <Shield className="w-8 h-8 text-white" />,
     description: "Secure access control systems for school campuses and facilities",
     points: [
@@ -80,7 +81,7 @@ const whyChooseUs = [
     note: "Our campus security officers are trained to manage school access while maintaining a welcoming environment for students, staff, and authorized visitors."
   },
   {
-    title: "Student Safety &amp; Behavioral Intervention",
+    title: "Student Safety & Behavioral Intervention",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Student-focused security that promotes positive behavior and safety",
     points: [
@@ -93,7 +94,7 @@ const whyChooseUs = [
     note: "We balance security with student support, creating environments where students feel safe, respected, and able to focus on learning."
   },
   {
-    title: "Emergency Response &amp; Crisis Management",
+    title: "Emergency Response & Crisis Management",
     icon: <AlertCircle className="w-8 h-8 text-white" />,
     description: "Comprehensive emergency protocols for educational facilities",
     points: [
@@ -106,7 +107,7 @@ const whyChooseUs = [
     note: "Our officers are trained in school-specific emergency protocols and work closely with school administrators and first responders."
   },
   {
-    title: "School Event &amp; Extracurricular Security",
+    title: "School Event & Extracurricular Security",
     icon: <Calendar className="w-8 h-8 text-white" />,
     description: "Specialized security for school events and activities",
     points: [
@@ -360,13 +361,17 @@ export default function SchoolCampusSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="hover:bg-red-800 text-white px-10 h-14 text-base font-semibold rounded-lg" style={{ backgroundColor: BRAND_HEX }}>
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Security Consultation
+                  <Button asChild size="lg" className="hover:bg-red-800 text-white px-10 h-14 text-base font-semibold rounded-lg" style={{ backgroundColor: BRAND_HEX }}>
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Security Consultation
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <ShieldCheck className="mr-3 w-5 h-5" />
-                    View Campus Solutions
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <ShieldCheck className="mr-3 w-5 h-5" />
+                      View Campus Solutions
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -485,7 +490,7 @@ export default function SchoolCampusSecurityPage() {
       </section>
 
       {/* 4. Campus Security Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -723,75 +728,17 @@ export default function SchoolCampusSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request School Security Proposal</h2>
                    <p className="text-slate-500 mb-10 text-lg">Specialized security solutions for educational institutions and campus environments.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                                      style={{ '--tw-ring-color': BRAND_HEX } as React.CSSProperties}
-                                      placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                                      style={{ '--tw-ring-color': BRAND_HEX } as React.CSSProperties}
-                                      placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                                  style={{ '--tw-ring-color': BRAND_HEX } as React.CSSProperties}
-                                  placeholder="john@school.edu" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                                  style={{ '--tw-ring-color': BRAND_HEX } as React.CSSProperties}
-                                  placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
-                                       style={{ '--tw-ring-color': BRAND_HEX } as React.CSSProperties}>
-                                   <option>Campus Entry Control &amp; Visitor Management</option>
-                                   <option>Student Safety &amp; Behavioral Intervention</option>
-                                   <option>Emergency Response &amp; Crisis Management</option>
-                                   <option>School Event &amp; Extracurricular Security</option>
-                                   <option>Traffic &amp; Parking Safety</option>
-                                   <option>Full School Security Package</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">School Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
-                                       style={{ '--tw-ring-color': BRAND_HEX } as React.CSSProperties}>
-                                   <option>Elementary School</option>
-                                   <option>Middle School</option>
-                                   <option>High School</option>
-                                   <option>Private School</option>
-                                   <option>College/University</option>
-                                   <option>Special Education</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                                     style={{ '--tw-ring-color': BRAND_HEX } as React.CSSProperties}
-                                     placeholder="Tell us about your school campus and specific security requirements..." />
-                       </div>
-                       
-                       <Button className="w-full text-white h-14 text-lg font-bold rounded-lg shadow-xl mt-2 hover:opacity-90"
-                               style={{ backgroundColor: BRAND_HEX, boxShadow: `0 10px 25px -5px ${BRAND_HEX}40` }}>
-                           Request School Security Proposal
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="School & Campus Security"
+                       buttonLabel="Request School Security Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Campus Entry Control & Visitor Management", "Student Safety & Behavioral Intervention", "Emergency Response & Crisis Management", "School Event & Extracurricular Security", "Traffic & Parking Safety", "Full School Security Package"]}
+                       propertyLabel="School Type"
+                       propertyOptions={["Elementary School", "Middle School", "High School", "Private School", "College/University", "Special Education"]}
+                       messageLabel="Security Needs"
+                       messagePlaceholder="Tell us about your school campus and specific security requirements..."
+                       accentClassName="bg-[#c10007] hover:bg-[#a30006] shadow-[#c10007]/30"
+                   />
                </div>
 
                {/* Info Side - Dark */}

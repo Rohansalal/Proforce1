@@ -14,6 +14,7 @@ import {
   PiggyBank, BarChart3, Receipt, Users as UsersIcon, FileLock, AlarmClock, GraduationCap
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -120,7 +121,7 @@ const whyChooseUs = [
     icon: <Lock className="w-8 h-8 text-white" />,
     description: "Specialized protocols for securing currency and sensitive data",
     points: [
-      "Vault &amp; safe deposit monitoring",
+      "Vault & safe deposit monitoring",
       "Cash-in-transit coordination",
       "Teller line protection",
       "ATM skimming prevention",
@@ -129,14 +130,14 @@ const whyChooseUs = [
     note: "Financial institutions require a higher level of vigilance. We protect your assets with military precision."
   },
   {
-    title: "Customer &amp; Staff Safety",
+    title: "Customer & Staff Safety",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Maintaining a secure yet welcoming banking environment",
     points: [
       "Lobby ambassador services",
       "Conflict de-escalation",
       "Disorderly conduct management",
-      "Opening &amp; closing escorts",
+      "Opening & closing escorts",
       "Emergency evacuation leadership"
     ],
     note: "We balance strict security with customer service, ensuring your clients feel safe and valued."
@@ -159,7 +160,7 @@ const whyChooseUs = [
     icon: <Siren className="w-8 h-8 text-white" />,
     description: "Immediate action for alarms and threats",
     points: [
-      "Robbery deterrence &amp; response",
+      "Robbery deterrence & response",
       "Panic alarm verification",
       "Suspicious activity intervention",
       "Law enforcement liaison",
@@ -222,7 +223,7 @@ const servicesList = [
 
 
 const buildingTypes = [
-  { name: "Retail Banks", icon: <Landmark className="w-6 h-6" />, description: "Branch locations &amp; lobbies" },
+  { name: "Retail Banks", icon: <Landmark className="w-6 h-6" />, description: "Branch locations & lobbies" },
   { name: "Credit Unions", icon: <Users className="w-6 h-6" />, description: "Member-focused centers" },
   { name: "Investment Firms", icon: <BarChart3 className="w-6 h-6" />, description: "Wealth management offices" }, 
   { name: "Corporate HQs", icon: <Building className="w-6 h-6" />, description: "Financial centers" },
@@ -235,7 +236,7 @@ const buildingTypes = [
 
 const trustFactors = [
   { title: "Financial Expertise", description: "Specialized training in banking security protocols and robbery response." },
-  { title: "Armed &amp; Unarmed", description: "Flexible staffing options based on your branch's risk profile." },
+  { title: "Armed & Unarmed", description: "Flexible staffing options based on your branch's risk profile." },
   { title: "Technologically Integrated", description: "Seamless coordination with your alarm and camera systems." },
   { title: "Customer Focused", description: "Officers who understand they are ambassadors for your financial brand." },
   { title: "24/7 Dispatch", description: "Immediate support and coordination with local law enforcement." },
@@ -276,7 +277,7 @@ export default function FinancialSecurityPage() {
             </span>
             <br />
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
-              Protecting Assets &amp; Trust
+              Protecting Assets & Trust
             </span>
           </div>
 
@@ -338,7 +339,7 @@ export default function FinancialSecurityPage() {
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" style={{ color: THEME.primary }} />
                         </div>
-                        <span className="text-slate-700 font-medium">Armed &amp; unarmed staffing options</span>
+                        <span className="text-slate-700 font-medium">Armed & unarmed staffing options</span>
                       </div>
                       <div className="flex items-start gap-3">
                         <div 
@@ -347,7 +348,7 @@ export default function FinancialSecurityPage() {
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" style={{ color: THEME.primary }} />
                         </div>
-                        <span className="text-slate-700 font-medium">ATM &amp; parking lot patrols</span>
+                        <span className="text-slate-700 font-medium">ATM & parking lot patrols</span>
                       </div>
                       <div className="flex items-start gap-3">
                         <div 
@@ -416,17 +417,22 @@ export default function FinancialSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <ThemeButton size="lg" className="px-10 h-14 text-base font-semibold">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Branch Assessment
+                  <ThemeButton asChild size="lg" className="px-10 h-14 text-base font-semibold">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Branch Assessment
+                    </a>
                   </ThemeButton>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
                     className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg"
                   >
-                    <ShieldCheck className="mr-3 w-5 h-5" />
-                    View Services
+                    <a href="#services-section">
+                      <ShieldCheck className="mr-3 w-5 h-5" />
+                      View Services
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -554,7 +560,7 @@ export default function FinancialSecurityPage() {
       </section>
 
       {/* 4. Service Capabilities Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -866,107 +872,17 @@ export default function FinancialSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Financial Security Proposal</h2>
                    <p className="text-slate-500 mb-10 text-lg">Specialized security solutions for banks, credit unions, and financial institutions.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input 
-                                 type="text" 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all"
-                                 placeholder="John"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input 
-                                 type="text" 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                                 placeholder="Doe"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input 
-                             type="email" 
-                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="john@bank.com"
-                             style={{
-                               '--tw-ring-color': THEME.primary
-                             } as React.CSSProperties}
-                           />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input 
-                             type="tel" 
-                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="(800) 779-7691"
-                             style={{
-                               '--tw-ring-color': THEME.primary
-                             } as React.CSSProperties}
-                           />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               >
-                                   <option>Branch Lobby Security</option>
-                                   <option>ATM Security Services</option>
-                                   <option>Vault &amp; Cash Handling</option>
-                                   <option>Financial Fraud Prevention</option>
-                                   <option>Compliance Security</option>
-                                   <option>Full Banking Security Package</option>
-                               </select>
-                           </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Institution Type</label>
-                               <select 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               >
-                                   <option>Commercial Bank</option>
-                                   <option>Credit Union</option>
-                                   <option>Savings &amp; Loan</option>
-                                   <option>Investment Bank</option>
-                                   <option>ATM Network</option>
-                                   <option>Financial Services</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea 
-                             rows={3} 
-                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="Tell us about your financial institution and specific security requirements..."
-                             style={{
-                               '--tw-ring-color': THEME.primary
-                             } as React.CSSProperties}
-                           />
-                       </div>
-                       
-                       <ThemeButton className="w-full h-14 text-lg font-bold mt-2">
-                           Request Financial Security Proposal
-                       </ThemeButton>
-                   </form>
+                   <QuoteForm
+                       serviceName="Financial Institution Security"
+                       buttonLabel="Request Financial Security Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Branch Lobby Security", "ATM Security Services", "Vault & Cash Handling", "Financial Fraud Prevention", "Compliance Security", "Full Banking Security Package"]}
+                       propertyLabel="Institution Type"
+                       propertyOptions={["Commercial Bank", "Credit Union", "Savings & Loan", "Investment Bank", "ATM Network", "Financial Services"]}
+                       messageLabel="Security Needs"
+                       messagePlaceholder="Tell us about your financial institution and specific security requirements..."
+                       accentClassName="bg-[#f34100] hover:bg-[#d63100] shadow-[#f34100]/30"
+                   />
                </div>
 
                {/* Info Side - Dark */}

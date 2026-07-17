@@ -18,6 +18,7 @@ import {
   Package, QrCode, Smartphone, Cctv, Bell
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -62,7 +63,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Armed Bank Security &amp; Robbery Prevention",
+    title: "Armed Bank Security & Robbery Prevention",
     icon: <Shield className="w-8 h-8 text-white" />,
     description: "Highly trained armed security personnel for bank branch protection",
     points: [
@@ -75,7 +76,7 @@ const whyChooseUs = [
     note: "Our armed bank security officers are trained to protect your staff, customers, and assets during high-risk situations while maintaining compliance with banking regulations."
   },
   {
-    title: "Cash Handling &amp; ATM Security",
+    title: "Cash Handling & ATM Security",
     icon: <Banknote className="w-8 h-8 text-white" />,
     description: "Comprehensive protection for cash operations and ATM facilities",
     points: [
@@ -88,7 +89,7 @@ const whyChooseUs = [
     note: "We implement layered security measures to protect your most valuable assets during transport, storage, and customer transactions."
   },
   {
-    title: "Vault &amp; Safe Deposit Security",
+    title: "Vault & Safe Deposit Security",
     icon: <Vault className="w-8 h-8 text-white" />,
     description: "Advanced security for bank vaults and safe deposit facilities",
     points: [
@@ -101,7 +102,7 @@ const whyChooseUs = [
     note: "Our specialized training includes vault security protocols, dual control procedures, and regulatory compliance for secure deposit facilities."
   },
   {
-    title: "Bank Lobby &amp; Customer Service Security",
+    title: "Bank Lobby & Customer Service Security",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Customer-focused security that enhances the banking experience",
     points: [
@@ -131,7 +132,7 @@ const bankServices = [
   {
     title: "Vault Security",
     icon: <Vault className="w-6 h-6" />,
-    description: "Vault &amp; safe deposit",
+    description: "Vault & safe deposit",
     details: ["Access control", "Dual control", "Compliance audits"]
   },
   {
@@ -182,7 +183,7 @@ const bankTypes = [
 ]
 
 const trustFactors = [
-  { title: "FDIC &amp; FINRA Compliant", description: "Security protocols meeting banking regulations" },
+  { title: "FDIC & FINRA Compliant", description: "Security protocols meeting banking regulations" },
   { title: "25+ Years Experience", description: "Decades of specialized bank security expertise" },
   { title: "Armed Guard Certified", description: "State-certified armed security personnel" },
   { title: "Bank-Specific Training", description: "Specialized training for banking environments" },
@@ -273,7 +274,7 @@ export default function BankSecurityPage() {
                     Bank Security Specialists
                     <br />
                     <span className="text-teal-600">
-                      Protecting Financial Assets &amp; Customer Trust
+                      Protecting Financial Assets & Customer Trust
                     </span>
                   </h2>
                 </div>
@@ -344,13 +345,17 @@ export default function BankSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-teal-600 hover:bg-teal-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Security Consultation
+                  <Button asChild size="lg" className="bg-teal-600 hover:bg-teal-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Security Consultation
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <ShieldCheck className="mr-3 w-5 h-5" />
-                    View Banking Solutions
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <ShieldCheck className="mr-3 w-5 h-5" />
+                      View Banking Solutions
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -459,7 +464,7 @@ export default function BankSecurityPage() {
       </section>
 
       {/* 4. Bank Security Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -541,7 +546,7 @@ export default function BankSecurityPage() {
             ))}
           </div>
 
-          {/* Compliance &amp; Fraud Prevention Section */}
+          {/* Compliance & Fraud Prevention Section */}
           <div className="max-w-4xl mx-auto mt-20">
             <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/20 rounded-2xl p-10 relative overflow-hidden">
               {/* Pattern overlay */}
@@ -553,7 +558,7 @@ export default function BankSecurityPage() {
                     <FileCheck className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white">Regulatory Compliance &amp; Fraud Prevention</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">Regulatory Compliance & Fraud Prevention</h3>
                     <p className="text-slate-300">Comprehensive security meeting banking regulations and preventing financial crimes</p>
                   </div>
                 </div>
@@ -685,62 +690,16 @@ export default function BankSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Bank Security Proposal</h2>
                    <p className="text-slate-500 mb-10 text-lg">Specialized security solutions for banks and financial institutions.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all" placeholder="john@bankname.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-slate-700">
-                                   <option>Armed Bank Branch Security</option>
-                                   <option>ATM Security &amp; Protection</option>
-                                   <option>Vault &amp; Safe Deposit Security</option>
-                                   <option>Cash-In-Transit Security</option>
-                                   <option>Fraud Prevention &amp; Monitoring</option>
-                                   <option>Full Bank Security Package</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Bank Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-slate-700">
-                                   <option>Commercial Bank</option>
-                                   <option>Community Bank</option>
-                                   <option>Credit Union</option>
-                                   <option>Savings Bank</option>
-                                   <option>Investment Bank</option>
-                                   <option>Private Bank</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all" placeholder="Tell us about your bank and specific security requirements..." />
-                       </div>
-                       
-                       <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-teal-600/20 mt-2">
-                           Request Bank Security Proposal
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="Bank Security"
+                       buttonLabel="Request Bank Security Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Armed Bank Branch Security", "ATM Security & Protection", "Vault & Safe Deposit Security", "Cash-In-Transit Security", "Fraud Prevention & Monitoring", "Full Bank Security Package"]}
+                       propertyLabel="Bank Type"
+                       propertyOptions={["Commercial Bank", "Community Bank", "Credit Union", "Savings Bank", "Investment Bank", "Private Bank"]}
+                       messageLabel="Security Needs"
+                       messagePlaceholder="Tell us about your bank and specific security requirements..."
+                   />
                </div>
 
                {/* Info Side - Dark */}

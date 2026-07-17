@@ -16,6 +16,7 @@ import {
   Bell, AlertCircle, Map, FileCheck, Wrench
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -110,7 +111,7 @@ const whyChooseUs = [
     note: "Our officers exit the vehicle to conduct detailed on-foot inspections of your entire property."
   },
   {
-    title: "Lock-Up &amp; Security Services",
+    title: "Lock-Up & Security Services",
     icon: <LockIcon className="w-8 h-8 text-white" />,
     description: "Complete opening and closing security services",
     points: [
@@ -153,7 +154,7 @@ const patrolServices = [
   {
     title: "Lock Services",
     icon: <LockIcon className="w-6 h-6" />,
-    description: "Secure opening &amp; closing",
+    description: "Secure opening & closing",
     details: ["Gate security", "Building access", "24/7 protection"]
   },
   {
@@ -194,8 +195,8 @@ const industries = [
   { name: "Office Buildings", icon: <Building2 className="w-6 h-6" />, description: "Corporate campus patrol" },
   { name: "Industrial Parks", icon: <Factory className="w-6 h-6" />, description: "Industrial facility security" },
   { name: "Construction Sites", icon: <Wrench className="w-6 h-6" />, description: "Site equipment protection" },
-  { name: "Hotels &amp; Resorts", icon: <Hotel className="w-6 h-6" />, description: "Hospitality security patrol" },
-  { name: "Schools &amp; Colleges", icon: <GraduationCap className="w-6 h-6" />, description: "Educational campus safety" },
+  { name: "Hotels & Resorts", icon: <Hotel className="w-6 h-6" />, description: "Hospitality security patrol" },
+  { name: "Schools & Colleges", icon: <GraduationCap className="w-6 h-6" />, description: "Educational campus safety" },
   { name: "Parking Structures", icon: <ParkingCircle className="w-6 h-6" />, description: "Parking facility security" },
   { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Storage facility patrol" },
   { name: "Retail Stores", icon: <ShoppingBag className="w-6 h-6" />, description: "Store perimeter security" },
@@ -393,13 +394,17 @@ export default function MobilePatrolPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Mobile Patrol Quote
+                  <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Mobile Patrol Quote
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <Car className="mr-3 w-5 h-5" />
-                    View Patrol Services
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <Car className="mr-3 w-5 h-5" />
+                      View Patrol Services
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -444,8 +449,8 @@ export default function MobilePatrolPage() {
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
-                "Theft &amp; vandalism",
-                "Trespassing &amp; loitering",
+                "Theft & vandalism",
+                "Trespassing & loitering",
                 "Homeless activity",
                 "After-hours access",
                 "Suspicious vehicles",
@@ -503,7 +508,7 @@ export default function MobilePatrolPage() {
       </section>
 
       {/* 4. Patrol Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -652,7 +657,7 @@ export default function MobilePatrolPage() {
         <div className="container mx-auto px-6">
            <div className="text-center mb-16">
               <SectionHeading>
-                Industries &amp; Properties <br/> We <span className="text-red-600">Serve</span>
+                Industries & Properties <br/> We <span className="text-red-600">Serve</span>
               </SectionHeading>
               <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-12">
                 Mobile Patrol is ideal for a wide range of properties and industries across California
@@ -746,58 +751,14 @@ export default function MobilePatrolPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Patrol Quote</h2>
                    <p className="text-slate-500 mb-10 text-lg">Whether you need nightly patrols, hourly checks, or a fully customized patrol plan.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@company.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Needed</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Mobile Patrol</option>
-                                   <option>Courtesy Patrol</option>
-                                   <option>Alarm Response</option>
-                                   <option>Lock-Up Services</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Property Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Commercial</option>
-                                   <option>Residential</option>
-                                   <option>Industrial</option>
-                                   <option>Retail</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Patrol Requirements</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Tell us about your property and patrol needs..." />
-                       </div>
-                       
-                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
-                           Request Mobile Patrol Quote
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="Mobile Patrol Security"
+                       buttonLabel="Request Mobile Patrol Quote"
+                       serviceOptions={["Mobile Patrol", "Courtesy Patrol", "Alarm Response", "Lock-Up Services"]}
+                       propertyOptions={["Commercial", "Residential", "Industrial", "Retail"]}
+                       messageLabel="Patrol Requirements"
+                       messagePlaceholder="Tell us about your property and patrol needs..."
+                   />
                </div>
 
                {/* Info Side - Dark */}

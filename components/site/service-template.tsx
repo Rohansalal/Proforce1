@@ -237,9 +237,9 @@ export default function ServiceTemplate({
               <p className="text-slate-400 text-sm mb-6">
                 Our experts are ready to deploy. Contact dispatch for an immediate assessment.
               </p>
-              <button className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all uppercase tracking-wider text-sm">
+              <a href="/contact" className="block w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all uppercase tracking-wider text-sm text-center">
                 Request Quote
-              </button>
+              </a>
             </div>
 
             {/* Why Choose Us Sidebar */}

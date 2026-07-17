@@ -14,6 +14,7 @@ import {
   Utensils, Gift, Footprints, Ticket
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -120,7 +121,7 @@ const whyChooseUs = [
     description: "Creating a secure and welcoming atmosphere for shoppers",
     points: [
       "Visible officer presence",
-      "Customer assistance &amp; directions",
+      "Customer assistance & directions",
       "Lost child reunification protocols",
       "Disorderly conduct management",
       "Emergency medical response"
@@ -145,23 +146,23 @@ const whyChooseUs = [
     icon: <Store className="w-8 h-8 text-white" />,
     description: "Supporting retail partners and their assets",
     points: [
-      "Opening &amp; closing escorts",
+      "Opening & closing escorts",
       "High-risk store monitoring",
-      "Delivery &amp; loading dock security",
+      "Delivery & loading dock security",
       "Alarm response coordination",
       "Tenant relation services"
     ],
     note: "We work as an extension of your property management team to support your tenants."
   },
   {
-    title: "Crowd &amp; Event Control",
+    title: "Crowd & Event Control",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Managing high-traffic periods and special events",
     points: [
       "Holiday season crowd management",
       "Special event security",
       "Flash mob prevention protocols",
-      "Protest &amp; demonstration handling",
+      "Protest & demonstration handling",
       "Evacuation leadership"
     ],
     note: "Our officers are trained to manage large crowds calmly and effectively."
@@ -188,7 +189,7 @@ const servicesList = [
     details: ["24/7 surveillance", "Dispatch coordination", "Evidence retrieval"]
   },
   {
-    title: "Lost &amp; Found",
+    title: "Lost & Found",
     icon: <Search className="w-6 h-6" />,
     description: "Customer service",
     details: ["Property logging", "Return verification", "Assistance desk"]
@@ -222,9 +223,9 @@ const servicesList = [
 const propertyTypes = [
   { name: "Regional Malls", icon: <Building className="w-6 h-6" />, description: "Large enclosed shopping centers" },
   { name: "Strip Malls", icon: <Store className="w-6 h-6" />, description: "Open-air retail plazas" },
-  { name: "Lifestyle Centers", icon: <LayoutDashboard className="w-6 h-6" />, description: "Mixed-use retail &amp; dining" },
+  { name: "Lifestyle Centers", icon: <LayoutDashboard className="w-6 h-6" />, description: "Mixed-use retail & dining" },
   { name: "Outlet Centers", icon: <ShoppingBag className="w-6 h-6" />, description: "High-traffic discount destinations" },
-  { name: "Food Courts", icon: <Utensils className="w-6 h-6" />, description: "Dining area safety &amp; busing" },
+  { name: "Food Courts", icon: <Utensils className="w-6 h-6" />, description: "Dining area safety & busing" },
   { name: "Luxury Retail", icon: <Gift className="w-6 h-6" />, description: "High-end boutique protection" },
   { name: "Parking Structures", icon: <Car className="w-6 h-6" />, description: "Multi-level garage security" },
   { name: "Pop-Up Events", icon: <Zap className="w-6 h-6" />, description: "Temporary retail activations" }
@@ -233,7 +234,7 @@ const propertyTypes = [
 const trustFactors = [
   { title: "Retail Expertise", description: "Officers trained specifically in retail environment challenges and customer service." },
   { title: "Visible Deterrence", description: "Uniformed presence that discourages theft and misconduct." },
-  { title: "Liability Reduction", description: "Proactive hazard reporting (spills, lights out) to prevent slip &amp; falls." },
+  { title: "Liability Reduction", description: "Proactive hazard reporting (spills, lights out) to prevent slip & falls." },
   { title: "Law Enforcement Liaison", description: "Strong partnerships with local police for rapid support." },
   { title: "24/7 Dispatch", description: "Always-on communication for immediate incident reporting." },
   { title: "Advanced Reporting", description: "Digital logs and GPS tracking for full accountability." }
@@ -273,7 +274,7 @@ export default function ShoppingCenterSecurityPage() {
             </span>
             <br />
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
-              Safe &amp; Secure Retail Environments
+              Safe & Secure Retail Environments
             </span>
           </div>
 
@@ -379,7 +380,7 @@ export default function ShoppingCenterSecurityPage() {
                         </div>
                         <div>
                           <div className="text-sm font-bold text-slate-900">Guest Safety First</div>
-                          <div className="text-xs text-slate-600">Secure &amp; welcoming environments</div>
+                          <div className="text-xs text-slate-600">Secure & welcoming environments</div>
                         </div>
                       </div>
                     </div>
@@ -413,17 +414,22 @@ export default function ShoppingCenterSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <ThemeButton size="lg" className="px-10 h-14 text-base font-semibold">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Mall Proposal
+                  <ThemeButton asChild size="lg" className="px-10 h-14 text-base font-semibold">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Mall Proposal
+                    </a>
                   </ThemeButton>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
                     className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg"
                   >
-                    <ShieldCheck className="mr-3 w-5 h-5" />
-                    View Capabilities
+                    <a href="#services-section">
+                      <ShieldCheck className="mr-3 w-5 h-5" />
+                      View Capabilities
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -551,7 +557,7 @@ export default function ShoppingCenterSecurityPage() {
       </section>
 
       {/* 4. Service Capabilities Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -721,7 +727,7 @@ export default function ShoppingCenterSecurityPage() {
                   <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 flex flex-col justify-center items-center">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-white mb-2">Connected</div>
-                      <p className="text-slate-300 text-sm">Real-time data &amp; reporting</p>
+                      <p className="text-slate-300 text-sm">Real-time data & reporting</p>
                     </div>
                   </div>
                 </div>
@@ -863,105 +869,17 @@ export default function ShoppingCenterSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Security Proposal</h2>
                    <p className="text-slate-500 mb-10 text-lg">Specialized security solutions for malls and retail properties.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input 
-                                 type="text" 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all"
-                                 placeholder="John"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input 
-                                 type="text" 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                                 placeholder="Doe"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input 
-                             type="email" 
-                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="john@company.com"
-                             style={{
-                               '--tw-ring-color': THEME.primary
-                             } as React.CSSProperties}
-                           />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input 
-                             type="tel" 
-                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="(800) 779-7691"
-                             style={{
-                               '--tw-ring-color': THEME.primary
-                             } as React.CSSProperties}
-                           />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               >
-                                   <option>Mall Patrol</option>
-                                   <option>Parking Security</option>
-                                   <option>Retail Guards</option>
-                                   <option>Event Security</option>
-                                   <option>Full Center Package</option>
-                               </select>
-                           </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Property Type</label>
-                               <select 
-                                 className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-700"
-                                 style={{
-                                   '--tw-ring-color': THEME.primary
-                                 } as React.CSSProperties}
-                               >
-                                   <option>Regional Mall</option>
-                                   <option>Strip Center</option>
-                                   <option>Outlet Mall</option>
-                                   <option>Lifestyle Center</option>
-                                   <option>Parking Structure</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea 
-                             rows={3} 
-                             className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all" 
-                             placeholder="Describe your property and security requirements..."
-                             style={{
-                               '--tw-ring-color': THEME.primary
-                             } as React.CSSProperties}
-                           />
-                       </div>
-                       
-                       <ThemeButton className="w-full h-14 text-lg font-bold mt-2">
-                           Request Proposal
-                       </ThemeButton>
-                   </form>
+                   <QuoteForm
+                       serviceName="Shopping Center Security"
+                       buttonLabel="Request Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Mall Patrol", "Parking Security", "Retail Guards", "Event Security", "Full Center Package"]}
+                       propertyLabel="Property Type"
+                       propertyOptions={["Regional Mall", "Strip Center", "Outlet Mall", "Lifestyle Center", "Parking Structure"]}
+                       messageLabel="Security Needs"
+                       messagePlaceholder="Describe your property and security requirements..."
+                       accentClassName="bg-[#f34100] hover:bg-[#d63100] shadow-[#f34100]/30"
+                   />
                </div>
 
                {/* Info Side - Dark */}
@@ -1044,7 +962,7 @@ export default function ShoppingCenterSecurityPage() {
                                <div>
                                    <div className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Service Area</div>
                                    <div className="text-base text-slate-300">
-                                      Serving Malls &amp; Centers<br/>
+                                      Serving Malls & Centers<br/>
                                       Across California
                                    </div>
                                </div>

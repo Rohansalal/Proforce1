@@ -17,6 +17,7 @@ import {
   BuildingIcon, Star as StarIcon, Megaphone
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -85,7 +86,7 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Access Control &amp; Guest Screening",
+    title: "Access Control & Guest Screening",
     icon: <Ticket className="w-8 h-8 text-white" />,
     description: "Comprehensive entry management for authorized access only",
     points: [
@@ -98,7 +99,7 @@ const whyChooseUs = [
     note: "We ensure only authorized guests, vendors, and staff enter your event while maintaining a welcoming atmosphere."
   },
   {
-    title: "Crowd Management &amp; Guest Safety",
+    title: "Crowd Management & Guest Safety",
     icon: <Users className="w-8 h-8 text-white" />,
     description: "Skilled professionals guiding large groups safely and efficiently",
     points: [
@@ -111,7 +112,7 @@ const whyChooseUs = [
     note: "Our team ensures your event runs smoothly with professional crowd management that prioritizes guest safety."
   },
   {
-    title: "Emergency Response &amp; First Aid Support",
+    title: "Emergency Response & First Aid Support",
     icon: <Siren className="w-8 h-8 text-white" />,
     description: "Immediate response capabilities for any situation",
     points: [
@@ -124,7 +125,7 @@ const whyChooseUs = [
     note: "Our trained officers respond immediately to emergencies, ensuring guest safety and event continuity."
   },
   {
-    title: "VIP &amp; Executive Protection",
+    title: "VIP & Executive Protection",
     icon: <Crown className="w-8 h-8 text-white" />,
     description: "Discreet, professional protection for high-profile attendees",
     points: [
@@ -142,13 +143,13 @@ const eventServices = [
   {
     title: "Access Control",
     icon: <Ticket className="w-6 h-6" />,
-    description: "Guest screening &amp; entry management",
+    description: "Guest screening & entry management",
     details: ["Ticket verification", "VIP entrances", "Staff access"]
   },
   {
     title: "Crowd Management",
     icon: <Users className="w-6 h-6" />,
-    description: "Large group safety &amp; flow control",
+    description: "Large group safety & flow control",
     details: ["Guest flow", "Exit management", "Overcrowding prevention"]
   },
   {
@@ -160,7 +161,7 @@ const eventServices = [
   {
     title: "Parking Security",
     icon: <Car className="w-6 h-6" />,
-    description: "Vehicle &amp; lot protection",
+    description: "Vehicle & lot protection",
     details: ["Entry/exit control", "Theft prevention", "Traffic management"]
   },
   {
@@ -193,8 +194,8 @@ const eventTypes = [
   { name: "Corporate Conferences", icon: <Briefcase className="w-6 h-6" />, description: "Business event security" },
   { name: "Networking Events", icon: <Users className="w-6 h-6" />, description: "Professional gathering protection" },
   { name: "Award Ceremonies", icon: <Award className="w-6 h-6" />, description: "Formal event security" },
-  { name: "Weddings &amp; Private Parties", icon: <Heart className="w-6 h-6" />, description: "Celebration security" },
-  { name: "Festivals &amp; Outdoor Events", icon: <Music className="w-6 h-6" />, description: "Large outdoor event protection" },
+  { name: "Weddings & Private Parties", icon: <Heart className="w-6 h-6" />, description: "Celebration security" },
+  { name: "Festivals & Outdoor Events", icon: <Music className="w-6 h-6" />, description: "Large outdoor event protection" },
   { name: "Fashion Shows", icon: <ShoppingBag className="w-6 h-6" />, description: "Runway and show security" },
   { name: "Convention Center Events", icon: <Building2 className="w-6 h-6" />, description: "Large venue protection" },
   { name: "Community Gatherings", icon: <UsersIcon className="w-6 h-6" />, description: "Public event security" },
@@ -394,13 +395,17 @@ export default function EventSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Event Security Quote
+                  <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Event Security Quote
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <Calendar className="mr-3 w-5 h-5" />
-                    View Event Planning Services
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <Calendar className="mr-3 w-5 h-5" />
+                      View Event Planning Services
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -516,7 +521,7 @@ export default function EventSecurityPage() {
       </section>
 
       {/* 4. Event Security Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -760,62 +765,16 @@ export default function EventSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request a Customized Event Security Quote</h2>
                    <p className="text-slate-500 mb-10 text-lg">Whether you're planning a one-day event or a multi-day conference.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@company.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Event Security Team</option>
-                                   <option>Crowd Management</option>
-                                   <option>Access Control</option>
-                                   <option>VIP Protection</option>
-                                   <option>Parking Security</option>
-                                   <option>Full Event Package</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Event Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Corporate Conference</option>
-                                   <option>Private Party/Wedding</option>
-                                   <option>Concert/Festival</option>
-                                   <option>Charity Event</option>
-                                   <option>Tradeshow/Exhibition</option>
-                                   <option>Community Event</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Event Details</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Tell us about your event, expected attendance, and security needs..." />
-                       </div>
-                       
-                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
-                           Request Event Security Proposal
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="Event Security"
+                       buttonLabel="Request Event Security Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Event Security Team", "Crowd Management", "Access Control", "VIP Protection", "Parking Security", "Full Event Package"]}
+                       propertyLabel="Event Type"
+                       propertyOptions={["Corporate Conference", "Private Party/Wedding", "Concert/Festival", "Charity Event", "Tradeshow/Exhibition", "Community Event"]}
+                       messageLabel="Event Details"
+                       messagePlaceholder="Tell us about your event, expected attendance, and security needs..."
+                   />
                </div>
 
                {/* Info Side - Dark */}

@@ -17,6 +17,7 @@ import {
   FileCheck, Headphones, BuildingIcon, AlertCircle
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -98,7 +99,7 @@ const whyChooseUs = [
     note: "Our officers are specially trained to handle the unique challenges of emergency departments while maintaining patient dignity and safety."
   },
   {
-    title: "Patient &amp; Staff Safety",
+    title: "Patient & Staff Safety",
     icon: <Heart className="w-8 h-8 text-white" />,
     description: "Comprehensive protection for vulnerable patients and healthcare workers",
     points: [
@@ -111,7 +112,7 @@ const whyChooseUs = [
     note: "We prioritize the safety of both patients and healthcare staff in accordance with Joint Commission standards."
   },
   {
-    title: "Access Control &amp; Visitor Management",
+    title: "Access Control & Visitor Management",
     icon: <DoorOpen className="w-8 h-8 text-white" />,
     description: "Secure entry management for sensitive healthcare environments",
     points: [
@@ -394,13 +395,17 @@ export default function HospitalSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Hospital Security Quote
+                  <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Hospital Security Quote
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <Hospital className="mr-3 w-5 h-5" />
-                    View Healthcare Solutions
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <Hospital className="mr-3 w-5 h-5" />
+                      View Healthcare Solutions
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -510,7 +515,7 @@ export default function HospitalSecurityPage() {
       </section>
 
       {/* 4. Hospital Security Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -618,7 +623,7 @@ export default function HospitalSecurityPage() {
                     <FileCheck className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white">Healthcare Compliance &amp; Digital Reporting</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">Healthcare Compliance & Digital Reporting</h3>
                     <p className="text-slate-300">Comprehensive documentation for accreditation and incident management</p>
                   </div>
                 </div>
@@ -754,62 +759,16 @@ export default function HospitalSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Hospital Security Proposal</h2>
                    <p className="text-slate-500 mb-10 text-lg">Specialized security solutions for healthcare facilities of all sizes.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@medicalcenter.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Hospital Security Team</option>
-                                   <option>Emergency Department Security</option>
-                                   <option>Behavioral Health Security</option>
-                                   <option>Access Control &amp; Visitor Management</option>
-                                   <option>Narcotics &amp; Pharmacy Security</option>
-                                   <option>Full Hospital Security Package</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Facility Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>General Hospital</option>
-                                   <option>Emergency Department</option>
-                                   <option>Behavioral Health Facility</option>
-                                   <option>Outpatient Clinic</option>
-                                   <option>Rehabilitation Center</option>
-                                   <option>Specialty Hospital</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Tell us about your healthcare facility and specific security requirements..." />
-                       </div>
-                       
-                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
-                           Request Hospital Security Proposal
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="Hospital Security"
+                       buttonLabel="Request Hospital Security Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Hospital Security Team", "Emergency Department Security", "Behavioral Health Security", "Access Control & Visitor Management", "Narcotics & Pharmacy Security", "Full Hospital Security Package"]}
+                       propertyLabel="Facility Type"
+                       propertyOptions={["General Hospital", "Emergency Department", "Behavioral Health Facility", "Outpatient Clinic", "Rehabilitation Center", "Specialty Hospital"]}
+                       messageLabel="Security Needs"
+                       messagePlaceholder="Tell us about your healthcare facility and specific security requirements..."
+                   />
                </div>
 
                {/* Info Side - Dark */}

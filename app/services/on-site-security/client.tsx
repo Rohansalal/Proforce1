@@ -26,6 +26,7 @@ import {
   CircuitBoard, Server, 
   Users as UsersIcon} from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -111,7 +112,7 @@ const whyChooseUs = [
     note: "Our static guards serve as the first line of defense and provide a visible deterrent to potential security threats."
   },
   {
-    title: "Mobile Patrol &amp; Facility Rounds",
+    title: "Mobile Patrol & Facility Rounds",
     icon: <Navigation className="w-8 h-8 text-white" />,
     description: "Regular patrols to monitor your entire facility and identify security vulnerabilities",
     points: [
@@ -124,7 +125,7 @@ const whyChooseUs = [
     note: "Mobile patrols ensure comprehensive coverage of your facility, identifying and addressing security gaps before they become incidents."
   },
   {
-    title: "Access Control &amp; Visitor Management",
+    title: "Access Control & Visitor Management",
     icon: <Key className="w-8 h-8 text-white" />,
     description: "Comprehensive access control systems and visitor screening protocols",
     points: [
@@ -137,7 +138,7 @@ const whyChooseUs = [
     note: "Proper access control prevents unauthorized entry while maintaining smooth operations for authorized personnel."
   },
   {
-    title: "Emergency Response &amp; Crisis Management",
+    title: "Emergency Response & Crisis Management",
     icon: <AlertCircle className="w-8 h-8 text-white" />,
     description: "Rapid response capabilities for emergencies and critical incidents",
     points: [
@@ -208,11 +209,11 @@ const facilityTypes = [
   { name: "Warehouses", icon: <Warehouse className="w-6 h-6" />, description: "Storage facility security" },
   { name: "Construction Sites", icon: <HardHat className="w-6 h-6" />, description: "Construction zone protection" },
   { name: "Data Centers", icon: <Server className="w-6 h-6" />, description: "IT facility security" },
-  { name: "Educational Facilities", icon: <GraduationCap className="w-6 h-6" />, description: "School &amp; campus security" },
+  { name: "Educational Facilities", icon: <GraduationCap className="w-6 h-6" />, description: "School & campus security" },
   { name: "Healthcare Facilities", icon: <Users className="w-6 h-6" />, description: "Medical facility protection" },
   { name: "Residential Complexes", icon: <Home className="w-6 h-6" />, description: "Apartment security" },
   { name: "Government Buildings", icon: <Building className="w-6 h-6" />, description: "Public facility security" },
-  { name: "Hotel &amp; Hospitality", icon: <Home className="w-6 h-6" />, description: "Hospitality venue protection" },
+  { name: "Hotel & Hospitality", icon: <Home className="w-6 h-6" />, description: "Hospitality venue protection" },
   { name: "Research Facilities", icon: <CircuitBoard className="w-6 h-6" />, description: "Laboratory security" },
   { name: "Utility Plants", icon: <Zap className="w-6 h-6" />, description: "Utility facility protection" }
 ]
@@ -368,13 +369,17 @@ export default function OnsiteSecurityPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-10 h-14 text-base font-semibold rounded-lg shadow-lg shadow-orange-600/20">
-                    <Phone className="mr-3 w-5 h-5" />
-                    Request Security Consultation
+                  <Button asChild size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-10 h-14 text-base font-semibold rounded-lg shadow-lg shadow-orange-600/20">
+                    <a href="#quote-section">
+                      <Phone className="mr-3 w-5 h-5" />
+                      Request Security Consultation
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <ShieldCheck className="mr-3 w-5 h-5" />
-                    View Facility Solutions
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#services-section">
+                      <ShieldCheck className="mr-3 w-5 h-5" />
+                      View Facility Solutions
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -483,7 +488,7 @@ export default function OnsiteSecurityPage() {
       </section>
 
       {/* 4. Onsite Security Services Grid */}
-      <section className="py-24 relative overflow-hidden">
+      <section id="services-section" className="py-24 relative overflow-hidden">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -565,7 +570,7 @@ export default function OnsiteSecurityPage() {
             ))}
           </div>
 
-          {/* Technology &amp; Reporting Section */}
+          {/* Technology & Reporting Section */}
           <div className="max-w-4xl mx-auto mt-20">
             <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/20 rounded-2xl p-10 relative overflow-hidden shadow-2xl">
               {/* Pattern overlay */}
@@ -709,62 +714,16 @@ export default function OnsiteSecurityPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Request Onsite Security Proposal</h2>
                    <p className="text-slate-500 mb-10 text-lg">Specialized security solutions for commercial, industrial, and institutional facilities.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" placeholder="john@company.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-slate-700">
-                                   <option>Static Guard Posts</option>
-                                   <option>Mobile Patrol Services</option>
-                                   <option>Access Control Systems</option>
-                                   <option>CCTV Monitoring</option>
-                                   <option>Emergency Response</option>
-                                   <option>Full Facility Security Package</option>
-                               </select>
-                           </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Facility Type</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-slate-700">
-                                   <option>Corporate Office</option>
-                                   <option>Manufacturing Plant</option>
-                                   <option>Warehouse/Storage</option>
-                                   <option>Construction Site</option>
-                                   <option>Data Center</option>
-                                   <option>Educational Facility</option>
-                               </select>
-                           </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Security Needs</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all" placeholder="Tell us about your facility and specific security requirements..." />
-                       </div>
-                       
-                       <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-orange-600/20 mt-2">
-                           Request Onsite Security Proposal
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="On-Site Security"
+                       buttonLabel="Request Onsite Security Proposal"
+                       serviceLabel="Service Type"
+                       serviceOptions={["Static Guard Posts", "Mobile Patrol Services", "Access Control Systems", "CCTV Monitoring", "Emergency Response", "Full Facility Security Package"]}
+                       propertyLabel="Facility Type"
+                       propertyOptions={["Corporate Office", "Manufacturing Plant", "Warehouse/Storage", "Construction Site", "Data Center", "Educational Facility"]}
+                       messageLabel="Security Needs"
+                       messagePlaceholder="Tell us about your facility and specific security requirements..."
+                   />
                </div>
 
                {/* Info Side - Dark */}
@@ -779,7 +738,7 @@ export default function OnsiteSecurityPage() {
                        
                        <h3 className="text-2xl font-bold mb-8 leading-snug">
                           Protect Your<br/>
-                          Facility &amp; Assets
+                          Facility & Assets
                        </h3>
                        
                        <div className="space-y-8">

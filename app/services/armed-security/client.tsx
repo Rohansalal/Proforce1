@@ -15,6 +15,7 @@ import {
   Leaf, Globe
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/site/QuoteForm"
 import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
@@ -83,14 +84,14 @@ const SectionHeading = ({
 // --- Data ---
 const whyChooseUs = [
   {
-    title: "Highly Trained &amp; Licensed",
+    title: "Highly Trained & Licensed",
     icon: <GraduationCap className="w-8 h-8 text-white" />,
     description: "All armed personnel undergo rigorous training and certification",
     points: [
       "California BSIS Firearm Certification",
       "Ongoing live-fire training",
       "De-escalation and conflict-resolution training",
-      "Emergency response &amp; crisis management",
+      "Emergency response & crisis management",
       "Advanced situational awareness training"
     ],
     note: "We ensure every armed officer is prepared mentally and physically to handle critical situations safely and professionally."
@@ -100,9 +101,9 @@ const whyChooseUs = [
     icon: <ShieldCheck className="w-8 h-8 text-white" />,
     description: "Armed guards provide immediate deterrence for various environments",
     points: [
-      "High-value retail stores &amp; jewelry stores",
-      "Financial institutions &amp; banks",
-      "Commercial buildings &amp; corporate offices",
+      "High-value retail stores & jewelry stores",
+      "Financial institutions & banks",
+      "Commercial buildings & corporate offices",
       "Hotels and hospitality venues",
       "Construction sites with valuable equipment"
     ],
@@ -116,7 +117,7 @@ const whyChooseUs = [
       "Real-time GPS tracking",
       "Time-stamped photo logs",
       "Detailed incident reports",
-      "Patrol logs &amp; activity summaries",
+      "Patrol logs & activity summaries",
       "Live updates to your inbox"
     ],
     note: "You receive complete transparency and accountability on every shift."
@@ -139,8 +140,8 @@ const whyChooseUs = [
 const industries = [
   { name: "Jewelry Stores", icon: <Gem className="w-6 h-6" />, description: "High-value retail protection" },
   { name: "Luxury Retailers", icon: <ShoppingBag className="w-6 h-6" />, description: "Premium brand security" },
-  { name: "Hotels &amp; Resorts", icon: <Hotel className="w-6 h-6" />, description: "Hospitality security" },
-  { name: "Banks &amp; Financial", icon: <Banknote className="w-6 h-6" />, description: "Financial institution protection" },
+  { name: "Hotels & Resorts", icon: <Hotel className="w-6 h-6" />, description: "Hospitality security" },
+  { name: "Banks & Financial", icon: <Banknote className="w-6 h-6" />, description: "Financial institution protection" },
   { name: "Corporate Offices", icon: <Building2 className="w-6 h-6" />, description: "Business campus security" },
   { name: "Commercial Centers", icon: <Building className="w-6 h-6" />, description: "Shopping center protection" },
   { name: "Warehouses", icon: <Factory className="w-6 h-6" />, description: "Logistics facility security" },
@@ -148,7 +149,7 @@ const industries = [
   { name: "Cannabis Facilities", icon: <Leaf className="w-6 h-6" />, description: "High-risk retail protection" },
   { name: "Private Events", icon: <Users className="w-6 h-6" />, description: "VIP event security" },
   { name: "Government Sites", icon: <Shield className="w-6 h-6" />, description: "Municipal facility protection" },
-  { name: "Construction Sites", icon: <Truck className="w-6 h-6" />, description: "Equipment &amp; site security" }
+  { name: "Construction Sites", icon: <Truck className="w-6 h-6" />, description: "Equipment & site security" }
 ]
 
 const trustFactors = [
@@ -299,7 +300,7 @@ export default function ArmedGuardPage() {
                         <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                           <CheckCircle2 className="w-3.5 h-3.5 text-red-600" />
                         </div>
-                        <span className="text-slate-700 font-medium">Unmatched professionalism &amp; rapid response</span>
+                        <span className="text-slate-700 font-medium">Unmatched professionalism & rapid response</span>
                       </div>
                     </div>
                   </div>
@@ -341,18 +342,17 @@ export default function ArmedGuardPage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
-                     <a
-                        href="tel:8007797691"
-                          aria-label="Call Proforce 1 Dispatch" >
-                    <Phone className="mr-2 w-3 h-3" />
-                    Request Quote
-                       </a>
+                  <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 text-base font-semibold rounded-lg">
+                    <a href="#quote-section">
+                      <Phone className="mr-2 w-3 h-3" />
+                      Request Quote
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
-                    <Shield className="mr-3 w-5 h-5" />
+                  <Button asChild size="lg" variant="outline" className="border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-10 h-14 text-base font-semibold rounded-lg">
                     <a href="/services">
-                    View Services  </a>
+                      <Shield className="mr-3 w-5 h-5" />
+                      View Services
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -537,9 +537,11 @@ export default function ArmedGuardPage() {
                   Our security experts can create a customized protection plan for your specific industry requirements.
                 </p>
                 
-                <Button className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 font-semibold rounded-lg">
-                  <Shield className="mr-3 w-5 h-5" />
-                  Industry Consultation
+                <Button asChild className="bg-red-600 hover:bg-red-700 text-white px-10 h-14 font-semibold rounded-lg">
+                  <a href="#quote-section">
+                    <Shield className="mr-3 w-5 h-5" />
+                    Industry Consultation
+                  </a>
                 </Button>
               </div>
             </div>
@@ -613,56 +615,16 @@ export default function ArmedGuardPage() {
                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">Get A Free Quote</h2>
                    <p className="text-slate-500 mb-10 text-lg">Secure your assets today. We'll provide a custom proposal within 2 hours.</p>
                    
-                   <form className="space-y-5">
-                       <div className="grid grid-cols-2 gap-5">
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">First Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="John" />
-                           </div>
-                           <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Last Name</label>
-                               <input type="text" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Doe" />
-                           </div>
-                       </div>
-                       
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Work Email</label>
-                           <input type="email" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="john@company.com" />
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                           <input type="tel" className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="(800) 779-7691" />
-                       </div>
-
-                       <div className="grid grid-cols-2 gap-5">
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Service</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Armed Security</option>
-                                   <option>Unarmed Security</option>
-                                   <option>Mobile Patrol</option>
-                               </select>
-                            </div>
-                            <div className="space-y-1">
-                               <label className="text-xs font-bold text-slate-500 uppercase">Industry</label>
-                               <select className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-700">
-                                   <option>Retail</option>
-                                   <option>Corporate</option>
-                                   <option>Industrial</option>
-                               </select>
-                            </div>
-                       </div>
-
-                       <div className="space-y-1">
-                           <label className="text-xs font-bold text-slate-500 uppercase">Details</label>
-                           <textarea rows={3} className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Tell us about your security needs..." />
-                       </div>
-                       
-                       <Button className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold rounded-lg shadow-xl shadow-red-600/20 mt-2">
-                           Request Proposal
-                       </Button>
-                   </form>
+                   <QuoteForm
+                       serviceName="Armed Security"
+                       buttonLabel="Request Proposal"
+                       serviceLabel="Service"
+                       serviceOptions={["Armed Security", "Unarmed Security", "Mobile Patrol"]}
+                       propertyLabel="Industry"
+                       propertyOptions={["Retail", "Corporate", "Industrial"]}
+                       messageLabel="Details"
+                       messagePlaceholder="Tell us about your security needs..."
+                   />
                </div>
 
                {/* Info Side - Dark */}

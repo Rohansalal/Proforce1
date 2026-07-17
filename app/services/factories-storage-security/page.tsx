@@ -34,14 +34,14 @@ export default function FactoriesStorageSecurityPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
     <ServiceTemplate
-      title="Factories &amp; Storage Facility Security in Orange County"
+      title="Factories & Storage Facility Security in Orange County"
       intro="Comprehensive security solutions for manufacturing plants, warehouses, distribution centers, and storage facilities throughout Orange County."
       imagePath="/Services/factories-storage-security.jpg"
       bullets={[
-        "24/7 facility monitoring &amp; patrols",
+        "24/7 facility monitoring & patrols",
         "Access control systems implementation",
-        "Inventory protection &amp; tracking",
-        "Fire watch &amp; safety compliance",
+        "Inventory protection & tracking",
+        "Fire watch & safety compliance",
         "Perimeter security enhancement",
         "Emergency response planning"
       ]}
@@ -116,7 +116,7 @@ export default function FactoriesStorageSecurityPage() {
         <li>Office spaces and administrative areas</li>
       </ul>
 
-      <h3>Compliance &amp; Safety Integration</h3>
+      <h3>Compliance & Safety Integration</h3>
       <p>
         Our security services integrate with facility safety and compliance requirements:
       </p>
