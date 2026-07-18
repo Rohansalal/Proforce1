@@ -1,6 +1,67 @@
 import type { Metadata } from "next"
 
-const SITE_URL = "https://proforce1protection.com"
+export const SITE_URL = "https://proforce1protection.com"
+
+type PageMetaInput = {
+  title: string
+  description: string
+  path: string
+  keywords?: string[]
+  image?: string
+  type?: "website" | "article"
+  publishedTime?: string
+}
+
+function toAbsoluteUrl(path: string) {
+  if (/^https?:\/\//.test(path)) return path
+  if (path === "/") return SITE_URL
+  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`
+}
+
+export function buildPageMetadata({
+  title,
+  description,
+  path,
+  keywords,
+  image = "/logo.png",
+  type = "website",
+  publishedTime,
+}: PageMetaInput): Metadata {
+  const url = toAbsoluteUrl(path)
+  const imageUrl = toAbsoluteUrl(image)
+  const openGraphBase = {
+    title,
+    description,
+    url,
+    siteName: "ProForce 1",
+    locale: "en_US",
+    images: [{ url: imageUrl, alt: title }],
+  }
+
+  return {
+    title,
+    description,
+    keywords,
+    alternates: { canonical: url },
+    openGraph:
+      type === "article"
+        ? {
+            ...openGraphBase,
+            type: "article",
+            publishedTime,
+          }
+        : {
+            ...openGraphBase,
+            type: "website",
+          },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
+  }
+}
 
 type ServiceMetaInput = {
   title: string
@@ -15,27 +76,12 @@ export function buildServiceMetadata({
   slug,
   keywords,
 }: ServiceMetaInput): Metadata {
-  const canonical = `/services/${slug}`
-  const url = `${SITE_URL}${canonical}`
-  return {
+  return buildPageMetadata({
     title,
     description,
+    path: `/services/${slug}`,
     keywords,
-    alternates: { canonical },
-    openGraph: {
-      title,
-      description,
-      url,
-      type: "website",
-      siteName: "ProForce 1",
-      locale: "en_US",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-  }
+  })
 }
 
 type ServiceJsonLdInput = {

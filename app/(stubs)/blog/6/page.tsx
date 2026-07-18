@@ -1,6 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { buildBlogPostMetadata } from '@/lib/blog-posts';
+
+export const metadata = buildBlogPostMetadata(6);
 
 // Data for Blog 6
 const blogData = {

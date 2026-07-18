@@ -1,3 +1,6 @@
+import type { Metadata } from "next"
+import { buildPageMetadata } from "@/lib/seo"
+
 export type BlogPost = {
   id: number
   title: string
@@ -220,6 +223,25 @@ export function getFeaturedBlogPosts() {
 
 export function getRecentBlogPosts(limit = 3) {
   return getSortedBlogPosts().slice(0, limit)
+}
+
+export function getBlogPostById(id: number) {
+  return BLOG_POSTS.find((post) => post.id === id)
+}
+
+export function buildBlogPostMetadata(id: number): Metadata {
+  const post = getBlogPostById(id)
+
+  if (!post) return {}
+
+  return buildPageMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/blog/${post.id}`,
+    image: post.image,
+    type: "article",
+    publishedTime: `${post.date}T12:00:00Z`,
+  })
 }
 
 export function formatBlogDate(

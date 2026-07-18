@@ -1,10 +1,11 @@
-import type { Metadata } from "next"
 import Client from "./client"
+import { buildPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Security Guard Services in Anaheim & California",
   description:
     "Full-spectrum security services across California from BSIS-licensed officers: armed, unarmed, event, mobile patrol, construction, fire watch, executive protection, hospital, retail and more.",
+  path: "/services",
   keywords: [
     "security guard services Anaheim",
     "security services California",
@@ -14,23 +15,7 @@ export const metadata: Metadata = {
     "BSIS licensed security",
     "private security California",
   ],
-  alternates: { canonical: "/services" },
-  openGraph: {
-    title: "Security Guard Services in Anaheim & California",
-    description:
-      "Full-spectrum security services across California: armed, unarmed, event, mobile patrol, construction, fire watch, executive protection and more.",
-    url: "https://proforce1protection.com/services",
-    type: "website",
-    siteName: "ProForce 1",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Security Guard Services in Anaheim & California",
-    description:
-      "Full-spectrum security services across California from BSIS-licensed officers.",
-  },
-}
+})
 
 const SERVICE_LIST: Array<{ name: string; slug: string }> = [
   { name: "Armed Security", slug: "armed-security" },

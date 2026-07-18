@@ -1,5 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
+import { buildBlogPostMetadata } from "@/lib/blog-posts"
+
+export const metadata = buildBlogPostMetadata(17)
 
 const blogData = {
   id: 17,
