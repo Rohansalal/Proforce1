@@ -247,7 +247,7 @@ export default function UnarmedSecurityPage() {
             {/* Fallback if video doesn't load */}
             <Image
               src={IMAGES.hero}
-              alt="Unarmed Security "
+              alt="Unarmed security officer providing property protection"
               fill
               className="object-cover"
               priority

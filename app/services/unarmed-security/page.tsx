@@ -2,10 +2,11 @@ import Client from "./client"
 import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Unarmed Security Guards in Anaheim & Orange County",
+  title: "Unarmed Security Guard Services | BSIS Licensed Guards",
   description:
-    "Professional unarmed security guards across Anaheim, Orange County & California. BSIS-licensed officers for retail, corporate, residential, and commercial properties. Get a free quote today.",
+    "Hire BSIS licensed unarmed security guards for dependable protection. Professional unarmed security guard services for businesses, properties, and events.",
   slug: "unarmed-security",
+  absoluteTitle: true,
   keywords: [
     "unarmed security guards Anaheim",
     "unarmed security guards Orange County",

@@ -2,10 +2,11 @@ import Client from "./client"
 import { buildPageMetadata } from "@/lib/seo"
 
 export const metadata = buildPageMetadata({
-  title: "Security Guard Services in Anaheim & California",
+  title: "Security Guard Services California | Armed & Unarmed Security",
   description:
-    "Full-spectrum security services across California from BSIS-licensed officers: armed, unarmed, event, mobile patrol, construction, fire watch, executive protection, hospital, retail and more.",
+    "Professional security guard services in California for businesses, events, construction sites, hospitals, and more. Armed, unarmed, patrol, and fire watch solutions.",
   path: "/services",
+  absoluteTitle: true,
   keywords: [
     "security guard services Anaheim",
     "security services California",

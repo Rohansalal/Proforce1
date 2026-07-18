@@ -2,10 +2,11 @@ import Client from "./client"
 import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Event Security Services in Anaheim & California",
+  title: "Event Security Guards Anaheim | Wedding & Party Security",
   description:
-    "Professional event security in Anaheim, Orange County & Los Angeles. Crowd control, VIP protection, access management & emergency response for concerts, weddings, festivals & corporate events.",
+    "Hire professional event security guards in Anaheim for weddings, private parties, and special events. Trusted protection to keep guests safe and secure.",
   slug: "event-security",
+  absoluteTitle: true,
   keywords: [
     "event security Anaheim",
     "event security guards California",

@@ -2,10 +2,11 @@ import Client from "./client"
 import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Hospital Security Guards in Orange County, CA",
+  title: "Hospital Security Services | Healthcare Security Guards California",
   description:
-    "Healthcare-trained hospital security guards in Anaheim & throughout California. HIPAA-aware, de-escalation certified officers for emergency rooms, clinics, behavioral health units & medical campuses.",
+    "Protect patients, staff, and visitors with professional hospital security services. Trained healthcare security guards ensure safety, access control, and rapid response.",
   slug: "hospital-security",
+  absoluteTitle: true,
   keywords: [
     "hospital security guards California",
     "hospital security Orange County",

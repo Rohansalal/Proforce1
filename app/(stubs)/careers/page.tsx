@@ -124,7 +124,7 @@ export default function CareerPage() {
             {/* MAKE SURE to add your video file to the public/videos folder */}
             <source src="/hero/patrol-services.mp4" type="video/mp4" />
             {/* Fallback image if video fails to load */}
-            <img src="/Guard.jpg" alt="Security Team" className="w-full h-full object-cover" />
+            <img src="/Guard.jpg" alt="ProForce1 security guard team on duty" className="w-full h-full object-cover" />
           </video>
 
           {/* Tactical Pattern Overlay */}

@@ -2,10 +2,11 @@ import Client from "./client"
 import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Mobile Patrol Security in Orange County, CA",
+  title: "Mobile Patrol Security Services | 24/7 Patrol Guards California",
   description:
-    "24/7 mobile patrol security across Anaheim, Orange County & Southern California. GPS-tracked patrol vehicles, time-stamped reports, alarm response, vacation checks & lock-up services.",
+    "Protect your property with 24/7 mobile patrol security services. Fast response, visible patrols, GPS reporting, and trained security officers across California.",
   slug: "mobile-patrol-security",
+  absoluteTitle: true,
   keywords: [
     "mobile patrol Anaheim",
     "mobile patrol services Orange County",

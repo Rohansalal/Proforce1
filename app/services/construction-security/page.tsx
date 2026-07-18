@@ -2,10 +2,11 @@ import Client from "./client"
 import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Construction Site Security in Anaheim & California",
+  title: "Construction Site Security | Monitoring & Night Security",
   description:
-    "Construction site security guards across Orange County & California. Prevent theft, vandalism, copper & equipment loss with 24/7 patrols, mobile surveillance & on-site officers.",
+    "Protect your project with construction site security, 24/7 monitoring, and construction site night security services to prevent theft, vandalism, and trespassing.",
   slug: "construction-security",
+  absoluteTitle: true,
   keywords: [
     "construction site security Anaheim",
     "construction security guards California",

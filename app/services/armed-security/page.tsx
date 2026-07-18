@@ -2,10 +2,11 @@ import Client from "./client"
 import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Armed Security Guards in Anaheim & Orange County",
+  title: "Armed Security Guard Services | Trained Armed Security Officers",
   description:
-    "BSIS-licensed armed security guards in Anaheim, Orange County & California. Protecting jewelry stores, banks, hotels, cannabis dispensaries & high-value properties 24/7. Call (800) 779-7691.",
+    "Protect your people and property with licensed armed security guards and experienced armed security officers. Reliable protection for businesses and events.",
   slug: "armed-security",
+  absoluteTitle: true,
   keywords: [
     "armed security guards Anaheim",
     "armed security California",

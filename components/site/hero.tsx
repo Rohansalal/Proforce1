@@ -67,7 +67,7 @@ const slides = [
 ]
 
 // --- SUB-COMPONENT: Video Player ---
-const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor, onVideoEnd, onDurationUpdate }: { src: string, poster: string, isActive: boolean, isPreloading: boolean, isFirst: boolean, posterColor: string, onVideoEnd: () => void, onDurationUpdate: (duration: number) => void }) => {
+const VideoSlide = ({ src, poster, alt, isActive, isPreloading, isFirst, posterColor, onVideoEnd, onDurationUpdate }: { src: string, poster: string, alt: string, isActive: boolean, isPreloading: boolean, isFirst: boolean, posterColor: string, onVideoEnd: () => void, onDurationUpdate: (duration: number) => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hasError, setHasError] = useState(false)
   const [shouldRender, setShouldRender] = useState(isActive || isPreloading)
@@ -127,7 +127,7 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
         {poster && (
           <Image
             src={poster}
-            alt="Slide poster"
+            alt={alt}
             fill
             className="object-cover opacity-100"
             sizes="100vw"
@@ -156,7 +156,7 @@ const VideoSlide = ({ src, poster, isActive, isPreloading, isFirst, posterColor,
 
       <Image
         src={poster}
-        alt="Slide poster"
+        alt={alt}
         fill
         sizes="100vw"
         quality={40}
@@ -273,7 +273,7 @@ export function Hero() {
       {/* --- 0. STATIC LCP IMAGE ROOT (Guarantees pure HTML render without JS hydration blocking) --- */}
       <Image
         src={slides[0].poster}
-        alt="Hero Background"
+        alt={`${slides[0].title} security patrol vehicle in California`}
         fill
         priority
         sizes="100vw"
@@ -293,6 +293,7 @@ export function Hero() {
             key={slide.id}
             src={slide.videoSrc}
             poster={slide.poster}
+            alt={`${slide.title} security services in California`}
             isActive={activeIndex === slideIndex}
             isPreloading={isPreloading}
             isFirst={slideIndex === 0}

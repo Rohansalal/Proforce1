@@ -2,10 +2,11 @@ import Client from "./client"
 import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Fire Watch Security in California | Title 19 Compliant",
+  title: "Fire Watch Services California | Emergency Fire Watch Anaheim",
   description:
-    "California Title 19 compliant fire watch services in Anaheim, Orange County & beyond. Hot work, sprinkler outage, alarm system & roofing fire watch guards available 24/7. Same-day deployment.",
+    "Need emergency fire watch the same day? Get reliable fire watch services in California and Anaheim with trained guards available 24/7 for fast response.",
   slug: "fire-watch-security",
+  absoluteTitle: true,
   keywords: [
     "fire watch services California",
     "fire watch security Anaheim",

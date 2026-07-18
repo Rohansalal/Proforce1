@@ -6,6 +6,7 @@ type PageMetaInput = {
   title: string
   description: string
   path: string
+  absoluteTitle?: boolean
   keywords?: string[]
   image?: string
   type?: "website" | "article"
@@ -22,6 +23,7 @@ export function buildPageMetadata({
   title,
   description,
   path,
+  absoluteTitle = false,
   keywords,
   image = "/logo.png",
   type = "website",
@@ -39,7 +41,7 @@ export function buildPageMetadata({
   }
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     keywords,
     alternates: { canonical: url },
@@ -67,6 +69,7 @@ type ServiceMetaInput = {
   title: string
   description: string
   slug: string
+  absoluteTitle?: boolean
   keywords?: string[]
 }
 
@@ -74,12 +77,14 @@ export function buildServiceMetadata({
   title,
   description,
   slug,
+  absoluteTitle,
   keywords,
 }: ServiceMetaInput): Metadata {
   return buildPageMetadata({
     title,
     description,
     path: `/services/${slug}`,
+    absoluteTitle,
     keywords,
   })
 }
