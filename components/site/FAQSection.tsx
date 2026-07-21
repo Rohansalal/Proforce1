@@ -2,35 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { homepageFaqs } from "@/lib/faqs";
 
 export function FAQSection() {
-  const faqs = [
-    {
-      question: "How do you handle emergency situations?",
-      answer: "We maintain a 24/7 Global Command Center and rapid response teams. Our protocols are integrated with local law enforcement to handle emergencies efficiently."
-    },
-    {
-      question: "What training do your guards receive?",
-      answer: "Beyond standard licensing, our guards undergo a rigorous boot camp covering conflict resolution, advanced first aid (CPR/AED), and tactical defensive driving."
-    },
-    {
-      question: "Are your guards licensed & insured?",
-      answer: "Yes, all our security personnel are fully licensed by the state (PPO # 120753), bonded, and comprehensively insured surpassing industry standards."
-    },
-    {
-      question: "Do you offer customized plans?",
-      answer: "Absolutely. We reject 'one-size-fits-all.' We conduct a full threat assessment of your specific site to build a tailored security strategy."
-    },
-    {
-      question: "Can you provide large event security?",
-      answer: "Yes. We specialize in high-capacity crowd control, VIP pathing, and perimeter security for gatherings ranging from corporate galas to stadium-sized events."
-    },
-    {
-      question: "How fast can you deploy guards?",
-      answer: "With our 24/7 operations and localized dispatch teams across California, we can typically deploy fully equipped officers to your site within hours."
-    }
-  ];
-
   return (
     <section className="pt-10 pb-20 lg:pt-16 lg:pb-32 bg-white" style={{ fontFamily: '"Inter", sans-serif' }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
@@ -72,13 +46,13 @@ export function FAQSection() {
 
           {/* Right Column: FAQ Grid */}
           <div className="grid md:grid-cols-2 gap-6 h-full content-start">
-            {faqs.map((faq, index) => (
+            {homepageFaqs.map((faq, index) => (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                key={index}
+                key={faq.question}
                 className="bg-slate-50 rounded-sm p-6 lg:p-8 flex flex-col justify-start border border-slate-200 hover:border-red-300 hover:shadow-xl hover:shadow-red-900/5 transition-all duration-300 group"
               >
                 <h3 className="text-slate-900 text-lg font-black uppercase tracking-tight mb-4 group-hover:text-red-700 transition-colors">

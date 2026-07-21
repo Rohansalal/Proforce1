@@ -1,5 +1,7 @@
 import Client from "./client"
-import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
+import { ServiceFAQSection } from "@/components/site/ServiceFAQSection"
+import { serviceFaqs } from "@/lib/faqs"
+import { buildFaqJsonLd, buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
   title: "Fire Watch Services California | Emergency Fire Watch Anaheim",
@@ -27,6 +29,8 @@ const jsonLd = buildServiceJsonLd({
   slug: "fire-watch-security",
   serviceType: "Fire Watch",
 })
+const faqs = serviceFaqs["fire-watch-security"]
+const faqJsonLd = buildFaqJsonLd(faqs)
 
 export default function Page() {
   return (
@@ -35,7 +39,12 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Client />
+      <ServiceFAQSection faqs={faqs} serviceName="Fire Watch Security" />
     </>
   )
 }

@@ -67,7 +67,7 @@ const slides = [
 ]
 
 // --- SUB-COMPONENT: Video Player ---
-const VideoSlide = ({ src, poster, alt, isActive, isPreloading, isFirst, posterColor, onVideoEnd, onDurationUpdate }: { src: string, poster: string, alt: string, isActive: boolean, isPreloading: boolean, isFirst: boolean, posterColor: string, onVideoEnd: () => void, onDurationUpdate: (duration: number) => void }) => {
+const VideoSlide = ({ src, poster, alt, isActive, isPreloading, isFirst, isPaused, posterColor, onVideoEnd, onDurationUpdate }: { src: string, poster: string, alt: string, isActive: boolean, isPreloading: boolean, isFirst: boolean, isPaused: boolean, posterColor: string, onVideoEnd: () => void, onDurationUpdate: (duration: number) => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hasError, setHasError] = useState(false)
   const [shouldRender, setShouldRender] = useState(isActive || isPreloading)
@@ -87,7 +87,7 @@ const VideoSlide = ({ src, poster, alt, isActive, isPreloading, isFirst, posterC
       setIsVideoLoaded(true)
     }
 
-    if (isActive) {
+    if (isActive && !isPaused) {
       const playPromise = video.play()
       if (playPromise !== undefined) {
         playPromise.catch(() => {
@@ -95,6 +95,9 @@ const VideoSlide = ({ src, poster, alt, isActive, isPreloading, isFirst, posterC
           setIsVideoLoaded(false)
         })
       }
+    } else if (isActive && isPaused) {
+      // Paused on hover/focus - hold the current frame, don't reset
+      video.pause()
     } else if (isPreloading) {
       video.preload = "auto"
       video.load()
@@ -102,7 +105,7 @@ const VideoSlide = ({ src, poster, alt, isActive, isPreloading, isFirst, posterC
       video.pause()
       video.currentTime = 0
     }
-  }, [isActive, isPreloading, shouldRender])
+  }, [isActive, isPreloading, shouldRender, isPaused])
 
   useEffect(() => {
     if (hasError && isActive) {
@@ -123,7 +126,7 @@ const VideoSlide = ({ src, poster, alt, isActive, isPreloading, isFirst, posterC
     if (!shouldRender) return null;
 
     return (
-      <div className={cn("absolute inset-0 w-full h-full transition-opacity duration-1000 will-change-transform", isActive ? "opacity-100 z-10" : "opacity-0 z-0", posterColor)}>
+      <div className={cn("absolute inset-0 w-full h-full transition-opacity duration-500 will-change-transform", isActive ? "opacity-100 z-10" : "opacity-0 z-0", posterColor)}>
         {poster && (
           <Image
             src={poster}
@@ -149,7 +152,7 @@ const VideoSlide = ({ src, poster, alt, isActive, isPreloading, isFirst, posterC
 
   return (
     <div className={cn(
-      "absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out will-change-transform",
+      "absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out will-change-transform",
       isActive ? "opacity-100 z-10" : "opacity-0 z-0"
     )}>
       <div className="absolute inset-0 bg-slate-950/60 z-20" />
@@ -161,7 +164,7 @@ const VideoSlide = ({ src, poster, alt, isActive, isPreloading, isFirst, posterC
         sizes="100vw"
         quality={40}
         className={cn(
-          "object-cover transition-opacity duration-1000 z-0",
+          "object-cover transition-opacity duration-500 z-0",
           isVideoLoaded ? "opacity-0" : "opacity-100"
         )}
         priority={isFirst}
@@ -198,6 +201,8 @@ export function Hero() {
   const [durations, setDurations] = useState<number[]>(slides.map(() => SLIDE_DURATION))
   const [allowVideos, setAllowVideos] = useState(false) // DELAY VIDEO MOUNTING
   const [preloadIndex, setPreloadIndex] = useState<number | null>(null) // Track which video to preload
+  const [isPaused, setIsPaused] = useState(false) // Pause auto-rotation on hover/focus
+  const [autoRotate, setAutoRotate] = useState(true) // Stops after manual navigation
 
   // Reduce delay to 800ms - enough to unblock TBT but faster than before
   useEffect(() => {
@@ -235,6 +240,21 @@ export function Hero() {
     setActiveIndex((prev) => (prev - 1 + slides.length) % slides.length)
   }, [])
 
+  // Only auto-advance when playing (not hovered/focused) and auto-rotation is still on
+  const handleVideoEnd = useCallback(() => {
+    if (autoRotate && !isPaused) nextSlide()
+  }, [autoRotate, isPaused, nextSlide])
+
+  // Manual navigation stops auto-rotation so the slide can't change under the user
+  const handlePrev = useCallback(() => {
+    setAutoRotate(false)
+    prevSlide()
+  }, [prevSlide])
+  const handleNext = useCallback(() => {
+    setAutoRotate(false)
+    nextSlide()
+  }, [nextSlide])
+
   // Mobile Swipe Logic
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null)
@@ -244,8 +264,8 @@ export function Hero() {
   const onTouchEndHandler = () => {
     if (!touchStart || !touchEnd) return
     const distance = touchStart - touchEnd
-    if (distance > 50) nextSlide()
-    if (distance < -50) prevSlide()
+    if (distance > 50) handleNext()
+    if (distance < -50) handlePrev()
   }
 
   const getThemeStyles = (theme: string) => {
@@ -269,6 +289,10 @@ export function Hero() {
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEndHandler}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={() => setIsPaused(false)}
     >
       {/* --- 0. STATIC LCP IMAGE ROOT (Guarantees pure HTML render without JS hydration blocking) --- */}
       <Image
@@ -297,8 +321,9 @@ export function Hero() {
             isActive={activeIndex === slideIndex}
             isPreloading={isPreloading}
             isFirst={slideIndex === 0}
+            isPaused={isPaused}
             posterColor={getThemeStyles(slide.theme)}
-            onVideoEnd={nextSlide}
+            onVideoEnd={handleVideoEnd}
             onDurationUpdate={(dur) => handleDurationUpdate(slideIndex, dur)}
           />
         )
@@ -321,9 +346,9 @@ export function Hero() {
               hidden: { opacity: 0 },
               visible: {
                 opacity: 1,
-                transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+                transition: { staggerChildren: 0.08, delayChildren: 0.05 }
               },
-              exit: { opacity: 0, x: -30, transition: { duration: 0.4 } }
+              exit: { opacity: 0, transition: { duration: 0.2 } }
             }}
           >
 
@@ -398,15 +423,25 @@ export function Hero() {
             </motion.div>
           </motion.div>
         </AnimatePresence>
+
+        {/* Persistent, slide-independent CTA — always mounted and clickable during transitions */}
+        <div className="relative z-50 mt-6 md:mt-8">
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 text-sm md:text-base font-bold text-white/90 underline-offset-4 hover:text-white hover:underline pointer-events-auto"
+          >
+            Get a Free Quote <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+          </Link>
+        </div>
       </div>
 
       {/* --- 3. DESKTOP NAVIGATION --- */}
       <div className="absolute bottom-12 right-12 z-30 hidden lg:flex flex-col items-end gap-6">
         <div className="flex gap-4">
-          <Button size="icon" variant="ghost" onClick={prevSlide} aria-label="Previous slide" className="h-12 w-12 rounded-full border border-white/20 hover:bg-white hover:text-black text-white transition-all">
+          <Button size="icon" variant="ghost" onClick={handlePrev} aria-label="Previous slide" className="h-12 w-12 rounded-full border border-white/20 hover:bg-white hover:text-black text-white transition-all">
             <ChevronLeft className="h-6 w-6" />
           </Button>
-          <Button size="icon" variant="ghost" onClick={nextSlide} aria-label="Next slide" className="h-12 w-12 rounded-full border border-white/20 hover:bg-white hover:text-black text-white transition-all">
+          <Button size="icon" variant="ghost" onClick={handleNext} aria-label="Next slide" className="h-12 w-12 rounded-full border border-white/20 hover:bg-white hover:text-black text-white transition-all">
             <ChevronRight className="h-6 w-6" />
           </Button>
         </div>
@@ -436,10 +471,10 @@ export function Hero() {
 
         <div className="flex justify-end items-center">
           <div className="flex gap-3">
-            <Button size="icon" variant="ghost" onClick={prevSlide} aria-label="Previous slide" className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+            <Button size="icon" variant="ghost" onClick={handlePrev} aria-label="Previous slide" className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
               <ChevronLeft className="h-5 w-5" />
             </Button>
-            <Button size="icon" variant="ghost" onClick={nextSlide} aria-label="Next slide" className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+            <Button size="icon" variant="ghost" onClick={handleNext} aria-label="Next slide" className="h-10 w-10 text-white rounded-full bg-white/10 backdrop-blur-md border border-white/10">
               <ChevronRight className="h-5 w-5" />
             </Button>
           </div>

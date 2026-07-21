@@ -1,11 +1,14 @@
 import Client from "./client"
-import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
+import { ServiceFAQSection } from "@/components/site/ServiceFAQSection"
+import { serviceFaqs } from "@/lib/faqs"
+import { buildFaqJsonLd, buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Financial Institution Security Services in California",
+  title: "Bank Security Guards | 100+ Branches Secured -  ProForce 1",
   description:
-    "Specialized security services for credit unions, investment firms, wealth management offices and financial institutions throughout California. Licensed armed officers, access control & lobby protection.",
+    "ProForce 1 secures 100+ bank branches statewide \u2014 clients report a 60% drop in incidents. Armed guards, ATM patrols & FDIC-compliant protection. Free quote.",
   slug: "financial-institutions-security",
+  absoluteTitle: true,
   keywords: [
     "financial institution security California",
     "credit union security guards",
@@ -25,6 +28,9 @@ const jsonLd = buildServiceJsonLd({
   serviceType: "Financial Institution Security",
 })
 
+const faqs = serviceFaqs["financial-institutions-security"]
+const faqJsonLd = buildFaqJsonLd(faqs)
+
 export default function Page() {
   return (
     <>
@@ -32,7 +38,12 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Client />
+      <ServiceFAQSection faqs={faqs} serviceName="Financial Institutions Security" />
     </>
   )
 }

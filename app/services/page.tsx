@@ -1,5 +1,7 @@
 import Client from "./client"
-import { buildPageMetadata } from "@/lib/seo"
+import { ServiceFAQSection } from "@/components/site/ServiceFAQSection"
+import { servicesOverviewFaqs } from "@/lib/faqs"
+import { buildFaqJsonLd, buildPageMetadata } from "@/lib/seo"
 
 export const metadata = buildPageMetadata({
   title: "Security Guard Services California | Armed & Unarmed Security",
@@ -49,6 +51,7 @@ const servicesJsonLd = {
     url: `https://proforce1protection.com/services/${slug}`,
   })),
 }
+const faqJsonLd = buildFaqJsonLd(servicesOverviewFaqs)
 
 export default function Page() {
   return (
@@ -57,7 +60,12 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Client />
+      <ServiceFAQSection faqs={servicesOverviewFaqs} />
     </>
   )
 }

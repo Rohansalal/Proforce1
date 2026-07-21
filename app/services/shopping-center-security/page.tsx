@@ -1,11 +1,14 @@
 import Client from "./client"
-import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
+import { ServiceFAQSection } from "@/components/site/ServiceFAQSection"
+import { serviceFaqs } from "@/lib/faqs"
+import { buildFaqJsonLd, buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Shopping Center & Mall Security in Orange County",
+  title: "Mall & Shopping Center Security - ProForce 1",
   description:
-    "Professional shopping center security guards across California. Loss prevention, customer service, mobile patrols & after-hours protection for malls, lifestyle centers & retail plazas.",
+    "ProForce 1 protects 50+ malls & shopping centers across California with loss prevention, parking patrols & 24/7 dispatch. Request a mall security proposal",
   slug: "shopping-center-security",
+  absoluteTitle: true,
   keywords: [
     "shopping center security Orange County",
     "mall security guards California",
@@ -25,6 +28,9 @@ const jsonLd = buildServiceJsonLd({
   serviceType: "Shopping Center Security",
 })
 
+const faqs = serviceFaqs["shopping-center-security"]
+const faqJsonLd = buildFaqJsonLd(faqs)
+
 export default function Page() {
   return (
     <>
@@ -32,7 +38,12 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Client />
+      <ServiceFAQSection faqs={faqs} serviceName="Shopping Center Security" />
     </>
   )
 }

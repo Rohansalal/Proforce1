@@ -10,6 +10,7 @@ const OurPartners = dynamic(() => import("@/components/site/our-partners"))
 const FAQSection = dynamic(() => import("@/components/site/FAQSection"))
 const Testimonials = dynamic(() => import("@/components/site/testimonials"))
 const BlogSection = dynamic(() => import("@/components/site/BlogSection"))
+const ContactSection = dynamic(() => import("@/components/site/ContactSection"))
 
 export function HomeDynamicSections() {
     return (
@@ -21,6 +22,7 @@ export function HomeDynamicSections() {
             <FAQSection />
             <Testimonials />
             <BlogSection />
+            <ContactSection />
         </>
     )
 }

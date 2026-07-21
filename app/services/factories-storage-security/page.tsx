@@ -1,5 +1,7 @@
 import ServiceTemplate from "@/components/site/service-template"
-import { buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
+import { ServiceFAQSection } from "@/components/site/ServiceFAQSection"
+import { serviceFaqs } from "@/lib/faqs"
+import { buildFaqJsonLd, buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
   title: "Factory & Warehouse Security in Orange County",
@@ -25,6 +27,8 @@ const jsonLd = buildServiceJsonLd({
   slug: "factories-storage-security",
   serviceType: "Industrial Security",
 })
+const faqs = serviceFaqs["factories-storage-security"]
+const faqJsonLd = buildFaqJsonLd(faqs)
 
 export default function FactoriesStorageSecurityPage() {
   return (
@@ -32,6 +36,10 @@ export default function FactoriesStorageSecurityPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     <ServiceTemplate
       title="Factories & Storage Facility Security in Orange County"
@@ -177,6 +185,7 @@ export default function FactoriesStorageSecurityPage() {
         <li>Third-party logistics and distribution centers</li>
       </ul>
     </ServiceTemplate>
+      <ServiceFAQSection faqs={faqs} serviceName="Factory & Warehouse Security" />
     </>
   )
 }
