@@ -1226,9 +1226,9 @@ export default function ServicesPage() {
             >
               <div>
                 <h4 className="text-orange-600 font-bold uppercase tracking-widest text-sm mb-2">Technology Driven</h4>
-                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
                   Smart Surveillance & <br />Cloud Operations
-                </h1>
+                </h2>
               </div>
               <p className="text-lg text-gray-600 leading-relaxed">
                 When an alarm is triggered or unusual activity is seen on CCTV, our team at our Cloud Operations Center respond immediately. We also respond to alerts from worker devices and trackers on valuable assets.

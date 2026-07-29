@@ -262,7 +262,7 @@ export default function ShoppingCenterSecurityPage() {
 
         {/* Content Layer */}
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <div className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
             SHOPPING<br />
             <span 
               className="text-transparent bg-clip-text bg-gradient-to-r from-[#f34100] to-[#ff6d33]"
@@ -276,7 +276,7 @@ export default function ShoppingCenterSecurityPage() {
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
               Safe & Secure Retail Environments
             </span>
-          </div>
+          </h1>
 
           {/* Subtle subtitle */}
           <div className="max-w-3xl mx-auto">

@@ -44,7 +44,7 @@ export default function FactoriesStorageSecurityPage() {
     <ServiceTemplate
       title="Factories & Storage Facility Security in Orange County"
       intro="Comprehensive security solutions for manufacturing plants, warehouses, distribution centers, and storage facilities throughout Orange County."
-      imagePath="/Services/factories-storage-security.jpg"
+      imagePath="/Services/onsite-security/onsite.jpg"
       bullets={[
         "24/7 facility monitoring & patrols",
         "Access control systems implementation",

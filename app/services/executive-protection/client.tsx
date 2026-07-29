@@ -265,7 +265,7 @@ export default function ExecutiveProtectionPage() {
 
         {/* Content Layer */}
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <div className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
             EXECUTIVE<br />
             <span 
               className="text-transparent bg-clip-text bg-gradient-to-r from-[#f34100] to-[#ff6d33]"
@@ -279,7 +279,7 @@ export default function ExecutiveProtectionPage() {
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
               Uncompromising Safety & Discretion
             </span>
-          </div>
+          </h1>
 
           {/* Subtle subtitle */}
           <div className="max-w-3xl mx-auto">

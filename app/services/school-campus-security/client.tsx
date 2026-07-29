@@ -227,7 +227,7 @@ export default function SchoolCampusSecurityPage() {
             <source src="/Services/unarmed/unarmed.mp4" type="video/mp4" />
             {/* Fallback image if video fails to load */}
             <img 
-               src="/Services/school/school-hero.jpg" 
+               src="/Services/school/school.jpg"
                alt="School Security Background" 
                className="w-full h-full object-cover"
             />
@@ -240,7 +240,7 @@ export default function SchoolCampusSecurityPage() {
 
         {/* Content Layer */}
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <div className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
             SCHOOL<br />
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(to right, #ff4d4d, #c10007)' }}>
               CAMPUS SECURITY
@@ -249,7 +249,7 @@ export default function SchoolCampusSecurityPage() {
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
               Safe Learning Environments
             </span>
-          </div>
+          </h1>
 
           {/* Subtle subtitle */}
           <div className="max-w-3xl mx-auto">

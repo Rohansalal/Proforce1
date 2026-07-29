@@ -249,7 +249,7 @@ export default function OnsiteSecurityPage() {
 
         {/* Content Layer */}
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <div className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
             ONSITE<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">
               SECURITY SERVICES
@@ -258,7 +258,7 @@ export default function OnsiteSecurityPage() {
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
               Professional Facility Protection
             </span>
-          </div>
+          </h1>
 
           {/* Subtle subtitle */}
           <div className="max-w-3xl mx-auto">

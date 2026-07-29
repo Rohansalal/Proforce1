@@ -4,9 +4,9 @@ import { serviceFaqs } from "@/lib/faqs"
 import { buildFaqJsonLd, buildServiceMetadata, buildServiceJsonLd } from "@/lib/seo"
 
 export const metadata = buildServiceMetadata({
-  title: "Bank Security Guards | 100+ Branches Secured -  ProForce 1",
+  title: "Financial Institution Security Guards | Credit Unions",
   description:
-    "ProForce 1 secures 100+ bank branches statewide \u2014 clients report a 60% drop in incidents. Armed guards, ATM patrols & FDIC-compliant protection. Free quote.",
+    "BSIS-licensed security officers for credit unions, investment firms & wealth management offices in California. Lobby protection, access control & patrol.",
   slug: "financial-institutions-security",
   absoluteTitle: true,
   keywords: [

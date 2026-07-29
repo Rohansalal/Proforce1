@@ -245,81 +245,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
 
-  // JSON-LD Structured Data for Local Business
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SecurityService",
-    name: "ProForce 1 Protection Services",
-    url: "https://proforce1protection.com/",
-    logo: "https://proforce1protection.com/android-chrome-512x512.png",
-    image: "https://proforce1protection.com/android-chrome-512x512.png",
-    description: "Elite security services across California including Armed, Unarmed, Event, Mobile Patrol, and Construction Security.",
-    telephone: "800-779-7691",
-    email: "info@proforce1protection.com",
-    identifier: {
-      "@type": "PropertyValue",
-      propertyID: "California BSIS PPO License",
-      value: "PPO 120753",
-    },
-    hasCredential: {
-      "@type": "EducationalOccupationalCredential",
-      credentialCategory: "license",
-      name: "California Private Patrol Operator License",
-      identifier: "PPO 120753",
-      recognizedBy: {
-        "@type": "GovernmentOrganization",
-        name: "California Bureau of Security and Investigative Services",
-        url: "https://www.bsis.ca.gov/",
-      },
-    },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "1671 W Katella Ave Suite 106",
-      addressLocality: "Anaheim",
-      addressRegion: "CA",
-      postalCode: "92802",
-      addressCountry: "US"
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 33.803992,
-      longitude: -117.9403213
-    },
-    areaServed: "California",
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday"
-        ],
-        opens: "00:00",
-        closes: "23:59"
-      }
-    ],
-    sameAs: [
-      "https://www.facebook.com/Proforce1protection",
-      "https://www.instagram.com/proforce1protectionservices/",
-      "https://x.com/proforce_1",
-      "https://www.linkedin.com/company/proforce1/",
-      "https://youtu.be/p6BQtfCuY5s?si=7FP-mx9tNfdBVeCp"
-    ]
-  };
-
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="S1fN6M8mq5lqUp8RgxRyubUgBCAvJlPrz5yZu3UgjiQ" />
         <link rel="preload" as="image" href="/hero/patrol-services.jpg" fetchPriority="high" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
       </head>
 <body className={`font-sans antialiased ${inter.variable}`} style={{ fontFamily: "var(--font-sans), sans-serif" }} suppressHydrationWarning>
         <Suspense fallback={<div>Loading...</div>}>

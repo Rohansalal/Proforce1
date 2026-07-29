@@ -23,14 +23,14 @@ import { cn } from "@/lib/utils"
 
 // --- Assets Configuration ---
 const IMAGES = {
-  hero: "/Services/bank/bank-hero.jpg",
-  security: "/Services/bank/bank-security.jpg",
-  technology: "/Services/bank/bank-tech.jpg",
-  lobby: "/Services/bank/bank-lobby.jpg",
-  officer: "/Services/bank/bank-officer.jpg",
-  command: "/Services/bank/bank-command.jpg",
-  team: "/Services/bank/bank-team.jpg",
-  vault: "/Services/bank/bank-vault.jpg"
+  hero: "/Services/bank-security.jpg",
+  security: "/Guard.jpg",
+  technology: "/Services/financial-institutions-security/service.png",
+  lobby: "/Services/bank-security.jpg",
+  officer: "/Guard.jpg",
+  command: "/Services/financial-institutions-security/service.png",
+  team: "/Services/financial-institutions-security/service.png",
+  vault: "/Services/bank-security.jpg"
 }
 
 // --- Components ---
@@ -225,7 +225,7 @@ export default function BankSecurityPage() {
 
         {/* Content Layer */}
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <div className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8">
             BANK<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-teal-600">
               SECURITY SERVICES
@@ -234,7 +234,7 @@ export default function BankSecurityPage() {
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 block">
               Financial Institution Protection
             </span>
-          </div>
+          </h1>
 
           {/* Subtle subtitle */}
           <div className="max-w-3xl mx-auto">
