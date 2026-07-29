@@ -3,8 +3,12 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { homepageFaqs } from "@/lib/faqs";
+import { FaqAnswer } from "@/components/site/FaqAnswer";
+import { linkifyFaqAnswers } from "@/lib/faq-links";
 
 export function FAQSection() {
+  const answers = linkifyFaqAnswers(homepageFaqs.map((faq) => faq.answer), "/");
+
   return (
     <section className="pt-10 pb-20 lg:pt-16 lg:pb-32 bg-white" style={{ fontFamily: '"Inter", sans-serif' }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
@@ -58,9 +62,10 @@ export function FAQSection() {
                 <h3 className="text-slate-900 text-lg font-black uppercase tracking-tight mb-4 group-hover:text-red-700 transition-colors">
                   {faq.question}
                 </h3>
-                <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                  {faq.answer}
-                </p>
+                <FaqAnswer
+                  segments={answers[index]}
+                  className="text-slate-600 text-sm font-medium leading-relaxed"
+                />
               </motion.div>
             ))}
           </div>

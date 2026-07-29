@@ -185,7 +185,7 @@ export default function FactoriesStorageSecurityPage() {
         <li>Third-party logistics and distribution centers</li>
       </ul>
     </ServiceTemplate>
-      <ServiceFAQSection faqs={faqs} serviceName="Factory & Warehouse Security" />
+      <ServiceFAQSection faqs={faqs} serviceName="Factory & Warehouse Security" currentPath="/services/factories-storage-security" />
     </>
   )
 }

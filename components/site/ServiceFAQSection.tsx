@@ -1,15 +1,24 @@
 import { ChevronDown } from "lucide-react"
 import type { FaqItem } from "@/lib/faqs"
+import { FaqAnswer } from "@/components/site/FaqAnswer"
+import { linkifyFaqAnswers } from "@/lib/faq-links"
 
 type ServiceFAQSectionProps = {
   faqs: readonly FaqItem[]
   serviceName?: string
+  /** Route this section renders on, used to suppress self-links in answers. */
+  currentPath?: string
 }
 
-export function ServiceFAQSection({ faqs, serviceName }: ServiceFAQSectionProps) {
+export function ServiceFAQSection({ faqs, serviceName, currentPath }: ServiceFAQSectionProps) {
   const heading = serviceName
     ? `${serviceName} Frequently Asked Questions`
     : "Frequently Asked Questions"
+
+  const answers = linkifyFaqAnswers(
+    faqs.map((faq) => faq.answer),
+    currentPath
+  )
 
   return (
     <section id="faq" aria-labelledby="faq-heading" className="bg-slate-50 py-16 lg:py-24">
@@ -22,7 +31,7 @@ export function ServiceFAQSection({ faqs, serviceName }: ServiceFAQSectionProps)
         </div>
 
         <div className="border-t border-slate-300">
-          {faqs.map((faq) => (
+          {faqs.map((faq, index) => (
             <details key={faq.question} className="group border-b border-slate-300">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-left text-lg font-bold text-slate-900 marker:content-none hover:text-red-700">
                 <span>{faq.question}</span>
@@ -31,7 +40,10 @@ export function ServiceFAQSection({ faqs, serviceName }: ServiceFAQSectionProps)
                   className="h-5 w-5 shrink-0 text-red-700 transition-transform duration-200 group-open:rotate-180"
                 />
               </summary>
-              <p className="max-w-4xl pb-6 pr-10 leading-7 text-slate-600">{faq.answer}</p>
+              <FaqAnswer
+                segments={answers[index]}
+                className="max-w-4xl pb-6 pr-10 leading-7 text-slate-600"
+              />
             </details>
           ))}
         </div>

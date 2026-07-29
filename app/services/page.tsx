@@ -65,7 +65,7 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Client />
-      <ServiceFAQSection faqs={servicesOverviewFaqs} />
+      <ServiceFAQSection faqs={servicesOverviewFaqs} currentPath="/services" />
     </>
   )
 }
