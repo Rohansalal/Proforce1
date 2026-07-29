@@ -15,10 +15,7 @@ export function ServiceFAQSection({ faqs, serviceName, currentPath }: ServiceFAQ
     ? `${serviceName} Frequently Asked Questions`
     : "Frequently Asked Questions"
 
-  const answers = linkifyFaqAnswers(
-    faqs.map((faq) => faq.answer),
-    currentPath
-  )
+  const answers = linkifyFaqAnswers(faqs, currentPath)
 
   return (
     <section id="faq" aria-labelledby="faq-heading" className="bg-slate-50 py-16 lg:py-24">
@@ -40,10 +37,13 @@ export function ServiceFAQSection({ faqs, serviceName, currentPath }: ServiceFAQ
                   className="h-5 w-5 shrink-0 text-red-700 transition-transform duration-200 group-open:rotate-180"
                 />
               </summary>
-              <FaqAnswer
-                segments={answers[index]}
-                className="max-w-4xl pb-6 pr-10 leading-7 text-slate-600"
-              />
+              <div className="pb-6">
+                <FaqAnswer
+                  answer={answers[index]}
+                  className="max-w-4xl pr-10 leading-7 text-slate-600"
+                  ctaClassName="flex flex-wrap gap-x-6 gap-y-2 pt-3"
+                />
+              </div>
             </details>
           ))}
         </div>

@@ -21,6 +21,8 @@
  * page so the anchor still passes equity instead of 404ing.
  */
 
+import { DOC_FAQ_LINKS } from "@/lib/faq-doc-links"
+
 export type FaqLinkRule = {
   phrase: string
   href: string
@@ -185,6 +187,57 @@ export type FaqAnswerSegment = {
   href?: string
 }
 
+export type FaqCta = {
+  href: string
+  label: string
+}
+
+export type LinkedFaqAnswer = {
+  segments: FaqAnswerSegment[]
+  /** Doc-specified destinations with no phrase to anchor to, shown after the answer. */
+  ctas: FaqCta[]
+}
+
+const CTA_LABELS: Record<string, string> = {
+  "/contact": "Contact us",
+  "/services": "View our services",
+  "/about": "About ProForce 1",
+}
+
+function ctaLabel(href: string) {
+  if (CTA_LABELS[href]) return CTA_LABELS[href]
+  const slug = href.split("/").pop() ?? ""
+  return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
+/**
+ * Extra wording accepted when placing a doc-specified link inline. Broader than
+ * the general rules because here we already know the destination is correct —
+ * we are only choosing which words carry it.
+ */
+const DOC_ANCHOR_FALLBACKS: Record<string, readonly string[]> = {
+  "/contact": [
+    "Contact our dispatch team",
+    "Contact us",
+    "dispatch line",
+    "dispatch team",
+    "custom proposal",
+    "custom quote",
+    "consultation",
+    "walkthrough",
+    "assessment",
+    "proposal",
+    "quote",
+  ],
+  "/services": [
+    "Explore our services",
+    "View our services",
+    "full service offerings",
+    "service offerings",
+    "our services",
+  ],
+}
+
 type Candidate = {
   start: number
   end: number
@@ -221,6 +274,87 @@ function findCandidates(answer: string, currentPath?: string): Candidate[] {
   return candidates
 }
 
+/**
+ * Locates `phrase` in the answer, preferring the closing CTA sentence — that is
+ * where the doc attached its links, and where a link reads as a call to action
+ * rather than a mid-paragraph distraction.
+ */
+function findPhrase(answer: string, phrase: string, ctaStart: number) {
+  const re = new RegExp(withBoundaries(phrase), "gi")
+  let first: { start: number; end: number; text: string } | null = null
+  let match: RegExpExecArray | null
+
+  while ((match = re.exec(answer)) !== null) {
+    const hit = { start: match.index, end: match.index + match[0].length, text: match[0] }
+    if (hit.start >= ctaStart) return hit
+    if (!first) first = hit
+  }
+
+  return first
+}
+
+/**
+ * Builds the links the content doc specifies for this answer.
+ *
+ * Where the doc wrapped real words we use that anchor verbatim; where it only
+ * tagged the paragraph's trailing space we pick wording for that destination
+ * from the phrase rules.
+ */
+function docCandidates(
+  question: string,
+  answer: string,
+  currentPath?: string
+): { inline: Candidate[]; ctas: FaqCta[] } | null {
+  const spec = DOC_FAQ_LINKS[question]
+  if (!spec?.length) return null
+
+  const sentences = answer.split(/(?<=\.)\s+/)
+  const ctaStart = answer.length - (sentences[sentences.length - 1] ?? "").length
+
+  const inline: Candidate[] = []
+  const ctas: FaqCta[] = []
+
+  for (const target of spec) {
+    if (target.href === currentPath) continue
+
+    const phrases = target.anchor
+      ? [target.anchor]
+      : [
+          ...(DOC_ANCHOR_FALLBACKS[target.href] ?? []),
+          ...FAQ_LINK_RULES.filter((rule) => rule.href === target.href && !rule.fallback)
+            .map((rule) => rule.phrase)
+            .sort((a, b) => b.length - a.length),
+        ]
+
+    let placed = false
+    for (const phrase of phrases) {
+      const hit = findPhrase(answer, phrase, ctaStart)
+      if (!hit) continue
+      // Never overlap a link already placed for this answer.
+      if (inline.some((c) => hit.start < c.end && c.start < hit.end)) continue
+
+      inline.push({
+        start: hit.start,
+        end: hit.end,
+        text: hit.text,
+        href: target.href,
+        inCta: hit.start >= ctaStart,
+        fallback: false,
+      })
+      placed = true
+      break
+    }
+
+    // The doc hung this link on the paragraph's trailing space, and the copy
+    // gives us nothing to wrap — surface it as a CTA after the answer instead.
+    if (!placed && !ctas.some((c) => c.href === target.href)) {
+      ctas.push({ href: target.href, label: ctaLabel(target.href) })
+    }
+  }
+
+  return inline.length || ctas.length ? { inline, ctas } : null
+}
+
 function toSegments(answer: string, chosen: Candidate[]): FaqAnswerSegment[] {
   const segments: FaqAnswerSegment[] = []
   let cursor = 0
@@ -248,12 +382,21 @@ function toSegments(answer: string, chosen: Candidate[]): FaqAnswerSegment[] {
  * not link "bank security service" back to the page you are reading.
  */
 export function linkifyFaqAnswers(
-  answers: readonly string[],
+  faqs: readonly { question: string; answer: string }[],
   currentPath?: string
-): FaqAnswerSegment[][] {
+): LinkedFaqAnswer[] {
   const sectionUse = new Map<string, number>()
 
-  return answers.map((answer) => {
+  return faqs.map(({ question, answer }) => {
+    // The content doc is authoritative wherever it specifies links.
+    const fromDoc = docCandidates(question, answer, currentPath)
+    if (fromDoc) {
+      for (const link of fromDoc.inline) {
+        sectionUse.set(link.href, (sectionUse.get(link.href) ?? 0) + 1)
+      }
+      return { segments: toSegments(answer, fromDoc.inline), ctas: fromDoc.ctas }
+    }
+
     const candidates = findCandidates(answer, currentPath)
 
     const byPreference = (a: Candidate, b: Candidate) =>
@@ -292,11 +435,14 @@ export function linkifyFaqAnswers(
 
     for (const link of chosen) sectionUse.set(link.href, (sectionUse.get(link.href) ?? 0) + 1)
 
-    return toSegments(answer, chosen)
+    return { segments: toSegments(answer, chosen), ctas: [] }
   })
 }
 
 /** Single-answer convenience wrapper around {@link linkifyFaqAnswers}. */
-export function linkifyFaqAnswer(answer: string, currentPath?: string): FaqAnswerSegment[] {
-  return linkifyFaqAnswers([answer], currentPath)[0]
+export function linkifyFaqAnswer(
+  faq: { question: string; answer: string },
+  currentPath?: string
+): LinkedFaqAnswer {
+  return linkifyFaqAnswers([faq], currentPath)[0]
 }

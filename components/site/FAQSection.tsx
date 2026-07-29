@@ -7,7 +7,7 @@ import { FaqAnswer } from "@/components/site/FaqAnswer";
 import { linkifyFaqAnswers } from "@/lib/faq-links";
 
 export function FAQSection() {
-  const answers = linkifyFaqAnswers(homepageFaqs.map((faq) => faq.answer), "/");
+  const answers = linkifyFaqAnswers(homepageFaqs, "/");
 
   return (
     <section className="pt-10 pb-20 lg:pt-16 lg:pb-32 bg-white" style={{ fontFamily: '"Inter", sans-serif' }}>
@@ -63,8 +63,9 @@ export function FAQSection() {
                   {faq.question}
                 </h3>
                 <FaqAnswer
-                  segments={answers[index]}
+                  answer={answers[index]}
                   className="text-slate-600 text-sm font-medium leading-relaxed"
+                  ctaClassName="flex flex-wrap gap-x-5 gap-y-2 pt-4"
                 />
               </motion.div>
             ))}
