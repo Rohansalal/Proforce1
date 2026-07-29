@@ -116,7 +116,7 @@ export default function BlogPage() {
 
             <div className="grid gap-6 lg:grid-cols-4">
               {featuredPosts.map((post, index) => (
-                <Link key={post.id} href={`/blog/${post.id}`} className="group block h-full">
+                <Link key={post.id} href={`/blog/${post.slug}`} className="group block h-full">
                   <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 transition duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-2xl">
                     <div className="relative h-56 overflow-hidden bg-slate-200">
                       <Image
@@ -198,7 +198,7 @@ export default function BlogPage() {
               <div className="grid gap-6 md:grid-cols-2">
                 {paginatedPosts.length > 0 ? (
                   paginatedPosts.map((post) => (
-                    <Link key={post.id} href={`/blog/${post.id}`} className="group block h-full">
+                    <Link key={post.id} href={`/blog/${post.slug}`} className="group block h-full">
                       <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-xl">
                         <div className="relative h-52 overflow-hidden bg-slate-100">
                           <Image

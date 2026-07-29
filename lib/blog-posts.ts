@@ -3,6 +3,7 @@ import { buildPageMetadata } from "@/lib/seo"
 
 export type BlogPost = {
   id: number
+  slug: string
   title: string
   excerpt: string
   category: string
@@ -15,7 +16,21 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 18,
+    slug: "armed-vs-unarmed-security-guards",
+    title: "Armed vs. Unarmed Security Guards: Which Does Your Business Need?",
+    excerpt:
+      "Unarmed guards cover most day-to-day patrol, access control, and customer-facing roles, while armed guards suit high-risk, high-value operations. Here is how to decide which one your business actually needs.",
+    category: "Security Tips",
+    author: "Security Operations Team",
+    date: "2026-07-24",
+    readTime: "7 min read",
+    featured: true,
+    image: "/blogimage/guard-post.jpg",
+  },
+  {
     id: 17,
+    slug: "event-security-planning-guide",
     title: "Event Security",
     excerpt:
       "A strong event security plan starts before guests arrive. See how trained officers, access control, communication, and visible coverage keep conferences and gatherings running smoothly.",
@@ -28,6 +43,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 1,
+    slug: "security-solutions-for-schools",
     title: "Securing the Future: Professional Security Solutions for Educational Institutions",
     excerpt:
       "Educational environments require a specialized, compassionate, yet firm approach to security. Discover how ProForce1 partners with schools to keep students, staff, and families protected.",
@@ -40,6 +56,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 13,
+    slug: "security-culture-investing-in-your-guards",
     title: "Security Culture: How Investing in Your Guards Strengthens Safety",
     excerpt:
       "A strong security program starts with well-supported officers. Learn how training, supervision, communication, and retention improve safety outcomes for every site.",
@@ -52,6 +69,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 15,
+    slug: "engage-early-with-security-partners",
     title: "Why You Should Engage Early with Security Partners",
     excerpt:
       "Security should not be an afterthought. Discover why bringing your security partner into planning early saves money, reduces gaps, and improves site flow.",
@@ -64,6 +82,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 14,
+    slug: "modern-patrol-challenges-and-solutions",
     title: "Tackling Today's Patrol Challenges: Modern Solutions",
     excerpt:
       "From guard fatigue to lack of accountability, traditional patrol models are changing. See how software, reporting, and field tools close the gaps.",
@@ -75,6 +94,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 12,
+    slug: "de-escalation-training-exercises",
     title: "Improving De-escalation: Training Exercises That Work",
     excerpt:
       "Practical scenario-based drills help officers strengthen communication, situational awareness, and safe resolution techniques before a conflict escalates.",
@@ -86,6 +106,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 11,
+    slug: "cold-weather-protocols-for-overnight-guards",
     title: "Cold Weather Gear and Protocols for Overnight Guards",
     excerpt:
       "Recommendations for equipment, shift planning, and vehicle readiness that help overnight teams stay safe, alert, and operational in cold conditions.",
@@ -97,6 +118,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 10,
+    slug: "rapid-response-retail-loss-case-study",
     title: "Case Study: Rapid Response Averts Major Loss at Retail Campus",
     excerpt:
       "A real-world look at how coordinated guards, dispatch, and site procedures helped prevent major loss and minimize downtime for a retail client.",
@@ -109,6 +131,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 9,
+    slug: "ai-patrol-routing-and-incident-response",
     title: "How AI Is Shaping Patrol Routing and Incident Response",
     excerpt:
       "Explore practical AI-driven tools that optimize patrol patterns, identify risk signals, and accelerate response times while keeping officers informed.",
@@ -120,6 +143,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 6,
+    slug: "new-security-technology-implementation",
     title: "New Security Technology Implementation at ProForce1",
     excerpt:
       "From body-worn cameras to cloud-based reporting, see how ProForce1 uses modern tools to improve transparency and officer performance.",
@@ -131,6 +155,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 5,
+    slug: "mobile-patrol-best-practices",
     title: "Mobile Patrol Best Practices for Commercial Properties",
     excerpt:
       "Learn how effective mobile patrol strategies increase visibility, reduce security incidents, and improve protection for large commercial properties.",
@@ -142,6 +167,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 4,
+    slug: "understanding-bsis-requirements",
     title: "Understanding BSIS Requirements: What Every Security Professional Needs to Know",
     excerpt:
       "A practical guide to California Bureau of Security and Investigative Services licensing, training, and compliance expectations.",
@@ -153,6 +179,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 3,
+    slug: "future-of-event-security",
     title: "The Future of Event Security: Technology and Training Integration",
     excerpt:
       "How modern technology, advanced training, and strong field coordination are reshaping event safety and crowd control.",
@@ -165,6 +192,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 2,
+    slug: "proforce1-expands-northern-california",
     title: "ProForce1 Expands Services to Northern California Markets",
     excerpt:
       "ProForce1 expands into the Bay Area and Sacramento, bringing premium security solutions to new communities and business clients.",
@@ -176,6 +204,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 8,
+    slug: "psychology-of-deterrence-physical-security",
     title: "The Psychology of Deterrence in Physical Security",
     excerpt:
       "Understand how visible security measures, professional presence, lighting, signage, and predictable coverage reduce incidents before they occur.",
@@ -187,6 +216,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 16,
+    slug: "top-security-measures-for-businesses",
     title: "Top 10 Security Measures Every Business Should Implement in 2024",
     excerpt:
       "Discover essential security protocols that help protect assets, employees, customers, and operations from common business threats.",
@@ -198,6 +228,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 7,
+    slug: "winter-security-for-construction-sites",
     title: "Winter Security Considerations for Construction Sites",
     excerpt:
       "Essential measures to protect construction sites during winter months when visibility decreases, weather changes, and after-hours risks increase.",
@@ -229,6 +260,10 @@ export function getBlogPostById(id: number) {
   return BLOG_POSTS.find((post) => post.id === id)
 }
 
+export function getBlogPostBySlug(slug: string) {
+  return BLOG_POSTS.find((post) => post.slug === slug)
+}
+
 export function buildBlogPostMetadata(id: number): Metadata {
   const post = getBlogPostById(id)
 
@@ -237,7 +272,7 @@ export function buildBlogPostMetadata(id: number): Metadata {
   return buildPageMetadata({
     title: post.title,
     description: post.excerpt,
-    path: `/blog/${post.id}`,
+    path: `/blog/${post.slug}`,
     image: post.image,
     type: "article",
     publishedTime: `${post.date}T12:00:00Z`,

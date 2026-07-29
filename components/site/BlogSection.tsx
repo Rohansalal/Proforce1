@@ -65,7 +65,7 @@ export default function BlogSection() {
               key={post.id}
               className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-xl"
             >
-              <Link href={`/blog/${post.id}`} className="relative block h-56 overflow-hidden bg-slate-100">
+              <Link href={`/blog/${post.slug}`} className="relative block h-56 overflow-hidden bg-slate-100">
                 <Image
                   src={post.image}
                   alt={post.title}
@@ -94,7 +94,7 @@ export default function BlogSection() {
                 </div>
 
                 <h3 className="mb-3 text-xl font-black leading-snug text-slate-950 transition-colors group-hover:text-red-700">
-                  <Link href={`/blog/${post.id}`}>{post.title}</Link>
+                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h3>
 
                 <p className="mb-6 line-clamp-3 text-sm leading-relaxed text-slate-600">
@@ -107,7 +107,7 @@ export default function BlogSection() {
                     {post.author}
                   </span>
                   <Link
-                    href={`/blog/${post.id}`}
+                    href={`/blog/${post.slug}`}
                     className="inline-flex items-center text-xs font-black uppercase tracking-wide text-red-700"
                   >
                     Read <ArrowRight className="ml-1 h-3.5 w-3.5" />

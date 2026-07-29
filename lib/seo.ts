@@ -149,6 +149,30 @@ export function buildServiceJsonLd({
   }
 }
 
+export function buildOrganizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "ProForce 1 Protection",
+    url: "https://proforce1protection.com/",
+    logo: "https://proforce1protection.com/_next/image?url=%2Flogo.png&w=64&q=75",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "(800) 779-7691",
+      contactType: "customer service",
+      contactOption: "TollFree",
+      areaServed: "US",
+      availableLanguage: "en",
+    },
+    sameAs: [
+      "https://www.facebook.com/Proforce1protection",
+      "https://www.instagram.com/proforce1protectionservices/",
+      "https://proforce1protection.com/",
+      "https://www.linkedin.com/company/proforce1",
+    ],
+  }
+}
+
 type FaqJsonLdItem = {
   question: string
   answer: string

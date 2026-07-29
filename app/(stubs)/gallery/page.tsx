@@ -66,6 +66,31 @@ const Gallery: React.FC = () => {
     ? GALLERY_ITEMS
     : GALLERY_ITEMS.filter(item => item.category === activeCategory);
 
+  // Lock background scroll + close on Escape while the lightbox is open
+  useEffect(() => {
+    if (!selectedItem) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedItem(null);
+    };
+
+    const { body } = document;
+    const previousOverflow = body.style.overflow;
+    const previousPaddingRight = body.style.paddingRight;
+    // Compensate for the scrollbar we're about to hide so the page doesn't jump
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      body.style.overflow = previousOverflow;
+      body.style.paddingRight = previousPaddingRight;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedItem]);
+
   // --- Animation Config ---
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -201,31 +226,38 @@ const Gallery: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-sm p-4"
+            /* z-[200] clears the fixed header (z-[110]) and the WhatsApp widget (z-50) */
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/95 backdrop-blur-sm p-3 sm:p-6"
             onClick={() => setSelectedItem(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={selectedItem.title}
           >
+            {/* Close button pinned to the viewport so it stays reachable on every screen size */}
+            <button
+              onClick={() => setSelectedItem(null)}
+              aria-label="Close image viewer"
+              className="fixed top-3 right-3 sm:top-5 sm:right-5 z-10 p-2.5 sm:p-3 bg-white/10 hover:bg-red-600 focus-visible:bg-red-600 backdrop-blur-md border border-white/20 rounded-full text-white transition-colors outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+
             <motion.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="relative w-full max-w-5xl bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800"
+              className="relative flex w-full max-w-5xl max-h-[92dvh] flex-col bg-slate-900 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-800"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header */}
-              <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/60 to-transparent">
-                <span className="text-white/80 font-mono text-sm border border-white/20 px-3 py-1 rounded-full bg-black/20">
+              {/* Category badge — pointer-events-none so it never blocks the image */}
+              <div className="absolute top-0 left-0 w-full p-3 sm:p-4 pr-16 sm:pr-20 flex items-center z-10 bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
+                <span className="text-white/80 font-mono text-xs sm:text-sm border border-white/20 px-2.5 sm:px-3 py-1 rounded-full bg-black/30">
                   ProForce1 // {selectedItem.category}
                 </span>
-                <button
-                  onClick={() => setSelectedItem(null)}
-                  className="p-2 bg-white/10 hover:bg-red-600 rounded-full text-white transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
               </div>
 
-              {/* Content */}
-              <div className="aspect-video w-full bg-black relative flex items-center justify-center">
+              {/* Content — shrinks first so the footer is never pushed off screen */}
+              <div className="relative w-full shrink min-h-0 h-[46dvh] sm:h-[54dvh] lg:h-[60dvh] bg-black flex items-center justify-center">
                 {selectedItem.type === 'video' ? (
                   <div className="w-full h-full flex items-center justify-center bg-slate-800">
                     <Play className="w-20 h-20 text-white/50" />
@@ -237,17 +269,19 @@ const Gallery: React.FC = () => {
                     src={selectedItem.src}
                     alt={selectedItem.title}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 1024px"
                     className="object-contain"
+                    priority
                   />
                 )}
               </div>
 
               {/* Footer */}
-              <div className="p-8 bg-slate-900">
+              <div className="shrink-0 p-4 sm:p-6 lg:p-8 bg-slate-900">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{selectedItem.title}</h3>
-                    <p className="text-slate-400">Captured in {selectedItem.location}</p>
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1 sm:mb-2">{selectedItem.title}</h3>
+                    <p className="text-sm sm:text-base text-slate-400">Captured in {selectedItem.location}</p>
                   </div>
                   {/* REMOVED DOWNLOAD ASSET BUTTON HERE */}
                 </div>

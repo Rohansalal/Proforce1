@@ -2,7 +2,7 @@ import { Hero } from "@/components/site/hero"
 import { TrustBadges } from "@/components/site/trust-badges"
 import { HomeDynamicSections } from "@/components/site/HomeDynamicSections"
 import { homepageFaqs } from "@/lib/faqs"
-import { buildFaqJsonLd, buildPageMetadata } from "@/lib/seo"
+import { buildFaqJsonLd, buildOrganizationJsonLd, buildPageMetadata } from "@/lib/seo"
 
 export const metadata = buildPageMetadata({
   title: "Professional Security Services & Protection",
@@ -18,10 +18,15 @@ export const metadata = buildPageMetadata({
 })
 
 const faqJsonLd = buildFaqJsonLd(homepageFaqs)
+const organizationJsonLd = buildOrganizationJsonLd()
 
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

@@ -1,7 +1,35 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 
+// Legacy numeric blog URLs -> descriptive slug URLs (301 to preserve SEO).
+const BLOG_SLUG_REDIRECTS = {
+  '1': 'security-solutions-for-schools',
+  '2': 'proforce1-expands-northern-california',
+  '3': 'future-of-event-security',
+  '4': 'understanding-bsis-requirements',
+  '5': 'mobile-patrol-best-practices',
+  '6': 'new-security-technology-implementation',
+  '7': 'winter-security-for-construction-sites',
+  '8': 'psychology-of-deterrence-physical-security',
+  '9': 'ai-patrol-routing-and-incident-response',
+  '10': 'rapid-response-retail-loss-case-study',
+  '11': 'cold-weather-protocols-for-overnight-guards',
+  '12': 'de-escalation-training-exercises',
+  '13': 'security-culture-investing-in-your-guards',
+  '14': 'modern-patrol-challenges-and-solutions',
+  '15': 'engage-early-with-security-partners',
+  '16': 'top-security-measures-for-businesses',
+  '17': 'event-security-planning-guide',
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return Object.entries(BLOG_SLUG_REDIRECTS).map(([id, slug]) => ({
+      source: `/blog/${id}`,
+      destination: `/blog/${slug}`,
+      permanent: true,
+    }))
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

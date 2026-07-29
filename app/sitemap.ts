@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
 
     const blogRoutes = getSortedBlogPosts().map((post) => ({
-        url: `${baseUrl}/blog/${post.id}`,
+        url: `${baseUrl}/blog/${post.slug}`,
         lastModified: new Date(`${post.date}T12:00:00`),
         changeFrequency: 'monthly' as const,
         priority: 0.7,
