@@ -16,6 +16,19 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 19,
+    slug: "what-is-fire-watch-and-when-is-it-legally-required",
+    title: "What Is Fire Watch and When Is It Legally Required in California?",
+    excerpt:
+      "Learn what a fire watch is, when California law requires one, and what happens if you skip it. Get compliant fire watch security today.",
+    category: "Compliance & Licensing",
+    author: "Security Operations Team",
+    date: "2026-07-30",
+    readTime: "6 min read",
+    featured: true,
+    image: "/blogimage/fire-watch.jpg",
+  },
+  {
     id: 18,
     slug: "armed-vs-unarmed-security-guards",
     title: "Armed vs. Unarmed Security Guards: Which Does Your Business Need?",
