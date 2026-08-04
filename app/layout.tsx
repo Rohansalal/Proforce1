@@ -252,6 +252,16 @@ export default function RootLayout({
         <meta name="google-site-verification" content="S1fN6M8mq5lqUp8RgxRyubUgBCAvJlPrz5yZu3UgjiQ" />
         <link rel="preload" as="image" href="/hero/patrol-services.jpg" fetchPriority="high" />
       </head>
+      {/* Google Tag Manager */}
+      <Script id="google-tag-manager" strategy="afterInteractive">
+        {`
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-NNQXPNKC');
+        `}
+      </Script>
       {/* Google Analytics (gtag.js) */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-5YLS5YYJS3"
@@ -266,6 +276,15 @@ export default function RootLayout({
         `}
       </Script>
 <body className={`font-sans antialiased ${inter.variable}`} style={{ fontFamily: "var(--font-sans), sans-serif" }} suppressHydrationWarning>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-NNQXPNKC"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <Suspense fallback={<div>Loading...</div>}>
           <SmoothScroll>
             {/* <TopAnalytics /> */}
