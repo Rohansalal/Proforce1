@@ -44,6 +44,7 @@
 
 import type React from "react"
 import type { Metadata } from "next"
+import Script from "next/script"
 import { Inter } from "next/font/google"
 import "./globals.css"
 
@@ -251,6 +252,19 @@ export default function RootLayout({
         <meta name="google-site-verification" content="S1fN6M8mq5lqUp8RgxRyubUgBCAvJlPrz5yZu3UgjiQ" />
         <link rel="preload" as="image" href="/hero/patrol-services.jpg" fetchPriority="high" />
       </head>
+      {/* Google Analytics (gtag.js) */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-5YLS5YYJS3"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-5YLS5YYJS3');
+        `}
+      </Script>
 <body className={`font-sans antialiased ${inter.variable}`} style={{ fontFamily: "var(--font-sans), sans-serif" }} suppressHydrationWarning>
         <Suspense fallback={<div>Loading...</div>}>
           <SmoothScroll>
